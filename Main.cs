@@ -26,11 +26,17 @@ namespace CastleGame
         {
             base.LoadContent();
 
+            // Scene loading
             Scene game = new Game();
 
             SceneManager.AddScene(game);
 
             SceneManager.SetCurrentScene(game);
+
+            // Debug GUIs
+            ImGuiDrawable debugGui = new DebugGui();
+
+            ImGuiManager.AddGuiDrawable(debugGui);
         }
 
         protected override void Update(GameTime gameTime)
