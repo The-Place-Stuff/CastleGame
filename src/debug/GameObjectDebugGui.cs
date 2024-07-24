@@ -20,8 +20,7 @@ namespace CastleGame
         {
             if (ImGui.Begin(GameObject.ToString())) 
             {
-                ImGui.Text(GameObject.Position.ToString());
-                ImGui.Text(GameObject.Components.ToString());
+                ImGui.Text("Position: " + GameObject.Position.ToString());
 
             }
         }

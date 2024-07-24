@@ -12,7 +12,7 @@ public class Furnace : GameObject
 {
     public override void Load()
     {
-        SpriteSheet spritesheet = new SpriteSheet("assets/sprites/furnace", new Vector2(16, 16), new Vector2(4, 4));
+        SpriteSheet spritesheet = new SpriteSheet("assets/img/furnace", new Vector2(16, 16), new Vector2(4, 4));
         AddComponent(spritesheet);
     }
 }

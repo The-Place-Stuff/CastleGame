@@ -44,7 +44,7 @@ namespace CastleGame
             foreach (GameObject obj in game.GameObjects)
             {
                 gameObjectDebugGuis.Add(new GameObjectDebugGui(obj));
-                ImGuiManager.AddGuiDrawable(new GameObjectDebugGui(obj));
+                ImGuiManager.AddGuiDrawable(gameObjectDebugGuis[game.GameObjects.IndexOf(obj)]);
 
             }
         }
