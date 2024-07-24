@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SerpentEngine;
+using System.Collections.Generic;
 
 namespace CastleGame
 {
@@ -37,6 +38,15 @@ namespace CastleGame
             ImGuiDrawable debugGui = new DebugGui();
 
             ImGuiManager.AddGuiDrawable(debugGui);
+
+            List<GameObjectDebugGui> gameObjectDebugGuis = new List<GameObjectDebugGui>();
+
+            foreach (GameObject obj in game.GameObjects)
+            {
+                gameObjectDebugGuis.Add(new GameObjectDebugGui(obj));
+                ImGuiManager.AddGuiDrawable(new GameObjectDebugGui(obj));
+
+            }
         }
 
         protected override void Update(GameTime gameTime)

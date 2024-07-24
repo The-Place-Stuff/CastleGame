@@ -31,7 +31,7 @@
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SerpentEngine\SerpentEngine\SerpentEngine.csproj" />
+    <ProjectReference Include="..\..\..\Engine\SerpentEngine\SerpentEngine\SerpentEngine.csproj" />
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />
