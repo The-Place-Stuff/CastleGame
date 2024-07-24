@@ -14,14 +14,14 @@
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="assets\sprites\furnace.png" />
-    <None Remove="assets\sprites\test_tile.png" />
+    <None Remove="assets\img\furnace.png" />
+    <None Remove="assets\img\test_tile.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\sprites\furnace.png">
+    <Content Include="assets\img\furnace.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\sprites\test_tile.png">
+    <Content Include="assets\img\test_tile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
