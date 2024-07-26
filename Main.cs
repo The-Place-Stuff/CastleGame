@@ -38,15 +38,6 @@ namespace CastleGame
             ImGuiDrawable debugGui = new DebugGui();
 
             ImGuiManager.AddGuiDrawable(debugGui);
-
-            List<GameObjectDebugGui> gameObjectDebugGuis = new List<GameObjectDebugGui>();
-
-            foreach (GameObject obj in game.GameObjects)
-            {
-                gameObjectDebugGuis.Add(new GameObjectDebugGui(obj));
-                ImGuiManager.AddGuiDrawable(gameObjectDebugGuis[game.GameObjects.IndexOf(obj)]);
-
-            }
         }
 
         protected override void Update(GameTime gameTime)

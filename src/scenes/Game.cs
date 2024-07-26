@@ -3,7 +3,7 @@
 namespace CastleGame;
 public class Game : Scene
 {
-    private Furnace furnace;
+    private TestTileGrid testTileGrid;
     public Game() : base("Game")
     {
 
@@ -11,15 +11,15 @@ public class Game : Scene
 
     public override void LoadContent()
     {
-        furnace = new Furnace();
+        testTileGrid = new TestTileGrid();
 
-        AddGameObject(furnace);
+        AddGameObject(testTileGrid);
     }
 
     public override void Begin()
     {
         Camera.Zoom = 5f;
-        Camera.SetTarget(furnace);
+        Camera.SetTarget(testTileGrid);
     }
 
     public override void End()
