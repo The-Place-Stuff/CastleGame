@@ -14,8 +14,10 @@
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="assets\img\duck.png" />
     <None Remove="assets\img\furnace.png" />
     <None Remove="assets\img\test_tile.png" />
+    <None Remove="assets\sound\quack.wav" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\img\furnace.png">
@@ -29,6 +31,16 @@
     <PackageReference Include="ImGui.NET" Version="1.90.9.1" />
     <PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.1.303" />
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\img\duck.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\sound\quack.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Engine\SerpentEngine\SerpentEngine\SerpentEngine.csproj" />
