@@ -7,28 +7,21 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CastleGame;
-
-    public class Duck : GameObject
-    {
-
+public class Duck : GameObject
+{
     public string path = "assets/img/duck";
 
     public Collision collision;
     public SpriteSheet sprite;
-    public Sound sound;
 
     public Vector2 dimensions = new Vector2(16,16);
-
-
     public Duck()
     {
         collision = new Collision(Position, dimensions);
         sprite = new SpriteSheet(path, new Vector2(16), new Vector2(4, 4));
-        sound = new Sound("assets/sound/quack");
 
         AddComponent(collision);
         AddComponent(sprite);
-        AddComponent(sound);
     }
 
 
@@ -57,7 +50,5 @@ namespace CastleGame;
             Position = new Vector2(Position.X + 1, Position.Y);
         }
     }
-
-
 }
 

@@ -16,11 +16,7 @@ public class Furnace : GameObject
         Sound sound = new Sound("assets/sound/quack");
         Collision coll = new Collision(Position, new Vector2(16, 16));
         AddComponent(spritesheet);
-        AddComponent(sound);
         AddComponent(coll);
-
-
-        GetComponent<Sound>().Play();
     }
 
 
