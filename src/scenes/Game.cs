@@ -4,7 +4,7 @@ using System.Diagnostics;
 namespace CastleGame;
 public class Game : Scene
 {
-    private TestTileGrid testTileGrid;
+    private Grid grid;
 
 
     public Game() : base("Game")
@@ -14,9 +14,10 @@ public class Game : Scene
 
     public override void LoadContent()
     {
-        testTileGrid = new TestTileGrid();
+        grid = new Grid();
 
-        AddGameObject(testTileGrid);
+        AddGameObject(grid);
+
 
 
 

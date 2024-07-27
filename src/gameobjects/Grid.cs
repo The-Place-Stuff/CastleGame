@@ -2,7 +2,7 @@
 using SerpentEngine;
 
 namespace CastleGame;
-public class TestTileGrid : GameObject
+public class Grid : GameObject
 {
     public override void Load()
     {

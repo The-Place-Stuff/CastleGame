@@ -27,6 +27,8 @@ namespace CastleGame
         {
             base.LoadContent();
 
+            Objects.registerObjects();
+
             // Scene loading
             Scene game = new Game();
 
