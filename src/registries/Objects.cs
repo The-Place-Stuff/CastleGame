@@ -12,8 +12,11 @@ public class Objects : Registry
     public static new string Path = "assets/img/objects/";
 
 
-    public static Object Bush = Register(new Bush("bush", Path + "bush"));
-    public static Object Rock = Register(new Bush("rock", Path + "rock"));
+    public static readonly Object Bush = Register(new Bush("bush", Path + "bush"));
+
+    public static readonly Object Rock = Register(new Rock("rock", Path + "rock"));
+
+    public static readonly Object Campfire = Register(new Campfire("campfire", Path + "campfire"));
 
 
 

@@ -15,11 +15,13 @@ namespace CastleGame
 
         public Cursor()
         {
-           sprite = new Sprite(Registry.Path + "cursor");
+            sprite = new Sprite(Registry.Path + "cursor");
+            AddComponent(sprite);
         }
 
         public override void Update()
         {
+            Position = Input.Mouse.GetNewPosition() - new Vector2(GraphicsConfig.SCREEN_WIDTH / 2, GraphicsConfig.SCREEN_HEIGHT / 2);
             base.Update();
         }
 
