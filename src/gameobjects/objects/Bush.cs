@@ -5,13 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame
+namespace CastleGame;
+public class Bush : Object
 {
-    public class Bush : Object
+    public Bush(string name, string path) : base(name, path)
     {
-        public Bush(string name, string path) : base(name, path)
-        {
-            Debug.WriteLine(Name);
-        }
+        Debug.WriteLine(Name);
     }
 }

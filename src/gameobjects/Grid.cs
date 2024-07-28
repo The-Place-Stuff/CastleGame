@@ -8,7 +8,7 @@ public class Grid : GameObject
     {
         TileSet tileSet = new TileSet();
 
-        tileSet.AddFromSprite("test_tile", "assets/img/test_tile");
+        tileSet.AddFromSprite("grass", "assets/img/grass");
 
         TileGrid tileGrid = new TileGrid(new Vector2(16, 16));
 
@@ -16,6 +16,6 @@ public class Grid : GameObject
 
         AddComponent(tileGrid);
 
-        tileGrid.PlaceTiles(new Vector2(-20, -10), new Vector2(20, 10), "test_tile");
+        tileGrid.PlaceTiles(new Vector2(-20, -10), new Vector2(20, 10), "grass");
     }
 }
