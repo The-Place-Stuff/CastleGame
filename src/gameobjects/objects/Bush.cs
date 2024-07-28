@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SerpentEngine;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -10,6 +11,13 @@ public class Bush : Object
 {
     public Bush(string name, string path) : base(name, path)
     {
-        Debug.WriteLine(Name);
     }
+
+    public override void Load()
+    {
+        GetComponent<Sprite>().ChangePath(Objects.Path + "bush_berries");
+        base.Load();
+    }
+
+
 }

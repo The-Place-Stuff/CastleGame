@@ -14,21 +14,46 @@
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="assets\img\duck.png" />
-    <None Remove="assets\img\furnace.png" />
-    <None Remove="assets\img\test_tile.png" />
-    <None Remove="assets\sound\quack.wav" />
+    <None Remove="assets\animation\test.json" />
+    <None Remove="assets\animation\test_2.json" />
+    <None Remove="assets\img\cursor.png" />
+    <None Remove="assets\img\grass.png" />
+    <None Remove="assets\img\objects\bush.png" />
+    <None Remove="assets\img\objects\bush_berries.png" />
+    <None Remove="assets\img\objects\rock.png" />
+    <None Remove="assets\img\test_animation.png" />
+    <None Remove="assets\img\test_animation_2.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\img\furnace.png">
+    <Content Include="assets\animation\test.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\img\test_tile.png">
+    <Content Include="assets\animation\test_2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\sound\quack.wav">
+    <Content Include="assets\img\cursor.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\img\grass.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\img\objects\bush.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\img\objects\rock.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\img\test_animation.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\img\test_animation_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <DesignData Include="assets\img\objects\bush_berries.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </DesignData>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ImGui.NET" Version="1.90.9.1" />
@@ -36,17 +61,10 @@
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\img\duck.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="assets\sound\quack.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\..\Engine\SerpentEngine\SerpentEngine\SerpentEngine.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="assets\sound\" />
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />

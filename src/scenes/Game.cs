@@ -4,8 +4,9 @@ using System.Diagnostics;
 namespace CastleGame;
 public class Game : Scene
 {
-    private Grid grid;
+    private Map grid;
     private Test test;
+    private Cursor cursor;
 
     public Game() : base("Game")
     {
@@ -14,14 +15,13 @@ public class Game : Scene
 
     public override void LoadContent()
     {
-        grid = new Grid();
+        grid = new Map();
 
         AddGameObject(grid);
 
         test = new Test();
-
-        AddGameObject(test);
-
+        cursor = new Cursor();
+        AddGameObject(cursor);
 
     }
 

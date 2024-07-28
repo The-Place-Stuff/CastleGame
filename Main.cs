@@ -15,6 +15,7 @@ namespace CastleGame
             GraphicsConfig.FULLSCREEN = true;
             GraphicsConfig.VSYNC = true;
             GraphicsConfig.FRAMERATE = 60;
+            IsMouseVisible = true;
             GraphicsConfig.Apply();
         }
 
@@ -25,9 +26,10 @@ namespace CastleGame
 
         protected override void LoadContent()
         {
+            Objects.RegisterObjects();
+
             base.LoadContent();
 
-            Objects.registerObjects();
 
             // Scene loading
             Scene game = new Game();
