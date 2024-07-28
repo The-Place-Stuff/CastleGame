@@ -5,7 +5,7 @@ namespace CastleGame;
 public class Game : Scene
 {
     private Grid grid;
-    private AnimationTest animationTest;
+    private Test test;
 
     public Game() : base("Game")
     {
@@ -18,9 +18,9 @@ public class Game : Scene
 
         AddGameObject(grid);
 
-        animationTest = new AnimationTest();
+        test = new Test();
 
-        AddGameObject(animationTest);
+        AddGameObject(test);
 
 
     }
