@@ -26,40 +26,9 @@
     <None Remove="assets\img\test_animation_2.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\img\objects\campfire.png">
+    <Content Include="assets\img\**\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="assets\animation\test.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="assets\animation\test_2.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="assets\img\cursor.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="assets\img\grass.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="assets\img\objects\bush.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="assets\img\objects\rock.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="assets\img\test_animation.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="assets\img\test_animation_2.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <DesignData Include="assets\img\objects\bush_berries.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </DesignData>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ImGui.NET" Version="1.90.9.1" />
@@ -67,11 +36,11 @@
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Engine\SerpentEngine\SerpentEngine\SerpentEngine.csproj" />
+    <Compile Remove="assets\sound\**" />
+    <EmbeddedResource Remove="assets\sound\**" />
+    <None Remove="assets\sound\**" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="assets\sound\" />
-  </ItemGroup>
+
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />
     <Exec Command="dotnet tool restore" />
