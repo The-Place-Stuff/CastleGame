@@ -15,7 +15,7 @@ namespace CastleGame
             GraphicsConfig.FULLSCREEN = true;
             GraphicsConfig.VSYNC = true;
             GraphicsConfig.FRAMERATE = 60;
-            IsMouseVisible = true;
+            IsMouseVisible = false;
             GraphicsConfig.Apply();
         }
 

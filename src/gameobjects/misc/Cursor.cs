@@ -22,6 +22,7 @@ namespace CastleGame
         public override void Update()
         {
             Position = Input.Mouse.GetNewPosition() - new Vector2(GraphicsConfig.SCREEN_WIDTH / 2, GraphicsConfig.SCREEN_HEIGHT / 2);
+            Position = Position / SceneManager.CurrentScene.Camera.Zoom;
             base.Update();
         }
 
