@@ -9,13 +9,16 @@ using System.Threading.Tasks;
 namespace CastleGame;
 public class Campfire : Object
 {
+
     public Campfire(string name, string path) : base(name, path)
     {
     }
 
     public override void Load()
     {
-        GetComponent<Sprite>().ChangePath(Objects.Path + "bush_berries");
+        AnimationTree animationTree = CreateAndAddComponent<AnimationTree>();
+        animationTree.AddAnimation("assets/animation/campfire", true);
+
         base.Load();
     }
 

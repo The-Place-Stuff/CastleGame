@@ -1,9 +1,0 @@
-{
-  "spritesheet": "assets/img/test_animation",
-  "frame_size": {
-    "width": 16,
-    "height": 16
-  },
-  "frame_length": 0.2,
-  "loop":  true
-}
