@@ -6,21 +6,26 @@ using System.Diagnostics;
 namespace CastleGame;
 public class Map : GameObject
 {
-    public TileSet terrainTileSet = new TileSet();
-    public TileSet objectTileSet = new TileSet();
+    public TileSet campfire = new TileSet();
+    public TileSet terrianTileSet = new TileSet();
     public TileGrid terrainGrid = new TileGrid(new Vector2(16, 16));
     public TileGrid objectGrid = new TileGrid(new Vector2(16, 16));
 
     public override void Load()
     {
-        terrainTileSet.AddFromSprite("grass", "assets/img/grass");
+        campfire.AddFromSprite(Objects.Campfire.Name, Objects.Path+Objects.Campfire.Name);
 
-        terrainGrid.AddTileSet(terrainTileSet);
+        terrianTileSet.AddFromSprite("grass", "assets/img/grass");
+
+        terrainGrid.AddTileSet(terrianTileSet);
+        objectGrid.AddTileSet(campfire);
 
         AddComponent(terrainGrid);
+        AddComponent(objectGrid);
 
 
         terrainGrid.PlaceTiles(new Vector2(-20, -10), new Vector2(20, 10), "grass");
+        objectGrid.PlaceTile(new Vector2(-1, -1), Objects.Campfire.Name);
 
     }
 
@@ -28,6 +33,7 @@ public class Map : GameObject
     {
         foreach(Tile tile in list)
         {
+            Debug.WriteLine(tile);
             tileSet.Add(tile);
         }
         tileGrid.AddTileSet(tileSet);
