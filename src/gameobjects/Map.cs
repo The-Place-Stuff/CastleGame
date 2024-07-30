@@ -51,7 +51,6 @@ public class Map : GameObject
             if (tile.Name == Objects.Bush.Name)
             {
                 tile.GetComponent<Sprite>().ChangePath(Objects.Path+"bush_berries");
-                Debug.WriteLine(tile.GetComponent<Sprite>().Path);
             }
 
 
