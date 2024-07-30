@@ -14,20 +14,14 @@ public class Map : GameObject
     public override void Load()
     {
 
-        RegisterTilesToTileset(objectTileSet, Objects.List, objectGrid);
         terrainTileSet.AddFromSprite("grass", "assets/img/grass");
-
 
         terrainGrid.AddTileSet(terrainTileSet);
 
         AddComponent(terrainGrid);
-        AddComponent(objectGrid);
 
 
         terrainGrid.PlaceTiles(new Vector2(-20, -10), new Vector2(20, 10), "grass");
-        objectGrid.PlaceTile(new Vector2(4, 3), Objects.Campfire.Name);
-        objectGrid.PlaceTile(new Vector2(1, 2), Objects.Bush.Name);
-        objectGrid.PlaceTile(new Vector2(2, 4), Objects.Rock.Name);
 
     }
 
@@ -43,19 +37,6 @@ public class Map : GameObject
 
     public override void Update()
     {
-        foreach(KeyValuePair<Vector2, Tile> tileEntry in objectGrid.Tiles)
-        {
-            Tile tile = tileEntry.Value;
-
-
-            if (tile.Name == Objects.Bush.Name)
-            {
-                tile.GetComponent<Sprite>().ChangePath(Objects.Path+"bush_berries");
-                Debug.WriteLine(tile.GetComponent<Sprite>().Path);
-            }
-
-
-        }
         base.Update();
     }
 }

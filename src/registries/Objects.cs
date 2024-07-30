@@ -16,7 +16,7 @@ public class Objects : Registry
 
     public static readonly Object Rock = Register(new Rock("rock", Path + "rock"));
 
-    public static readonly Object Campfire = Register(new Campfire("campfire", Path + "campfire"));
+    public static readonly Object Campfire = Register(new Campfire("campfire"));
 
 
 

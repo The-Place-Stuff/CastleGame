@@ -14,6 +14,11 @@ public abstract class Object : Tile
 
     }
 
+    public Object(string name) : base(name)
+    {
+
+    }
+
 
 
 }

@@ -10,7 +10,7 @@ namespace CastleGame;
 public class Campfire : Object
 {
 
-    public Campfire(string name, string path) : base(name, path)
+    public Campfire(string name) : base(name)
     {
     }
 
