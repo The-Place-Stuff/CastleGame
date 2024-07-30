@@ -7,10 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CastleGame;
-public class Campfire : Object
+public class Furnace : Object
 {
-
-    public Campfire(string name) : base(name)
+    public Furnace(string name) : base(name)
     {
     }
 
