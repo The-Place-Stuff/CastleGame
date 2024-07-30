@@ -8,21 +8,22 @@ using System.Threading.Tasks;
 namespace CastleGame;
 public class Objects : Registry
 {
-    public static new List<Object> List = new List<Object>();
+    public static new Dictionary<string, Func<Object>> List = new Dictionary<string, Func<Object>>();
+
     public static new string Path = "assets/img/objects/";
 
 
-    public static readonly Object Bush = Register(new Bush("bush", Path + "bush"));
+    public static readonly Func<Object> Bush = Register("bush", () => new Bush("bush", Path + "bush"));
 
-    public static readonly Object Rock = Register(new Rock("rock", Path + "rock"));
+    public static readonly Func<Object> Rock = Register("rock", () => new Rock("rock", Path + "rock"));
 
-    public static readonly Object Campfire = Register(new Campfire("campfire"));
+    public static readonly Func<Object> Campfire = Register("campfire", () => new Campfire("campfire"));
 
 
 
-    public static Object Register(Object obj)
+    public static Func<Object> Register(string name, Func<Object> obj)
     {
-        List.Add(obj);
+        List.Add(name, obj);
         return obj;
     }
 

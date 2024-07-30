@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SerpentEngine;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -14,10 +15,20 @@ public class Map : GameObject
 
     public override void Load()
     {
-        foreach (Object obj in Objects.List)
+        int count = 0;
+        foreach (KeyValuePair<string, Func<Object>> obj in Objects.List)
         {
+
             objectTileSets.Add(new TileSet());
-            RegisterTilesFromSpriteToTileset(objectTileSets[Objects.List.IndexOf(obj)], obj.Name, Objects.Path + obj.Name, objectGrid);
+            Object object_ = obj.Value();
+            if(object_.Name == "campfire")
+            {
+                objectTileSets[count].Add(obj.Key, obj.Value);
+                count++;
+                continue;
+            }
+            RegisterTilesFromSpriteToTileset(objectTileSets[count], object_.Name, Objects.Path + object_.Name, objectGrid);
+            count++;
         }
 
         terrianTileSet.AddFromSprite("grass", "assets/img/grass");
@@ -34,24 +45,14 @@ public class Map : GameObject
 
         terrainGrid.PlaceTiles(new Vector2(-20, -10), new Vector2(20, 10), "grass");
 
-        objectGrid.PlaceTile(new Vector2(1, 3), Objects.Campfire.Name);
-        objectGrid.PlaceTile(new Vector2(3, 3), Objects.Bush.Name);
-        objectGrid.PlaceTile(new Vector2(3, 5), Objects.Rock.Name);
+        objectGrid.PlaceTile(new Vector2(1, 3), Objects.Campfire().Name);
+        objectGrid.PlaceTile(new Vector2(3, 3), Objects.Bush().Name);
+        objectGrid.PlaceTile(new Vector2(3, 5), Objects.Rock().Name);
 
 
 
     }
 
-    public void RegisterTilesFromListToTileset(TileSet tileSet, List<Object> list, TileGrid tileGrid)
-    {
-        foreach(Tile tile in list)
-        {
-            Debug.WriteLine(tile);
-            tileSet.Add(tile);
-        }
-        tileGrid.AddTileSet(tileSet);
-
-    }
 
     public void RegisterTilesFromSpriteToTileset(TileSet tileSet, string name, string path, TileGrid tileGrid)
     {
