@@ -12,7 +12,6 @@ public class Objects : Registry
 
     public static new string Path = "assets/img/objects/";
 
-
     public static readonly Func<Object> Bush = Register("bush", () => new Bush("bush", Path + "bush"));
 
     public static readonly Func<Object> Rock = Register("rock", () => new Rock("rock", Path + "rock"));
