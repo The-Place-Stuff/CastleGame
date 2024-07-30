@@ -9,17 +9,9 @@ namespace CastleGame;
 
 public abstract class Object : Tile
 {
-    public Object(string name, string path) : base(new Sprite(path), name)
-    {
-
-    }
-
     public Object(string name) : base(name)
     {
 
     }
-
-
-
 }
 

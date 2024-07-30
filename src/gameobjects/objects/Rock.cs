@@ -9,8 +9,11 @@ using System.Threading.Tasks;
 namespace CastleGame;
 public class Rock : Object
 {
-    public Rock(string name) : base(name, Objects.GetPath(name))
+    public Rock(string name) : base(name)
     {
+        Sprite sprite = new Sprite(Objects.GetPath(name));
+
+        AddComponent(sprite);
     }
 
     public override void Load()
