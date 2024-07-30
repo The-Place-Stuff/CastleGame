@@ -15,20 +15,15 @@ public class Map : GameObject
 
     public override void Load()
     {
+        objectGrid.Layer = 1;
         int count = 0;
         foreach (KeyValuePair<string, Func<Object>> obj in Objects.List)
         {
 
             objectTileSets.Add(new TileSet());
             Object object_ = obj.Value();
-            if(object_.Name == "campfire")
-            {
-                objectTileSets[count].Add(obj.Key, obj.Value);
-                count++;
-                continue;
-            }
-            RegisterTilesFromSpriteToTileset(objectTileSets[count], object_.Name, Objects.Path + object_.Name, objectGrid);
-            count++;
+            objectTileSets[count].Add(obj.Key, obj.Value);
+            count++;            
         }
 
         terrianTileSet.AddFromSprite("grass", "assets/img/grass");
@@ -45,9 +40,10 @@ public class Map : GameObject
 
         terrainGrid.PlaceTiles(new Vector2(-20, -10), new Vector2(20, 10), "grass");
 
-        objectGrid.PlaceTile(new Vector2(1, 3), Objects.Campfire().Name);
+        objectGrid.PlaceTile(new Vector2(-1, -1), Objects.Campfire().Name);
         objectGrid.PlaceTile(new Vector2(3, 3), Objects.Bush().Name);
         objectGrid.PlaceTile(new Vector2(3, 5), Objects.Rock().Name);
+        objectGrid.PlaceTile(new Vector2(4, 5), Objects.Furnace().Name);
 
 
 

@@ -12,7 +12,7 @@ public class Test : GameObject
     {
         AnimationTree animationTree = CreateAndAddComponent<AnimationTree>();
 
-        animationTree.AddAnimation("assets/animation/test", true);
+        animationTree.AddAnimation("assets/animation/test", _ => true);
 
         StateMachine stateMachine = CreateAndAddComponent<StateMachine>();
         

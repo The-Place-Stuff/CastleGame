@@ -7,26 +7,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame
+namespace CastleGame;
+
+public class Cursor : GameObject
 {
-    public class Cursor : GameObject
+
+    public Cursor()
     {
-        Sprite sprite;
-
-        public Cursor()
-        {
-            sprite = new Sprite(Registry.Path + "cursor");
-            AddComponent(sprite);
-        }
-
-        public override void Update()
-        {
-            Position = Input.Mouse.GetNewPosition() - new Vector2(GraphicsConfig.SCREEN_WIDTH / 2, GraphicsConfig.SCREEN_HEIGHT / 2);
-            Position = Position / SceneManager.CurrentScene.Camera.Zoom;
-            base.Update();
-        }
-
-
 
     }
+
+    public override void Load()
+    {
+        Sprite sprite = new Sprite(Registry.Path + "cursor");
+        AddComponent(sprite);
+
+        Layer = 5;
+    }
+
+    public override void Update()
+    {
+        Position = Input.Mouse.GetNewPosition() - new Vector2(GraphicsConfig.SCREEN_WIDTH / 2, GraphicsConfig.SCREEN_HEIGHT / 2);
+        Position = Position / SceneManager.CurrentScene.Camera.Zoom;
+        base.Update();
+    }
+
+
+
 }

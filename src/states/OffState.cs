@@ -6,17 +6,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace CastleGame;
-public class Rock : Object
+public class OnState : GameObjectState
 {
-    public Rock(string name) : base(name, Objects.GetPath(name))
+    public OnState() : base("off")
     {
     }
 
-    public override void Load()
+    public override void Enter()
     {
-        base.Load();
+        Debug.WriteLine("Entering off state..");
     }
 
+    public override void Update()
+    {
 
+    }
 }

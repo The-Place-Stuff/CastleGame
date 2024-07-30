@@ -13,12 +13,13 @@ public class Objects : Registry
     public static new string Path = "assets/img/objects/";
 
 
-    public static readonly Func<Object> Bush = Register("bush", () => new Bush("bush", Path + "bush"));
+    public static readonly Func<Object> Bush = Register("bush", () => new Bush("bush"));
 
-    public static readonly Func<Object> Rock = Register("rock", () => new Rock("rock", Path + "rock"));
+    public static readonly Func<Object> Rock = Register("rock", () => new Rock("rock"));
 
     public static readonly Func<Object> Campfire = Register("campfire", () => new Campfire("campfire"));
 
+    public static readonly Func<Object> Furnace = Register("furnace", () => new Furnace("furnace"));
 
 
     public static Func<Object> Register(string name, Func<Object> obj)
@@ -31,4 +32,10 @@ public class Objects : Registry
     {
         Debug.WriteLine("Registering Objects for CastleGame!");
     }
+
+    public static new string GetPath(string name)
+    {
+        return Path + name;
+    }
+
 }

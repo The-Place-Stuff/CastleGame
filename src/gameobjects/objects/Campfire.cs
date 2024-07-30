@@ -18,7 +18,7 @@ public class Campfire : Object
     {
         Debug.WriteLine("test");
         AnimationTree animationTree = CreateAndAddComponent<AnimationTree>();
-        animationTree.AddAnimation("assets/animation/campfire", true);
+        animationTree.AddAnimation("assets/animation/campfire", _ =>  true);
 
         base.Load();
     }
