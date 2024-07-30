@@ -13,7 +13,6 @@ public class Map : GameObject
 
     public override void Load()
     {
-
         terrainTileSet.AddFromSprite("grass", "assets/img/grass");
 
         terrainGrid.AddTileSet(terrainTileSet);
@@ -25,12 +24,20 @@ public class Map : GameObject
 
     }
 
-    public void RegisterTilesToTileset(TileSet tileSet, List<Object> list, TileGrid tileGrid)
+    public void RegisterTilesFromListToTileset(TileSet tileSet, List<Object> list, TileGrid tileGrid)
     {
         foreach(Tile tile in list)
         {
             tileSet.Add(tile);
         }
+        tileGrid.AddTileSet(tileSet);
+
+    }
+
+    public void RegisterTilesFromSpriteToTileset(TileSet tileSet, string name, string path, TileGrid tileGrid)
+    {
+
+        tileSet.AddFromSprite(name, path);
         tileGrid.AddTileSet(tileSet);
 
     }
