@@ -15,17 +15,6 @@ public class Map : GameObject
 
     public override void Load()
     {
-        objectGrid.Layer = 1;
-        int count = 0;
-        foreach (KeyValuePair<string, Func<Object>> obj in Objects.List)
-        {
-
-            objectTileSets.Add(new TileSet());
-            Object object_ = obj.Value();
-            objectTileSets[count].Add(obj.Key, obj.Value);
-            count++;            
-        }
-
         terrianTileSet.AddFromSprite("grass", "assets/img/grass");
 
         terrainGrid.AddTileSet(terrianTileSet);
@@ -49,6 +38,21 @@ public class Map : GameObject
 
     }
 
+    public void RegisterTileSets()
+    {
+        objectGrid.Layer = 1;
+        int count = 0;
+        foreach (KeyValuePair<string, Func<Object>> obj in Objects.List)
+        {
+
+            objectTileSets.Add(new TileSet());
+            Object object_ = obj.Value();
+            objectTileSets[count].Add(obj.Key, obj.Value);
+            count++;
+        }
+
+    }
+
 
     public void RegisterTilesFromSpriteToTileset(TileSet tileSet, string name, string path, TileGrid tileGrid)
     {
@@ -60,7 +64,7 @@ public class Map : GameObject
 
     public override void Update()
     {
-
+        
         base.Update();
     }
 }
