@@ -15,6 +15,7 @@ public class Map : GameObject
 
     public override void Load()
     {
+        RegisterTileSets();
         terrianTileSet.AddFromSprite("grass", "assets/img/grass");
 
         terrainGrid.AddTileSet(terrianTileSet);

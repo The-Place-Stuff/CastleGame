@@ -4,8 +4,7 @@ using System.Diagnostics;
 namespace CastleGame;
 public class Game : Scene
 {
-    private Map grid;
-    private Test test;
+    private Map map;
     private Cursor cursor;
 
     public Game() : base("Game")
@@ -17,12 +16,10 @@ public class Game : Scene
     {
         Camera.Zoom = 5f;
 
-        grid = new Map();
-
-        AddGameObject(grid);
-
-        test = new Test();
+        map = new Map();
         cursor = new Cursor();
+
+        AddGameObject(map);
         AddGameObject(cursor);
 
         TestUiElement testUiElement = new TestUiElement();

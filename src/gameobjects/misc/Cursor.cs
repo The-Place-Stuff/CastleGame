@@ -30,6 +30,13 @@ public class Cursor : GameObject
 
     public override void Update()
     {
+        if(Input.Mouse.LeftClickRelease())
+        {
+            SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.PlaceTile(
+                SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.ConvertWorldCoordinatesToGridCoordinates(Position),
+                Objects.Furnace().Name
+                );
+        }
         //Camera zoom
         int scrollValue = Input.Mouse.GetMouseWheelChange();
 
