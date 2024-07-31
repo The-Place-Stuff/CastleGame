@@ -15,6 +15,8 @@ public class Game : Scene
 
     public override void LoadContent()
     {
+        Camera.Zoom = 5f;
+
         grid = new Map();
 
         AddGameObject(grid);
@@ -23,11 +25,15 @@ public class Game : Scene
         cursor = new Cursor();
         AddGameObject(cursor);
 
+        TestUiElement testUiElement = new TestUiElement();
+
+        AddUIElement(testUiElement);
+
     }
 
     public override void Begin()
     {
-        Camera.Zoom = 5f;
+        
     }
 
     public override void End()
