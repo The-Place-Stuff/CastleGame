@@ -21,7 +21,8 @@ public class Objects : Registry
 
     public static readonly Func<Object> Furnace = Register("furnace", () => new Furnace("furnace"));
 
-    public static readonly Func<Object> Bluprint = Register("bluprint", () => new Furnace("bluprint"));
+    public static readonly Func<Object> Tree = Register("tree", () => new Tree("tree"));
+
 
     public static Func<Object> Register(string name, Func<Object> obj)
     {
