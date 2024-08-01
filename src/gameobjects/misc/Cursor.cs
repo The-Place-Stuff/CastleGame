@@ -73,14 +73,6 @@ public class Cursor : GameObject
         }
 
 
-        if (Input.Mouse.LeftClickRelease())
-        {
-            SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.PlaceTile(
-                SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.ConvertWorldCoordinatesToGridCoordinates(Position),
-                Objects.Furnace().Name
-                );
-        }
-
         base.Update();
 
     }

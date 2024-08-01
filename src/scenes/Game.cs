@@ -6,6 +6,7 @@ public class Game : Scene
 {
     private Map map;
     private Cursor cursor;
+    private Bluprint bluprint;
 
     public Game() : base("Game")
     {
@@ -18,9 +19,11 @@ public class Game : Scene
 
         map = new Map();
         cursor = new Cursor();
+        bluprint = new Bluprint("furnace_off");
 
         AddGameObject(map);
         AddGameObject(cursor);
+        AddGameObject(bluprint);
 
         TestUiElement testUiElement = new TestUiElement();
 
