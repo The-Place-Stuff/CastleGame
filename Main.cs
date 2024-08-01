@@ -27,6 +27,7 @@ namespace CastleGame
         protected override void LoadContent()
         {
             Objects.RegisterObjects();
+            Characters.RegisterCharacters();
 
             base.LoadContent();
 

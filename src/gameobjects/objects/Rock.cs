@@ -11,13 +11,15 @@ public class Rock : Object
 {
     public Rock(string name) : base(name)
     {
-        Sprite sprite = new Sprite(Objects.GetPath(name));
 
-        AddComponent(sprite);
     }
 
     public override void Load()
     {
+
+        Sprite sprite = new Sprite(Objects.GetPath(Name));
+
+        AddComponent(sprite);
         base.Load();
     }
 

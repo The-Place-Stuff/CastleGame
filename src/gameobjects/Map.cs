@@ -45,7 +45,7 @@ public class Map : GameObject
     public void RegisterTileSets()
     {
         objectGrid.Layer = 1;
-        bluprintGrid.Layer = 2;
+        bluprintGrid.Layer = 3;
 
         int count = 0;
         foreach (KeyValuePair<string, Func<Object>> obj in Objects.List)
