@@ -44,7 +44,7 @@ public class Cursor : GameObject
         }
 
         //Camera click and drag
-        if (Input.Mouse.LeftClickHold())
+        if (Input.Mouse.MiddleClickHold())
         {
             Vector2 currentMousePosition = Input.Mouse.GetNewPosition();
 
