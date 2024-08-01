@@ -12,6 +12,7 @@ public class Map : GameObject
 
     public TileGrid terrainGrid = new TileGrid(new Vector2(16, 16));
     public TileGrid objectGrid = new TileGrid(new Vector2(16, 16));
+    public TileGrid bluprintGrid = new TileGrid(new Vector2(16, 16));
 
     public override void Load()
     {
@@ -22,16 +23,18 @@ public class Map : GameObject
         foreach (TileSet tileSet in objectTileSets)
         {
             objectGrid.AddTileSet(tileSet);
+            bluprintGrid.AddTileSet(tileSet);
 
         }
         AddComponent(terrainGrid);
         AddComponent(objectGrid);
+        AddComponent(bluprintGrid);
 
 
         terrainGrid.PlaceTiles(new Vector2(-20, -10), new Vector2(20, 10), "grass");
 
         objectGrid.PlaceTile(new Vector2(-1, -1), Objects.Campfire().Name);
-        objectGrid.PlaceTile(new Vector2(3, 3), Objects.Bush().Name);
+        objectGrid.PlaceTile(new Vector2(1, 1), Objects.Bush().Name);
         objectGrid.PlaceTile(new Vector2(3, 5), Objects.Rock().Name);
         objectGrid.PlaceTile(new Vector2(4, 5), Objects.Furnace().Name);
 
@@ -42,6 +45,8 @@ public class Map : GameObject
     public void RegisterTileSets()
     {
         objectGrid.Layer = 1;
+        bluprintGrid.Layer = 2;
+
         int count = 0;
         foreach (KeyValuePair<string, Func<Object>> obj in Objects.List)
         {

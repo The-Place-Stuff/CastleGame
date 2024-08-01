@@ -30,13 +30,8 @@ public class Cursor : GameObject
 
     public override void Update()
     {
-        if(Input.Mouse.LeftClickRelease())
-        {
-            SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.PlaceTile(
-                SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.ConvertWorldCoordinatesToGridCoordinates(Position),
-                Objects.Furnace().Name
-                );
-        }
+
+
         //Camera zoom
         int scrollValue = Input.Mouse.GetMouseWheelChange();
 
@@ -75,6 +70,15 @@ public class Cursor : GameObject
             Vector2 worldPosition = (screenPosition - screenCenter) / SceneManager.CurrentScene.Camera.Zoom + SceneManager.CurrentScene.Camera.Position;
 
             Position = worldPosition;
+        }
+
+
+        if (Input.Mouse.LeftClickRelease())
+        {
+            SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.PlaceTile(
+                SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.ConvertWorldCoordinatesToGridCoordinates(Position),
+                Objects.Furnace().Name
+                );
         }
 
         base.Update();
