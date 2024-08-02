@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CastleGame.src
 {
-    public class AI : Component
+    public abstract class AI : Component
     {
         public AI() : base(false)
         {

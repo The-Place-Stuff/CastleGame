@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame.src.states
+namespace CastleGame
 {
     public class DirectionState : GameObjectState
     {

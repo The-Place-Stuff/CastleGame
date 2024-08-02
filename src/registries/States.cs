@@ -1,5 +1,4 @@
-﻿using CastleGame.src.states;
-using SerpentEngine;
+﻿using SerpentEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +21,7 @@ namespace CastleGame
 
         public static readonly GameObjectState West = new DirectionState("west");
 
+        public static readonly GameObjectState Idle = new DirectionState("idle");
 
     }
 }
