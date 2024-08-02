@@ -30,13 +30,21 @@ public abstract class Character : GameObject
         AnimationTree animationTree = CreateAndAddComponent<AnimationTree>();
         StateMachine stateMachine = CreateAndAddComponent<StateMachine>();
         PatrolMovementAI movementAI = CreateAndAddComponent<PatrolMovementAI>();
+        TaskMachine taskMachine = CreateAndAddComponent<TaskMachine>();
+
+
+        foreach (KeyValuePair<Vector2, Tile> tileEntry in SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.Tiles)
+        {
+            Vector2 coordiantes = tileEntry.Key;
+            Tile obj = tileEntry.Value;
+
+            GetComponent<TaskMachine>().AddTask(new Task(obj));
+            GetComponent<TaskMachine>().SetTask(new Task(obj));
+            GetComponent<PatrolMovementAI>().AddWaypoint(obj.Position);
+        }
 
 
         Random random = new Random();
-
-        GetComponent<PatrolMovementAI>().AddWaypoint(new Vector2(random.Next(-100, 101), random.Next(-100, 101)));
-        GetComponent<PatrolMovementAI>().AddWaypoint(new Vector2(random.Next(-100, 101), random.Next(-100, 101)));
-        GetComponent<PatrolMovementAI>().AddWaypoint(new Vector2(random.Next(-100, 101), random.Next(-100, 101)));
 
         GetComponent<StateMachine>().AddState(States.East);
         GetComponent<StateMachine>().AddState(States.West);
@@ -68,6 +76,11 @@ public abstract class Character : GameObject
 
     public virtual void OnDestinationArrived()
     {
+        GetComponent<TaskMachine>().CompleteTask();
+        if(GetComponent<TaskMachine>().Tasks.Count > 0)
+        {
+            GetComponent<TaskMachine>().SetTask(GetComponent<TaskMachine>().Tasks[GetComponent<TaskMachine>().Tasks.Count - 1]);
+        }
     }
 
     public virtual void TryAddWaypoint()
