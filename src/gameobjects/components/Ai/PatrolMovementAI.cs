@@ -30,7 +30,7 @@ namespace CastleGame
             if (dir.Length() > 4)
             {
                 dir.Normalize();
-                Vector2 d = new Vector2((int)Math.Round(dir.X), (int)Math.Round(dir.Y));
+                Vector2 d = new Vector2((int)Math.Ceiling(dir.X), (int)Math.Ceiling(dir.Y));
 
                 character.Direction = d;
                 character.Position += dir * character.Speed * (float)Main.GameTime.ElapsedGameTime.TotalSeconds;

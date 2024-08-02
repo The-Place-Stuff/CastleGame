@@ -31,7 +31,7 @@ public class Map : GameObject
         AddComponent(bluprintGrid);
 
 
-        terrainGrid.PlaceTiles(new Vector2(-200, -100), new Vector2(200, 100), "grass");
+        terrainGrid.PlaceTiles(new Vector2(-20, -10), new Vector2(20, 10), "grass");
 
         objectGrid.PlaceTile(new Vector2(-1, -1), Objects.Campfire().Name);
         objectGrid.PlaceTile(new Vector2(1, 1), Objects.Bush().Name);
