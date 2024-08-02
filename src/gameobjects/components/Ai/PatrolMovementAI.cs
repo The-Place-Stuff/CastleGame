@@ -13,7 +13,7 @@ namespace CastleGame
 {
     public class PatrolMovementAI : MovementAI
     {
-        private readonly List<Vector2> Path = new();
+        public readonly List<Vector2> Path = new();
         private int Current;
 
         public void AddWaypoint(Vector2 wp)

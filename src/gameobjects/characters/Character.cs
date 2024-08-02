@@ -31,8 +31,13 @@ namespace CastleGame
             StateMachine stateMachine = CreateAndAddComponent<StateMachine>();
             PatrolMovementAI movementAI = CreateAndAddComponent<PatrolMovementAI>();
 
-            GetComponent<PatrolMovementAI>().AddWaypoint(new Vector2(-100, 100));
-            GetComponent<PatrolMovementAI>().AddWaypoint(new Vector2(-0, 100));
+
+            Random random = new Random();
+
+            GetComponent<PatrolMovementAI>().AddWaypoint(new Vector2(random.Next(-100,101), random.Next(-100, 101)));
+            GetComponent<PatrolMovementAI>().AddWaypoint(new Vector2(random.Next(-100, 101), random.Next(-100, 101)));
+            GetComponent<PatrolMovementAI>().AddWaypoint(new Vector2(random.Next(-100, 101), random.Next(-100, 101)));
+            GetComponent<PatrolMovementAI>().AddWaypoint(new Vector2(random.Next(-100, 101), random.Next(-100, 101)));
 
             GetComponent<StateMachine>().AddState(States.East);
             GetComponent<StateMachine>().AddState(States.West);
@@ -48,18 +53,31 @@ namespace CastleGame
             base.Load();
         }
 
-        public virtual void OnDestinationArrived(Vector2 position)
-        {
-
-        }
 
         public override void Update()
         {
             GetComponent<PatrolMovementAI>().Move(this);
             UpdateDirection();
-
+            CheckWaypoints();
 
             base.Update();
+        }
+
+        public virtual void OnDestinationArrived()
+        {
+        }
+
+        public virtual void CheckWaypoints()
+        {
+
+            foreach(Vector2 position in GetComponent<PatrolMovementAI>().Path)
+            {
+                if(new Vector2((int)Math.Floor(Position.X), (int)Math.Floor(Position.Y)) == position)
+                {
+
+                    OnDestinationArrived();
+                }
+            }
         }
 
         public virtual void UpdateDirection()
