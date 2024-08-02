@@ -7,8 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame
-{
+namespace CastleGame;
+
     public abstract class Character : GameObject
     {
         public string Name { get; set; }
@@ -98,4 +98,4 @@ namespace CastleGame
             }
         }
     }
-}
+

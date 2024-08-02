@@ -29,6 +29,14 @@ namespace CastleGame
 
         public override void Update()
         {
+
+            //TryPlaceBuilding();
+
+            base.Update();
+        }
+
+        public void TryPlaceBuilding()
+        {
             Vector2 cursorPosition = SceneManager.CurrentScene.GetGameObject<Cursor>().Position;
             float tileSize = SceneManager.CurrentScene.GetGameObject<Map>().bluprintGrid.TileSize.X;
             Position = VectorHelper.Snap(new Vector2(cursorPosition.X, cursorPosition.Y), tileSize);
@@ -41,7 +49,6 @@ namespace CastleGame
                     Objects.Furnace().Name
                     );
             }
-            base.Update();
         }
 
     }

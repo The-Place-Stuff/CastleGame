@@ -16,7 +16,6 @@ public class BooleanState : GameObjectState
 
     public override void Enter()
     {
-        Debug.WriteLine("Entering boolean state..");
     }
 
     public override void Update()

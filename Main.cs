@@ -29,6 +29,8 @@ namespace CastleGame
             Objects.RegisterObjects();
             Characters.RegisterCharacters();
 
+            SerpentGame.ImGuiManager.AddGuiDrawable(new CastleGameDebugGui());
+
             base.LoadContent();
 
 

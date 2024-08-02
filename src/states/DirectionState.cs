@@ -16,7 +16,6 @@ namespace CastleGame
 
         public override void Enter()
         {
-            Debug.WriteLine("Entering direction state..");
         }
 
         public override void Update()

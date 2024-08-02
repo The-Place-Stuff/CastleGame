@@ -8,7 +8,7 @@ public class Game : Scene
     private Map map;
     private Cursor cursor;
     private Bluprint bluprint;
-    private List<Character> characters = new List<Character>();
+    public List<Character> characters = new List<Character>();
 
     public Game() : base("Game")
     {
