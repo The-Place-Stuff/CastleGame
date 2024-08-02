@@ -19,8 +19,8 @@ public class Furnace : Object
         StateMachine stateMachine = CreateAndAddComponent<StateMachine>();
 
 
-        stateMachine.AddState(new OnState());
-        stateMachine.AddState(new OffState());
+        stateMachine.AddState(States.Off);
+        stateMachine.AddState(States.On);
 
         GetComponent<StateMachine>().SetState("off");
 

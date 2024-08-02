@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 
 namespace CastleGame;
-public class OffState : GameObjectState
+public class BooleanState : GameObjectState
 {
-    public OffState() : base("on")
+    public BooleanState(string name) : base(name)
     {
     }
 
     public override void Enter()
     {
-        Debug.WriteLine("Entering on state..");
+        Debug.WriteLine("Entering boolean state..");
     }
 
     public override void Update()
