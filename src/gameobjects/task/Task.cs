@@ -29,6 +29,13 @@ namespace CastleGame
             Object = obj;
         }
 
+        public Task(Vector2 position)
+        {
+            Name = "none";
+            Position = position;
+            Object = Tile.Empty();
+        }
+
         public void SetGameObject(GameObject gameObject)
         {
             GameObject = gameObject;
