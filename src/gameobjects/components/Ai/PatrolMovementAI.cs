@@ -13,19 +13,18 @@ namespace CastleGame
 {
     public class PatrolMovementAI : MovementAI
     {
-        public readonly List<Vector2> Path = new();
-        private int Current;
+        public Vector2 Path = new Vector2();
 
-        public void AddWaypoint(Vector2 wp)
+        public void ChangePath(Vector2 wp)
         {
-            Path.Add(wp);
+            Path = wp;
         }
 
         public override void Move(Character character)
         {
-            if (Path.Count < 1) return;
+            if (Path == Vector2.Zero) return;
 
-            var dir = Path[Current] - character.Position;
+            var dir = Path - character.Position;
 
             if (dir.Length() > 4)
             {
@@ -34,10 +33,6 @@ namespace CastleGame
 
                 character.Direction = d;
                 character.Position += dir * character.Speed * (float)Main.GameTime.ElapsedGameTime.TotalSeconds;
-            }
-            else
-            {
-                Current = (Current + 1) % Path.Count;
             }
         }
     }

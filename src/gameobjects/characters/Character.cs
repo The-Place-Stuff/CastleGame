@@ -33,15 +33,6 @@ public abstract class Character : GameObject
         TaskMachine taskMachine = CreateAndAddComponent<TaskMachine>();
 
 
-        foreach (KeyValuePair<Vector2, Tile> tileEntry in SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.Tiles)
-        {
-            Vector2 coordiantes = tileEntry.Key;
-            Tile obj = tileEntry.Value;
-
-            GetComponent<TaskMachine>().AddTask(new Task(obj));
-            GetComponent<TaskMachine>().SetTask(new Task(obj));
-            GetComponent<PatrolMovementAI>().AddWaypoint(obj.Position);
-        }
 
 
         Random random = new Random();
@@ -66,9 +57,10 @@ public abstract class Character : GameObject
         GetComponent<PatrolMovementAI>().Move(this);
         UpdateDirection();
         CheckWaypoints();
+
         if (Input.Mouse.LeftClickRelease())
         {
-            TryAddWaypoint();
+            AddTask(SceneManager.CurrentScene.GetGameObject<Cursor>().Position);
         }
 
         base.Update();
@@ -76,31 +68,44 @@ public abstract class Character : GameObject
 
     public virtual void OnDestinationArrived()
     {
-        GetComponent<TaskMachine>().CompleteTask();
-        if(GetComponent<TaskMachine>().Tasks.Count > 0)
+        DebugGui.Log(GetComponent<TaskMachine>().Tasks.Count.ToString());
+        if (GetComponent<TaskMachine>().CurrentTask != null)
         {
-            GetComponent<TaskMachine>().SetTask(GetComponent<TaskMachine>().Tasks[GetComponent<TaskMachine>().Tasks.Count - 1]);
+
+            GetComponent<PatrolMovementAI>().Path = GetComponent<TaskMachine>().CurrentTask.Position;
+        }
+        GetComponent<TaskMachine>().Tasks.Clear();
+
+    }
+
+    public virtual void AddTask(Vector2 position)
+    {
+        Tile tile = SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.GetTileFromWorldCoordinates(SceneManager.CurrentScene.GetGameObject<Cursor>().Position);
+        if (tile != null)
+        {
+            DebugGui.Log(tile.Name);
+            GetComponent<TaskMachine>().AddTask(new Task(tile));
+            UpdateTaks();
+
         }
     }
 
-    public virtual void TryAddWaypoint()
+    public virtual void UpdateTaks()
     {
-        GetComponent<PatrolMovementAI>().Path.Clear();
-        GetComponent<PatrolMovementAI>().AddWaypoint(SceneManager.CurrentScene.GetGameObject<Cursor>().Position);
-
+        GetComponent<PatrolMovementAI>().Path = GetComponent<TaskMachine>().Tasks[0].Position;
     }
 
     public virtual void CheckWaypoints()
     {
+        Vector2 position = GetComponent<PatrolMovementAI>().Path;
 
-        foreach (Vector2 position in GetComponent<PatrolMovementAI>().Path)
+        if (VectorHelper.Snap(Position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X) == 
+            VectorHelper.Snap(position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X) && position != Vector2.Zero)
         {
-            if (new Vector2((int)Math.Floor(Position.X), (int)Math.Floor(Position.Y)) == position)
-            {
 
-                OnDestinationArrived();
-            }
+            OnDestinationArrived();
         }
+
     }
 
     public virtual void UpdateDirection()
