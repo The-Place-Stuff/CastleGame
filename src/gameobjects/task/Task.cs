@@ -14,11 +14,11 @@ namespace CastleGame
         public Vector2 Position { get; private set; }
 
         public GameObject GameObject { get; private set; }
-        public Tile Object { get; private set; } = Tile.Empty();
+        public GameObject Target { get; private set; } = Tile.Empty();
 
         public TaskMachine TaskMachine { get; private set; }
 
-        public Task(Tile obj)
+        public Task(GameObject obj)
         {
             if(obj == null)
             {
@@ -26,14 +26,14 @@ namespace CastleGame
             }
             Name = obj.Name;
             Position = obj.Position;
-            Object = obj;
+            Target = obj;
         }
 
         public Task(Vector2 position)
         {
             Name = "none";
             Position = position;
-            Object = Tile.Empty();
+            Target = Tile.Empty();
         }
 
         public void SetGameObject(GameObject gameObject)

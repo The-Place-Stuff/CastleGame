@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SerpentEngine;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,19 @@ namespace CastleGame
     {
         public Villager(string name) : base(name)
         {
+            Speed = 20;
+            Range = 50;
+
+        }
+
+        public override void Update()
+        {
+            base.Update();
+
+            if (Input.Mouse.LeftClickRelease())
+            {
+                AddTask(SceneManager.CurrentScene.GetGameObject<Cursor>().Position);
+            }
         }
     }
 }
