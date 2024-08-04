@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace CastleGame
 {
-    public class TaskMachine : Component
+    public class TaskManager : Component
     {
         public Task CurrentTask { get; private set; }
         public List<Task> Tasks { get; private set; } = new List<Task>();
 
-        public TaskMachine() : base(false)
+        public TaskManager() : base(false)
         {
         }
 
@@ -41,7 +41,6 @@ namespace CastleGame
 
             foreach (Task t in Tasks)
             {
-                Debug.WriteLine(t.Name);
                 if (t.Name == task.Name)
                 {
                     CurrentTask = task;

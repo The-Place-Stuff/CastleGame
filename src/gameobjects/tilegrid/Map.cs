@@ -38,7 +38,7 @@ public class Map : GameObject
         objectGrid.PlaceTile(new Vector2(3, 5), Objects.Rock().Name);
         objectGrid.PlaceTile(new Vector2(4, 5), Objects.Tree().Name);
         objectGrid.PlaceTile(new Vector2(-6, -1), Objects.Tree().Name);
-        objectGrid.PlaceTile(new Vector2(-7, 8), Objects.Furnace().Name);
+        objectGrid.PlaceTile(new Vector2(-1, 3), Objects.Furnace().Name);
         objectGrid.PlaceTile(new Vector2(2, -9), Objects.Rock().Name);
     }
 

@@ -13,5 +13,7 @@ public abstract class Object : Tile
     {
 
     }
+
+    public virtual void OnUse() { }
 }
 

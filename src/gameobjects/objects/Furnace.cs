@@ -33,22 +33,23 @@ public class Furnace : Object
     public override void Update()
     {
 
-        if(Input.Keyboard.GetKeyPress("Space"))
-        {
-            if(GetComponent<StateMachine>().CurrentState.Name == "off")
-            {
-                GetComponent<StateMachine>().SetState("on"); 
-            }
-            else
-            {
-                GetComponent<StateMachine>().SetState("off");
-
-            }
-
-        }
-
 
         base.Update();
+    }
+
+    public override void OnUse()
+    {
+
+        if (GetComponent<StateMachine>().CurrentState.Name == States.Off.Name)
+        {
+            GetComponent<StateMachine>().SetState(States.On.Name);
+        }
+        else
+        {
+            GetComponent<StateMachine>().SetState(States.Off.Name);
+
+        }
+        base.OnUse();
     }
 
 
