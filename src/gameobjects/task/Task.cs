@@ -10,23 +10,30 @@ namespace CastleGame
 {
     public class Task
     {
-        public string Name { get; private set; }
+        public string Name { get; private set; } = "none";
         public Vector2 Position { get; private set; }
 
-        public GameObject GameObject { get; private set; }
         public GameObject Target { get; private set; } = Tile.Empty();
 
         public TaskMachine TaskMachine { get; private set; }
 
         public Task(GameObject obj)
         {
-            if(obj == null)
+            if (obj == null)
             {
-                obj = Tile.Empty();
+                obj = GameObject.Empty();
+                Name = "none";
+                Position = obj.Position;
+                Target = obj;
+
+
             }
-            Name = obj.Name;
-            Position = obj.Position;
-            Target = obj;
+            else
+            {
+                Name = obj.Name;
+                Position = obj.Position;
+                Target = obj;
+            }
         }
 
         public Task(Vector2 position)
@@ -36,9 +43,9 @@ namespace CastleGame
             Target = Tile.Empty();
         }
 
-        public void SetGameObject(GameObject gameObject)
+        public void SetTarget(GameObject gameObject)
         {
-            GameObject = gameObject;
+            Target = gameObject;
         }
 
         public static Tile Empty()
@@ -49,7 +56,7 @@ namespace CastleGame
 
         public virtual void Initialize()
         {
-            TaskMachine = GameObject.GetComponent<TaskMachine>();
+            TaskMachine = Target.GetComponent<TaskMachine>();
         }
 
 

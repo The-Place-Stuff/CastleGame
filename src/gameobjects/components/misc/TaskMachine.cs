@@ -21,7 +21,7 @@ namespace CastleGame
         {
             Tasks.Add(task);
 
-            task.SetGameObject(GameObject);
+            task.SetTarget(GameObject);
 
             task.Initialize();
         }
