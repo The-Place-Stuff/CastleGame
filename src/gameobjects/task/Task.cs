@@ -11,18 +11,21 @@ namespace CastleGame
     public class Task
     {
         public string Name { get; private set; } = "none";
+        public string Type { get; private set; } = "none";
+
         public Vector2 Position { get; private set; }
 
         public GameObject Target { get; private set; } = Tile.Empty();
 
         public TaskMachine TaskMachine { get; private set; }
 
-        public Task(GameObject obj)
+        public Task(string type, GameObject obj)
         {
             if (obj == null)
             {
+
                 obj = GameObject.Empty();
-                Name = "none";
+                Name = TaskTypes.None;
                 Position = obj.Position;
                 Target = obj;
 
@@ -30,15 +33,16 @@ namespace CastleGame
             }
             else
             {
-                Name = obj.Name;
+                Name = type + obj.Name;
                 Position = obj.Position;
                 Target = obj;
             }
         }
 
-        public Task(Vector2 position)
+        public Task(string type, Vector2 position)
         {
-            Name = "none";
+            Type = type;
+            Name = type + position.ToString();
             Position = position;
             Target = Tile.Empty();
         }
@@ -48,10 +52,6 @@ namespace CastleGame
             Target = gameObject;
         }
 
-        public static Tile Empty()
-        {
-            return new Tile("");
-        }
 
 
         public virtual void Initialize()

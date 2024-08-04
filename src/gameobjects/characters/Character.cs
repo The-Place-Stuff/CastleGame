@@ -51,12 +51,15 @@ public abstract class Character : GameObject
         animationTree.AddAnimation("assets/animation/" + Name + "_west", _ => GetComponent<StateMachine>().CurrentState.Name == "west");
 
 
+
+
         base.Load();
     }
 
 
     public override void Update()
     {
+        DebugGui.Log(GetCurrentTask().Name);
         if (GetComponent<StateMachine>().CurrentState != States.Idle)
         {
             GetComponent<PatrolMovementAI>().Move(this);
@@ -100,32 +103,32 @@ public abstract class Character : GameObject
             return GetComponent<TaskMachine>().CurrentTask;
         }
 
-        return new Task(GameObject.Empty());
+        return new Task(TaskTypes.None, GameObject.Empty());
     }
 
-    public virtual void AddTask(Vector2 position)
+    public virtual void AddTask(string type, Vector2 position)
     {
         GameObject gameObject = SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.GetTileFromWorldCoordinates(VectorHelper.Snap(SceneManager.CurrentScene.GetGameObject<Cursor>().Position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X));
         if (gameObject != null)
         {
-            GetComponent<TaskMachine>().AddTask(new Task(gameObject));
-            GetComponent<TaskMachine>().SetTask(new Task(gameObject));
+            GetComponent<TaskMachine>().AddTask(new Task(type, gameObject));
+            GetComponent<TaskMachine>().SetTask(new Task(type, gameObject));
             UpdateTaks();
             SetTarget(gameObject);
         }
         else
         {
-            GetComponent<TaskMachine>().AddTask(new Task(VectorHelper.Snap(SceneManager.CurrentScene.GetGameObject<Cursor>().Position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X)));
-            GetComponent<TaskMachine>().SetTask(new Task(position));
+            GetComponent<TaskMachine>().AddTask(new Task(type, VectorHelper.Snap(SceneManager.CurrentScene.GetGameObject<Cursor>().Position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X)));
+            GetComponent<TaskMachine>().SetTask(new Task(type, VectorHelper.Snap(SceneManager.CurrentScene.GetGameObject<Cursor>().Position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X)));
             UpdateTaks();
 
         }
     }
 
-    public virtual void AddTask(GameObject gameObject)
+    public virtual void AddTask(string type, GameObject gameObject)
     {
-            GetComponent<TaskMachine>().AddTask(new Task(gameObject));
-            GetComponent<TaskMachine>().SetTask(new Task(gameObject));
+            GetComponent<TaskMachine>().AddTask(new Task(type, gameObject));
+            GetComponent<TaskMachine>().SetTask(new Task(type, gameObject));
             UpdateTaks();
             SetTarget(gameObject);
     }

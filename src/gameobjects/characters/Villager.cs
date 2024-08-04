@@ -22,7 +22,7 @@ namespace CastleGame
 
             if (Input.Mouse.LeftClickRelease())
             {
-                AddTask(SceneManager.CurrentScene.GetGameObject<Cursor>().Position);
+                AddTask(TaskTypes.Go, SceneManager.CurrentScene.GetGameObject<Cursor>().Position);
             }
         }
     }

@@ -41,6 +41,7 @@ namespace CastleGame
 
             foreach (Task t in Tasks)
             {
+                Debug.WriteLine(t.Name);
                 if (t.Name == task.Name)
                 {
                     CurrentTask = task;
