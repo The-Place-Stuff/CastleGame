@@ -44,11 +44,7 @@ public class Furnace : Object
         {
             GetComponent<StateMachine>().SetState(States.On.Name);
         }
-        else
-        {
-            GetComponent<StateMachine>().SetState(States.Off.Name);
 
-        }
         base.OnUse();
     }
 

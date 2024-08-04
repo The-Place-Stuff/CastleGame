@@ -1,4 +1,5 @@
-﻿using SerpentEngine;
+﻿using Microsoft.Xna.Framework;
+using SerpentEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,9 +21,9 @@ namespace CastleGame
         {
             base.Update();
 
-            if (Input.Mouse.LeftClickRelease())
+            if (Input.Mouse.RightClickRelease())
             {
-                AddTask(TaskTypes.Go, SceneManager.CurrentScene.GetGameObject<Cursor>());
+                AddTask(TaskTypes.Go, SceneManager.CurrentScene.GetGameObject<Cursor>().Position);
 
             }
         }

@@ -79,7 +79,7 @@ public abstract class Character : GameObject
 
         }
 
-        GetComponent<TaskManager>().Tasks.Clear();
+        CompleteTask();
 
     }
 
@@ -104,29 +104,29 @@ public abstract class Character : GameObject
 
     public virtual void AddTask(string type, Vector2 position)
     {
-        GameObject gameObject = SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.GetTileFromWorldCoordinates(VectorHelper.Snap(SceneManager.CurrentScene.GetGameObject<Cursor>().Position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X));
+        GameObject gameObject = SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.GetTileFromWorldCoordinates(VectorHelper.Snap(position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X));
         if (gameObject != null)
         {
             GetComponent<TaskManager>().AddTask(new Task(type, gameObject));
             GetComponent<TaskManager>().SetTask(new Task(type, gameObject));
-            UpdateTaks();
+            UpdateTasks();
             SetTarget(gameObject);
         }
         else
         {
-            GetComponent<TaskManager>().AddTask(new Task(type, VectorHelper.Snap(SceneManager.CurrentScene.GetGameObject<Cursor>().Position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X)));
-            GetComponent<TaskManager>().SetTask(new Task(type, VectorHelper.Snap(SceneManager.CurrentScene.GetGameObject<Cursor>().Position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X)));
-            UpdateTaks();
+            GetComponent<TaskManager>().AddTask(new Task(type, VectorHelper.Snap(position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X)));
+            GetComponent<TaskManager>().SetTask(new Task(type, VectorHelper.Snap(position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X)));
+            UpdateTasks();
 
         }
     }
 
     public virtual void AddTask(string type, GameObject gameObject)
     {
-            GetComponent<TaskManager>().AddTask(new Task(type, gameObject));
-            GetComponent<TaskManager>().SetTask(new Task(type, gameObject));
-            UpdateTaks();
-            SetTarget(gameObject);
+        GetComponent<TaskManager>().AddTask(new Task(type, gameObject));
+        GetComponent<TaskManager>().SetTask(new Task(type, gameObject));
+        UpdateTasks();
+        SetTarget(gameObject);
     }
 
     public virtual void CheckTasks()
@@ -141,12 +141,14 @@ public abstract class Character : GameObject
         }
     }
 
+    public void CompleteTask() { }
+
     public virtual void SetTarget(GameObject target)
     {
         Target = target;
     }
 
-    public virtual void UpdateTaks()
+    public virtual void UpdateTasks()
     {
         if (GetCurrentTask().Type == TaskTypes.Go)
         {

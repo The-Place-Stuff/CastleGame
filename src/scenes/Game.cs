@@ -22,9 +22,6 @@ public class Game : Scene
         map = new Map();
         cursor = new Cursor();
         characters.Add(Characters.Villager());
-        characters.Add(Characters.Villager());
-        characters.Add(Characters.Villager());
-        characters.Add(Characters.Villager());
 
         bluprint = new Bluprint("furnace_off");
 

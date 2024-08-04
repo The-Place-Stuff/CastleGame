@@ -44,11 +44,9 @@ namespace CastleGame
                 if (t.Name == task.Name)
                 {
                     CurrentTask = task;
+                    return;
                 }
-                else
-                {
-                    Debug.WriteLine("Task " + "'" + task.Name + "' does not exist!");
-                }
+
             }
 
 
