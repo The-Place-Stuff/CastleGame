@@ -67,9 +67,6 @@ public abstract class Character : GameObject
         CheckTasks();
 
 
-        DebugGui.Log(GetCurrentTask().Target.Position.ToString());
-        DebugGui.Log(GetTasks().Count.ToString());
-
 
         base.Update();
     }
@@ -122,9 +119,9 @@ public abstract class Character : GameObject
             {
                 GetComponent<TaskManager>().SetTask(new Task(type, gameObject));
                 SetTarget(gameObject);
+                UpdateTasks();
 
             }
-            UpdateTasks();
         }
         else
         {
@@ -133,9 +130,9 @@ public abstract class Character : GameObject
             {
                 GetComponent<TaskManager>().SetTask(new Task(type, VectorHelper.Snap(position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X)));
                 SetTarget(GetCurrentTask().Target);
+                UpdateTasks();
 
             }
-            UpdateTasks();
 
         }
 
@@ -143,9 +140,13 @@ public abstract class Character : GameObject
 
     public virtual void AddTask(string type, GameObject gameObject)
     {
+
         GetComponent<TaskManager>().AddTask(new Task(type, gameObject));
-        GetComponent<TaskManager>().SetTask(new Task(type, gameObject));
-        UpdateTasks();
+        if (GetTasks().Count == 1)
+        {
+            GetComponent<TaskManager>().SetTask(new Task(type, gameObject));
+            UpdateTasks();
+        }
     }
 
     public virtual void CheckTasks()
@@ -162,13 +163,16 @@ public abstract class Character : GameObject
 
     public void CompleteTask() {
 
+        DebugGui.Log(GetCurrentTask().Name);
+
+
         GetComponent<TaskManager>().Tasks.RemoveAt(0);
 
         if (GetTasks().Count > 0)
         {
             GetComponent<TaskManager>().SetTask(GetTasks()[0]);
-            SetTarget(GetCurrentTask().Target);
             UpdateTasks();
+            SetTarget(GetCurrentTask().Target);
 
         }
 
