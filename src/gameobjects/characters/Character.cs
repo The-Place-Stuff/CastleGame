@@ -73,20 +73,18 @@ public abstract class Character : GameObject
 
     public virtual void OnDestinationArrived()
     {
+        if (Target.Name == "")
+        {
+            Random rnd = new Random();
+            GetComponent<PatrolMovementAI>().Path = VectorHelper.Snap(new Vector2(rnd.Next((int)Position.X - Range, (int)Position.X + Range), rnd.Next((int)Position.Y - Range, (int)Position.Y + Range)), SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X);
+
+        }
 
         if (GetTasks().Count > 0)
         {
             CompleteTask();
         }
-        else
-        {
-            if (Target.Name == "")
-            {
-                Random rnd = new Random();
-                GetComponent<PatrolMovementAI>().Path = VectorHelper.Snap(new Vector2(rnd.Next((int)Position.X - Range, (int)Position.X + Range), rnd.Next((int)Position.Y - Range, (int)Position.Y + Range)), SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X);
 
-            }
-        }
 
     }
 
@@ -163,8 +161,6 @@ public abstract class Character : GameObject
 
     public void CompleteTask() {
 
-        DebugGui.Log(GetCurrentTask().Name);
-
 
         GetComponent<TaskManager>().Tasks.RemoveAt(0);
 
@@ -222,6 +218,7 @@ public abstract class Character : GameObject
         if(gameObject is Object obj)
         {
             obj.OnUse();
+            OnDestinationArrived();
         }
     }
 }
