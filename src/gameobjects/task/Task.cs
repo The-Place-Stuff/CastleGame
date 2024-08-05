@@ -45,10 +45,6 @@ namespace CastleGame
             Target.Position = position;
         }
 
-        public void SetTarget(GameObject gameObject)
-        {
-            Target = gameObject;
-        }
 
 
 

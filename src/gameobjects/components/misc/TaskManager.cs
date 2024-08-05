@@ -21,8 +21,6 @@ namespace CastleGame
         {
             Tasks.Add(task);
 
-            task.SetTarget(GameObject);
-
             task.Initialize();
         }
 
@@ -55,6 +53,10 @@ namespace CastleGame
 
         public override void Update()
         {
+            if(Tasks.Count == 0)
+            {
+                CurrentTask = null;
+            }
             if (CurrentTask != null)
             {
                 CurrentTask.Update();
