@@ -178,7 +178,6 @@ public abstract class Character : GameObject
     //Task Methods
     public virtual void Go(Vector2 position)
     {
-        DebugGui.Log("it goes");
         GetComponent<PatrolMovementAI>().Path = position;
     }
 
