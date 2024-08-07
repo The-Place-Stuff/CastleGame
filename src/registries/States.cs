@@ -13,15 +13,5 @@ public class States : Registry
 
     public static readonly GameObjectState Off = new BooleanState("off");
 
-    public static readonly GameObjectState North = new DirectionState("north");
-
-    public static readonly GameObjectState South = new DirectionState("south");
-
-    public static readonly GameObjectState East = new DirectionState("east");
-
-    public static readonly GameObjectState West = new DirectionState("west");
-
-    public static readonly GameObjectState Idle = new DirectionState("idle");
-
 }
 

@@ -31,7 +31,7 @@ namespace CastleGame
                 dir.Normalize();
                 Vector2 d = new Vector2((int)Math.Ceiling(dir.X), (int)Math.Ceiling(dir.Y));
 
-                character.Direction = d;
+                character.CurrentDirction = d;
                 character.Position += dir * character.Speed * (float)Main.GameTime.ElapsedGameTime.TotalSeconds;
             }
         }

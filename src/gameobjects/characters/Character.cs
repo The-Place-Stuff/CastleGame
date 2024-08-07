@@ -17,7 +17,7 @@ public abstract class Character : GameObject
 
     public float Speed { get; set; }
 
-    public Vector2 Direction { get; set; }
+    public Vector2 CurrentDirction { get; set; }
 
     public Character(string name)
     {
@@ -30,25 +30,20 @@ public abstract class Character : GameObject
 
         AnimationTree animationTree = CreateAndAddComponent<AnimationTree>();
         StateMachine stateMachine = CreateAndAddComponent<StateMachine>();
+        Direction direction = CreateAndAddComponent<Direction>();
         PatrolMovementAI movementAI = CreateAndAddComponent<PatrolMovementAI>();
         TaskManager taskManager = CreateAndAddComponent<TaskManager>();
 
-
+        GetComponent<Direction>().Set(Direction.East().Name);
 
 
         Random rnd = new Random();
         GetComponent<PatrolMovementAI>().Path = new Vector2(rnd.Next((int)Position.X - Range, (int)Position.X + Range), rnd.Next((int)Position.Y - Range, (int)Position.Y + Range));
 
-        GetComponent<StateMachine>().AddState(States.East);
-        GetComponent<StateMachine>().AddState(States.West);
-        GetComponent<StateMachine>().AddState(States.Idle);
 
-
-        GetComponent<StateMachine>().SetState(States.West.Name);
-
-        animationTree.AddAnimation("assets/animation/" + Name + "_idle", _ => GetComponent<StateMachine>().CurrentState.Name == "idle");
-        animationTree.AddAnimation("assets/animation/" + Name + "_east", _ => GetComponent<StateMachine>().CurrentState.Name == "east");
-        animationTree.AddAnimation("assets/animation/" + Name + "_west", _ => GetComponent<StateMachine>().CurrentState.Name == "west");
+        animationTree.AddAnimation("assets/animation/" + Name + "_idle", _ => GetComponent<Direction>().Name == Direction.None().Name);
+        animationTree.AddAnimation("assets/animation/" + Name + "_east", _ => GetComponent<Direction>().Name == Direction.East().Name);
+        animationTree.AddAnimation("assets/animation/" + Name + "_west", _ => GetComponent<Direction>().Name == Direction.West().Name);
 
 
 
@@ -59,10 +54,9 @@ public abstract class Character : GameObject
 
     public override void Update()
     {
-        if (GetComponent<StateMachine>().CurrentState != States.Idle)
-        {
-            GetComponent<PatrolMovementAI>().Move(this);
-        }
+
+        GetComponent<PatrolMovementAI>().Move(this);
+        
         UpdateDirection();
         CheckTasks();
 
@@ -195,13 +189,13 @@ public abstract class Character : GameObject
 
     public virtual void UpdateDirection()
     {
-        if (Direction.X > 0)
+        if (CurrentDirction.X > 0)
         {
-            GetComponent<StateMachine>().SetState(States.East.Name);
+            GetComponent<Direction>().Set(Direction.East().Name);
         }
-        if (Direction.X < 0)
+        if (CurrentDirction.X < 0)
         {
-            GetComponent<StateMachine>().SetState(States.West.Name);
+            GetComponent<Direction>().Set(Direction.West().Name);
 
         }
 
