@@ -38,15 +38,29 @@ public class CastleGameDebugGui : ImGuiDrawable
 
         if (ImGui.Begin("CastleGame"))
         {
-            if (ImGui.BeginMenu("General"))
+            ImGui.Text("General Debug: ");
+
+            ImGui.SameLine();
+
+            if (ImGui.Button("General"))
             {
                 showGeneralWindow = true;
             }
-            if (ImGui.BeginMenu("Characters"))
+
+            ImGui.Text("Characters Debug: ");
+
+            ImGui.SameLine();
+
+            if (ImGui.Button("Characters"))
             {
                 showCharactersWindow = true;
             }
-            if (ImGui.BeginMenu("Objects"))
+
+            ImGui.Text("Objects Debug: ");
+
+            ImGui.SameLine();
+
+            if (ImGui.Button("Objects"))
             {
                 showObjectsWindow = true;
             }
