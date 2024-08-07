@@ -11,9 +11,10 @@ namespace CastleGame
     public class Task
     {
         public string Name { get; private set; } = "none";
+
         public string Type { get; private set; } = "none";
 
-        public GameObject Target { get; private set; } = Tile.Empty();
+        public GameObject Target { get; private set; } = GameObject.Empty();
 
         public TaskManager TaskMachine { get; private set; }
 

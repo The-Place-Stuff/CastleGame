@@ -24,7 +24,8 @@ public class Cursor : GameObject
     {
         Sprite sprite = new Sprite(Registry.Path + "cursor");
         AddComponent(sprite);
-
+        GetComponent<Sprite>().Scale = new Vector2(0.8f, 0.8f);
+        
         Layer = 5;
     }
 
