@@ -31,8 +31,7 @@ public class Furnace : Object
     }
 
     public override void Update()
-    {
-
+    { 
 
         base.Update();
     }
@@ -43,6 +42,10 @@ public class Furnace : Object
         if (GetComponent<StateMachine>().CurrentState.Name == States.Off.Name)
         {
             GetComponent<StateMachine>().SetState(States.On.Name);
+        }
+        else
+        {
+            GetComponent<StateMachine>().SetState(States.Off.Name);
         }
 
         base.OnUse();
