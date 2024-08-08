@@ -24,7 +24,7 @@ namespace CastleGame
             if (Input.Mouse.RightClickRelease())
             {
                 AddTask(TaskTypes.Go, SceneManager.CurrentScene.GetGameObject<Cursor>().Position);
-                AddTask(TaskTypes.Use, Target);
+                AddTask(TaskTypes.Chop, Target);
 
             }
         }

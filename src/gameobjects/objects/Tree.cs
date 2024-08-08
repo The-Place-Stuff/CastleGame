@@ -22,5 +22,11 @@ public class Tree : Object
         base.Load();
     }
 
+    public virtual void OnChop()
+    {
+        SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.RemoveTile
+            (SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.ConvertWorldCoordinatesToGridCoordinates(Position));
+    }
+
 
 }

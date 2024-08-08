@@ -23,5 +23,11 @@ public class Rock : Object
         base.Load();
     }
 
+    public virtual void OnMine()
+    {
+        SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.RemoveTile
+            (SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.ConvertWorldCoordinatesToGridCoordinates(Position));
+    }
+
 
 }

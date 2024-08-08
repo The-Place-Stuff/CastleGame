@@ -47,7 +47,7 @@
     <None Remove="assets\sound\**" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SerpentEngine\SerpentEngine\SerpentEngine.csproj" />
+    <ProjectReference Include="..\..\..\Engine\SerpentEngine\SerpentEngine\SerpentEngine\SerpentEngine.csproj" />
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />

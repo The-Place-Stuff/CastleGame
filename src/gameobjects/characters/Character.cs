@@ -36,6 +36,14 @@ public abstract class Character : GameObject
 
         GetComponent<Direction>().Set(Direction.East().Name);
 
+        GetComponent<StateMachine>().AddState(CharacterStates.Wandering);
+        GetComponent<StateMachine>().AddState(CharacterStates.Mining);
+        GetComponent<StateMachine>().AddState(CharacterStates.Using);
+        GetComponent<StateMachine>().AddState(CharacterStates.Chopping);
+        GetComponent<StateMachine>().AddState(CharacterStates.Fighting);
+
+
+        GetComponent<StateMachine>().SetState(CharacterStates.Wandering.Name);
 
         Random rnd = new Random();
         GetComponent<PatrolMovementAI>().Path = new Vector2(rnd.Next((int)Position.X - Range, (int)Position.X + Range), rnd.Next((int)Position.Y - Range, (int)Position.Y + Range));
@@ -188,7 +196,16 @@ public abstract class Character : GameObject
             GetComponent<StateMachine>().SetState(CharacterStates.Using.Name);
             Use(GetComponent<TaskManager>().CurrentTask.Target);
         }
-
+        else if (GetCurrentTask().Type == TaskTypes.Chop)
+        {
+            GetComponent<StateMachine>().SetState(CharacterStates.Chopping.Name);
+            Chop(GetComponent<TaskManager>().CurrentTask.Target);
+        }
+        else if (GetCurrentTask().Type == TaskTypes.Mine)
+        {
+            GetComponent<StateMachine>().SetState(CharacterStates.Mining.Name);
+            Mine(GetComponent<TaskManager>().CurrentTask.Target);
+        }
     }
 
     public virtual void UpdateDirection()
@@ -215,6 +232,24 @@ public abstract class Character : GameObject
         if(gameObject is Object obj)
         {
             obj.OnUse();
+            OnDestinationArrived();
+        }
+    }
+
+    public virtual void Chop(GameObject gameObject)
+    {
+        if (gameObject is Tree tree)
+        {
+            tree.OnChop();
+            OnDestinationArrived();
+        }
+    }
+
+    public virtual void Mine(GameObject gameObject)
+    {
+        if (gameObject is Rock rock)
+        {
+            rock.OnMine();
             OnDestinationArrived();
         }
     }
