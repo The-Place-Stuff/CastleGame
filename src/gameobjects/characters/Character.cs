@@ -17,7 +17,7 @@ public abstract class Character : GameObject
 
     public float Speed { get; set; }
 
-    public Vector2 CurrentDirction { get; set; }
+    public Vector2 CurrentDirection { get; set; }
 
     public Character(string name)
     {
@@ -139,6 +139,8 @@ public abstract class Character : GameObject
             GetComponent<TaskManager>().SetTask(new Task(type, gameObject));
             UpdateTasks();
         }
+
+
     }
 
     public virtual void CheckTasks()
@@ -178,10 +180,12 @@ public abstract class Character : GameObject
     {
         if (GetCurrentTask().Type == TaskTypes.Go)
         {
+            GetComponent<StateMachine>().SetState(CharacterStates.Wandering.Name);
             Go(GetComponent<TaskManager>().CurrentTask.Target.Position);
         }
         else if (GetCurrentTask().Type == TaskTypes.Use)
         {
+            GetComponent<StateMachine>().SetState(CharacterStates.Using.Name);
             Use(GetComponent<TaskManager>().CurrentTask.Target);
         }
 
@@ -189,14 +193,13 @@ public abstract class Character : GameObject
 
     public virtual void UpdateDirection()
     {
-        if (CurrentDirction.X > 0)
+        if (CurrentDirection.X > 0)
         {
             GetComponent<Direction>().Set(Direction.East().Name);
         }
-        if (CurrentDirction.X < 0)
+        if (CurrentDirection.X < 0)
         {
             GetComponent<Direction>().Set(Direction.West().Name);
-
         }
 
     }

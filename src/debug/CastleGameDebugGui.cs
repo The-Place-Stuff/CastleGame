@@ -132,7 +132,7 @@ public class CastleGameDebugGui : ImGuiDrawable
                     ImGui.Text("Position: " + new Vector2((int)Math.Round(character.Position.X), (int)Math.Round(character.Position.Y)));
                     ImGui.Text("Speed: " + character.Speed);
                     string firstDir = "", secondDir = "";
-                    if (character.CurrentDirction.Y > 0)
+                    if (character.CurrentDirection.Y > 0)
                     {
                         firstDir = "South";
 
@@ -142,7 +142,7 @@ public class CastleGameDebugGui : ImGuiDrawable
                         firstDir = "North";
 
                     }
-                    if (character.CurrentDirction.X > 0)
+                    if (character.CurrentDirection.X > 0)
                     {
                         secondDir = "East";
                     }
