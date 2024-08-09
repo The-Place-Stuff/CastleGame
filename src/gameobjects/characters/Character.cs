@@ -151,6 +151,24 @@ public abstract class Character : GameObject
 
     }
 
+    public string GetTaskTypeFromGameObject(GameObject target)
+    {
+        if(target is Tree)
+        {
+            return TaskTypes.Chop;
+        }
+        if (target is Rock)
+        {
+            return TaskTypes.Mine;
+        }
+        if (target is Furnace)
+        {
+            return TaskTypes.Use;
+        }
+
+        return TaskTypes.None;
+    }
+
     public virtual void CheckTasks()
     {
         Vector2 position = GetComponent<PatrolMovementAI>().Path;
