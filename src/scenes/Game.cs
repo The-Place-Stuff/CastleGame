@@ -63,11 +63,11 @@ public class Game : Scene
     {
         if(Input.Keyboard.GetKeyPress("B"))
         {
-            Stats.BuildingMode = true;
+            Player.BuildingMode = true;
         }
         if (Input.Keyboard.GetKeyPress("V"))
         {
-            Stats.BuildingMode = false;
+            Player.BuildingMode = false;
         }
     }
 }

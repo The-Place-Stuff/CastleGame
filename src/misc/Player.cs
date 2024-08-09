@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CastleGame
 {
-    public class Stats
+    public class Player
     {
 
         public static bool BuildingMode = false;

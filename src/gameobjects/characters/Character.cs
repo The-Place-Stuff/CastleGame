@@ -111,7 +111,7 @@ public abstract class Character : GameObject
 
     public virtual void AddTask(string type, Vector2 position)
     {
-        if (!Stats.BuildingMode)
+        if (!Player.BuildingMode)
         {
             GameObject gameObject = SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.GetTileFromWorldCoordinates(VectorHelper.Snap(position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X));
             if (gameObject != null)
@@ -212,21 +212,6 @@ public abstract class Character : GameObject
             GetComponent<StateMachine>().SetState(CharacterStates.Wandering.Name);
             Go(GetComponent<TaskManager>().CurrentTask.Target.Position);
         }
-        else if (GetCurrentTask().Type == TaskTypes.Use)
-        {
-            GetComponent<StateMachine>().SetState(CharacterStates.Using.Name);
-            Use(GetComponent<TaskManager>().CurrentTask.Target);
-        }
-        else if (GetCurrentTask().Type == TaskTypes.Chop)
-        {
-            GetComponent<StateMachine>().SetState(CharacterStates.Chopping.Name);
-            Chop(GetComponent<TaskManager>().CurrentTask.Target);
-        }
-        else if (GetCurrentTask().Type == TaskTypes.Mine)
-        {
-            GetComponent<StateMachine>().SetState(CharacterStates.Mining.Name);
-            Mine(GetComponent<TaskManager>().CurrentTask.Target);
-        }
     }
 
     public virtual void UpdateDirection()
@@ -248,31 +233,5 @@ public abstract class Character : GameObject
         GetComponent<PatrolMovementAI>().Path = position;
     }
 
-    public virtual void Use(GameObject gameObject) 
-    {
-        if(gameObject is Object obj)
-        {
-            obj.OnUse();
-            OnDestinationArrived();
-        }
-    }
-
-    public virtual void Chop(GameObject gameObject)
-    {
-        if (gameObject is Tree tree)
-        {
-            tree.OnChop();
-            OnDestinationArrived();
-        }
-    }
-
-    public virtual void Mine(GameObject gameObject)
-    {
-        if (gameObject is Rock rock)
-        {
-            rock.OnMine();
-            OnDestinationArrived();
-        }
-    }
 }
 
