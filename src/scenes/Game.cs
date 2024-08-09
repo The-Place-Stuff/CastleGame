@@ -56,6 +56,18 @@ public class Game : Scene
     public override void Update()
     {
         base.Update();
+        TryChangeMode();
+    }
 
+    public void TryChangeMode()
+    {
+        if(Input.Keyboard.GetKeyPress("B"))
+        {
+            Stats.BuildingMode = true;
+        }
+        if (Input.Keyboard.GetKeyPress("V"))
+        {
+            Stats.BuildingMode = false;
+        }
     }
 }

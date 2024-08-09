@@ -111,29 +111,32 @@ public abstract class Character : GameObject
 
     public virtual void AddTask(string type, Vector2 position)
     {
-        GameObject gameObject = SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.GetTileFromWorldCoordinates(VectorHelper.Snap(position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X));
-        if (gameObject != null)
+        if (!Stats.BuildingMode)
         {
-            GetComponent<TaskManager>().AddTask(new Task(type, gameObject));
-            if (GetTasks().Count == 1)
+            GameObject gameObject = SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.GetTileFromWorldCoordinates(VectorHelper.Snap(position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X));
+            if (gameObject != null)
             {
-                GetComponent<TaskManager>().SetTask(new Task(type, gameObject));
-                SetTarget(gameObject);
-                UpdateTasks();
+                GetComponent<TaskManager>().AddTask(new Task(type, gameObject));
+                if (GetTasks().Count == 1)
+                {
+                    GetComponent<TaskManager>().SetTask(new Task(type, gameObject));
+                    SetTarget(gameObject);
+                    UpdateTasks();
+
+                }
+            }
+            else
+            {
+                GetComponent<TaskManager>().AddTask(new Task(type, VectorHelper.Snap(position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X)));
+                if (GetTasks().Count == 1)
+                {
+                    GetComponent<TaskManager>().SetTask(new Task(type, VectorHelper.Snap(position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X)));
+                    SetTarget(GetCurrentTask().Target);
+                    UpdateTasks();
+
+                }
 
             }
-        }
-        else
-        {
-            GetComponent<TaskManager>().AddTask(new Task(type, VectorHelper.Snap(position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X)));
-            if (GetTasks().Count == 1)
-            {
-                GetComponent<TaskManager>().SetTask(new Task(type, VectorHelper.Snap(position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X)));
-                SetTarget(GetCurrentTask().Target);
-                UpdateTasks();
-
-            }
-
         }
 
     }

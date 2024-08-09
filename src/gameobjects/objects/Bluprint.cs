@@ -29,8 +29,16 @@ namespace CastleGame
 
         public override void Update()
         {
+            if (Stats.BuildingMode)
+            {
+                TryPlaceBuilding();
+                GetComponent<Sprite>().Enabled = true;
 
-            //TryPlaceBuilding();
+            }
+            else
+            {
+                GetComponent<Sprite>().Enabled = false;
+            }
 
             base.Update();
         }
