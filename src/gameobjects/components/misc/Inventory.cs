@@ -16,6 +16,11 @@ namespace CastleGame
 
         }
 
+        public Inventory(int size) : base(false)
+        {
+            Items = new List<Item>(size);
+        }
+
         public void Add(Item item)
         {
             Items.Add(item);

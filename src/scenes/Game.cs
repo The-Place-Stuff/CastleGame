@@ -9,6 +9,7 @@ public class Game : Scene
     private Cursor cursor;
     private Bluprint bluprint;
     public List<Character> characters = new List<Character>();
+    public Player player = new Player();
 
     public Game() : base("Game")
     {
@@ -25,6 +26,8 @@ public class Game : Scene
         characters.Add(Characters.Villager());
 
         bluprint = new Bluprint("furnace_off");
+
+        AddGameObject(player);
 
         AddGameObject(map);
         AddGameObject(cursor);

@@ -25,6 +25,13 @@ public class Rock : Object
 
     public virtual void OnMine()
     {
+
+        Item item = Items.Stone();
+        item.Position = Position;
+
+        SceneManager.CurrentScene.AddGameObject(item);
+
+
         SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.RemoveTile
             (SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.ConvertWorldCoordinatesToGridCoordinates(Position));
     }

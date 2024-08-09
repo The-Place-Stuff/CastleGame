@@ -11,7 +11,7 @@ namespace CastleGame
     {
         public static new Dictionary<string, Func<Character>> List = new Dictionary<string, Func<Character>>();
 
-        public static new string Path = "assets/img/characters";
+        public static new string Path = "assets/img/characters/";
 
 
         public static Func<Character> Villager = Register("villager",() => new Villager("villager"));

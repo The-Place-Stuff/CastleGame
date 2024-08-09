@@ -24,6 +24,11 @@ public class Tree : Object
 
     public virtual void OnChop()
     {
+        Item item = Items.Wood();
+        item.Position = Position;
+
+        SceneManager.CurrentScene.AddGameObject(item);
+
         SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.RemoveTile
             (SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.ConvertWorldCoordinatesToGridCoordinates(Position));
     }
