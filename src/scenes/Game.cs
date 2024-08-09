@@ -18,6 +18,7 @@ public class Game : Scene
     public override void LoadContent()
     {
         Camera.Zoom = 5f;
+        Camera.UIScale = 5f;
 
         map = new Map();
         cursor = new Cursor();

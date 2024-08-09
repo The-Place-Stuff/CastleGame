@@ -11,11 +11,11 @@ public class TestUiElement : GameObject
 {
     public override void Load()
     {
-        Sprite sprite = new Sprite("assets/img/objects/tent");
+        NineSliceSprite sprite = new NineSliceSprite("assets/img/nineslice");
+        sprite.Size = new Vector2(64, 128);
 
         AddComponent(sprite);
 
-        Position = new Vector2(132, 200);
-        sprite.Scale = new Vector2(5f, 5f);
+        Position = new Vector2(0, 50);
     }
 }
