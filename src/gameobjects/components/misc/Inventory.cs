@@ -11,6 +11,8 @@ namespace CastleGame
     public class Inventory : Component
     {
         public List<Item> Items = new List<Item>();
+
+        public int CurrentSize { get; set; } = 0;
         public Inventory() : base(false)
         {
 
@@ -24,6 +26,7 @@ namespace CastleGame
         public void Add(Item item)
         {
             Items.Add(item);
+            CurrentSize++;
         }
 
         public void Set(Item item, int index)
@@ -39,6 +42,7 @@ namespace CastleGame
             if (Items.Count - 1 > index)
             {
                 Items.RemoveAt(index);
+                CurrentSize--;
             }
         }
 
@@ -49,6 +53,7 @@ namespace CastleGame
                 if (i == item)
                 {
                     Items.Remove(i);
+                    CurrentSize--;
                     break;
                 }
             }
@@ -57,6 +62,8 @@ namespace CastleGame
         public void RemoveLast()
         {
             Items.RemoveAt(Items.Count - 1);
+            CurrentSize--;
+
         }
 
         public bool Contains(Item item)
@@ -77,6 +84,19 @@ namespace CastleGame
             if (Items.Count - 1 > index)
             {
                 return Items[index];
+            }
+
+            return Item.Empty();
+        }
+
+        public Item Get(Item item)
+        {
+            foreach (Item i in Items)
+            {
+                if (i == item)
+                {
+                    return item;
+                }
             }
 
             return Item.Empty();

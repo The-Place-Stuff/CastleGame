@@ -8,7 +8,7 @@ namespace CastleGame;
 public class Game : Scene
 {
     private Map map;
-    private Cursor cursor;
+    public static Cursor cursor { get; private set; }
     private Bluprint bluprint;
     public List<Character> characters = new List<Character>();
     public Player player = new Player();

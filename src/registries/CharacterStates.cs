@@ -20,7 +20,9 @@ namespace CastleGame
 
         public static readonly GameObjectState Fighting = new GameObjectState("fighting");
 
+        public static readonly GameObjectState Picking = new GameObjectState("picking");
 
+        public static readonly GameObjectState Adding = new GameObjectState("adding");
 
     }
 }

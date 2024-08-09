@@ -40,6 +40,8 @@ public class Map : GameObject
         objectGrid.PlaceTile(new Vector2(-6, -1), Objects.Tree().Name);
         objectGrid.PlaceTile(new Vector2(-1, 3), Objects.Furnace().Name);
         objectGrid.PlaceTile(new Vector2(2, -9), Objects.Rock().Name);
+        objectGrid.PlaceTile(new Vector2(1, 2), Objects.Stockpile().Name);
+
     }
 
     public void RegisterTileSets()

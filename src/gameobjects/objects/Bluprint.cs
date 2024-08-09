@@ -45,7 +45,7 @@ namespace CastleGame
 
         public void TryPlaceBuilding()
         {
-            Vector2 cursorPosition = SceneManager.CurrentScene.GetGameObject<Cursor>().Position;
+            Vector2 cursorPosition = Game.cursor.Position;
             float tileSize = SceneManager.CurrentScene.GetGameObject<Map>().bluprintGrid.TileSize.X;
             Position = VectorHelper.Snap(new Vector2(cursorPosition.X, cursorPosition.Y), tileSize);
 

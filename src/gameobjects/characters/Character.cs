@@ -41,6 +41,8 @@ public abstract class Character : GameObject
         GetComponent<StateMachine>().AddState(CharacterStates.Using);
         GetComponent<StateMachine>().AddState(CharacterStates.Chopping);
         GetComponent<StateMachine>().AddState(CharacterStates.Fighting);
+        GetComponent<StateMachine>().AddState(CharacterStates.Picking);
+        GetComponent<StateMachine>().AddState(CharacterStates.Adding);
 
 
         GetComponent<StateMachine>().SetState(CharacterStates.Wandering.Name);
@@ -113,8 +115,21 @@ public abstract class Character : GameObject
     {
         if (!Player.BuildingMode)
         {
-            GameObject gameObject = SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.GetTileFromWorldCoordinates(VectorHelper.Snap(position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X));
-            if (gameObject != null)
+            
+            GameObject obj = SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.GetTileFromWorldCoordinates(VectorHelper.Snap(position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X));
+            GameObject gameObject = SceneManager.CurrentScene.GetGameObject(VectorHelper.Snap(position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X));
+            if (obj != null)
+            {
+                GetComponent<TaskManager>().AddTask(new Task(type, obj));
+                if (GetTasks().Count == 1)
+                {
+                    GetComponent<TaskManager>().SetTask(new Task(type, obj));
+                    SetTarget(obj);
+                    UpdateTasks();
+
+                }
+            }
+            else if(gameObject != null)
             {
                 GetComponent<TaskManager>().AddTask(new Task(type, gameObject));
                 if (GetTasks().Count == 1)
@@ -137,6 +152,8 @@ public abstract class Character : GameObject
                 }
 
             }
+
+
         }
 
     }
@@ -168,7 +185,15 @@ public abstract class Character : GameObject
         {
             return TaskTypes.Use;
         }
-
+        if (target is Stockpile)
+        {
+            return TaskTypes.Add;
+        }
+        if (target is Item)
+        {
+            return TaskTypes.Pick;
+            
+        }
         return TaskTypes.None;
     }
 

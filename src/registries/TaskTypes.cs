@@ -20,6 +20,9 @@ namespace CastleGame
 
         public static readonly string Fight = "fight_a";
 
+        public static readonly string Pick = "pick_up_a";
+
+        public static readonly string Add = "add_to_a";
 
     }
 }

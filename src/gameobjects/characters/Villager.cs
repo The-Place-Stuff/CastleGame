@@ -10,6 +10,8 @@ namespace CastleGame
 {
     public class Villager : Character
     {
+
+        public Item currentItem = Item.Empty();
         public Villager(string name) : base(name)
         {
             Speed = 20;
@@ -20,11 +22,11 @@ namespace CastleGame
         public override void Update()
         {
             base.Update();
-
+            currentItem.Position = new Vector2(Position.X, Position.Y - 14);
             if (Input.Mouse.RightClickRelease())
             {
 
-                AddTask(TaskTypes.Go, SceneManager.CurrentScene.GetGameObject<Cursor>().Position);
+                AddTask(TaskTypes.Go, Game.cursor.Position);
 
                 AddTask(GetTaskTypeFromGameObject(Target), Target);
 
@@ -48,6 +50,16 @@ namespace CastleGame
             {
                 GetComponent<StateMachine>().SetState(CharacterStates.Mining.Name);
                 Mine(GetComponent<TaskManager>().CurrentTask.Target);
+            }
+            else if (GetCurrentTask().Type == TaskTypes.Pick)
+            {
+                GetComponent<StateMachine>().SetState(CharacterStates.Picking.Name);
+                Pick(GetComponent<TaskManager>().CurrentTask.Target);
+            }
+            else if (GetCurrentTask().Type == TaskTypes.Add)
+            {
+                GetComponent<StateMachine>().SetState(CharacterStates.Adding.Name);
+                Add(GetComponent<TaskManager>().CurrentTask.Target);
             }
         }
 
@@ -78,5 +90,30 @@ namespace CastleGame
                 OnDestinationArrived();
             }
         }
+
+        public virtual void Pick(GameObject gameObject)
+        {
+            if (gameObject is Item item)
+            {
+                currentItem = item;
+                SceneManager.CurrentScene.GetGameObject<Player>().GetComponent<Inventory>().Add(item);
+                OnDestinationArrived();
+            }
+        }
+
+        public virtual void Add(GameObject gameObject)
+        {
+            if (gameObject is Stockpile stockpile)
+            {
+                if (currentItem.Name != Item.Empty().Name)
+                {
+                    stockpile.AddItem(currentItem);
+                    currentItem = Item.Empty();
+                }
+
+                OnDestinationArrived();
+            }
+        }
+
     }
 }
