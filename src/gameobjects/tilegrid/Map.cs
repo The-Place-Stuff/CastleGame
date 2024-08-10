@@ -34,12 +34,12 @@ public class Map : GameObject
         terrainGrid.PlaceTiles(new Vector2(-20, -10), new Vector2(20, 10), "grass");
 
         objectGrid.PlaceTile(new Vector2(-1, -1), Objects.Campfire().Name);
-        objectGrid.PlaceTile(new Vector2(1, 1), Objects.Bush().Name);
-        objectGrid.PlaceTile(new Vector2(3, 5), Objects.Rock().Name);
-        objectGrid.PlaceTile(new Vector2(4, 5), Objects.Furnace().Name);
+        objectGrid.PlaceTile(new Vector2(1, 1), Objects.Tree().Name);
+        objectGrid.PlaceTile(new Vector2(3, 5), Objects.Tree().Name);
+        objectGrid.PlaceTile(new Vector2(4, 5), Objects.Tree().Name);
         objectGrid.PlaceTile(new Vector2(-6, -1), Objects.Tree().Name);
         objectGrid.PlaceTile(new Vector2(-1, 3), Objects.Furnace().Name);
-        objectGrid.PlaceTile(new Vector2(2, -9), Objects.Rock().Name);
+        objectGrid.PlaceTile(new Vector2(2, -9), Objects.Stockpile().Name);
         objectGrid.PlaceTile(new Vector2(1, 2), Objects.Stockpile().Name);
 
     }

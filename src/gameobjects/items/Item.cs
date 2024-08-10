@@ -17,7 +17,7 @@ namespace CastleGame
         public override void Load()
         {
 
-            Layer = 1;
+            Layer = 2;
             Sprite sprite = new Sprite(Items.GetPath(Name));
             AddComponent(sprite);
 

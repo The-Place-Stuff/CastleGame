@@ -18,6 +18,8 @@ namespace CastleGame
 
         public static Func<Item> Stone = Register("stone", () => new Item("stone"));
 
+        public static Func<Item> Axe = Register("axe", () => new Tool("axe"));
+
         public static Func<Item> Register(string name, Func<Item> item)
         {
             List.Add(name, item);

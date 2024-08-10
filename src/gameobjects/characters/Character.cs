@@ -26,7 +26,7 @@ public abstract class Character : GameObject
 
     public override void Load()
     {
-        Layer = 2;
+        Layer = 3;
 
         AnimationTree animationTree = CreateAndAddComponent<AnimationTree>();
         StateMachine stateMachine = CreateAndAddComponent<StateMachine>();
@@ -170,6 +170,11 @@ public abstract class Character : GameObject
         }
 
 
+    }
+
+    public Direction GetDirection()
+    {
+        return GetComponent<Direction>();
     }
 
     public virtual string GetTaskTypeFromGameObject(GameObject target)

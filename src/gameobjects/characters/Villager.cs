@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using SerpentEngine;
 using System;
 using System.Collections.Generic;
@@ -10,19 +11,21 @@ namespace CastleGame
 {
     public class Villager : Character
     {
-
-        public Item currentItem = Item.Empty();
+        public Tool Tool { get; set; } = Tool.Empty();
+        public Item CurrentItem { get; set; } = Item.Empty();
         public Villager(string name) : base(name)
         {
             Speed = 20;
             Range = 50;
-
+            SetTool(Items.Axe());
         }
 
         public override void Update()
         {
             base.Update();
-            currentItem.Position = new Vector2(Position.X, Position.Y - 14);
+            CurrentItem.Position = new Vector2(Position.X, Position.Y - 14);
+
+
             if (Input.Mouse.RightClickRelease())
             {
 
@@ -31,6 +34,47 @@ namespace CastleGame
                 AddTask(GetTaskTypeFromGameObject(Target), Target);
 
                 Target = GameObject.Empty();
+
+            }
+
+            UpdateTool();
+        }
+
+        public void UpdateTool()
+        {
+            Tool.Position = new Vector2(Position.X + CurrentDirection.X * 6, Position.Y - 7);
+            Tool.Layer = Layer + 1;
+            if (GetDirection().Name == Direction.East().Name)
+            {
+                Tool.GetComponent<Sprite>().Effect = SpriteEffects.FlipHorizontally;
+
+            }
+            else
+            {
+                Tool.GetComponent<Sprite>().Effect = SpriteEffects.None;
+
+            }
+            UpdateToolAnimations();
+        }
+
+        public void UpdateToolAnimations()
+        {
+            if(Tool.Name != Tool.Empty().Name)
+            {
+                if(GetComponent<StateMachine>().CurrentState == CharacterStates.Chopping)
+                {
+                    Tool.GetComponent<Sprite>().Rotation += CurrentDirection.X / 10;
+
+                }
+                else if (GetComponent<StateMachine>().CurrentState == CharacterStates.Mining)
+                {
+                    Tool.GetComponent<Sprite>().Rotation += CurrentDirection.X / 10;
+
+                }
+                else
+                {
+                    Tool.GetComponent<Sprite>().Rotation = 0;
+                }
 
             }
         }
@@ -70,6 +114,28 @@ namespace CastleGame
             }
         }
 
+
+        public virtual void SetTool(Item item)
+        {
+            if (item is Tool tool) {
+                if (Tool.Name != Tool.Empty().Name)
+                {
+                    SceneManager.CurrentScene.Remove(Tool);
+                }
+                Tool = tool;
+                SceneManager.CurrentScene.AddGameObject(Tool);
+            }
+        }
+
+        public virtual bool IsHolding(Tool tool)
+        {
+            if(Tool.Name == tool.Name)
+            {
+                return true;
+            }
+            return false;
+        }
+
         //Task methods
         public virtual void Chop(GameObject gameObject)
         {
@@ -102,7 +168,7 @@ namespace CastleGame
         {
             if (gameObject is Item item)
             {
-                currentItem = item;
+                CurrentItem = item;
                 SceneManager.CurrentScene.GetGameObject<Player>().GetComponent<Inventory>().Add(item);
                 OnDestinationArrived();
             }
@@ -112,10 +178,10 @@ namespace CastleGame
         {
             if (gameObject is Stockpile stockpile)
             {
-                if (currentItem.Name != Item.Empty().Name && (currentItem.Name == stockpile.CurrentType || stockpile.CurrentType == Item.Empty().Name))
+                if (CurrentItem.Name != Item.Empty().Name && (CurrentItem.Name == stockpile.CurrentType || stockpile.CurrentType == Item.Empty().Name))
                 {
-                    stockpile.AddItem(currentItem);
-                    currentItem = Item.Empty();
+                    stockpile.AddItem(CurrentItem);
+                    CurrentItem = Item.Empty();
                 }
 
                 OnDestinationArrived();
@@ -125,9 +191,9 @@ namespace CastleGame
         {
             if (gameObject is Stockpile stockpile)
             {
-                if (currentItem.Name == Item.Empty().Name && stockpile.Size > 0)
+                if (CurrentItem.Name == Item.Empty().Name && stockpile.Size > 0)
                 {
-                    currentItem = stockpile.GetInventory().GetLast();
+                    CurrentItem = stockpile.GetInventory().GetLast();
                     stockpile.RemoveItem(stockpile.GetInventory().GetLast());
                 }
 
@@ -150,11 +216,11 @@ namespace CastleGame
             {
                 return TaskTypes.Use;
             }
-            if (target is Stockpile && currentItem.Name == Item.Empty().Name)
+            if (target is Stockpile && CurrentItem.Name == Item.Empty().Name)
             {
                 return TaskTypes.Take;
             }
-            if (target is Stockpile && currentItem.Name != Item.Empty().Name)
+            if (target is Stockpile && CurrentItem.Name != Item.Empty().Name)
             {
                 return TaskTypes.Add;
             }
