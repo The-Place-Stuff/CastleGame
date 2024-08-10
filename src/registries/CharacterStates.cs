@@ -24,5 +24,9 @@ namespace CastleGame
 
         public static readonly GameObjectState Adding = new GameObjectState("adding");
 
+        public static readonly GameObjectState Taking = new GameObjectState("taking");
+
+
+
     }
 }

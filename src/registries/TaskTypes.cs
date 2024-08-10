@@ -24,5 +24,8 @@ namespace CastleGame
 
         public static readonly string Add = "add_to_a";
 
+        public static readonly string Take = "take_from_a";
+
+
     }
 }

@@ -11,6 +11,9 @@ namespace CastleGame;
 public class Stockpile : Object
 {
     public int Size { get; set; } = 0;
+
+    public string CurrentType { get; set; } = Item.Empty().Name;
+
     public Stockpile(string name) : base(name)
     {
 
@@ -30,8 +33,9 @@ public class Stockpile : Object
 
     public void AddItem(Item item)
     {
+        CurrentType = item.Name;
         GetInventory().Add(item);
-        item.Position = new Vector2(Position.X, Position.Y - (GetInventory().CurrentSize -1) * 5);
+        item.Position = new Vector2(Position.X, Position.Y - 4);
         SceneManager.CurrentScene.AddGameObject(item);
     }
 

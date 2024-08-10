@@ -43,6 +43,7 @@ public abstract class Character : GameObject
         GetComponent<StateMachine>().AddState(CharacterStates.Fighting);
         GetComponent<StateMachine>().AddState(CharacterStates.Picking);
         GetComponent<StateMachine>().AddState(CharacterStates.Adding);
+        GetComponent<StateMachine>().AddState(CharacterStates.Taking);
 
 
         GetComponent<StateMachine>().SetState(CharacterStates.Wandering.Name);
@@ -171,29 +172,9 @@ public abstract class Character : GameObject
 
     }
 
-    public string GetTaskTypeFromGameObject(GameObject target)
+    public virtual string GetTaskTypeFromGameObject(GameObject target)
     {
-        if(target is Tree)
-        {
-            return TaskTypes.Chop;
-        }
-        if (target is Rock)
-        {
-            return TaskTypes.Mine;
-        }
-        if (target is Furnace)
-        {
-            return TaskTypes.Use;
-        }
-        if (target is Stockpile)
-        {
-            return TaskTypes.Add;
-        }
-        if (target is Item)
-        {
-            return TaskTypes.Pick;
-            
-        }
+
         return TaskTypes.None;
     }
 

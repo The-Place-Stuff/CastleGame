@@ -30,6 +30,8 @@ namespace CastleGame
 
                 AddTask(GetTaskTypeFromGameObject(Target), Target);
 
+                Target = GameObject.Empty();
+
             }
         }
 
@@ -60,6 +62,11 @@ namespace CastleGame
             {
                 GetComponent<StateMachine>().SetState(CharacterStates.Adding.Name);
                 Add(GetComponent<TaskManager>().CurrentTask.Target);
+            }
+            else if (GetCurrentTask().Type == TaskTypes.Take)
+            {
+                GetComponent<StateMachine>().SetState(CharacterStates.Taking.Name);
+                Take(GetComponent<TaskManager>().CurrentTask.Target);
             }
         }
 
@@ -105,7 +112,7 @@ namespace CastleGame
         {
             if (gameObject is Stockpile stockpile)
             {
-                if (currentItem.Name != Item.Empty().Name)
+                if (currentItem.Name != Item.Empty().Name && (currentItem.Name == stockpile.CurrentType || stockpile.CurrentType == Item.Empty().Name))
                 {
                     stockpile.AddItem(currentItem);
                     currentItem = Item.Empty();
@@ -113,6 +120,50 @@ namespace CastleGame
 
                 OnDestinationArrived();
             }
+        }
+        public virtual void Take(GameObject gameObject)
+        {
+            if (gameObject is Stockpile stockpile)
+            {
+                if (currentItem.Name == Item.Empty().Name && stockpile.Size > 0)
+                {
+                    currentItem = stockpile.GetInventory().GetLast();
+                    stockpile.RemoveItem(stockpile.GetInventory().GetLast());
+                }
+
+                OnDestinationArrived();
+            }
+        }
+
+
+        public override string GetTaskTypeFromGameObject(GameObject target)
+        {
+            if (target is Tree)
+            {
+                return TaskTypes.Chop;
+            }
+            if (target is Rock)
+            {
+                return TaskTypes.Mine;
+            }
+            if (target is Furnace)
+            {
+                return TaskTypes.Use;
+            }
+            if (target is Stockpile && currentItem.Name == Item.Empty().Name)
+            {
+                return TaskTypes.Take;
+            }
+            if (target is Stockpile && currentItem.Name != Item.Empty().Name)
+            {
+                return TaskTypes.Add;
+            }
+            if (target is Item)
+            {
+                return TaskTypes.Pick;
+
+            }
+            return base.GetTaskTypeFromGameObject(target);
         }
 
     }

@@ -22,6 +22,8 @@
     <None Remove="assets\animation\villager_east.json" />
     <None Remove="assets\animation\villager_idle.json" />
     <None Remove="assets\animation\villager_west.json" />
+    <None Remove="assets\font\peaberry.spritefont" />
+    <None Remove="assets\font\PeaberryBase.ttf" />
     <None Remove="assets\img\cursor.png" />
     <None Remove="assets\img\grass.png" />
     <None Remove="assets\img\objects\bush.png" />
@@ -50,6 +52,7 @@
     <ProjectReference Include="..\..\..\Engine\SerpentEngine\SerpentEngine\SerpentEngine\SerpentEngine.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="src\gameobjects\ui\" />
     <Folder Include="src\misc\" />
     <Folder Include="src\util\" />
   </ItemGroup>
