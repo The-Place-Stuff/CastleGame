@@ -19,6 +19,8 @@ public abstract class Character : GameObject
 
     public Vector2 CurrentDirection { get; set; }
 
+    public float MaxHealth { get; set; }
+
     public Character(string name)
     {
         Name = name;
@@ -33,6 +35,7 @@ public abstract class Character : GameObject
         Direction direction = CreateAndAddComponent<Direction>();
         PatrolMovementAI movementAI = CreateAndAddComponent<PatrolMovementAI>();
         TaskManager taskManager = CreateAndAddComponent<TaskManager>();
+        Health health = new Health(MaxHealth); AddComponent(health);
 
         GetComponent<Direction>().Set(Direction.East().Name);
 

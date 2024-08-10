@@ -12,7 +12,7 @@ namespace CastleGame
         public float Points { get; set; } = 0;
 
         public float Size { get; set; } = 0;
-        public Health(int size) : base(false)
+        public Health(float size) : base(false)
         {
             Size = size;
         }
