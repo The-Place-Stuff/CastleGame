@@ -14,7 +14,7 @@ namespace CastleGame
         public static new string Path = "assets/img/characters/";
 
 
-        public static Func<Character> Villager = Register("villager",() => new Villager("villager"));
+        public static Func<Character> Villager = Register("villager",() => new Villager("villager", 5, 25, 25));
 
         public static Func<Character> Register(string name, Func<Character> character)
         {

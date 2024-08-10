@@ -13,11 +13,8 @@ namespace CastleGame
     {
         public Tool Tool { get; set; } = Tool.Empty();
         public Item CurrentItem { get; set; } = Item.Empty();
-        public Villager(string name) : base(name)
+        public Villager(string name, float maxHealth, float speed, int range) : base(name, maxHealth, speed, range)
         {
-            Speed = 20;
-            Range = 50;
-            SetTool(Items.Axe());
         }
 
         public override void Update()
@@ -42,19 +39,22 @@ namespace CastleGame
 
         public void UpdateTool()
         {
-            Tool.Position = new Vector2(Position.X + CurrentDirection.X * 6, Position.Y - 7);
-            Tool.Layer = Layer + 1;
-            if (GetDirection().Name == Direction.East().Name)
+            if (Tool.Name != Tool.Empty().Name)
             {
-                Tool.GetComponent<Sprite>().Effect = SpriteEffects.FlipHorizontally;
+                Tool.Position = new Vector2(Position.X + CurrentDirection.X * 6, Position.Y - 7);
+                Tool.Layer = Layer + 1;
+                if (GetDirection().Name == Direction.East().Name)
+                {
+                    Tool.GetComponent<Sprite>().Effect = SpriteEffects.FlipHorizontally;
 
-            }
-            else
-            {
-                Tool.GetComponent<Sprite>().Effect = SpriteEffects.None;
+                }
+                else
+                {
+                    Tool.GetComponent<Sprite>().Effect = SpriteEffects.None;
 
+                }
+                UpdateToolAnimations();
             }
-            UpdateToolAnimations();
         }
 
         public void UpdateToolAnimations()
@@ -136,6 +136,36 @@ namespace CastleGame
             return false;
         }
 
+        public override string GetTaskTypeFromGameObject(GameObject target)
+        {
+            if (target is Tree)
+            {
+                return TaskTypes.Chop;
+            }
+            if (target is Rock)
+            {
+                return TaskTypes.Mine;
+            }
+            if (target is MakerObject)
+            {
+                return TaskTypes.Use;
+            }
+            if (target is Stockpile && CurrentItem.Name == Item.Empty().Name)
+            {
+                return TaskTypes.Take;
+            }
+            if (target is Stockpile && CurrentItem.Name != Item.Empty().Name)
+            {
+                return TaskTypes.Add;
+            }
+            if (target is Item)
+            {
+                return TaskTypes.Pick;
+
+            }
+            return base.GetTaskTypeFromGameObject(target);
+        }
+
         //Task methods
         public virtual void Chop(GameObject gameObject)
         {
@@ -202,35 +232,6 @@ namespace CastleGame
         }
 
 
-        public override string GetTaskTypeFromGameObject(GameObject target)
-        {
-            if (target is Tree)
-            {
-                return TaskTypes.Chop;
-            }
-            if (target is Rock)
-            {
-                return TaskTypes.Mine;
-            }
-            if (target is Furnace)
-            {
-                return TaskTypes.Use;
-            }
-            if (target is Stockpile && CurrentItem.Name == Item.Empty().Name)
-            {
-                return TaskTypes.Take;
-            }
-            if (target is Stockpile && CurrentItem.Name != Item.Empty().Name)
-            {
-                return TaskTypes.Add;
-            }
-            if (target is Item)
-            {
-                return TaskTypes.Pick;
-
-            }
-            return base.GetTaskTypeFromGameObject(target);
-        }
 
     }
 }

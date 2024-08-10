@@ -21,9 +21,12 @@ public abstract class Character : GameObject
 
     public float MaxHealth { get; set; }
 
-    public Character(string name)
+    public Character(string name, float maxHealth, float speed, int range)
     {
         Name = name;
+        MaxHealth = maxHealth;
+        Speed = speed;
+        Range = range;
     }
 
     public override void Load()

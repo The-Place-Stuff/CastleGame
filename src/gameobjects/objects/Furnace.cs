@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CastleGame;
-public class Furnace : Object
+public class Furnace : MakerObject
 {
     public Furnace(string name) : base(name)
     {
@@ -15,17 +15,6 @@ public class Furnace : Object
 
     public override void Load()
     {
-        AnimationTree animationTree = CreateAndAddComponent<AnimationTree>();
-        StateMachine stateMachine = CreateAndAddComponent<StateMachine>();
-
-
-        stateMachine.AddState(States.Off);
-        stateMachine.AddState(States.On);
-
-        GetComponent<StateMachine>().SetState("off");
-
-        animationTree.AddAnimation("assets/animation/furnace_off", _ => GetComponent<StateMachine>().CurrentState.Name == "off");
-        animationTree.AddAnimation("assets/animation/furnace_on", _ => GetComponent<StateMachine>().CurrentState.Name == "on");
 
         base.Load();
     }
