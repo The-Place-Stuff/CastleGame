@@ -10,6 +10,7 @@ namespace CastleGame
 {
     public class GoTask : Task
     {
+
         public GoTask(GameObject obj) : base(obj)
         {
 

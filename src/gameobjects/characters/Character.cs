@@ -170,10 +170,10 @@ public abstract class Character : GameObject
         return GetComponent<Direction>();
     }
 
-    public virtual string GetTaskTypeFromGameObject(GameObject target)
+    public virtual Task GetTaskTypeFromGameObject(GameObject target)
     {
 
-        return TaskTypes.None;
+        return new Task(GameObject.Empty());
     }
 
     public virtual void CheckTasks()
@@ -227,6 +227,8 @@ public abstract class Character : GameObject
         }
 
     }
+
+
 
 
 }

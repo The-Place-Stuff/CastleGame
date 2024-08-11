@@ -12,6 +12,7 @@ namespace CastleGame
     {
         public string Name { get; private set; } = "none";
         public GameObject Target { get; set; } = GameObject.Empty();
+        public GameObject Sensor { get; set; } = GameObject.Empty();
         public Character Character { get; private set; } 
 
 

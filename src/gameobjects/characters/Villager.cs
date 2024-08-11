@@ -27,8 +27,8 @@ namespace CastleGame
             {
 
                 AddTask(new GoTask(Game.cursor.Position));
-                AddTask(new ChopTask(Game.cursor.Position));
-                AddTask(new PickTask(Game.cursor.Position));
+                AddTask(GetTaskTypeFromGameObject(Target));
+                DebugGui.Log(Target.Name);
 
 
             }
@@ -100,31 +100,31 @@ namespace CastleGame
             return false;
         }
 
-        public override string GetTaskTypeFromGameObject(GameObject target)
+        public override Task GetTaskTypeFromGameObject(GameObject target)
         {
             if (target is Tree)
             {
-                return TaskTypes.Chop;
+                return new ChopTask(target.Position);
             }
             if (target is Rock)
             {
-                return TaskTypes.Mine;
+                return new ChopTask(target.Position);
             }
             if (target is MakerObject)
             {
-                return TaskTypes.Use;
+                return new UseTask(target.Position);
             }
             if (target is Stockpile && CurrentItem.Name == Item.Empty().Name)
             {
-                return TaskTypes.Take;
+                return new TakeTask(target.Position);
             }
             if (target is Stockpile && CurrentItem.Name != Item.Empty().Name)
             {
-                return TaskTypes.Add;
+                return new AddTask(target.Position);
             }
             if (target is Item)
             {
-                return TaskTypes.Pick;
+                return new PickTask(target.Position);
 
             }
             return base.GetTaskTypeFromGameObject(target);
