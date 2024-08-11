@@ -224,6 +224,7 @@ public abstract class Character : GameObject
 
     public virtual void UpdateTasks()
     {
+        //fix number 3
         if (GetCurrentTask().Type == TaskTypes.Go)
         {
             GetComponent<StateMachine>().SetState(CharacterStates.Wandering.Name);

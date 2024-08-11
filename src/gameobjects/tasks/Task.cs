@@ -49,6 +49,7 @@ namespace CastleGame
 
 
 
+
         public virtual void Initialize()
         {
             TaskMachine = Target.GetComponent<TaskManager>();
@@ -57,6 +58,11 @@ namespace CastleGame
 
         public virtual void Update()
         {
+        }
+
+        public virtual void Action()
+        {
+
         }
 
         public virtual void Enter()

@@ -81,6 +81,8 @@ namespace CastleGame
 
         public override void UpdateTasks()
         {
+
+            //fix number 1
             base.UpdateTasks();
             if (GetCurrentTask().Type == TaskTypes.Use)
             {
@@ -138,6 +140,7 @@ namespace CastleGame
 
         public override string GetTaskTypeFromGameObject(GameObject target)
         {
+            //fix number 2
             if (target is Tree)
             {
                 return TaskTypes.Chop;

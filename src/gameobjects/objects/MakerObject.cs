@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CastleGame
 {
-    public abstract class MakerObject : Object
+    public class MakerObject : Object
     {
 
         public int InventorySize { get; set; } = 0;
