@@ -124,7 +124,7 @@ public abstract class Character : GameObject
         {
             
             GameObject obj = SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.GetTileFromWorldCoordinates(VectorHelper.Snap(position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X));
-            GameObject gameObject = SceneManager.CurrentScene.GetGameObject(VectorHelper.Snap(position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X));
+            GameObject gameObject = SceneManager.CurrentScene.GetGameObjectAt(VectorHelper.Snap(position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X));
             if (obj != null)
             {
                 GetComponent<TaskManager>().AddTask(new Task(type, obj));
