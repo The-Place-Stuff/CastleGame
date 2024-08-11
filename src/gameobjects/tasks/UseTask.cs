@@ -8,26 +8,24 @@ using System.Threading.Tasks;
 
 namespace CastleGame
 {
-    public class PickTask : Task
+    public class UseTask : Task
     {
-        public PickTask(GameObject obj) : base(obj)
+        public UseTask(GameObject obj) : base(obj)
         {
 
         }
-        public PickTask(Vector2 pos) : base(pos)
+        public UseTask(Vector2 position) : base(position)
         {
 
         }
-
         public override void Start()
         {
-            if (Target is Item item)
+
+            if (Target is Object obj)
             {
-                (Character as Villager).CurrentItem = item;
-                SceneManager.CurrentScene.GetGameObject<Player>().GetComponent<Inventory>().Add(item);
+                obj.OnUse();
                 Character.OnDestinationArrived();
             }
-
 
             base.Start();
         }

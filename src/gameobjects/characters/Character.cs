@@ -115,66 +115,53 @@ public abstract class Character : GameObject
             return GetComponent<TaskManager>().CurrentTask;
         }
 
-        return new Task(TaskTypes.None, GameObject.Empty());
+        return new Task(GameObject.Empty());
     }
 
-    public virtual void AddTask(string type, Vector2 position)
+    public virtual void AddTask(Task task)
     {
-        if (!Player.BuildingMode)
+        if (Player.BuildingMode) return;
+
+        Map map = SceneManager.CurrentScene.GetGameObject<Map>();
+        TaskManager taskManager = GetComponent<TaskManager>();
+        Vector2 position = task.Target.Position;
+
+        GameObject gameObject = SceneManager.CurrentScene.GetGameObjectAt(VectorHelper.Snap(position, map.objectGrid.TileSize.X));
+        GameObject obj = map.objectGrid.GetTileFromWorldCoordinates(VectorHelper.Snap(position, map.objectGrid.TileSize.X));
+
+        GameObject taskTarget = GameObject.Empty();
+        taskTarget.Position = position;
+
+        if (gameObject != null)
         {
-            
-            GameObject obj = SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.GetTileFromWorldCoordinates(VectorHelper.Snap(position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X));
-            GameObject gameObject = SceneManager.CurrentScene.GetGameObjectAt(VectorHelper.Snap(position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X));
-            if (obj != null)
-            {
-                GetComponent<TaskManager>().AddTask(new Task(type, obj));
-                if (GetTasks().Count == 1)
-                {
-                    GetComponent<TaskManager>().SetTask(new Task(type, obj));
-                    SetTarget(obj);
-                    UpdateTasks();
+            task.Target = gameObject;
+            taskManager.AddTask(task);
 
-                }
-            }
-            else if(gameObject != null)
+            if (GetTasks().Count == 1)
             {
-                GetComponent<TaskManager>().AddTask(new Task(type, gameObject));
-                if (GetTasks().Count == 1)
-                {
-                    GetComponent<TaskManager>().SetTask(new Task(type, gameObject));
-                    SetTarget(gameObject);
-                    UpdateTasks();
-
-                }
-            }
-            else
-            {
-                GetComponent<TaskManager>().AddTask(new Task(type, VectorHelper.Snap(position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X)));
-                if (GetTasks().Count == 1)
-                {
-                    GetComponent<TaskManager>().SetTask(new Task(type, VectorHelper.Snap(position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X)));
-                    SetTarget(GetCurrentTask().Target);
-                    UpdateTasks();
-
-                }
+                taskManager.SetTask(task);
+                SetTarget(taskTarget);
+                UpdateTasks();
 
             }
+        }
+        else
+        {
+            if (obj != null) taskTarget = obj;
 
+
+            task.Target = taskTarget;
+            taskManager.AddTask(task);
+
+            if (GetTasks().Count == 1)
+            {
+                taskManager.SetTask(task);
+                SetTarget(taskTarget);
+                UpdateTasks();
+
+            }
 
         }
-
-    }
-
-    public virtual void AddTask(string type, GameObject gameObject)
-    {
-
-        GetComponent<TaskManager>().AddTask(new Task(type, gameObject));
-        if (GetTasks().Count == 1)
-        {
-            GetComponent<TaskManager>().SetTask(new Task(type, gameObject));
-            UpdateTasks();
-        }
-
 
     }
 
@@ -224,12 +211,8 @@ public abstract class Character : GameObject
 
     public virtual void UpdateTasks()
     {
-        //fix number 3
-        if (GetCurrentTask().Type == TaskTypes.Go)
-        {
-            GetComponent<StateMachine>().SetState(CharacterStates.Wandering.Name);
-            Go(GetComponent<TaskManager>().CurrentTask.Target.Position);
-        }
+        GetCurrentTask().Start();
+
     }
 
     public virtual void UpdateDirection()
@@ -245,11 +228,6 @@ public abstract class Character : GameObject
 
     }
 
-    //Task Methods
-    public virtual void Go(Vector2 position)
-    {
-        GetComponent<PatrolMovementAI>().Path = position;
-    }
 
 }
 

@@ -8,24 +8,22 @@ using System.Threading.Tasks;
 
 namespace CastleGame
 {
-    public class ChopTask : Task
+    public class GoTask : Task
     {
-        public ChopTask(GameObject obj) : base( obj)
+        public GoTask(GameObject obj) : base(obj)
         {
 
         }
-        public ChopTask(Vector2 position) : base(position)
+
+        public GoTask(Vector2 position) : base(position)
         {
 
         }
+
         public override void Start()
         {
-            if (Target is Tree tree)
-            {
-                tree.OnChop();
-                Character.OnDestinationArrived();
-            }
-
+            Character.GetComponent<StateMachine>().SetState(CharacterStates.Wandering.Name);
+            Character.GetComponent<PatrolMovementAI>().Path = Target.Position;
 
             base.Start();
         }

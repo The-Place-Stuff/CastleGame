@@ -1,4 +1,5 @@
-﻿using SerpentEngine;
+﻿using Microsoft.Xna.Framework;
+using SerpentEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,17 +10,30 @@ namespace CastleGame
 {
     public class TakeTask : Task
     {
-        public TakeTask(string type, GameObject obj) : base(type, obj)
+        public TakeTask(GameObject obj) : base(obj)
         {
 
         }
-
-        public override void Action()
+        public TakeTask(Vector2 position) : base(position)
         {
 
+        }
+        public override void Start()
+        {
+            Villager villager = Character as Villager;
 
+            if (Target is Stockpile stockpile)
+            {
+                if (villager.CurrentItem.Name == Item.Empty().Name && stockpile.Size > 0)
+                {
+                    villager.CurrentItem = stockpile.GetInventory().GetLast();
+                    stockpile.RemoveItem(stockpile.GetInventory().GetLast());
+                }
 
-            base.Action();
+                villager.OnDestinationArrived();
+            }
+
+            base.Start();
         }
     }
 }

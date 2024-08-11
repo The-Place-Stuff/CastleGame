@@ -1,4 +1,5 @@
-﻿using SerpentEngine;
+﻿using Microsoft.Xna.Framework;
+using SerpentEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,17 +10,24 @@ namespace CastleGame
 {
     public class MineTask : Task
     {
-        public MineTask(string type, GameObject obj) : base(type, obj)
+        public MineTask(GameObject obj) : base(obj)
         {
 
         }
-
-        public override void Action()
+        public MineTask(Vector2 position) : base(position)
         {
 
+        }
+        public override void Start()
+        {
 
+            if (Target is Rock rock)
+            {
+                rock.OnMine();
+                Character.OnDestinationArrived();
+            }
 
-            base.Action();
+            base.Start();
         }
     }
 }

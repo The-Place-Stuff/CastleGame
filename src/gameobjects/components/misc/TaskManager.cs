@@ -21,6 +21,7 @@ namespace CastleGame
         {
             Tasks.Add(task);
 
+            task.SetCharacter(GameObject as Character);
             task.Initialize();
         }
 

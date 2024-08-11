@@ -26,11 +26,10 @@ namespace CastleGame
             if (Input.Mouse.RightClickRelease())
             {
 
-                AddTask(TaskTypes.Go, Game.cursor.Position);
+                AddTask(new GoTask(Game.cursor.Position));
+                AddTask(new ChopTask(Game.cursor.Position));
+                AddTask(new PickTask(Game.cursor.Position));
 
-                AddTask(GetTaskTypeFromGameObject(Target), Target);
-
-                Target = GameObject.Empty();
 
             }
 
@@ -79,43 +78,6 @@ namespace CastleGame
             }
         }
 
-        public override void UpdateTasks()
-        {
-
-            //fix number 1
-            base.UpdateTasks();
-            if (GetCurrentTask().Type == TaskTypes.Use)
-            {
-                GetComponent<StateMachine>().SetState(CharacterStates.Using.Name);
-                Use(GetComponent<TaskManager>().CurrentTask.Target);
-            }
-            else if (GetCurrentTask().Type == TaskTypes.Chop)
-            {
-                GetComponent<StateMachine>().SetState(CharacterStates.Chopping.Name);
-                Chop(GetComponent<TaskManager>().CurrentTask.Target);
-            }
-            else if (GetCurrentTask().Type == TaskTypes.Mine)
-            {
-                GetComponent<StateMachine>().SetState(CharacterStates.Mining.Name);
-                Mine(GetComponent<TaskManager>().CurrentTask.Target);
-            }
-            else if (GetCurrentTask().Type == TaskTypes.Pick)
-            {
-                GetComponent<StateMachine>().SetState(CharacterStates.Picking.Name);
-                Pick(GetComponent<TaskManager>().CurrentTask.Target);
-            }
-            else if (GetCurrentTask().Type == TaskTypes.Add)
-            {
-                GetComponent<StateMachine>().SetState(CharacterStates.Adding.Name);
-                Add(GetComponent<TaskManager>().CurrentTask.Target);
-            }
-            else if (GetCurrentTask().Type == TaskTypes.Take)
-            {
-                GetComponent<StateMachine>().SetState(CharacterStates.Taking.Name);
-                Take(GetComponent<TaskManager>().CurrentTask.Target);
-            }
-        }
-
 
         public virtual void SetTool(Item item)
         {
@@ -140,7 +102,6 @@ namespace CastleGame
 
         public override string GetTaskTypeFromGameObject(GameObject target)
         {
-            //fix number 2
             if (target is Tree)
             {
                 return TaskTypes.Chop;
@@ -168,71 +129,7 @@ namespace CastleGame
             }
             return base.GetTaskTypeFromGameObject(target);
         }
-
-        //Task methods
-        public virtual void Chop(GameObject gameObject)
-        {
-            if (gameObject is Tree tree)
-            {
-                tree.OnChop();
-                OnDestinationArrived();
-            }
-        }
-
-        public virtual void Mine(GameObject gameObject)
-        {
-            if (gameObject is Rock rock)
-            {
-                rock.OnMine();
-                OnDestinationArrived();
-            }
-        }
-
-        public virtual void Use(GameObject gameObject)
-        {
-            if (gameObject is Object obj)
-            {
-                obj.OnUse();
-                OnDestinationArrived();
-            }
-        }
-
-        public virtual void Pick(GameObject gameObject)
-        {
-            if (gameObject is Item item)
-            {
-                CurrentItem = item;
-                SceneManager.CurrentScene.GetGameObject<Player>().GetComponent<Inventory>().Add(item);
-                OnDestinationArrived();
-            }
-        }
-
-        public virtual void Add(GameObject gameObject)
-        {
-            if (gameObject is Stockpile stockpile)
-            {
-                if (CurrentItem.Name != Item.Empty().Name && (CurrentItem.Name == stockpile.CurrentType || stockpile.CurrentType == Item.Empty().Name))
-                {
-                    stockpile.AddItem(CurrentItem);
-                    CurrentItem = Item.Empty();
-                }
-
-                OnDestinationArrived();
-            }
-        }
-        public virtual void Take(GameObject gameObject)
-        {
-            if (gameObject is Stockpile stockpile)
-            {
-                if (CurrentItem.Name == Item.Empty().Name && stockpile.Size > 0)
-                {
-                    CurrentItem = stockpile.GetInventory().GetLast();
-                    stockpile.RemoveItem(stockpile.GetInventory().GetLast());
-                }
-
-                OnDestinationArrived();
-            }
-        }
+ 
 
 
 

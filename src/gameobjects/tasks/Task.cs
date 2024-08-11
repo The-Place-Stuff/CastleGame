@@ -11,56 +11,58 @@ namespace CastleGame
     public class Task
     {
         public string Name { get; private set; } = "none";
+        public GameObject Target { get; set; } = GameObject.Empty();
+        public Character Character { get; private set; } 
 
-        public string Type { get; private set; } = "none";
 
-        public GameObject Target { get; private set; } = GameObject.Empty();
+        public TaskManager TaskManager { get; private set; }
 
-        public TaskManager TaskMachine { get; private set; }
-
-        public Task(string type, GameObject obj)
+        public Task(GameObject obj)
         {
             if (obj == null)
             {
 
                 obj = GameObject.Empty();
                 Name = TaskTypes.None;
-                Type = TaskTypes.None;
                 Target = obj;
 
 
             }
             else
             {
-                Name = type + obj.Name;
+                Name = Name + obj.Name;
                 Target = obj;
-                Type = type;
             }
         }
 
-        public Task(string type, Vector2 position)
+        public Task(Vector2 position)
         {
-            Type = type;
-            Name = type + position.ToString();
-            Target = Tile.Empty();
+            Name = Name + position.ToString();
+            Target = GameObject.Empty();
             Target.Position = position;
         }
 
-
-
-
+        public void SetCharacter(Character character)
+        {
+            Character = character;
+        }
 
         public virtual void Initialize()
         {
-            TaskMachine = Target.GetComponent<TaskManager>();
+            TaskManager = Target.GetComponent<TaskManager>();
         }
-
 
         public virtual void Update()
         {
         }
 
-        public virtual void Action()
+        public virtual void Start()
+        {
+
+        }
+
+
+        public virtual void Finish()
         {
 
         }
