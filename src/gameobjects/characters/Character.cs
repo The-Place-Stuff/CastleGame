@@ -179,6 +179,7 @@ public abstract class Character : GameObject
     public virtual void CheckTasks()
     {
         Vector2 position = GetComponent<PatrolMovementAI>().Path;
+        DebugGui.Log(VectorHelper.Snap(position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X) + " " + VectorHelper.Snap(Position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X));
 
         if (VectorHelper.Snap(Position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X) ==
             VectorHelper.Snap(position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X) && position != Vector2.Zero)

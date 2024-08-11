@@ -28,7 +28,6 @@ namespace CastleGame
 
                 AddTask(new GoTask(Game.cursor.Position));
                 AddTask(GetTaskTypeFromGameObject(Target));
-                DebugGui.Log(Target.Name);
 
 
             }
