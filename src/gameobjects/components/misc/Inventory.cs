@@ -31,31 +31,29 @@ namespace CastleGame
 
         public void Set(Item item, int index)
         {
-            if (Items.Count - 1 > index)
-            {
-                Items[index] = item;
-            }
+            if (Items.Count - 1 < index) return;
+
+            Items[index] = item;
         }
 
         public void Remove(int index)
         {
-            if (Items.Count - 1 > index)
-            {
-                Items.RemoveAt(index);
-                CurrentSize--;
-            }
+            if (Items.Count - 1 < index) return;
+
+            Items.RemoveAt(index);
+            CurrentSize--;
         }
 
         public void Remove(Item item)
         {
             foreach (Item i in Items)
             {
-                if (i == item)
-                {
-                    Items.Remove(i);
-                    CurrentSize--;
-                    break;
-                }
+                if (i != item) continue;
+
+                Items.Remove(i);
+                CurrentSize--;
+
+                break;
             }
         }
 

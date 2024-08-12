@@ -27,18 +27,14 @@ public class Furnace : MakerObject
 
     public override void OnUse()
     {
+        StateMachine stateMachine = GetComponent<StateMachine>();
 
-        if (GetComponent<StateMachine>().CurrentState.Name == States.Off.Name)
+        if (stateMachine.CurrentState.Name == States.Off.Name)
         {
-            GetComponent<StateMachine>().SetState(States.On.Name);
-        }
-        else
-        {
-            GetComponent<StateMachine>().SetState(States.Off.Name);
+            stateMachine.SetState(States.On.Name);
+            return;
         }
 
-        base.OnUse();
+        stateMachine.SetState(States.Off.Name);
     }
-
-
 }

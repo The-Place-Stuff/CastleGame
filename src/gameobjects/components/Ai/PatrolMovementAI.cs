@@ -24,23 +24,25 @@ namespace CastleGame
         {
             if (Path == Vector2.Zero) return;
 
-            var dir = Path - character.Position;
+            Vector2 dir = Path - character.Position;
 
-            if (dir.Length() > 4)
+            if (dir.Length() < 4) return;
+
+            dir.Normalize();
+
+            if (dir.X > 0)
             {
-                dir.Normalize();
-                if(dir.X > 0)
-                {
-                    character.CurrentDirection = new Vector2(1, 0);
-                }
-                if (dir.X < 0)
-                {
-                    character.CurrentDirection = new Vector2(-1, 0);
-                }
-                Vector2 d = new Vector2((int)Math.Ceiling(dir.X), (int)Math.Ceiling(dir.Y));
-
-                character.Position += dir * character.Speed * (float)Main.GameTime.ElapsedGameTime.TotalSeconds;
+                character.CurrentDirection = new Vector2(1, 0);
             }
+
+            if (dir.X < 0)
+            {
+                character.CurrentDirection = new Vector2(-1, 0);
+            }
+
+            Vector2 d = new Vector2((int)Math.Ceiling(dir.X), (int)Math.Ceiling(dir.Y));
+
+            character.Position += dir * character.Speed * (float)Main.GameTime.ElapsedGameTime.TotalSeconds;
         }
     }
 }

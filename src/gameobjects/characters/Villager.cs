@@ -28,8 +28,7 @@ namespace CastleGame
 
                 AddTask(new GoTask(Game.cursor.Position));
                 AddTask(GetTaskTypeFromGameObject(Target));
-
-
+                DebugGui.Log(Target.Name);
             }
 
             UpdateTool();
@@ -37,65 +36,69 @@ namespace CastleGame
 
         public void UpdateTool()
         {
-            if (Tool.Name != Tool.Empty().Name)
-            {
-                Tool.Position = new Vector2(Position.X + CurrentDirection.X * 6, Position.Y - 7);
-                Tool.Layer = Layer + 1;
-                if (GetDirection().Name == Direction.East().Name)
-                {
-                    Tool.GetComponent<Sprite>().Effect = SpriteEffects.FlipHorizontally;
+            if (Tool.Name == Tool.Empty().Name) return;
 
-                }
-                else
-                {
-                    Tool.GetComponent<Sprite>().Effect = SpriteEffects.None;
+            Direction direction = GetComponent<Direction>();
+            Sprite sprite = GetComponent<Sprite>();
 
-                }
-                UpdateToolAnimations();
-            }
+            Tool.Position = new Vector2(Position.X + CurrentDirection.X * 6, Position.Y - 7);
+            Tool.Layer = Layer + 1;
+
+            Sprite toolSprite = Tool.GetComponent<Sprite>();
+
+            toolSprite.Effect = SpriteEffects.None;
+
+            if (direction.Name == Direction.East().Name) toolSprite.Effect = SpriteEffects.FlipHorizontally;
+
+            UpdateToolAnimations();
         }
 
         public void UpdateToolAnimations()
         {
-            if(Tool.Name != Tool.Empty().Name)
+            if (Tool.Name == Tool.Empty().Name) return;
+
+            StateMachine stateMachine = GetComponent<StateMachine>();
+            Sprite toolSprite = Tool.GetComponent<Sprite>();
+
+
+            if (stateMachine.CurrentState == CharacterStates.Chopping)
             {
-                if(GetComponent<StateMachine>().CurrentState == CharacterStates.Chopping)
-                {
-                    Tool.GetComponent<Sprite>().Rotation += CurrentDirection.X / 10;
+                Tool.GetComponent<Sprite>().Rotation += CurrentDirection.X / 10;
 
-                }
-                else if (GetComponent<StateMachine>().CurrentState == CharacterStates.Mining)
-                {
-                    Tool.GetComponent<Sprite>().Rotation += CurrentDirection.X / 10;
-
-                }
-                else
-                {
-                    Tool.GetComponent<Sprite>().Rotation = 0;
-                }
-
+                return;
             }
+
+            if (stateMachine.CurrentState == CharacterStates.Mining)
+            {
+                Tool.GetComponent<Sprite>().Rotation += CurrentDirection.X / 10;
+
+                return;
+            }
+
+            Tool.GetComponent<Sprite>().Rotation = 0;
         }
 
 
         public virtual void SetTool(Item item)
         {
-            if (item is Tool tool) {
-                if (Tool.Name != Tool.Empty().Name)
-                {
-                    SceneManager.CurrentScene.Remove(Tool);
-                }
-                Tool = tool;
-                SceneManager.CurrentScene.AddGameObject(Tool);
+            if (!(item is Tool)) return;
+
+            Tool tool = (Tool)item;
+
+            if (Tool.Name != Tool.Empty().Name)
+            {
+                SceneManager.CurrentScene.Remove(Tool);
             }
+
+            Tool = tool;
+
+            SceneManager.CurrentScene.AddGameObject(Tool);
         }
 
         public virtual bool IsHolding(Tool tool)
         {
-            if(Tool.Name == tool.Name)
-            {
-                return true;
-            }
+            if (Tool.Name == tool.Name) return true;
+
             return false;
         }
 
@@ -128,9 +131,5 @@ namespace CastleGame
             }
             return base.GetTaskTypeFromGameObject(target);
         }
- 
-
-
-
     }
 }

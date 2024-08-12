@@ -62,6 +62,7 @@ public class Cursor : GameObject
 
             SceneManager.CurrentScene.Camera.Translate(cameraMove);
         }
+
         else
         {
             isDragging = false;

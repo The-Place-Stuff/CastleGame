@@ -28,10 +28,10 @@ namespace CastleGame
             stateMachine.AddState(States.Off);
             stateMachine.AddState(States.On);
 
-            GetComponent<StateMachine>().SetState("off");
+            stateMachine.SetState("off");
 
-            animationTree.AddAnimation("assets/animation/" + Name + "_off", _ => GetComponent<StateMachine>().CurrentState.Name == "off");
-            animationTree.AddAnimation("assets/animation/" + Name + "_on", _ => GetComponent<StateMachine>().CurrentState.Name == "on");
+            animationTree.AddAnimation("assets/animation/" + Name + "_off", _ => stateMachine.CurrentState.Name == "off");
+            animationTree.AddAnimation("assets/animation/" + Name + "_on", _ => stateMachine.CurrentState.Name == "on");
             base.Load();
         }
 

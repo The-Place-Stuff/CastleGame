@@ -29,8 +29,9 @@ public class Tree : Object
 
         SceneManager.CurrentScene.AddGameObject(item);
 
-        SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.RemoveTile
-            (SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.ConvertWorldCoordinatesToGridCoordinates(Position));
+        Map map = SceneManager.CurrentScene.GetGameObject<Map>();
+
+        map.objectGrid.RemoveTile(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(Position));
     }
 
 

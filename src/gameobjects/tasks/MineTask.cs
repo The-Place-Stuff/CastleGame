@@ -20,14 +20,12 @@ namespace CastleGame
         }
         public override void Start()
         {
+            if (!(Target is Rock)) return;
 
-            if (Target is Rock rock)
-            {
-                rock.OnMine();
-                Character.OnDestinationArrived();
-            }
+            Rock rock = Target as Rock;
 
-            base.Start();
+            rock.OnMine();
+            Character.OnDestinationArrived();
         }
     }
 }

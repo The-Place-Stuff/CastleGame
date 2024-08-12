@@ -20,20 +20,20 @@ namespace CastleGame
         }
         public override void Start()
         {
+            if (!(Target is Stockpile)) return;
+
+            Stockpile stockpile = Target as Stockpile;
+            Inventory stockpileInventory = stockpile.GetInventory();
+
             Villager villager = Character as Villager;
 
-            if (Target is Stockpile stockpile)
+            if (villager.CurrentItem.Name == Item.Empty().Name && stockpile.Size > 0)
             {
-                if (villager.CurrentItem.Name == Item.Empty().Name && stockpile.Size > 0)
-                {
-                    villager.CurrentItem = stockpile.GetInventory().GetLast();
-                    stockpile.RemoveItem(stockpile.GetInventory().GetLast());
-                }
-
-                villager.OnDestinationArrived();
+                villager.CurrentItem = stockpileInventory.GetLast();
+                stockpile.RemoveItem(stockpileInventory.GetLast());
             }
 
-            base.Start();
+            villager.OnDestinationArrived();
         }
     }
 }

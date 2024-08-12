@@ -57,11 +57,10 @@ namespace CastleGame
             if(Tasks.Count == 0)
             {
                 CurrentTask = null;
+                return;
             }
-            if (CurrentTask != null)
-            {
-                CurrentTask.Update();
-            }
+
+            CurrentTask.Update();
         }
     }
 }

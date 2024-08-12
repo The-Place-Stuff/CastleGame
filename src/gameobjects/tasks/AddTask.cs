@@ -23,18 +23,20 @@ namespace CastleGame
         public override void Start()
         {
             Villager villager = Character as Villager;
-            if (Target is Stockpile stockpile)
-            {
-                if (villager.CurrentItem.Name != Item.Empty().Name && (villager.CurrentItem.Name == stockpile.CurrentType || stockpile.CurrentType == Item.Empty().Name))
-                {
-                    stockpile.AddItem(villager.CurrentItem);
-                    villager.CurrentItem = Item.Empty();
-                }
 
-                villager.OnDestinationArrived();
+            if (!(Target is Stockpile)) return;
+
+            if (villager.CurrentItem.Name == Item.Empty().Name) return;
+
+            Stockpile stockpile = Target as Stockpile;
+
+            if (villager.CurrentItem.Name == stockpile.CurrentType || stockpile.CurrentType == Item.Empty().Name)
+            {
+                stockpile.AddItem(villager.CurrentItem);
+                villager.CurrentItem = Item.Empty();
             }
 
-            base.Start();
+            villager.OnDestinationArrived();
         }
     }
 }

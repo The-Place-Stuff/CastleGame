@@ -29,15 +29,17 @@ namespace CastleGame
 
         public override void Update()
         {
+            Sprite sprite = GetComponent<Sprite>();
+
             if (Player.BuildingMode)
             {
                 TryPlaceBuilding();
-                GetComponent<Sprite>().Enabled = true;
+                sprite.Enabled = true;
 
             }
             else
             {
-                GetComponent<Sprite>().Enabled = false;
+                sprite.Enabled = false;
             }
 
             base.Update();
@@ -45,17 +47,17 @@ namespace CastleGame
 
         public void TryPlaceBuilding()
         {
-            Vector2 cursorPosition = Game.cursor.Position;
-            float tileSize = SceneManager.CurrentScene.GetGameObject<Map>().bluprintGrid.TileSize.X;
-            Position = VectorHelper.Snap(new Vector2(cursorPosition.X, cursorPosition.Y), tileSize);
+            Map map = SceneManager.CurrentScene.GetGameObject<Map>();
 
+            Vector2 cursorPosition = Game.cursor.Position;
+
+            float tileSize = map.bluprintGrid.TileSize.X;
+
+            Position = VectorHelper.Snap(new Vector2(cursorPosition.X, cursorPosition.Y), tileSize);
 
             if (Input.Mouse.LeftClickRelease())
             {
-                SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.PlaceTile(
-                    SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.ConvertWorldCoordinatesToGridCoordinates(Position),
-                    Objects.Furnace().Name
-                    );
+                map.objectGrid.PlaceTile(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(Position), Objects.Furnace().Name);
             }
         }
 

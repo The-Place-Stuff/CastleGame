@@ -31,10 +31,8 @@ public class Rock : Object
 
         SceneManager.CurrentScene.AddGameObject(item);
 
+        Map map = SceneManager.CurrentScene.GetGameObject<Map>();
 
-        SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.RemoveTile
-            (SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.ConvertWorldCoordinatesToGridCoordinates(Position));
+        map.objectGrid.RemoveTile(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(Position));
     }
-
-
 }

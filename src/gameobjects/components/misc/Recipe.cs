@@ -60,9 +60,6 @@ namespace CastleGame
             return false;
         }
 
-
-
-
         public bool Contains(Item item)
         {
             foreach (Item i in Ingredients)

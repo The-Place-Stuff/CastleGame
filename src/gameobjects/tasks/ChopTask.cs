@@ -20,14 +20,12 @@ namespace CastleGame
         }
         public override void Start()
         {
-            if (Target is Tree tree)
-            {
-                tree.OnChop();
-                Character.OnDestinationArrived();
-            }
+            if (!(Target is Tree)) return;
 
+            Tree tree = Target as Tree;
 
-            base.Start();
+            tree.OnChop();
+            Character.OnDestinationArrived();
         }
     }
 }

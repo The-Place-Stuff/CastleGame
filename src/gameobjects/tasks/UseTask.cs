@@ -20,14 +20,12 @@ namespace CastleGame
         }
         public override void Start()
         {
+            if (!(Target is Object)) return;
 
-            if (Target is Object obj)
-            {
-                obj.OnUse();
-                Character.OnDestinationArrived();
-            }
+            Object obj = (Object)Target;
 
-            base.Start();
+            obj.OnUse();
+            Character.OnDestinationArrived(); 
         }
     }
 }

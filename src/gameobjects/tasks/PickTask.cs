@@ -21,15 +21,17 @@ namespace CastleGame
 
         public override void Start()
         {
-            if (Target is Item item)
-            {
-                (Character as Villager).CurrentItem = item;
-                SceneManager.CurrentScene.GetGameObject<Player>().GetComponent<Inventory>().Add(item);
-                Character.OnDestinationArrived();
-            }
+            if (!(Target is Item)) return;
 
+            Item item = (Item)Target;
 
-            base.Start();
+            Villager villager = (Villager)Character;
+
+            Inventory playerInventory = SceneManager.CurrentScene.GetGameObject<Player>().GetComponent<Inventory>();
+
+            villager.CurrentItem = item;
+            playerInventory.Add(item);
+            Character.OnDestinationArrived();
         }
     }
 }
