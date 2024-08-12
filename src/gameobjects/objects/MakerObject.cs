@@ -1,4 +1,5 @@
-﻿using SerpentEngine;
+﻿using Microsoft.Xna.Framework;
+using SerpentEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,16 @@ namespace CastleGame
             base.Load();
         }
 
+        public override void Update()
+        {
+            foreach(KeyValuePair<string, Func<Item>> entry in Items.List)
+            {
+                Item item = entry.Value();
+                
+            }
+            base.Update();
+        }
+
         public void AddItem(Item item)
         {
             GetInventory().Add(item);
@@ -53,6 +64,13 @@ namespace CastleGame
         public Inventory GetInventory()
         {
             return GetComponent<Inventory>();
+        }
+
+        public virtual void Output(Recipe recipe)
+        {
+            Item result = recipe.Output;
+            result.Position = new Vector2(Position.X, Position.Y + 16);
+            SceneManager.CurrentScene.AddGameObject(result);
         }
     }
 }

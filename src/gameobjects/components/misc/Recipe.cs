@@ -10,29 +10,32 @@ namespace CastleGame
 {
     public class Recipe : Component
     {
-        public List<Item> Ingredients = new List<Item>(3);
-        public Recipe(Item ingredient1, Item ingredient2, Item ingredient3) : base(false)
+        public List<Item> Ingredients { get; set; } = new List<Item>(3);
+        public Item Output { get; set; }
+        public Recipe(Item ingredient1, Item ingredient2, Item ingredient3, Item output) : base(false)
         {
             Ingredients[0] = ingredient1;
             Ingredients[1] = ingredient2;
             Ingredients[2] = ingredient3;
+            Output = output;
 
         }
 
-        public Recipe(Item ingredient1, Item ingredient2) : base(false)
+        public Recipe(Item ingredient1, Item ingredient2, Item output) : base(false)
         {
             Ingredients[0] = ingredient1;
             Ingredients[1] = ingredient2;
             Ingredients[2] = Item.Empty();
+            Output = output;
 
         }
 
-        public Recipe(Item ingredient1) : base(false)
+        public Recipe(Item ingredient1, Item output) : base(false)
         {
             Ingredients[0] = ingredient1;
             Ingredients[1] = Item.Empty();
             Ingredients[2] = Item.Empty();
-
+            Output = output;
 
         }
 
