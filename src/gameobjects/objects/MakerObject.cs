@@ -5,54 +5,53 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame
+namespace CastleGame;
+
+public class MakerObject : Object
 {
-    public class MakerObject : Object
+
+    public int InventorySize { get; set; } = 0;
+
+    public MakerObject(string name) : base(name)
     {
 
-        public int InventorySize { get; set; } = 0;
 
-        public MakerObject(string name) : base(name)
-        {
+    }
 
-
-        }
-
-        public override void Load()
-        {
-            Inventory inventory = new Inventory(InventorySize); AddComponent(inventory);
-            AnimationTree animationTree = CreateAndAddComponent<AnimationTree>();
-            StateMachine stateMachine = CreateAndAddComponent<StateMachine>();
+    public override void Load()
+    {
+        Inventory inventory = new Inventory(InventorySize); AddComponent(inventory);
+        AnimationTree animationTree = CreateAndAddComponent<AnimationTree>();
+        StateMachine stateMachine = CreateAndAddComponent<StateMachine>();
 
 
-            stateMachine.AddState(States.Off);
-            stateMachine.AddState(States.On);
+        stateMachine.AddState(States.Off);
+        stateMachine.AddState(States.On);
 
-            stateMachine.SetState("off");
+        stateMachine.SetState("off");
 
-            animationTree.AddAnimation("assets/animation/" + Name + "_off", _ => stateMachine.CurrentState.Name == "off");
-            animationTree.AddAnimation("assets/animation/" + Name + "_on", _ => stateMachine.CurrentState.Name == "on");
-            base.Load();
-        }
+        animationTree.AddAnimation("assets/animation/" + Name + "_off", _ => stateMachine.CurrentState.Name == "off");
+        animationTree.AddAnimation("assets/animation/" + Name + "_on", _ => stateMachine.CurrentState.Name == "on");
+        base.Load();
+    }
 
-        public void AddItem(Item item)
-        {
-            GetInventory().Add(item);
-        }
+    public void AddItem(Item item)
+    {
+        GetInventory().Add(item);
+    }
 
-        public void RemoveLastItem()
-        {
-            GetInventory().RemoveLast();
-        }
+    public void RemoveLastItem()
+    {
+        GetInventory().RemoveLast();
+    }
 
-        public void RemoveItem(Item item)
-        {
-            GetInventory().Remove(item);
-        }
+    public void RemoveItem(Item item)
+    {
+        GetInventory().Remove(item);
+    }
 
-        public Inventory GetInventory()
-        {
-            return GetComponent<Inventory>();
-        }
+    public Inventory GetInventory()
+    {
+        return GetComponent<Inventory>();
     }
 }

@@ -4,18 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame
+namespace CastleGame;
+
+public class Tool : Item
 {
-    public class Tool : Item
+    public Tool(string name) : base(name)
     {
-        public Tool(string name) : base(name)
-        {
 
-        }
+    }
 
-        public static new Tool Empty()
-        {
-            return new Tool("");
-        }
+    public static new Tool Empty()
+    {
+        return new Tool("");
     }
 }

@@ -6,32 +6,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame
+namespace CastleGame;
+
+public class PickTask : Task
 {
-    public class PickTask : Task
+    public PickTask(GameObject obj) : base(obj)
     {
-        public PickTask(GameObject obj) : base(obj)
-        {
 
-        }
-        public PickTask(Vector2 pos) : base(pos)
-        {
+    }
+    public PickTask(Vector2 pos) : base(pos)
+    {
 
-        }
+    }
 
-        public override void Start()
-        {
-            if (!(Target is Item)) return;
+    public override void Start()
+    {
+        if (!(Target is Item)) return;
 
-            Item item = (Item)Target;
+        Item item = (Item)Target;
 
-            Villager villager = (Villager)Character;
+        Villager villager = (Villager)Character;
 
-            Inventory playerInventory = SceneManager.CurrentScene.GetGameObject<Player>().GetComponent<Inventory>();
+        Inventory playerInventory = SceneManager.CurrentScene.GetGameObject<Player>().GetComponent<Inventory>();
 
-            villager.CurrentItem = item;
-            playerInventory.Add(item);
-            Character.OnDestinationArrived();
-        }
+        villager.CurrentItem = item;
+        playerInventory.Add(item);
+        Character.OnDestinationArrived();
     }
 }

@@ -5,12 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame.src
+namespace CastleGame;
+
+public abstract class AI : Component
 {
-    public abstract class AI : Component
+    public AI() : base(false)
     {
-        public AI() : base(false)
-        {
-        }
     }
 }
