@@ -6,28 +6,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame
+namespace CastleGame;
+
+public class UseTask : Task
 {
-    public class UseTask : Task
+    public UseTask(GameObject obj) : base(obj)
     {
-        public UseTask(GameObject obj) : base(obj)
-        {
 
-        }
-        public UseTask(Vector2 position) : base(position)
-        {
+    }
+    public UseTask(Vector2 position) : base(position)
+    {
 
-        }
-        public override void Start()
-        {
+    }
+    public override void Start()
+    {
+        if (!(Target is Object)) return;
 
-            if (Target is Object obj)
-            {
-                obj.OnUse();
-                Character.OnDestinationArrived();
-            }
+        Object obj = (Object)Target;
 
-            base.Start();
-        }
+        obj.OnUse();
+        Character.OnDestinationArrived(); 
     }
 }

@@ -7,130 +7,127 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame
+namespace CastleGame;
+public class Villager : Character
 {
-    public class Villager : Character
+    public Tool Tool { get; set; } = Tool.Empty();
+    public Item CurrentItem { get; set; } = Item.Empty();
+    public Villager(string name, float maxHealth, float speed, int range) : base(name, maxHealth, speed, range)
     {
-        public Tool Tool { get; set; } = Tool.Empty();
-        public Item CurrentItem { get; set; } = Item.Empty();
-        public Villager(string name, float maxHealth, float speed, int range) : base(name, maxHealth, speed, range)
+    }
+
+    public override void Update()
+    {
+        base.Update();
+        CurrentItem.Position = new Vector2(Position.X, Position.Y - 14);
+
+
+        if (Input.Mouse.RightClickRelease())
         {
+
+            AddTask(new GoTask(Game.cursor.Position));
+            AddTask(GetTaskTypeFromGameObject(Target));
+            DebugGui.Log(Target.Name);
         }
 
-        public override void Update()
+        UpdateTool();
+    }
+
+    public void UpdateTool()
+    {
+        if (Tool.Name == Tool.Empty().Name) return;
+
+        Direction direction = GetComponent<Direction>();
+        Sprite sprite = GetComponent<Sprite>();
+
+        Tool.Position = new Vector2(Position.X + CurrentDirection.X * 6, Position.Y - 7);
+        Tool.Layer = Layer + 1;
+
+        Sprite toolSprite = Tool.GetComponent<Sprite>();
+
+        toolSprite.Effect = SpriteEffects.None;
+
+        if (direction.Name == Direction.East().Name) toolSprite.Effect = SpriteEffects.FlipHorizontally;
+
+        UpdateToolAnimations();
+    }
+
+    public void UpdateToolAnimations()
+    {
+        if (Tool.Name == Tool.Empty().Name) return;
+
+        StateMachine stateMachine = GetComponent<StateMachine>();
+        Sprite toolSprite = Tool.GetComponent<Sprite>();
+
+
+        if (stateMachine.CurrentState == CharacterStates.Chopping)
         {
-            base.Update();
-            CurrentItem.Position = new Vector2(Position.X, Position.Y - 14);
+            Tool.GetComponent<Sprite>().Rotation += CurrentDirection.X / 10;
 
-
-            if (Input.Mouse.RightClickRelease())
-            {
-
-                AddTask(new GoTask(Game.cursor.Position));
-                AddTask(GetTaskTypeFromGameObject(Target));
-
-
-            }
-
-            UpdateTool();
+            return;
         }
 
-        public void UpdateTool()
+        if (stateMachine.CurrentState == CharacterStates.Mining)
         {
-            if (Tool.Name != Tool.Empty().Name)
-            {
-                Tool.Position = new Vector2(Position.X + CurrentDirection.X * 6, Position.Y - 7);
-                Tool.Layer = Layer + 1;
-                if (GetDirection().Name == Direction.East().Name)
-                {
-                    Tool.GetComponent<Sprite>().Effect = SpriteEffects.FlipHorizontally;
+            Tool.GetComponent<Sprite>().Rotation += CurrentDirection.X / 10;
 
-                }
-                else
-                {
-                    Tool.GetComponent<Sprite>().Effect = SpriteEffects.None;
-
-                }
-                UpdateToolAnimations();
-            }
+            return;
         }
 
-        public void UpdateToolAnimations()
+        Tool.GetComponent<Sprite>().Rotation = 0;
+    }
+
+
+    public virtual void SetTool(Item item)
+    {
+        if (!(item is Tool)) return;
+
+        Tool tool = (Tool)item;
+
+        if (Tool.Name != Tool.Empty().Name)
         {
-            if(Tool.Name != Tool.Empty().Name)
-            {
-                if(GetComponent<StateMachine>().CurrentState == CharacterStates.Chopping)
-                {
-                    Tool.GetComponent<Sprite>().Rotation += CurrentDirection.X / 10;
-
-                }
-                else if (GetComponent<StateMachine>().CurrentState == CharacterStates.Mining)
-                {
-                    Tool.GetComponent<Sprite>().Rotation += CurrentDirection.X / 10;
-
-                }
-                else
-                {
-                    Tool.GetComponent<Sprite>().Rotation = 0;
-                }
-
-            }
+            SceneManager.CurrentScene.Remove(Tool);
         }
 
+        Tool = tool;
 
-        public virtual void SetTool(Item item)
+        SceneManager.CurrentScene.AddGameObject(Tool);
+    }
+
+    public virtual bool IsHolding(Tool tool)
+    {
+        if (Tool.Name == tool.Name) return true;
+
+        return false;
+    }
+
+    public override Task GetTaskTypeFromGameObject(GameObject target)
+    {
+        if (target is Tree)
         {
-            if (item is Tool tool) {
-                if (Tool.Name != Tool.Empty().Name)
-                {
-                    SceneManager.CurrentScene.Remove(Tool);
-                }
-                Tool = tool;
-                SceneManager.CurrentScene.AddGameObject(Tool);
-            }
+            return new ChopTask(target.Position);
         }
-
-        public virtual bool IsHolding(Tool tool)
+        if (target is Rock)
         {
-            if(Tool.Name == tool.Name)
-            {
-                return true;
-            }
-            return false;
+            return new ChopTask(target.Position);
         }
-
-        public override Task GetTaskTypeFromGameObject(GameObject target)
+        if (target is MakerObject)
         {
-            if (target is Tree)
-            {
-                return new ChopTask(target.Position);
-            }
-            if (target is Rock)
-            {
-                return new ChopTask(target.Position);
-            }
-            if (target is MakerObject)
-            {
-                return new UseTask(target.Position);
-            }
-            if (target is Stockpile && CurrentItem.Name == Item.Empty().Name)
-            {
-                return new TakeTask(target.Position);
-            }
-            if (target is Stockpile && CurrentItem.Name != Item.Empty().Name)
-            {
-                return new AddTask(target.Position);
-            }
-            if (target is Item)
-            {
-                return new PickTask(target.Position);
-
-            }
-            return base.GetTaskTypeFromGameObject(target);
+            return new UseTask(target.Position);
         }
- 
+        if (target is Stockpile && CurrentItem.Name == Item.Empty().Name)
+        {
+            return new TakeTask(target.Position);
+        }
+        if (target is Stockpile && CurrentItem.Name != Item.Empty().Name)
+        {
+            return new AddTask(target.Position);
+        }
+        if (target is Item)
+        {
+            return new PickTask(target.Position);
 
-
-
+        }
+        return base.GetTaskTypeFromGameObject(target);
     }
 }

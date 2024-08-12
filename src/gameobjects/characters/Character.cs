@@ -40,27 +40,27 @@ public abstract class Character : GameObject
         TaskManager taskManager = CreateAndAddComponent<TaskManager>();
         Health health = new Health(MaxHealth); AddComponent(health);
 
-        GetComponent<Direction>().Set(Direction.East().Name);
+        direction.Set(Direction.East().Name);
 
-        GetComponent<StateMachine>().AddState(CharacterStates.Wandering);
-        GetComponent<StateMachine>().AddState(CharacterStates.Mining);
-        GetComponent<StateMachine>().AddState(CharacterStates.Using);
-        GetComponent<StateMachine>().AddState(CharacterStates.Chopping);
-        GetComponent<StateMachine>().AddState(CharacterStates.Fighting);
-        GetComponent<StateMachine>().AddState(CharacterStates.Picking);
-        GetComponent<StateMachine>().AddState(CharacterStates.Adding);
-        GetComponent<StateMachine>().AddState(CharacterStates.Taking);
+        stateMachine.AddState(CharacterStates.Wandering);
+        stateMachine.AddState(CharacterStates.Mining);
+        stateMachine.AddState(CharacterStates.Using);
+        stateMachine.AddState(CharacterStates.Chopping);
+        stateMachine.AddState(CharacterStates.Fighting);
+        stateMachine.AddState(CharacterStates.Picking);
+        stateMachine.AddState(CharacterStates.Adding);
+        stateMachine.AddState(CharacterStates.Taking);
 
 
-        GetComponent<StateMachine>().SetState(CharacterStates.Wandering.Name);
+        stateMachine.SetState(CharacterStates.Wandering.Name);
 
         Random rnd = new Random();
-        GetComponent<PatrolMovementAI>().Path = new Vector2(rnd.Next((int)Position.X - Range, (int)Position.X + Range), rnd.Next((int)Position.Y - Range, (int)Position.Y + Range));
+        movementAI.Path = new Vector2(rnd.Next((int)Position.X - Range, (int)Position.X + Range), rnd.Next((int)Position.Y - Range, (int)Position.Y + Range));
 
 
-        animationTree.AddAnimation("assets/animation/" + Name + "_idle", _ => GetComponent<Direction>().Name == Direction.None().Name);
-        animationTree.AddAnimation("assets/animation/" + Name + "_east", _ => GetComponent<Direction>().Name == Direction.East().Name);
-        animationTree.AddAnimation("assets/animation/" + Name + "_west", _ => GetComponent<Direction>().Name == Direction.West().Name);
+        animationTree.AddAnimation("assets/animation/" + Name + "_idle", _ => direction.Name == Direction.None().Name);
+        animationTree.AddAnimation("assets/animation/" + Name + "_east", _ => direction.Name == Direction.East().Name);
+        animationTree.AddAnimation("assets/animation/" + Name + "_west", _ => direction.Name == Direction.West().Name);
 
 
 
@@ -71,8 +71,9 @@ public abstract class Character : GameObject
 
     public override void Update()
     {
+        PatrolMovementAI patrolMovementAI = GetComponent<PatrolMovementAI>();
 
-        GetComponent<PatrolMovementAI>().Move(this);
+        patrolMovementAI.Move(this);
         
         UpdateDirection();
         CheckTasks();
@@ -84,10 +85,13 @@ public abstract class Character : GameObject
 
     public virtual void OnDestinationArrived()
     {
+        PatrolMovementAI patrolMovementAI = GetComponent<PatrolMovementAI>();
+        Map map = SceneManager.CurrentScene.GetGameObject<Map>();
+
         if (Target.Name == "")
         {
             Random rnd = new Random();
-            GetComponent<PatrolMovementAI>().Path = VectorHelper.Snap(new Vector2(rnd.Next((int)Position.X - Range, (int)Position.X + Range), rnd.Next((int)Position.Y - Range, (int)Position.Y + Range)), SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X);
+            patrolMovementAI.Path = VectorHelper.Snap(new Vector2(rnd.Next((int)Position.X - Range, (int)Position.X + Range), rnd.Next((int)Position.Y - Range, (int)Position.Y + Range)), map.objectGrid.TileSize.X);
 
         }
 
@@ -101,18 +105,22 @@ public abstract class Character : GameObject
 
     public List<Task> GetTasks()
     {
-        if (GetComponent<TaskManager>().Tasks.Count > 0)
+        TaskManager taskManager = GetComponent<TaskManager>();
+
+        if (taskManager.Tasks.Count > 0)
         {
-            return GetComponent<TaskManager>().Tasks;
+            return taskManager.Tasks;
         }
         return new List<Task>();
     }
 
     public Task GetCurrentTask()
     {
-        if (GetComponent<TaskManager>().CurrentTask != null)
+        TaskManager taskManager = GetComponent<TaskManager>();
+
+        if (taskManager.CurrentTask != null)
         {
-            return GetComponent<TaskManager>().CurrentTask;
+            return taskManager.CurrentTask;
         }
 
         return new Task(GameObject.Empty());
@@ -165,11 +173,6 @@ public abstract class Character : GameObject
 
     }
 
-    public Direction GetDirection()
-    {
-        return GetComponent<Direction>();
-    }
-
     public virtual Task GetTaskTypeFromGameObject(GameObject target)
     {
 
@@ -178,28 +181,28 @@ public abstract class Character : GameObject
 
     public virtual void CheckTasks()
     {
-        Vector2 position = GetComponent<PatrolMovementAI>().Path;
-        DebugGui.Log(VectorHelper.Snap(position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X) + " " + VectorHelper.Snap(Position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X));
+        PatrolMovementAI patrolMovementAI = GetComponent<PatrolMovementAI>();
+        Map map = SceneManager.CurrentScene.GetGameObject<Map>();
 
-        if (VectorHelper.Snap(Position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X) ==
-            VectorHelper.Snap(position, SceneManager.CurrentScene.GetGameObject<Map>().objectGrid.TileSize.X) && position != Vector2.Zero)
+        Vector2 position = patrolMovementAI.Path;
+
+        if (VectorHelper.Snap(Position, map.objectGrid.TileSize.X) == VectorHelper.Snap(position, map.objectGrid.TileSize.X) && position != Vector2.Zero)
         {
-
             OnDestinationArrived();
         }
     }
 
-    public void CompleteTask() {
+    public void CompleteTask() 
+    {
+        TaskManager taskManager = GetComponent<TaskManager>();
 
-
-        GetComponent<TaskManager>().Tasks.RemoveAt(0);
+        taskManager.Tasks.RemoveAt(0);
 
         if (GetTasks().Count > 0)
         {
-            GetComponent<TaskManager>().SetTask(GetTasks()[0]);
+            taskManager.SetTask(GetTasks()[0]);
             UpdateTasks();
             SetTarget(GetCurrentTask().Target);
-
         }
 
 
@@ -218,19 +221,17 @@ public abstract class Character : GameObject
 
     public virtual void UpdateDirection()
     {
+        Direction direction = GetComponent<Direction>();
+
         if (CurrentDirection.X > 0)
         {
-            GetComponent<Direction>().Set(Direction.East().Name);
+            direction.Set(Direction.East().Name);
         }
         if (CurrentDirection.X < 0)
         {
-            GetComponent<Direction>().Set(Direction.West().Name);
+            direction.Set(Direction.West().Name);
         }
 
     }
-
-
-
-
 }
 

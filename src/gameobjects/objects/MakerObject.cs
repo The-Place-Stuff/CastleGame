@@ -6,71 +6,70 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame
+namespace CastleGame;
+
+public class MakerObject : Object
 {
-    public class MakerObject : Object
+
+    public int InventorySize { get; set; } = 0;
+
+    public MakerObject(string name) : base(name)
     {
 
-        public int InventorySize { get; set; } = 0;
 
-        public MakerObject(string name) : base(name)
+    }
+
+    public override void Load()
+    {
+        Inventory inventory = new Inventory(InventorySize); AddComponent(inventory);
+        AnimationTree animationTree = CreateAndAddComponent<AnimationTree>();
+        StateMachine stateMachine = CreateAndAddComponent<StateMachine>();
+
+
+        stateMachine.AddState(States.Off);
+        stateMachine.AddState(States.On);
+
+        stateMachine.SetState("off");
+
+        animationTree.AddAnimation("assets/animation/" + Name + "_off", _ => stateMachine.CurrentState.Name == "off");
+        animationTree.AddAnimation("assets/animation/" + Name + "_on", _ => stateMachine.CurrentState.Name == "on");
+        base.Load();
+    }
+
+    public void AddItem(Item item)
+    {
+        GetInventory().Add(item);
+    }
+
+    public void RemoveLastItem()
+    {
+        GetInventory().RemoveLast();
+    }
+
+    public void RemoveItem(Item item)
+    {
+        GetInventory().Remove(item);
+    }
+
+    public override void Update()
+    {
+        foreach (KeyValuePair<string, Func<Item>> entry in Items.List)
         {
-
+            Item item = entry.Value();
 
         }
+        base.Update();
+    }
 
-        public override void Load()
-        {
-            Inventory inventory = new Inventory(InventorySize); AddComponent(inventory);
-            AnimationTree animationTree = CreateAndAddComponent<AnimationTree>();
-            StateMachine stateMachine = CreateAndAddComponent<StateMachine>();
+    public Inventory GetInventory()
+    {
+        return GetComponent<Inventory>();
+    }
 
-
-            stateMachine.AddState(States.Off);
-            stateMachine.AddState(States.On);
-
-            GetComponent<StateMachine>().SetState("off");
-
-            animationTree.AddAnimation("assets/animation/" + Name + "_off", _ => GetComponent<StateMachine>().CurrentState.Name == "off");
-            animationTree.AddAnimation("assets/animation/" + Name + "_on", _ => GetComponent<StateMachine>().CurrentState.Name == "on");
-            base.Load();
-        }
-
-        public override void Update()
-        {
-            foreach(KeyValuePair<string, Func<Item>> entry in Items.List)
-            {
-                Item item = entry.Value();
-                
-            }
-            base.Update();
-        }
-
-        public void AddItem(Item item)
-        {
-            GetInventory().Add(item);
-        }
-
-        public void RemoveLastItem()
-        {
-            GetInventory().RemoveLast();
-        }
-
-        public void RemoveItem(Item item)
-        {
-            GetInventory().Remove(item);
-        }
-
-        public Inventory GetInventory()
-        {
-            return GetComponent<Inventory>();
-        }
-
-        public virtual void Output(Recipe recipe)
-        {
-            Item result = recipe.Output;
-            result.Position = new Vector2(Position.X, Position.Y + 16);
-            SceneManager.CurrentScene.AddGameObject(result);
-        }
+    public virtual void Output(Recipe recipe)
+    {
+        Item result = recipe.Output;
+        result.Position = new Vector2(Position.X, Position.Y + 16);
+        SceneManager.CurrentScene.AddGameObject(result);
     }
 }

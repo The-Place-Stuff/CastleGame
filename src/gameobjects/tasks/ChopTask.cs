@@ -6,28 +6,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame
+namespace CastleGame;
+
+public class ChopTask : Task
 {
-    public class ChopTask : Task
+    public ChopTask(GameObject obj) : base( obj)
     {
-        public ChopTask(GameObject obj) : base( obj)
-        {
 
-        }
-        public ChopTask(Vector2 position) : base(position)
-        {
+    }
+    public ChopTask(Vector2 position) : base(position)
+    {
 
-        }
-        public override void Start()
-        {
-            if (Target is Tree tree)
-            {
-                tree.OnChop();
-                Character.OnDestinationArrived();
-            }
+    }
+    public override void Start()
+    {
+        if (!(Target is Tree)) return;
 
+        Tree tree = Target as Tree;
 
-            base.Start();
-        }
+        tree.OnChop();
+        Character.OnDestinationArrived();
     }
 }

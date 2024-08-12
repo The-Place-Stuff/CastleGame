@@ -5,19 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame
+namespace CastleGame;
+
+public class Player : GameObject
 {
-    public class Player : GameObject
+    public static bool BuildingMode = false;
+
+    public override void Load()
     {
-        public static bool BuildingMode = false;
 
-        public override void Load()
-        {
+        Inventory inventory = CreateAndAddComponent<Inventory>();
 
-            Inventory inventory = CreateAndAddComponent<Inventory>();
-
-            base.Load();
-        }
-
+        base.Load();
     }
+
 }

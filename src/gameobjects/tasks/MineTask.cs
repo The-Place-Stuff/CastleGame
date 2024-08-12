@@ -6,28 +6,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame
+namespace CastleGame;
+
+public class MineTask : Task
 {
-    public class MineTask : Task
+    public MineTask(GameObject obj) : base(obj)
     {
-        public MineTask(GameObject obj) : base(obj)
-        {
 
-        }
-        public MineTask(Vector2 position) : base(position)
-        {
+    }
+    public MineTask(Vector2 position) : base(position)
+    {
 
-        }
-        public override void Start()
-        {
+    }
+    public override void Start()
+    {
+        if (!(Target is Rock)) return;
 
-            if (Target is Rock rock)
-            {
-                rock.OnMine();
-                Character.OnDestinationArrived();
-            }
+        Rock rock = Target as Rock;
 
-            base.Start();
-        }
+        rock.OnMine();
+        Character.OnDestinationArrived();
     }
 }

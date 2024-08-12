@@ -6,27 +6,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame
+namespace CastleGame;
+
+public class GoTask : Task
 {
-    public class GoTask : Task
+
+    public GoTask(GameObject obj) : base(obj)
     {
 
-        public GoTask(GameObject obj) : base(obj)
-        {
+    }
 
-        }
+    public GoTask(Vector2 position) : base(position)
+    {
 
-        public GoTask(Vector2 position) : base(position)
-        {
+    }
 
-        }
+    public override void Start()
+    {
+        Character.GetComponent<StateMachine>().SetState(CharacterStates.Wandering.Name);
+        Character.GetComponent<PatrolMovementAI>().Path = VectorHelper.Snap(Target.Position, 16);
 
-        public override void Start()
-        {
-            Character.GetComponent<StateMachine>().SetState(CharacterStates.Wandering.Name);
-            Character.GetComponent<PatrolMovementAI>().Path = VectorHelper.Snap(Target.Position, 16);
-
-            base.Start();
-        }
+        base.Start();
     }
 }

@@ -5,29 +5,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame
+namespace CastleGame;
+
+public class Item : GameObject
 {
-    public class Item : GameObject
+    public Item(string name)
     {
-        public Item(string name)
-        {
-            Name = name;
-        }
+        Name = name;
+    }
 
-        public override void Load()
-        {
+    public override void Load()
+    {
 
-            Layer = 2;
-            Sprite sprite = new Sprite(Items.GetPath(Name));
-            AddComponent(sprite);
+        Layer = 2;
+        Sprite sprite = new Sprite(Items.GetPath(Name));
+        AddComponent(sprite);
 
 
-            base.Load();
-        }
+        base.Load();
+    }
 
-        public static new Item Empty()
-        {
-            return new Item("");
-        }
+    public static new Item Empty()
+    {
+        return new Item("");
     }
 }

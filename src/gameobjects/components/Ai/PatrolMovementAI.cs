@@ -1,5 +1,4 @@
-﻿using CastleGame.src;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using SerpentEngine;
 using System;
 using System.Collections.Generic;
@@ -9,38 +8,39 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame
+namespace CastleGame;
+
+public class PatrolMovementAI : MovementAI
 {
-    public class PatrolMovementAI : MovementAI
+    public Vector2 Path = new Vector2();
+
+    public void ChangePath(Vector2 wp)
     {
-        public Vector2 Path = new Vector2();
+        Path = wp;
+    }
 
-        public void ChangePath(Vector2 wp)
+    public override void Move(Character character)
+    {
+        if (Path == Vector2.Zero) return;
+
+        Vector2 dir = Path - character.Position;
+
+        if (dir.Length() < 4) return;
+
+        dir.Normalize();
+
+        if (dir.X > 0)
         {
-            Path = wp;
+            character.CurrentDirection = new Vector2(1, 0);
         }
 
-        public override void Move(Character character)
+        if (dir.X < 0)
         {
-            if (Path == Vector2.Zero) return;
-
-            var dir = Path - character.Position;
-
-            if (dir.Length() > 4)
-            {
-                dir.Normalize();
-                if(dir.X > 0)
-                {
-                    character.CurrentDirection = new Vector2(1, 0);
-                }
-                if (dir.X < 0)
-                {
-                    character.CurrentDirection = new Vector2(-1, 0);
-                }
-                Vector2 d = new Vector2((int)Math.Ceiling(dir.X), (int)Math.Ceiling(dir.Y));
-
-                character.Position += dir * character.Speed * (float)Main.GameTime.ElapsedGameTime.TotalSeconds;
-            }
+            character.CurrentDirection = new Vector2(-1, 0);
         }
+
+        Vector2 d = new Vector2((int)Math.Ceiling(dir.X), (int)Math.Ceiling(dir.Y));
+
+        character.Position += dir * character.Speed * (float)Main.GameTime.ElapsedGameTime.TotalSeconds;
     }
 }
