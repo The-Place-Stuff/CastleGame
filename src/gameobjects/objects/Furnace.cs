@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CastleGame;
-public class Furnace : MakerObject
+public class Furnace : Workstation
 {
     public Furnace(string name) : base(name)
     {

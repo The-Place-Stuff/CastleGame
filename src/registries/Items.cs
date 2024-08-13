@@ -26,7 +26,7 @@ public class Items : Registry
         return item;
     }
 
-    public static void RegisterCharacters()
+    public static void RegisterItems()
     {
         Debug.WriteLine("Registering items for CastleGame!");
     }

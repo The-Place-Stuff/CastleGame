@@ -1,6 +1,8 @@
 ﻿using SerpentEngine;
+using SharpDX.DXGI;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -9,41 +11,42 @@ using System.Threading.Tasks;
 namespace CastleGame;
 public class Recipe : Component
 {
-    public List<Item> Ingredients = new List<Item>(3);
+    public List<Item> Ingredients { get; set; } = new List<Item>();
 
     public Item Output { get; set; } = Item.Empty();
     public Recipe(Item ingredient1, Item ingredient2, Item ingredient3, Item output) : base(false)
     {
-        Ingredients[0] = ingredient1;
-        Ingredients[1] = ingredient2;
-        Ingredients[2] = ingredient3;
+        Ingredients.Add(ingredient1);
+        Ingredients.Add(ingredient2);
+        Ingredients.Add(ingredient3);
         Output = output;
 
     }
 
-    public Recipe(Item ingredient1, Item ingredient2) : base(false)
+    public Recipe(Item ingredient1, Item ingredient2, Item output) : base(false)
     {
-        Ingredients[0] = ingredient1;
-        Ingredients[1] = ingredient2;
-        Ingredients[2] = Item.Empty();
+        Ingredients.Add(ingredient1);
+        Ingredients.Add(ingredient2);
+        Ingredients.Add(Item.Empty());
+        Output = output;
+
 
     }
 
-    public Recipe(Item ingredient1) : base(false)
+    public Recipe(Item ingredient1, Item output) : base(false)
     {
-        Ingredients[0] = ingredient1;
-        Ingredients[1] = Item.Empty();
-        Ingredients[2] = Item.Empty();
+        Ingredients.Add(ingredient1);
+        Ingredients.Add(Item.Empty());
+        Ingredients.Add(Item.Empty());
+        Output = output;
 
     }
 
     public Recipe() : base(false)
     {
-        Ingredients[0] = Item.Empty();
-        Ingredients[1] = Item.Empty();
-        Ingredients[2] = Item.Empty();
-
-
+        Ingredients.Add(Item.Empty());
+        Ingredients.Add(Item.Empty());
+        Ingredients.Add(Item.Empty());
     }
 
     public Recipe(int size) : base(false)
@@ -60,7 +63,19 @@ public class Recipe : Component
 
         return false;
 
+    }
+
+    public bool Matches(Inventory inventory)
+    {
+        Debug.WriteLine(inventory.Items.Count + " " + Ingredients.Count);
+        if (inventory.Items[0] == Ingredients[0] && inventory.Items[1] == Ingredients[1] && inventory.Items[2] == Ingredients[2])
+        {
+            return true;
         }
+
+        return false;
+
+    }
 
 
     public bool Contains(Item item)

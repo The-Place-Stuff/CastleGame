@@ -20,7 +20,11 @@ public class Inventory : Component
 
     public Inventory(int size) : base(false)
     {
-        Items = new List<Item>(size);
+        Items = new List<Item>();
+        for(int i = 0; i < size; i++)
+        {
+            Items.Add(Item.Empty());
+        }
     }
 
     public void Add(Item item)

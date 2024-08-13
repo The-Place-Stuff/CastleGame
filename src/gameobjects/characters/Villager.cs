@@ -111,7 +111,7 @@ public class Villager : Character
         {
             return new ChopTask(target.Position);
         }
-        if (target is MakerObject)
+        if (target is Workstation)
         {
             return new UseTask(target.Position);
         }

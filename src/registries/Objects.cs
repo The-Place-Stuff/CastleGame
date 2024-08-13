@@ -33,6 +33,7 @@ public class Objects : Registry
 
     public static Func<Object> Register(string name, Func<Object> obj)
     {
+
         List.Add(name, obj);
         return obj;
     }

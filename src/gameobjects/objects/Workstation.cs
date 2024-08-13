@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace CastleGame;
 
-public class MakerObject : Object
+public class Workstation : Object
 {
 
-    public int InventorySize { get; set; } = 0;
+    public int InventorySize { get; set; } = 3;
 
-    public MakerObject(string name) : base(name)
+    public Workstation(string name) : base(name)
     {
 
 
@@ -35,6 +35,28 @@ public class MakerObject : Object
         animationTree.AddAnimation("assets/animation/" + Name + "_on", _ => stateMachine.CurrentState.Name == "on");
         base.Load();
     }
+    public override void Update()
+    {
+        CheckRecipe();
+        base.Update();
+    }
+
+    public void CheckRecipe()
+    {
+        foreach(KeyValuePair<string, Func<Item>> entry in Items.List)
+        {
+            Item item = entry.Value();
+            if (!Recipes.List.ContainsKey(item.Name)) continue;
+            
+
+                if (Recipes.List[item.Name].Matches(GetInventory()))
+                {
+                    Output(Recipes.List[item.Name]);
+                }
+            
+        }
+    }
+
 
     public void AddItem(Item item)
     {
@@ -51,15 +73,6 @@ public class MakerObject : Object
         GetInventory().Remove(item);
     }
 
-    public override void Update()
-    {
-        foreach (KeyValuePair<string, Func<Item>> entry in Items.List)
-        {
-            Item item = entry.Value();
-
-        }
-        base.Update();
-    }
 
     public Inventory GetInventory()
     {
