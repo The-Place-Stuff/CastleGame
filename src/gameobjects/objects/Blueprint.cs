@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace CastleGame;
 
-public class Bluprint : Object
+public class Blueprint : Object
 {
     public string Type { get; set; }
 
@@ -17,7 +17,7 @@ public class Bluprint : Object
 
 
 
-    public Bluprint(string name) : base(name)
+    public Blueprint(string name) : base(name)
     {
 
     }

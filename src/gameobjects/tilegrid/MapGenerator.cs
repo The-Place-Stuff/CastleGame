@@ -1,6 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ImGuiNET;
+using Microsoft.Xna.Framework;
 using SerpentEngine;
 using System;
+using System.Diagnostics;
 
 namespace CastleGame;
 public class MapGenerator
@@ -25,10 +27,48 @@ public class MapGenerator
         clearingNoise.SetFractalLacunarity(2.0f);
         clearingNoise.SetFractalGain(0.5f);
 
+        Debug.WriteLine("Generating map, seed: " + seed);
+
+        tileGrid.PlaceTile(new Vector2(0, -2), Objects.Stockpile().Name);
+        tileGrid.PlaceTile(new Vector2(2, 0), Objects.Tent().Name);
+        tileGrid.PlaceTile(new Vector2(-2, 0), Objects.Tent().Name);
+
+        int radius = 25;
+        int clearingRadius = 10;
+
+        // Generate the center forest
+        for (int x = -radius; x < radius; x++)
+        {
+            for (int y = -radius; y < radius; y++)
+            {
+                float distance = MathF.Sqrt(x * x + y * y);
+
+                if (distance > radius) continue;
+                if (distance < clearingRadius) continue;
+
+                int treeXOffset = random.Next(-1, 1);
+                int treeYOffset = random.Next(-1, 1);
+
+                int randomInt = random.Next(0, 10);
+
+                if (randomInt == 0) continue;
+
+                Vector2 treePosition = new Vector2(x + treeXOffset, y + treeYOffset);
+
+                tileGrid.PlaceTile(treePosition, Objects.Tree().Name);
+            }
+        }
+
+        // The outer forest
+    
         for (int x = -100; x < 100; x++)
         {
             for (int y = -100; y < 100; y++)
             {
+                float distance = MathF.Sqrt(x * x + y * y);
+
+                if (distance < clearingRadius) continue;
+
                 float forestValue = forestNoise.GetNoise(x, y);
                 float clearingValue = clearingNoise.GetNoise(x, y);
 
