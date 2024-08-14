@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace CastleGame;
 
-public class AddTask : Task
+public class StoreTask : Task
 {
-    public AddTask(GameObject obj) : base(obj)
+    public StoreTask(GameObject obj) : base(obj)
     {
 
     }
 
-    public AddTask(Vector2 position) : base(position)
+    public StoreTask(Vector2 position) : base(position)
     {
 
     }

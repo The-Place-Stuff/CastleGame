@@ -3,6 +3,7 @@ using SerpentEngine;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -87,12 +88,11 @@ public abstract class Character : GameObject
     {
         PatrolMovementAI patrolMovementAI = GetComponent<PatrolMovementAI>();
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
+        Random rnd = new Random();
 
         if (Target.Name == "")
         {
-            Random rnd = new Random();
             patrolMovementAI.Path = VectorHelper.Snap(new Vector2(rnd.Next((int)Position.X - Range, (int)Position.X + Range), rnd.Next((int)Position.Y - Range, (int)Position.Y + Range)), map.objectGrid.TileSize.X);
-
         }
 
         if (GetTasks().Count > 0)
@@ -142,14 +142,16 @@ public abstract class Character : GameObject
 
         if (gameObject != null)
         {
+            if (gameObject is Player) return;
+
             task.Target = gameObject;
             taskManager.AddTask(task);
-
             if (GetTasks().Count == 1)
             {
                 taskManager.SetTask(task);
-                SetTarget(taskTarget);
-                UpdateTasks();
+                SetTarget(task.Target);
+                UpdateTasks(); 
+
 
             }
         }
@@ -183,10 +185,10 @@ public abstract class Character : GameObject
     {
         PatrolMovementAI patrolMovementAI = GetComponent<PatrolMovementAI>();
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
-
+        int tileSize = (int)map.objectGrid.TileSize.X;
         Vector2 position = patrolMovementAI.Path;
 
-        if (VectorHelper.Snap(Position, map.objectGrid.TileSize.X) == VectorHelper.Snap(position, map.objectGrid.TileSize.X) && position != Vector2.Zero)
+        if(VectorHelper.Snap(Position, tileSize) == VectorHelper.Snap(position, tileSize))
         {
             OnDestinationArrived();
         }

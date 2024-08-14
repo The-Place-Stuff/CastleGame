@@ -26,8 +26,8 @@ public class Villager : Character
         {
 
             AddTask(new GoTask(Game.cursor.Position));
+            DebugGui.Log("Target is " + Target.Name);
             AddTask(GetTaskTypeFromGameObject(Target));
-            DebugGui.Log(Target.Name);
         }
 
         UpdateTool();
@@ -103,17 +103,18 @@ public class Villager : Character
 
     public override Task GetTaskTypeFromGameObject(GameObject target)
     {
+
         if (target is Tree)
         {
             return new ChopTask(target.Position);
         }
         if (target is Rock)
         {
-            return new ChopTask(target.Position);
+            return new MineTask(target.Position);
         }
-        if (target is Workstation)
+        if (target is Workstation && CurrentItem.Name != Item.Empty().Name)
         {
-            return new UseTask(target.Position);
+            return new WorkTask(target.Position);
         }
         if (target is Stockpile && CurrentItem.Name == Item.Empty().Name)
         {
@@ -121,7 +122,7 @@ public class Villager : Character
         }
         if (target is Stockpile && CurrentItem.Name != Item.Empty().Name)
         {
-            return new AddTask(target.Position);
+            return new StoreTask(target.Position);
         }
         if (target is Item)
         {

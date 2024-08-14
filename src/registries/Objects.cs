@@ -22,7 +22,7 @@ public class Objects : Registry
 
     public static readonly Func<Object> Campfire = Register("campfire", () => new Campfire("campfire"));
 
-    public static readonly Func<Object> Furnace = Register("furnace", () => new Furnace("furnace"));
+    public static readonly Func<Object> Furnace = Register("furnace", () => new Workstation("furnace"));
 
     public static readonly Func<Object> Tree = Register("tree", () => new Tree("tree"));
 
