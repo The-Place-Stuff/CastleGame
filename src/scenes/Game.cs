@@ -37,18 +37,8 @@ public class Game : Scene
         AddGameObject(player);
 
         AddGameObject(map);
-        AddUIElement(new TestText());
-
-        foreach (Character character in characters)
-        {
-            AddGameObject(character);
-        }
 
         AddGameObject(bluprint);
-
-        TestUiElement testUiElement = new TestUiElement();
-
-        AddUIElement(testUiElement);
 
     }
 
