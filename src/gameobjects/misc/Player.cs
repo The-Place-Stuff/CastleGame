@@ -58,9 +58,12 @@ public class Player : GameObject
         Position = VectorHelper.Snap(new Vector2(cursorPosition.X, cursorPosition.Y), tileSize);
         if (Input.Mouse.LeftClickRelease())
         {
-            Blueprint bluprint = new Blueprint(CurrentBluprint);
-            bluprint.Position = Position;
+
             map.objectGrid.PlaceTile(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(Position), Objects.Blueprint().Name);
+            map.objectGrid.GetTileFromWorldCoordinates(Position).Name = CurrentBluprint;
+            map.objectGrid.GetTileFromWorldCoordinates(Position).RemoveComponent(map.objectGrid.GetTileFromWorldCoordinates(Position).GetComponent<Sprite>());
+            map.objectGrid.GetTileFromWorldCoordinates(Position).Load();
+
 
         }
     }
