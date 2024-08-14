@@ -28,6 +28,7 @@ public class Objects : Registry
 
     public static readonly Func<Object> Stockpile = Register("stockpile", () => new Stockpile("stockpile"));
 
+    public static readonly Func<Object> Tent = Register("tent", () => new Tent("tent"));
 
 
 

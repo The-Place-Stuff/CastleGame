@@ -32,6 +32,12 @@ public class Game : Scene
 
         characters.Add(Characters.Villager());
 
+
+        foreach (Character character in characters)
+        {
+            AddGameObject(character);
+        }
+
         bluprint = new Blueprint("furnace_off");
 
         AddGameObject(player);
