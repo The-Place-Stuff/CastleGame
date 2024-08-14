@@ -25,16 +25,4 @@ public class Furnace : Workstation
         base.Update();
     }
 
-    public override void OnUse()
-    {
-        StateMachine stateMachine = GetComponent<StateMachine>();
-
-        if (stateMachine.CurrentState.Name == States.Off.Name)
-        {
-            stateMachine.SetState(States.On.Name);
-            return;
-        }
-
-        stateMachine.SetState(States.Off.Name);
-    }
 }

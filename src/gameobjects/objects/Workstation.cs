@@ -46,12 +46,12 @@ public class Workstation : Object
         foreach(KeyValuePair<string, Func<Item>> entry in Items.List)
         {
             Item item = entry.Value();
-            if (!Recipes.List.ContainsKey(item.Name)) continue;
+            if (!ItemRecipes.List.ContainsKey(item.Name)) continue;
             
 
-                if (Recipes.List[item.Name].Matches(GetInventory()))
+                if (ItemRecipes.List[item.Name].Matches(GetInventory()))
                 {
-                    Output(Recipes.List[item.Name]);
+                    Output(ItemRecipes.List[item.Name]);
                 }
             
         }

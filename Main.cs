@@ -29,7 +29,7 @@ namespace CastleGame
             Objects.RegisterObjects();
             Characters.RegisterCharacters();
             Items.RegisterItems();
-            Recipes.RegisterRecipes();
+            ItemRecipes.RegisterRecipes();
 
             SerpentGame.ImGuiManager.AddGuiDrawable(new CastleGameDebugGui());
 

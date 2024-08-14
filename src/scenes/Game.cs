@@ -38,8 +38,6 @@ public class Game : Scene
 
         AddGameObject(map);
 
-        AddGameObject(bluprint);
-
     }
 
     public override void Begin()
