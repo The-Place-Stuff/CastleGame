@@ -15,14 +15,7 @@ public class Recipe : Component
     public Settings RecipeSettings;
     public Recipe(Settings settings) : base(false)
     {
-        foreach(Item item in settings.Ingredients)
-        {
-            RecipeSettings.Ingredients.Add(item);
-            RecipeSettings.Size++;
-             
-        }
-        RecipeSettings.Output = settings.Output;
-
+        RecipeSettings = settings;
 
     }
 
@@ -34,22 +27,7 @@ public class Recipe : Component
 
     public bool Matches(Inventory target)
     {
-        List<Item> ingredients = RecipeSettings.Ingredients;
-        List<Item> targets = target.Items;
-
-        for (int i = 0; i < ingredients.Count; i++)
-        {
-            for (int j = i + 1; j < ingredients.Count; j++)
-            {
-                for (int x = j + 1; x < ingredients.Count; x++)
-                {
-                    if (ingredients[i] == targets[i] && ingredients[j] == targets[j] && ingredients[x] == targets[x])
-                    {
-                        return true;
-                    }
-                }
-            }
-        }
+        if (target.Contains(Items.Wood())) return true;
 
         return false;
 
@@ -125,10 +103,9 @@ public class Recipe : Component
 
         public Settings SetType(GameObject type)
         {
-            if (type is Workstation)
-            {
-                Type = type.Name;
-            }
+
+            Type = type.Name;
+            
             return this;
         }
     }

@@ -17,7 +17,7 @@ namespace CastleGame
             new Recipe(new Recipe.Settings().AddIngredient(Items.Wood(), 3).SetType(Objects.Stockpile())));
         public static Recipe Register(Recipe recipe)
         {
-            List.Add(recipe.RecipeSettings.Output.Name, recipe);
+            List.Add(recipe.RecipeSettings.Type, recipe);
             return recipe;
         }
 

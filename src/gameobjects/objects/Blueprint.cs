@@ -2,6 +2,7 @@
 using SerpentEngine;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace CastleGame;
 
 public class Blueprint : Object
 {
-    public string Type { get; set; }
+    public string Type { get; set; } = "";
 
     public bool Placed { get; set; }
 
@@ -34,7 +35,21 @@ public class Blueprint : Object
 
     public override void Update()
     {
+        Type = Name;
+
+        Recipe recipe = BuildingRecipes.List[Type];
+
+        if(recipe.Matches(GetInventory())) Build();
+
         base.Update();
+    }
+
+    public void Build()
+    {
+        Map map = SceneManager.CurrentScene.GetGameObject<Map>();
+
+        map.objectGrid.PlaceTile(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(Position), Type);
+        
     }
 
     public void AddItem(Item item)

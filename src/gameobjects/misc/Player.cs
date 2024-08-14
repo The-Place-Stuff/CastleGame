@@ -32,7 +32,6 @@ public class Player : GameObject
     {
         Layer = 2;
         Sprite sprite = GetComponent<Sprite>();
-        DebugGui.Log(Position.ToString());
         if (BuildingMode)
         {
             TryPlaceBuilding();

@@ -26,7 +26,6 @@ public class Villager : Character
         {
 
             AddTask(new GoTask(Game.cursor.Position));
-            DebugGui.Log("Target is " + Target.Name);
             AddTask(GetTaskTypeFromGameObject(Target));
         }
 
