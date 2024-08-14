@@ -81,7 +81,7 @@ public class Workstation : Object
 
     public virtual void Output(Recipe recipe)
     {
-        Item result = recipe.Output;
+        Item result = recipe.RecipeSettings.Output as Item;
         result.Position = new Vector2(Position.X, Position.Y + 16);
         SceneManager.CurrentScene.AddGameObject(result);
     }

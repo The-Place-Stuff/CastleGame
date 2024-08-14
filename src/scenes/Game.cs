@@ -9,7 +9,7 @@ public class Game : Scene
 {
     private Map map;
     public static Cursor cursor { get; private set; }
-    private Bluprint bluprint;
+    private Blueprint bluprint;
     public List<Character> characters = new List<Character>();
     public Player player = new Player();
 
@@ -32,7 +32,7 @@ public class Game : Scene
 
         characters.Add(Characters.Villager());
 
-        bluprint = new Bluprint("furnace_off");
+        bluprint = new Blueprint("furnace_off");
 
         AddGameObject(player);
 

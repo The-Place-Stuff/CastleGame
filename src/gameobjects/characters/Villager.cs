@@ -124,11 +124,16 @@ public class Villager : Character
         {
             return new StoreTask(target.Position);
         }
+        if (target is Blueprint && CurrentItem.Name != Item.Empty().Name)
+        {
+            return new BuildTask(target.Position);
+        }
         if (target is Item)
         {
             return new PickTask(target.Position);
 
         }
+
         return base.GetTaskTypeFromGameObject(target);
     }
 }

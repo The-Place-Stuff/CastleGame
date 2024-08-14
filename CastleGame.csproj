@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\gameobjects\ui\" />
+    <Folder Include="src\gameobjects\util\" />
     <Folder Include="src\misc\" />
     <Folder Include="src\util\" />
   </ItemGroup>
