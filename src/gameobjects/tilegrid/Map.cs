@@ -33,7 +33,7 @@ public class Map : GameObject
 
         terrainGrid.PlaceTiles(new Vector2(-103, -103), new Vector2(103, 103), "grass");
 
-        MapGenerator.Generate(objectGrid, 2085);
+        MapGenerator.Generate(objectGrid, 51707);
 
     }
 
