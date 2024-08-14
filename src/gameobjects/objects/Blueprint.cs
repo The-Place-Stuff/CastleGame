@@ -37,9 +37,7 @@ public class Blueprint : Object
     {
         Type = Name;
 
-        Recipe recipe = BuildingRecipes.List[Type];
-
-        if(recipe.Matches(GetInventory())) Build();
+        Recipe recipe = ObjectRecipes.List[Type];
 
         base.Update();
     }
@@ -54,7 +52,9 @@ public class Blueprint : Object
 
     public void AddItem(Item item)
     {
+        item.GetComponent<Sprite>().Enabled = false;
         GetInventory().Add(item);
+        
     }
 
     public void RemoveLastItem()

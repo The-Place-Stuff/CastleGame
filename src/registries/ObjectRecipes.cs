@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CastleGame
 {
-    public class BuildingRecipes : Registry
+    public class ObjectRecipes : Registry
     {
         public static new Dictionary<string, Recipe> List = new Dictionary<string, Recipe>();
 

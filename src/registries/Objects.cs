@@ -30,8 +30,9 @@ public class Objects : Registry
 
     public static readonly Func<Object> Tent = Register("tent", () => new Tent("tent"));
 
+    public static readonly Func<Object> Blueprint = Register("blueprint", () => new Blueprint("blueprint"));
 
-
+     
     public static Func<Object> Register(string name, Func<Object> obj)
     {
 

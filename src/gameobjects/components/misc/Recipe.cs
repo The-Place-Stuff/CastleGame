@@ -27,7 +27,19 @@ public class Recipe : Component
 
     public bool Matches(Inventory target)
     {
-        if (target.Contains(Items.Wood())) return true;
+        List<Item> ingredients = RecipeSettings.Ingredients;
+        List<Item> targetIngredients = target.Items;
+
+        int count = 0;
+
+        for (int i = 0; i < ingredients.Count; i++)
+        {
+            if (Contains(targetIngredients[i]))
+            {
+                count++;
+                if (count == ingredients.Count) return true;
+            }
+        }
 
         return false;
 

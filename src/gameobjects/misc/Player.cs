@@ -60,7 +60,8 @@ public class Player : GameObject
         {
             Blueprint bluprint = new Blueprint(CurrentBluprint);
             bluprint.Position = Position;
-            scene.AddGameObject(bluprint);
+            map.objectGrid.PlaceTile(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(Position), Objects.Blueprint().Name);
+
         }
     }
 
