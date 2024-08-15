@@ -16,27 +16,28 @@ public class Objects : Registry
 
 
 
-    public static readonly Func<Object> Bush = Register("bush", () => new Bush("bush"));
+    public static readonly Func<Object> Bush = Register(() => new Bush("bush"));
 
-    public static readonly Func<Object> Rock = Register("rock", () => new Rock("rock"));
+    public static readonly Func<Object> Rock = Register( () => new Rock("rock"));
 
-    public static readonly Func<Object> Campfire = Register("campfire", () => new Campfire("campfire"));
+    public static readonly Func<Object> Campfire = Register(() => new Campfire("campfire"));
 
-    public static readonly Func<Object> Furnace = Register("furnace", () => new Workstation("furnace"));
+    public static readonly Func<Object> Furnace = Register(() => new Workstation("furnace"));
 
-    public static readonly Func<Object> Tree = Register("tree", () => new Tree("tree"));
+    public static readonly Func<Object> Tree = Register(() => new Tree("tree"));
 
-    public static readonly Func<Object> Stockpile = Register("stockpile", () => new Stockpile("stockpile"));
+    public static readonly Func<Object> Stockpile = Register( () => new Stockpile("stockpile"));
 
-    public static readonly Func<Object> Tent = Register("tent", () => new Tent("tent"));
+    public static readonly Func<Object> Tent = Register(() => new Tent("tent"));
 
-    public static readonly Func<Object> Blueprint = Register("blueprint", () => new Blueprint("blueprint"));
+    public static readonly Func<Object> Blueprint = Register(() => new Blueprint("blueprint"));
 
-     
-    public static Func<Object> Register(string name, Func<Object> obj)
+    public static readonly Func<Object> Workbench = Register(() => new Workbench("workbench"));
+
+    public static Func<Object> Register(Func<Object> obj)
     {
 
-        List.Add(name, obj);
+        List.Add(obj().Name, obj);
         return obj;
     }
 

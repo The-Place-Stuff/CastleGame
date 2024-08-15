@@ -31,7 +31,7 @@ public class Workstation : Object
 
         stateMachine.SetState("off");
 
-        animationTree.AddAnimation("assets/animation/" + Name + "_off", _ => stateMachine.CurrentState.Name == "off");
+        animationTree.AddAnimation("assets/animation/" + Name, _ => stateMachine.CurrentState.Name == "off");
         animationTree.AddAnimation("assets/animation/" + Name + "_on", _ => stateMachine.CurrentState.Name == "on");
         base.Load();
     }
@@ -47,19 +47,22 @@ public class Workstation : Object
         {
             Item item = entry.Value();
             if (!ItemRecipes.List.ContainsKey(item.Name)) continue;
-            
 
-                if (ItemRecipes.List[item.Name].Matches(GetInventory()))
-                {
-                    Output(ItemRecipes.List[item.Name]);
-                }
-            
+            if (ItemRecipes.List[item.Name].RecipeSettings.Type == Name && ItemRecipes.List[item.Name].Matches(GetInventory()))
+            {
+                DebugGui.Log("YEs");
+                Output(ItemRecipes.List[item.Name]);
+                GetInventory().Items.Clear();
+
+            }
+
         }
     }
 
 
     public void AddItem(Item item)
     {
+        item.GetComponent<Sprite>().Enabled = false;
         GetInventory().Add(item);
     }
 

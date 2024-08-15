@@ -1,5 +1,5 @@
 {
-  "spritesheet": "assets/img/objects/furnace_off",
+  "spritesheet": "assets/img/objects/furnace_on",
   "frame_size": {
     "width": 16,
     "height": 16

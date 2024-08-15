@@ -1,17 +1,16 @@
 ﻿using SerpentEngine;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame;
-public class Furnace : Workstation
+namespace CastleGame
 {
-    public Furnace(string name) : base(name)
+    public class Workbench : Workstation
     {
+        public Workbench(string name) : base(name)
+        {
+        }
     }
-
-
 }

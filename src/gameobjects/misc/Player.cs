@@ -12,7 +12,7 @@ public class Player : GameObject
 {
     public static bool BuildingMode = false;
 
-    public static string CurrentBluprint = Objects.Stockpile().Name;
+    public static string CurrentBluprint = Objects.Workbench().Name;
 
     public override void Load()
     {

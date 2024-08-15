@@ -12,6 +12,8 @@ namespace CastleGame
     {
         public static new Dictionary<string, Recipe> List = new Dictionary<string, Recipe>();
 
+        public static readonly Recipe Axe = Register(new Recipe(new Recipe.Settings().AddIngredient(Items.Wood(), 1).AddIngredient(Items.Stone(), 1).SetType(Objects.Workbench()).SetOutput(Items.Axe())));
+
         public static Recipe Register(Recipe recipe)
         {
             List.Add(recipe.RecipeSettings.Output.Name, recipe);

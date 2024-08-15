@@ -34,6 +34,7 @@ public class Recipe : Component
 
         foreach(string itemName in targetIngredients.ToList())
         {
+            DebugGui.Log(itemName);
             if (ingredients.Contains(itemName)) targetIngredients.Remove(itemName);
         }
 

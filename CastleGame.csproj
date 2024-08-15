@@ -15,13 +15,15 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="assets\animation\campfire.json" />
-    <None Remove="assets\animation\furnace_off.json" />
+    <None Remove="assets\animation\furnace.json" />
     <None Remove="assets\animation\furnace_on.json" />
     <None Remove="assets\animation\test.json" />
     <None Remove="assets\animation\test_2.json" />
     <None Remove="assets\animation\villager_east.json" />
     <None Remove="assets\animation\villager_idle.json" />
     <None Remove="assets\animation\villager_west.json" />
+    <None Remove="assets\animation\workbench.json" />
+    <None Remove="assets\animation\workbench_on.json" />
     <None Remove="assets\font\peaberry.spritefont" />
     <None Remove="assets\font\PeaberryBase.ttf" />
     <None Remove="assets\img\cursor.png" />
