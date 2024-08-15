@@ -27,28 +27,39 @@ public class Recipe : Component
 
     public bool Matches(Inventory target)
     {
-        List<Item> ingredients = RecipeSettings.Ingredients;
-        List<Item> targetIngredients = target.Items;
+        List<string> ingredients = BuildListOfNames(RecipeSettings.Ingredients);
+        List<string> targetIngredients = BuildListOfNames(target.Items);
 
-        int count = 0;
+        if (target.Items.Count < RecipeSettings.Ingredients.Count) return false;
 
-        for (int i = 0; i < ingredients.Count; i++)
+        foreach(string itemName in targetIngredients.ToList())
         {
-            if (Contains(targetIngredients[i]))
-            {
-                count++;
-                if (count == ingredients.Count) return true;
-            }
+            if (ingredients.Contains(itemName)) targetIngredients.Remove(itemName);
         }
+
+        if(targetIngredients.Count == 0) return true;
 
         return false;
 
     }
+
+    public List<string> BuildListOfNames(List<Item> items)
+    {
+        List<string> names = new List<string>();
+        foreach (Item item in items)
+        {
+            names.Add(item.Name);
+        }
+
+        return names;
+    }
+
+
     public bool Contains(Item item)
     {
         foreach (Item i in RecipeSettings.Ingredients)
         {
-            if (i == item)
+            if (i.Name == item.Name)
             {
                 return true;
             }
@@ -56,6 +67,7 @@ public class Recipe : Component
 
         return false;
     }
+
 
     public Item Get(int index)
     {

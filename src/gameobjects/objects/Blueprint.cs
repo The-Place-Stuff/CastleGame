@@ -37,9 +37,16 @@ public class Blueprint : Object
     {
         Type = Name;
 
+        CheckRecipe();
+        base.Update();
+    }
+
+    public void CheckRecipe()
+    {
         Recipe recipe = ObjectRecipes.List[Type];
 
-        base.Update();
+        if (recipe.Matches(GetInventory())) Build();
+
     }
 
     public void Build()

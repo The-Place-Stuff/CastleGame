@@ -128,6 +128,7 @@ public abstract class Character : GameObject
 
     public virtual void AddTask(Task task)
     {
+        DebugGui.Log(Player.BuildingMode.ToString());
         if (Player.BuildingMode) return;
 
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
