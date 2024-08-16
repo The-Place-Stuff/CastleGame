@@ -21,7 +21,7 @@ public class Workstation : Object
 
     public override void Load()
     {
-        Inventory inventory = new Inventory(InventorySize); AddComponent(inventory);
+        Inventory inventory = new Inventory(); AddComponent(inventory);
         AnimationTree animationTree = CreateAndAddComponent<AnimationTree>();
         StateMachine stateMachine = CreateAndAddComponent<StateMachine>();
 
@@ -47,11 +47,10 @@ public class Workstation : Object
         {
             Item item = entry.Value();
             if (!ItemRecipes.List.ContainsKey(item.Name)) continue;
+            DebugGui.Log(GetInventory().Items.Count+"");
 
             if (ItemRecipes.List[item.Name].RecipeSettings.Type == Name && ItemRecipes.List[item.Name].Matches(GetInventory()))
-            {
-                DebugGui.Log("YEs");
-                Output(ItemRecipes.List[item.Name]);
+            {                Output(ItemRecipes.List[item.Name]);
                 GetInventory().Items.Clear();
 
             }
