@@ -17,6 +17,9 @@
     <None Remove="assets\animation\campfire.json" />
     <None Remove="assets\animation\furnace.json" />
     <None Remove="assets\animation\furnace_on.json" />
+    <None Remove="assets\animation\sheep_east.json" />
+    <None Remove="assets\animation\sheep_idle.json" />
+    <None Remove="assets\animation\sheep_west.json" />
     <None Remove="assets\animation\test.json" />
     <None Remove="assets\animation\test_2.json" />
     <None Remove="assets\animation\villager_east.json" />
