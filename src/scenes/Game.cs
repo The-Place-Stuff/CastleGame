@@ -31,11 +31,19 @@ public class Game : Scene
         cursor.Load();
 
         characters.Add(Characters.Villager());
+        characters.Add(Characters.Sheep());
+        characters.Add(Characters.Sheep());
+        characters.Add(Characters.Sheep());
+        characters.Add(Characters.Sheep());
+        characters.Add(Characters.Sheep());
+        characters.Add(Characters.Sheep());
+        characters.Add(Characters.Sheep());
 
 
         foreach (Character character in characters)
         {
             AddGameObject(character);
+
         }
 
         bluprint = new Blueprint("furnace_off");

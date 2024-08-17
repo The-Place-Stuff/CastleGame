@@ -16,6 +16,9 @@ public class Characters : Registry
 
     public static Func<Character> Villager = Register("villager",() => new Villager("villager", 5, 25, 100));
 
+    public static Func<Character> Sheep = Register("sheep", () => new Animal("sheep", 5, 25, 100));
+
+
     public static Func<Character> Register(string name, Func<Character> character)
     {
         List.Add(name, character);
