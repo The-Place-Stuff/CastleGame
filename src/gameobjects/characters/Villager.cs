@@ -105,7 +105,6 @@ public class Villager : Character
         }
 
         Tool = tool;
-
         SceneManager.CurrentScene.AddGameObject(Tool);
     }
 
