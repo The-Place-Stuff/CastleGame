@@ -27,7 +27,7 @@ public class TaskManager : Component
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
         Vector2 position = task.Target.Position;
 
-        GameObject gameObject = SceneManager.CurrentScene.GetGameObjectAt(VectorHelper.Snap(position, map.objectGrid.TileSize.X));
+        GameObject gameObject = SceneManager.CurrentScene.GetGameObjectAt<Character>(VectorHelper.Snap(position, map.objectGrid.TileSize.X));
         GameObject obj = map.objectGrid.GetTileFromWorldCoordinates(VectorHelper.Snap(position, map.objectGrid.TileSize.X));
 
         GameObject taskTarget = GameObject.Empty();

@@ -45,8 +45,8 @@ public class GoTask : Task
 
         base.Finish();
 
-        Vector2 position = VectorHelper.Snap(new Vector2(rnd.Next((int)Character.Position.X - Character.Range, (int)Character.Position.X + Character.Range), rnd.Next((int)Character.Position.Y - Character.Range, (int)Character.Position.Y + Character.Range)), map.objectGrid.TileSize.X);
+        //Vector2 position = VectorHelper.Snap(new Vector2(rnd.Next((int)Character.Position.X - Character.Range, (int)Character.Position.X + Character.Range), rnd.Next((int)Character.Position.Y - Character.Range, (int)Character.Position.Y + Character.Range)), map.objectGrid.TileSize.X);
 
-        Character.AddTask(new GoTask(position));
+        //Character.AddTask(new GoTask(position));
     }
 }

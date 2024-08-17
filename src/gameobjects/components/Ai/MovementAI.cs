@@ -66,8 +66,6 @@ public class MovementAI : AI
         if (path == null) return;
 
         PathStack = path;
-
-        Debug.WriteLine("Path found: " + PathStack.Count);
     }
 
     private void Move()

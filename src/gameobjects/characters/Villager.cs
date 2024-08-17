@@ -29,7 +29,18 @@ public class Villager : Character
             Map map = SceneManager.CurrentScene.GetGameObject<Map>();
             Vector2 position = Game.cursor.Position;
 
-            GameObject target = SceneManager.CurrentScene.GetGameObjectAt(VectorHelper.Snap(position, map.objectGrid.TileSize.X));
+            List<GameObject> targets = SceneManager.CurrentScene.GetGameObjectsAt(VectorHelper.Snap(position, map.objectGrid.TileSize.X));
+
+            GameObject target = GameObject.Empty();
+
+            foreach (GameObject gameObject in targets)
+            {
+                Debug.WriteLine(gameObject.Name);
+                if (gameObject is Tile && !(gameObject is Object)) continue;
+
+                target = gameObject;
+                break;
+            }
 
             AddTask(GetTaskTypeFromGameObject(target));
         }
@@ -107,7 +118,6 @@ public class Villager : Character
 
     public override Task GetTaskTypeFromGameObject(GameObject target)
     {
-
         if (target is Tree)
         {
             return new ChopTask(target.Position);
