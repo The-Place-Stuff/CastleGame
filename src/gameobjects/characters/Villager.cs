@@ -24,7 +24,6 @@ public class Villager : Character
 
         if (Input.Mouse.RightClickRelease())
         {
-
             AddTask(new GoTask(Game.cursor.Position));
             AddTask(GetTaskTypeFromGameObject(Target));
         }

@@ -37,7 +37,7 @@ public abstract class Character : GameObject
         AnimationTree animationTree = CreateAndAddComponent<AnimationTree>();
         StateMachine stateMachine = CreateAndAddComponent<StateMachine>();
         Direction direction = CreateAndAddComponent<Direction>();
-        PatrolMovementAI movementAI = CreateAndAddComponent<PatrolMovementAI>();
+        MovementAI movementAI = CreateAndAddComponent<MovementAI>();
         TaskManager taskManager = CreateAndAddComponent<TaskManager>();
         Health health = new Health(MaxHealth); AddComponent(health);
 
@@ -63,43 +63,32 @@ public abstract class Character : GameObject
         animationTree.AddAnimation("assets/animation/" + Name + "_east", _ => direction.Name == Direction.East().Name);
         animationTree.AddAnimation("assets/animation/" + Name + "_west", _ => direction.Name == Direction.West().Name);
 
-
-
-
         base.Load();
     }
 
 
     public override void Update()
     {
-        PatrolMovementAI patrolMovementAI = GetComponent<PatrolMovementAI>();
-
-        patrolMovementAI.Move(this);
-        
         UpdateDirection();
-        CheckTasks();
-
-
 
         base.Update();
     }
 
     public virtual void OnDestinationArrived()
     {
-        PatrolMovementAI patrolMovementAI = GetComponent<PatrolMovementAI>();
+        MovementAI movementAI = GetComponent<MovementAI>();
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
         Random rnd = new Random();
 
         if (Target.Name == "")
         {
-            patrolMovementAI.Path = VectorHelper.Snap(new Vector2(rnd.Next((int)Position.X - Range, (int)Position.X + Range), rnd.Next((int)Position.Y - Range, (int)Position.Y + Range)), map.objectGrid.TileSize.X);
+           movementAI.Path = VectorHelper.Snap(new Vector2(rnd.Next((int)Position.X - Range, (int)Position.X + Range), rnd.Next((int)Position.Y - Range, (int)Position.Y + Range)), map.objectGrid.TileSize.X);
         }
 
         if (GetTasks().Count > 0)
         {
             CompleteTask();
         }
-
 
     }
 
@@ -141,58 +130,25 @@ public abstract class Character : GameObject
         GameObject taskTarget = GameObject.Empty();
         taskTarget.Position = position;
 
-        if (gameObject != null)
+        if (gameObject != null) taskTarget = gameObject;
+        if (obj != null) taskTarget = obj;
+
+        if (taskTarget is Player) return;
+
+        task.Target = taskTarget;
+        taskManager.AddTask(task);
+
+        if (GetTasks().Count == 1)
         {
-            if (gameObject is Player) return;
-
-            task.Target = gameObject;
-            taskManager.AddTask(task);
-            if (GetTasks().Count == 1)
-            {
-                taskManager.SetTask(task);
-                SetTarget(task.Target);
-                UpdateTasks(); 
-
-
-            }
+            taskManager.SetTask(task);
+            SetTarget(taskTarget);
+            UpdateTasks();
         }
-        else
-        {
-            if (obj != null) taskTarget = obj;
-
-
-            task.Target = taskTarget;
-            taskManager.AddTask(task);
-
-            if (GetTasks().Count == 1)
-            {
-                taskManager.SetTask(task);
-                SetTarget(taskTarget);
-                UpdateTasks();
-
-            }
-
-        }
-
     }
 
     public virtual Task GetTaskTypeFromGameObject(GameObject target)
     {
-
         return new Task(GameObject.Empty());
-    }
-
-    public virtual void CheckTasks()
-    {
-        PatrolMovementAI patrolMovementAI = GetComponent<PatrolMovementAI>();
-        Map map = SceneManager.CurrentScene.GetGameObject<Map>();
-        int tileSize = (int)map.objectGrid.TileSize.X;
-        Vector2 position = patrolMovementAI.Path;
-
-        if(VectorHelper.Snap(Position, tileSize) == VectorHelper.Snap(position, tileSize))
-        {
-            OnDestinationArrived();
-        }
     }
 
     public void CompleteTask() 
@@ -207,8 +163,6 @@ public abstract class Character : GameObject
             UpdateTasks();
             SetTarget(GetCurrentTask().Target);
         }
-
-
     }
 
     public virtual void SetTarget(GameObject target)

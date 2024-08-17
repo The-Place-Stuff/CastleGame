@@ -10,18 +10,23 @@ using System.Threading.Tasks;
 
 namespace CastleGame;
 
-public class PatrolMovementAI : MovementAI
+public class PatrolMovementAI : Component
 {
     public Vector2 Path = new Vector2();
+    public PatrolMovementAI() : base(false)
+    {
+    }
 
     public void ChangePath(Vector2 wp)
     {
         Path = wp;
     }
 
-    public override void Move(Character character)
+    public override void Update()
     {
         if (Path == Vector2.Zero) return;
+
+        Character character = GameObject as Character;
 
         Vector2 dir = Path - character.Position;
 
@@ -41,6 +46,6 @@ public class PatrolMovementAI : MovementAI
 
         Vector2 d = new Vector2((int)Math.Ceiling(dir.X), (int)Math.Ceiling(dir.Y));
 
-        character.Position += dir * character.Speed * (float)Main.GameTime.ElapsedGameTime.TotalSeconds;
+        character.Position += dir * character.Speed * (float)Main.DeltaTime;
     }
 }

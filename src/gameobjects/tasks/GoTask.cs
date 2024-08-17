@@ -24,7 +24,7 @@ public class GoTask : Task
     public override void Start()
     {
         Character.GetComponent<StateMachine>().SetState(CharacterStates.Wandering.Name);
-        Character.GetComponent<PatrolMovementAI>().Path = VectorHelper.Snap(Target.Position, 16);
+        Character.GetComponent<MovementAI>().Path = VectorHelper.Snap(Target.Position, 16);
 
         base.Start();
     }

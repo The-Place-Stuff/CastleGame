@@ -17,25 +17,26 @@ public class Map : GameObject
     public override void Load()
     {
         RegisterTileSets();
+
         terrianTileSet.AddFromSprite("grass", "assets/img/grass");
 
         terrainGrid.AddTileSet(terrianTileSet);
+
         foreach (TileSet tileSet in objectTileSets)
         {
             objectGrid.AddTileSet(tileSet);
             bluprintGrid.AddTileSet(tileSet);
 
         }
+
         AddComponent(terrainGrid);
         AddComponent(objectGrid);
         AddComponent(bluprintGrid);
 
 
         terrainGrid.PlaceTiles(new Vector2(-103, -103), new Vector2(103, 103), "grass");
-        objectGrid.PlaceTile(new Vector2(1, 2), Objects.Rock().Name);
+        
         MapGenerator.Generate(objectGrid, 1984);
-
-
     }
 
     public void RegisterTileSets()
