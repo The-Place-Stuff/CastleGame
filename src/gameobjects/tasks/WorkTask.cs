@@ -26,6 +26,6 @@ public class WorkTask : Task
 
         workstation.AddItem(villager.CurrentItem);
         villager.CurrentItem = Item.Empty();
-        Character.OnDestinationArrived(); 
+        Finish();
     }
 }

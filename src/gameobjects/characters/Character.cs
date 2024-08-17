@@ -14,8 +14,6 @@ public abstract class Character : GameObject
 {
     public int Range { get; set; }
 
-    public GameObject Target { get; set; } = GameObject.Empty();
-
     public float Speed { get; set; }
 
     public Vector2 CurrentDirection { get; set; }
@@ -56,7 +54,7 @@ public abstract class Character : GameObject
         stateMachine.SetState(CharacterStates.Wandering.Name);
 
         Random rnd = new Random();
-        movementAI.Path = new Vector2(rnd.Next((int)Position.X - Range, (int)Position.X + Range), rnd.Next((int)Position.Y - Range, (int)Position.Y + Range));
+       // movementAI.Path = new Vector2(rnd.Next((int)Position.X - Range, (int)Position.X + Range), rnd.Next((int)Position.Y - Range, (int)Position.Y + Range));
 
 
         animationTree.AddAnimation("assets/animation/" + Name + "_idle", _ => direction.Name == Direction.None().Name);
@@ -73,107 +71,16 @@ public abstract class Character : GameObject
 
         base.Update();
     }
-
-    public virtual void OnDestinationArrived()
-    {
-        MovementAI movementAI = GetComponent<MovementAI>();
-        Map map = SceneManager.CurrentScene.GetGameObject<Map>();
-        Random rnd = new Random();
-
-        if (Target.Name == "")
-        {
-           movementAI.Path = VectorHelper.Snap(new Vector2(rnd.Next((int)Position.X - Range, (int)Position.X + Range), rnd.Next((int)Position.Y - Range, (int)Position.Y + Range)), map.objectGrid.TileSize.X);
-        }
-
-        if (GetTasks().Count > 0)
-        {
-            CompleteTask();
-        }
-
-    }
-
-    public List<Task> GetTasks()
-    {
-        TaskManager taskManager = GetComponent<TaskManager>();
-
-        if (taskManager.Tasks.Count > 0)
-        {
-            return taskManager.Tasks;
-        }
-        return new List<Task>();
-    }
-
-    public Task GetCurrentTask()
-    {
-        TaskManager taskManager = GetComponent<TaskManager>();
-
-        if (taskManager.CurrentTask != null)
-        {
-            return taskManager.CurrentTask;
-        }
-
-        return new Task(GameObject.Empty());
-    }
-
     public virtual void AddTask(Task task)
     {
-        DebugGui.Log(task.Target.Position+" " + GetTasks().Count);
-        if (Player.BuildingMode) return;
-
-        Map map = SceneManager.CurrentScene.GetGameObject<Map>();
         TaskManager taskManager = GetComponent<TaskManager>();
-        Vector2 position = task.Target.Position;
 
-        GameObject gameObject = SceneManager.CurrentScene.GetGameObjectAt(VectorHelper.Snap(position, map.objectGrid.TileSize.X));
-        GameObject obj = map.objectGrid.GetTileFromWorldCoordinates(VectorHelper.Snap(position, map.objectGrid.TileSize.X));
-
-        GameObject taskTarget = GameObject.Empty();
-        taskTarget.Position = position;
-
-        if (gameObject != null) taskTarget = gameObject;
-        if (obj != null) taskTarget = obj;
-
-        if (taskTarget is Player) return;
-
-        task.Target = taskTarget;
         taskManager.AddTask(task);
-
-        if (GetTasks().Count == 1)
-        {
-            taskManager.SetTask(task);
-            SetTarget(taskTarget);
-            UpdateTasks();
-        }
     }
 
     public virtual Task GetTaskTypeFromGameObject(GameObject target)
     {
-        return new Task(GameObject.Empty());
-    }
-
-    public void CompleteTask() 
-    {
-        TaskManager taskManager = GetComponent<TaskManager>();
-
-        taskManager.Tasks.RemoveAt(0);
-
-        if (GetTasks().Count > 0)
-        {
-            taskManager.SetTask(GetTasks()[0]);
-            UpdateTasks();
-            SetTarget(GetCurrentTask().Target);
-        }
-    }
-
-    public virtual void SetTarget(GameObject target)
-    {
-        Target = target;
-    }
-
-    public virtual void UpdateTasks()
-    {
-        GetCurrentTask().Start();
-
+        return null;
     }
 
     public virtual void UpdateDirection()

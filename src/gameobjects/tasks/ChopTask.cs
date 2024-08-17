@@ -25,6 +25,6 @@ public class ChopTask : Task
         Tree tree = Target as Tree;
 
         tree.OnChop();
-        Character.OnDestinationArrived();
+        Finish();
     }
 }

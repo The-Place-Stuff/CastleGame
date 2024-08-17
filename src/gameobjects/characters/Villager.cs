@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SerpentEngine;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,11 +22,16 @@ public class Villager : Character
         base.Update();
         CurrentItem.Position = new Vector2(Position.X, Position.Y - 14);
 
-
         if (Input.Mouse.RightClickRelease())
         {
             AddTask(new GoTask(Game.cursor.Position));
-            AddTask(GetTaskTypeFromGameObject(Target));
+
+            Map map = SceneManager.CurrentScene.GetGameObject<Map>();
+            Vector2 position = Game.cursor.Position;
+
+            GameObject target = SceneManager.CurrentScene.GetGameObjectAt(VectorHelper.Snap(position, map.objectGrid.TileSize.X));
+
+            AddTask(GetTaskTypeFromGameObject(target));
         }
 
         UpdateTool();

@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 namespace CastleGame;
 public class MovementAI : AI
 {
-    public PathFinder PathFinder { get; private set; }
     public Vector2 Path = new Vector2();
 
+    private PathFinder PathFinder;
     private Stack<Node> PathStack = new Stack<Node>();
     private Node currentPathingNode;
 
@@ -42,6 +42,11 @@ public class MovementAI : AI
         Path = path;
     }
 
+    public bool IsMoving()
+    {
+        return PathStack.Count > 0;
+    }
+
     public override void Update()
     {
         if (PathStack.Count > 0) Move();
@@ -58,11 +63,7 @@ public class MovementAI : AI
 
         Stack<Node> path = PathFinder.FindPath(start, end);
 
-        if (path == null)
-        {
-            character.OnDestinationArrived();
-            return;
-        }
+        if (path == null) return;
 
         PathStack = path;
 
@@ -98,7 +99,6 @@ public class MovementAI : AI
         {
             Path = new Vector2();
             currentPathingNode = null;
-            character.OnDestinationArrived();
         }
     }
 }

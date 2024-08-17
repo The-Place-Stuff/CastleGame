@@ -13,8 +13,6 @@ public class Task
     public GameObject Target { get; set; } = GameObject.Empty();
     public GameObject Sensor { get; set; } = GameObject.Empty();
     public Character Character { get; private set; } 
-
-
     public TaskManager TaskManager { get; private set; }
 
     public Task(GameObject obj)
@@ -49,7 +47,7 @@ public class Task
 
     public virtual void Initialize()
     {
-        TaskManager = Target.GetComponent<TaskManager>();
+        TaskManager = Character.GetComponent<TaskManager>();
     }
 
     public virtual void Update()
@@ -64,7 +62,7 @@ public class Task
 
     public virtual void Finish()
     {
-
+        TaskManager.CompleteTask();
     }
 
     public virtual void Enter()

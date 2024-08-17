@@ -25,6 +25,6 @@ public class MineTask : Task
         Rock rock = Target as Rock;
 
         rock.OnMine();
-        Character.OnDestinationArrived();
+        Finish();
     }
 }

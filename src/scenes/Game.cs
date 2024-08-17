@@ -26,18 +26,12 @@ public class Game : Scene
         Camera.UIScale = 5f;
 
         map = new Map();
+        AddGameObject(map);
 
         cursor = new Cursor();
         cursor.Load();
 
         characters.Add(Characters.Villager());
-        characters.Add(Characters.Sheep());
-        characters.Add(Characters.Sheep());
-        characters.Add(Characters.Sheep());
-        characters.Add(Characters.Sheep());
-        characters.Add(Characters.Sheep());
-        characters.Add(Characters.Sheep());
-        characters.Add(Characters.Sheep());
 
 
         foreach (Character character in characters)
@@ -50,7 +44,7 @@ public class Game : Scene
 
         AddGameObject(player);
 
-        AddGameObject(map);
+        
 
     }
 

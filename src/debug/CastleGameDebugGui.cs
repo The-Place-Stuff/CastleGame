@@ -151,7 +151,8 @@ public class CastleGameDebugGui : ImGuiDrawable
                         secondDir = "West";
 
                     }
-                    ImGui.Text("Current Task: " + character.GetCurrentTask().Name);
+                    // this has to be revamped
+                   // ImGui.Text("Current Task: " + );
                     ImGui.Text("Direction: " + firstDir + " " + secondDir);
                     ImGui.Text("Layer: " + character.Layer);
                     ImGui.SeparatorText("Components");

@@ -36,6 +36,6 @@ public class BuildTask : Task
 
 
 
-        villager.OnDestinationArrived();
+        Finish();
     }
 }

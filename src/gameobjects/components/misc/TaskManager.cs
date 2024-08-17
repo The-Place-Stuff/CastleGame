@@ -1,4 +1,5 @@
-﻿using SerpentEngine;
+﻿using Microsoft.Xna.Framework;
+using SerpentEngine;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,15 +20,41 @@ public class TaskManager : Component
 
     public void AddTask(Task task)
     {
-        Tasks.Add(task);
+        if (task == null) return;
 
+        if (Player.BuildingMode) return;
+
+        Map map = SceneManager.CurrentScene.GetGameObject<Map>();
+        Vector2 position = task.Target.Position;
+
+        GameObject gameObject = SceneManager.CurrentScene.GetGameObjectAt(VectorHelper.Snap(position, map.objectGrid.TileSize.X));
+        GameObject obj = map.objectGrid.GetTileFromWorldCoordinates(VectorHelper.Snap(position, map.objectGrid.TileSize.X));
+
+        GameObject taskTarget = GameObject.Empty();
+        taskTarget.Position = position;
+
+        if (gameObject != null) taskTarget = gameObject;
+        if (obj != null) taskTarget = obj;
+
+        if (taskTarget is Player) return;
+
+        task.Target = taskTarget;
+
+        Tasks.Add(task);
         task.SetCharacter(GameObject as Character);
         task.Initialize();
+
+        if (Tasks.Count == 1) SetTask(task);
+        
     }
 
     public void CompleteTask()
     {
         Tasks.Remove(CurrentTask);
+
+        Debug.WriteLine(Tasks.Count);
+
+        if (Tasks.Count > 0) SetTask(Tasks[0]);
     }
 
 
@@ -43,13 +70,14 @@ public class TaskManager : Component
             if (t.Name == task.Name)
             {
                 CurrentTask = task;
-                return;
+                break;
             }
 
         }
 
-
         CurrentTask.Enter();
+
+        CurrentTask.Start();
     }
 
     public override void Update()

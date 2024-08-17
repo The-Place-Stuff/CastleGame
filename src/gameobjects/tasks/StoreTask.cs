@@ -36,6 +36,6 @@ public class StoreTask : Task
             villager.CurrentItem = Item.Empty();
         }
 
-        villager.OnDestinationArrived();
+        Finish();
     }
 }

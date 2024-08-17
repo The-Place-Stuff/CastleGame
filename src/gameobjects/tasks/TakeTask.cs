@@ -32,6 +32,6 @@ public class TakeTask : Task
             stockpile.RemoveItem(stockpileInventory.GetLast());
         }
 
-        villager.OnDestinationArrived();
+        Finish();
     }
 }

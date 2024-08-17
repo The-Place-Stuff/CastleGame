@@ -31,6 +31,6 @@ public class PickTask : Task
 
         villager.CurrentItem = item;
         playerInventory.Add(item);
-        Character.OnDestinationArrived();
+        Finish();
     }
 }
