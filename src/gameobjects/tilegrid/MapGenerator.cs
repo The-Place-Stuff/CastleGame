@@ -87,7 +87,7 @@ public class MapGenerator
                     tileGrid.PlaceTile(treePosition, Objects.Tree().Name);
                 }
 
-                if (forestValue < 0.4f)
+                if (forestValue < 0.3f)
                 {
                     int randomInt = random.Next(0, 50);
 
@@ -96,6 +96,17 @@ public class MapGenerator
                     Vector2 bushPosition = new Vector2(x, y);
 
                     tileGrid.PlaceTile(bushPosition, Objects.Bush().Name);
+                }
+
+                if (forestValue < 0.4f)
+                {
+                    int randomInt = random.Next(0, 50);
+
+                    if (randomInt != 0) continue;
+
+                    Vector2 rockPosition = new Vector2(x, y);
+
+                    tileGrid.PlaceTile(rockPosition, Objects.Rock().Name);
                 }
             }
         }
