@@ -13,28 +13,12 @@ public class MovementAI : AI
 {
     public Vector2 Path = new Vector2();
 
-    private PathFinder PathFinder;
     private Stack<Node> PathStack = new Stack<Node>();
     private Node currentPathingNode;
 
     public MovementAI()
     {
-        Dictionary<Vector2, Node> nodes = new Dictionary<Vector2, Node>();
 
-        Map map = SceneManager.CurrentScene.GetGameObject<Map>();
-        TileGrid objectGrid = map.objectGrid;
-
-        for (int x = -100; x <= 100; x++)
-        {
-            for (int y = -100; y <= 100; y++)
-            {
-                Tile tile = objectGrid.GetTileFromGridCoordinates(new Vector2(x, y));
-
-                nodes.Add(new Vector2(x, y), new Node(new Vector2(x, y), tile == null));
-            }
-        }
-
-        PathFinder = new PathFinder(nodes);
     }
 
     public void ChangePath(Vector2 path)
@@ -61,7 +45,7 @@ public class MovementAI : AI
         Vector2 start = objectGrid.ConvertWorldCoordinatesToGridCoordinates(GameObject.Position);
         Vector2 end = objectGrid.ConvertWorldCoordinatesToGridCoordinates(Path);
 
-        Stack<Node> path = PathFinder.FindPath(start, end);
+        Stack<Node> path = map.PathFinder.FindPath(start, end);
 
         if (path == null) return;
 

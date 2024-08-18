@@ -14,6 +14,8 @@ public class Map : GameObject
     public TileGrid objectGrid = new TileGrid(new Vector2(16, 16));
     public TileGrid bluprintGrid = new TileGrid(new Vector2(16, 16));
 
+    public PathFinder PathFinder { get; private set; }
+
     public override void Load()
     {
         RegisterTileSets();
@@ -37,6 +39,20 @@ public class Map : GameObject
         terrainGrid.PlaceTiles(new Vector2(-103, -103), new Vector2(103, 103), "grass");
         
         MapGenerator.Generate(objectGrid, 1984);
+
+        Dictionary<Vector2, Node> nodes = new Dictionary<Vector2, Node>();
+
+        for (int x = -100; x <= 100; x++)
+        {
+            for (int y = -100; y <= 100; y++)
+            {
+                Tile tile = objectGrid.GetTileFromGridCoordinates(new Vector2(x, y));
+
+                nodes.Add(new Vector2(x, y), new Node(new Vector2(x, y), tile == null));
+            }
+        }
+
+        PathFinder = new PathFinder(nodes);
     }
 
     public void RegisterTileSets()
