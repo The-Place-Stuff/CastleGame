@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CastleGame;
-public class Tree : Object
+public class Tree : Object, Interactable
 {
     public Tree(string name) : base(name)
     {
@@ -20,6 +20,11 @@ public class Tree : Object
 
         AddComponent(sprite);
         base.Load();
+    }
+
+    public Task GetTaskType(Villager villager)
+    {
+        return new ChopTask(Position);
     }
 
     public virtual void OnChop()

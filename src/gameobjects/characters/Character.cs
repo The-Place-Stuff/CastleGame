@@ -78,11 +78,6 @@ public abstract class Character : GameObject
         taskManager.AddTask(task);
     }
 
-    public virtual Task GetTaskTypeFromGameObject(GameObject target)
-    {
-        return null;
-    }
-
     public virtual void UpdateDirection()
     {
         Direction direction = GetComponent<Direction>();

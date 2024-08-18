@@ -42,7 +42,10 @@ public class Villager : Character
                 break;
             }
 
-            AddTask(GetTaskTypeFromGameObject(target));
+            if (target is Interactable interactable)
+            {
+                AddTask(interactable.GetTaskType(this));
+            } 
         }
 
         UpdateTool();
@@ -113,40 +116,5 @@ public class Villager : Character
         if (Tool.Name == tool.Name) return true;
 
         return false;
-    }
-
-    public override Task GetTaskTypeFromGameObject(GameObject target)
-    {
-        if (target is Tree)
-        {
-            return new ChopTask(target.Position);
-        }
-        if (target is Rock)
-        {
-            return new MineTask(target.Position);
-        }
-        if (target is Workstation && CurrentItem.Name != Item.Empty().Name)
-        {
-            return new WorkTask(target.Position);
-        }
-        if (target is Stockpile && CurrentItem.Name == Item.Empty().Name)
-        {
-            return new TakeTask(target.Position);
-        }
-        if (target is Stockpile && CurrentItem.Name != Item.Empty().Name)
-        {
-            return new StoreTask(target.Position);
-        }
-        if (target is Blueprint && CurrentItem.Name != Item.Empty().Name)
-        {
-            return new BuildTask(target.Position);
-        }
-        if (target is Item)
-        {
-            return new PickTask(target.Position);
-
-        }
-
-        return base.GetTaskTypeFromGameObject(target);
     }
 }

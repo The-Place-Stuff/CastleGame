@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CastleGame;
-public class Rock : Object
+public class Rock : Object, Interactable
 {
     public Rock(string name) : base(name)
     {
@@ -21,6 +21,11 @@ public class Rock : Object
 
         AddComponent(sprite);
         base.Load();
+    }
+
+    public Task GetTaskType(Villager villager)
+    {
+        return new MineTask(Position);
     }
 
     public virtual void OnMine()

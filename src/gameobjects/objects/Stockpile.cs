@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CastleGame;
-public class Stockpile : Object
+public class Stockpile : Object, Interactable
 {
     public int Size { get; set; } = 0;
 
@@ -29,6 +29,15 @@ public class Stockpile : Object
 
         AddComponent(sprite);
         base.Load();
+    }
+
+    public Task GetTaskType(Villager villager)
+    {
+        if (villager.CurrentItem.Name == Item.Empty().Name) return new TakeTask(Position);
+
+        if (villager.CurrentItem.Name != Item.Empty().Name) return new StoreTask(Position);
+
+        return null;
     }
 
     public void AddItem(Item item)

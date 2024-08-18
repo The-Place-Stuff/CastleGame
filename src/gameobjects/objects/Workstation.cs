@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CastleGame;
 
-public class Workstation : Object
+public class Workstation : Object, Interactable
 {
 
     public int InventorySize { get; set; } = 3;
@@ -39,6 +39,13 @@ public class Workstation : Object
     {
         CheckRecipe();
         base.Update();
+    }
+
+    public Task GetTaskType(Villager villager)
+    {
+        if (villager.CurrentItem.Name == Item.Empty().Name) return null;
+
+        return new WorkTask(Position);
     }
 
     public void CheckRecipe()

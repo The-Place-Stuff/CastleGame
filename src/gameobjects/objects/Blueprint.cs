@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace CastleGame;
 
-public class Blueprint : Object
+public class Blueprint : Object, Interactable
 {
     public string Type { get; set; } = "";
 
@@ -39,6 +39,13 @@ public class Blueprint : Object
 
         CheckRecipe();
         base.Update();
+    }
+
+    public Task GetTaskType(Villager villager)
+    {
+        if (villager.CurrentItem.Name == Item.Empty().Name) return null;
+
+        return new BuildTask(Position);
     }
 
     public void CheckRecipe()
