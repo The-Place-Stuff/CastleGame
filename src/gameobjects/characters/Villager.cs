@@ -19,12 +19,13 @@ public class Villager : Character
 
     public override void Update()
     {
+
         base.Update();
         CurrentItem.Position = new Vector2(Position.X, Position.Y - 14);
 
         if (Input.Mouse.RightClickRelease())
         {
-            AddTask(new GoTask(Game.cursor.Position));
+            AddTask(new GoTask(Vector2.Ceiling(Game.cursor.Position)));
 
             Map map = SceneManager.CurrentScene.GetGameObject<Map>();
             Vector2 position = Game.cursor.Position;

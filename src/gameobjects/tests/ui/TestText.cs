@@ -1,4 +1,5 @@
-﻿using SerpentEngine;
+﻿using Microsoft.Xna.Framework;
+using SerpentEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,11 @@ namespace CastleGame
 
         public override void Load()
         {
-
+            Layer = 10;
+            Text text = new Text("assets/font/peaberry", "hello");
+            Position = new Vector2(1, 50);
+            text.Scale = 1;
+            AddComponent(text);
             base.Load();
         }
     }

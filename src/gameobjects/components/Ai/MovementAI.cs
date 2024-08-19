@@ -80,6 +80,9 @@ public class MovementAI : AI
         if (PathStack.Count == 0)
         {
             Path = new Vector2();
+            DebugGui.Log(objectGrid.ConvertWorldCoordinatesToGridCoordinates(Game.cursor.Position).ToString() + " Cursor");
+            DebugGui.Log(currentPathingNode.Position.ToString());
+            DebugGui.Log(character.Position.ToString() + " Player");
             currentPathingNode = null;
         }
     }

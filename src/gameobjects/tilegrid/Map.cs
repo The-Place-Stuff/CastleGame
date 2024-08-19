@@ -36,15 +36,15 @@ public class Map : GameObject
         AddComponent(bluprintGrid);
 
 
-        terrainGrid.PlaceTiles(new Vector2(-103, -103), new Vector2(103, 103), "grass");
+        terrainGrid.PlaceTiles(new Vector2(-20, -20), new Vector2(20, 20), "grass");
         
         MapGenerator.Generate(objectGrid, 1984);
 
         Dictionary<Vector2, Node> nodes = new Dictionary<Vector2, Node>();
 
-        for (int x = -100; x <= 100; x++)
+        for (int x = -20; x <= 20; x++)
         {
-            for (int y = -100; y <= 100; y++)
+            for (int y = -20; y <= 20; y++)
             {
                 Tile tile = objectGrid.GetTileFromGridCoordinates(new Vector2(x, y));
 

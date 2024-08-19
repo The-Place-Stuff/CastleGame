@@ -12,6 +12,7 @@ public class Game : Scene
     private Blueprint bluprint;
     public List<Character> characters = new List<Character>();
     public Player player = new Player();
+    public TestText testText = new TestText();
 
     private RenderTarget2D cursorRenderTarget = new RenderTarget2D(SerpentGame.Instance.GraphicsDevice, GraphicsConfig.SCREEN_WIDTH, GraphicsConfig.SCREEN_HEIGHT);
 
@@ -43,6 +44,8 @@ public class Game : Scene
         bluprint = new Blueprint("furnace_off");
 
         AddGameObject(player);
+
+        AddGameObject(testText);
 
         
 
