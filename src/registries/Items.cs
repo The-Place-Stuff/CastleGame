@@ -14,15 +14,33 @@ public class Items : Registry
     public static new string Path = "assets/img/items/";
 
 
-    public static Func<Item> Wood = Register("wood",() => new Item("wood"));
+    public static readonly Func<Item> Wood = Register(() => new Item("wood"));
 
-    public static Func<Item> Stone = Register("stone", () => new Item("stone"));
+    public static readonly Func<Item> Stone = Register( () => new Item("stone"));
 
-    public static Func<Item> Axe = Register("axe", () => new Tool("axe"));
+    public static readonly Func<Item> Axe = Register(() => new Tool("axe"));
 
-    public static Func<Item> Register(string name, Func<Item> item)
+    public static readonly Func<Item> Pickaxe = Register(() => new Tool("pickaxe"));
+
+    public static readonly Func<Item> Shovel = Register(() => new Tool("shovel"));
+
+    public static readonly Func<Item> Sword = Register(() => new Tool("sword"));
+
+    public static readonly Func<Item> Berries = Register(() => new Item("berries"));
+
+    public static readonly Func<Item> IronOre = Register(() => new Item("iron_ore"));
+
+    public static readonly Func<Item> IronBar = Register( () => new Item("iron_bar"));
+
+    public static readonly Func<Item> Wool = Register( () => new Item("wool"));
+
+    public static readonly Func<Item> Meat = Register(() => new Item("meat"));
+
+    public static readonly Func<Item> Steak = Register(() => new Item("steak"));
+
+    public static  Func<Item> Register(Func<Item> item)
     {
-        List.Add(name, item);
+        List.Add(item().Name, item);
         return item;
     }
 
