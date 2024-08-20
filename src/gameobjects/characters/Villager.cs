@@ -36,7 +36,6 @@ public class Villager : Character
 
             foreach (GameObject gameObject in targets)
             {
-                Debug.WriteLine(gameObject.Name);
                 if (gameObject is Tile && !(gameObject is Object)) continue;
 
                 target = gameObject;

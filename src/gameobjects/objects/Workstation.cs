@@ -54,7 +54,6 @@ public class Workstation : Object, Interactable
         {
             Item item = entry.Value();
             if (!ItemRecipes.List.ContainsKey(item.Name)) continue;
-            DebugGui.Log(GetInventory().Items.Count+"");
 
             if (ItemRecipes.List[item.Name].RecipeSettings.Type == Name && ItemRecipes.List[item.Name].Matches(GetInventory()))
             {                Output(ItemRecipes.List[item.Name]);

@@ -33,7 +33,7 @@ public class MovementAI : AI
 
     public override void Update()
     {
-        if (PathStack.Count > 0) Move();
+        if (PathStack.Count > 0 || currentPathingNode != null) Move();
 
         if (Path == Vector2.Zero || PathStack.Count > 0) return;
 
@@ -63,7 +63,7 @@ public class MovementAI : AI
 
         Vector2 targetPosition = objectGrid.ConvertGridCoordinatesToWorldCoordinates(currentPathingNode.Position);
 
-        if (Vector2.Distance(GameObject.Position, targetPosition) < 0.2f)
+        if (Vector2.Distance(GameObject.Position, targetPosition) < 0.2f && PathStack.Count > 0)
         {
             currentPathingNode = PathStack.Pop();
         }
@@ -77,12 +77,12 @@ public class MovementAI : AI
         character.CurrentDirection = direction;
         GameObject.Position += direction * character.Speed * Main.DeltaTime;
 
-        if (PathStack.Count == 0)
+        if (PathStack.Count == 0 && Vector2.Distance(GameObject.Position, targetPosition) < 0.2f)
         {
             Path = new Vector2();
-            DebugGui.Log(objectGrid.ConvertWorldCoordinatesToGridCoordinates(Game.cursor.Position).ToString() + " Cursor");
-            DebugGui.Log(currentPathingNode.Position.ToString());
-            DebugGui.Log(character.Position.ToString() + " Player");
+            //DebugGui.Log(objectGrid.ConvertWorldCoordinatesToGridCoordinates(Game.cursor.Position).ToString() + " Cursor");
+            //DebugGui.Log(currentPathingNode.Position.ToString());
+            //DebugGui.Log(objectGrid.ConvertWorldCoordinatesToGridCoordinates(character.Position) + " Character");
             currentPathingNode = null;
         }
     }

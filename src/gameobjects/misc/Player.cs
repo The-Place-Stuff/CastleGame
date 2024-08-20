@@ -64,6 +64,8 @@ public class Player : GameObject
             map.objectGrid.GetTileFromWorldCoordinates(Position).RemoveComponent(map.objectGrid.GetTileFromWorldCoordinates(Position).GetComponent<Sprite>());
             map.objectGrid.GetTileFromWorldCoordinates(Position).Load();
 
+            //DebugGui.Log(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(cursorPosition) + " Placed");
+
 
         }
     }
