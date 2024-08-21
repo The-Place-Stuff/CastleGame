@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace CastleGame;
 public class Furnace : Workstation
 {
-    public Furnace(string name) : base(name)
+    public Furnace(string name, ObjectProperties objectProperties) : base(name, objectProperties)
     {
     }
 

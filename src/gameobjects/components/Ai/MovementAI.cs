@@ -75,7 +75,7 @@ public class MovementAI : AI
         direction.Normalize();
 
         character.CurrentDirection = direction;
-        GameObject.Position += direction * character.Speed * Main.DeltaTime;
+        GameObject.Position += direction * character.Properties.Speed * Main.DeltaTime;
 
         if (PathStack.Count == 0 && Vector2.Distance(GameObject.Position, targetPosition) < 0.2f)
         {

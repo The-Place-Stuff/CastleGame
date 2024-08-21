@@ -9,7 +9,13 @@ namespace CastleGame;
 
 public abstract class Object : Tile
 {
-    public Object(string name) : base(name)
+    public ObjectProperties Properties;
+    public Object(string name, ObjectProperties objectProperties) : base(name)
+    {
+        Properties = objectProperties;
+    }
+
+    public class ObjectProperties
     {
 
     }

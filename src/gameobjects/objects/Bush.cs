@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace CastleGame;
 public class Bush : Object
 {
-    public Bush(string name) : base(name)
+    public Bush(string name, ObjectProperties objectProperties) : base(name, objectProperties)
     {
 
     }

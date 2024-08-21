@@ -130,7 +130,7 @@ public class CastleGameDebugGui : ImGuiDrawable
 
                     ImGui.Text("Name: " + character.Name);
                     ImGui.Text("Position: " + new Vector2((int)Math.Round(character.Position.X), (int)Math.Round(character.Position.Y)));
-                    ImGui.Text("Speed: " + character.Speed);
+                    ImGui.Text("Speed: " + character.Properties.Speed);
                     string firstDir = "", secondDir = "";
                     if (character.CurrentDirection.Y > 0)
                     {

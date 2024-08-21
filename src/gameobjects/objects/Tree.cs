@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace CastleGame;
 public class Tree : Object, Interactable
 {
-    public Tree(string name) : base(name)
+    public Tree(string name, ObjectProperties objectProperties) : base(name, objectProperties)
     {
 
     }

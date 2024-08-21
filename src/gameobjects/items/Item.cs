@@ -9,9 +9,11 @@ namespace CastleGame;
 
 public class Item : GameObject, Interactable
 {
-    public Item(string name)
+    public ItemProperties Properties { get; set; }
+    public Item(string name, ItemProperties itemProperties)
     {
         Name = name;
+        Properties = itemProperties;
     }
 
     public override void Load()
@@ -32,6 +34,11 @@ public class Item : GameObject, Interactable
 
     public static new Item Empty()
     {
-        return new Item("");
+        return new Item("", new ItemProperties());
+    }
+
+    public class ItemProperties
+    {
+
     }
 }

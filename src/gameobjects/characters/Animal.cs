@@ -8,7 +8,7 @@ namespace CastleGame
 {
     public class Animal : Character
     {
-        public Animal(string name, float maxHealth, float speed, int range) : base(name, maxHealth, speed, range)
+        public Animal(string name, CharacterProperties characterProperties) : base(name, characterProperties)
         {
         }
 

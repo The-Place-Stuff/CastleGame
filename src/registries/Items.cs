@@ -14,29 +14,29 @@ public class Items : Registry
     public static new string Path = "assets/img/items/";
 
 
-    public static readonly Func<Item> Wood = Register(() => new Item("wood"));
+    public static readonly Func<Item> Wood = Register(() => new Item("wood", new Item.ItemProperties()));
 
-    public static readonly Func<Item> Stone = Register( () => new Item("stone"));
+    public static readonly Func<Item> Stone = Register( () => new Item("stone", new Item.ItemProperties()));
 
-    public static readonly Func<Item> Axe = Register(() => new Tool("axe"));
+    public static readonly Func<Item> Axe = Register(() => new Tool("axe", new Item.ItemProperties()));
 
-    public static readonly Func<Item> Pickaxe = Register(() => new Tool("pickaxe"));
+    public static readonly Func<Item> Pickaxe = Register(() => new Tool("pickaxe", new Item.ItemProperties()));
 
-    public static readonly Func<Item> Shovel = Register(() => new Tool("shovel"));
+    public static readonly Func<Item> Shovel = Register(() => new Tool("shovel", new Item.ItemProperties()));
 
-    public static readonly Func<Item> Sword = Register(() => new Tool("sword"));
+    public static readonly Func<Item> Sword = Register(() => new Tool("sword", new Item.ItemProperties()));
 
-    public static readonly Func<Item> Berries = Register(() => new Item("berries"));
+    public static readonly Func<Item> Berries = Register(() => new Item("berries", new Item.ItemProperties()));
 
-    public static readonly Func<Item> IronOre = Register(() => new Item("iron_ore"));
+    public static readonly Func<Item> IronOre = Register(() => new Item("iron_ore", new Item.ItemProperties()));
 
-    public static readonly Func<Item> IronBar = Register( () => new Item("iron_bar"));
+    public static readonly Func<Item> IronBar = Register( () => new Item("iron_bar", new Item.ItemProperties()));
 
-    public static readonly Func<Item> Wool = Register( () => new Item("wool"));
+    public static readonly Func<Item> Wool = Register( () => new Item("wool", new Item.ItemProperties()));
 
-    public static readonly Func<Item> Meat = Register(() => new Item("meat"));
+    public static readonly Func<Item> Meat = Register(() => new Item("meat", new Item.ItemProperties()));
 
-    public static readonly Func<Item> Steak = Register(() => new Item("steak"));
+    public static readonly Func<Item> Steak = Register(() => new Item("steak", new Item.ItemProperties()));
 
     public static  Func<Item> Register(Func<Item> item)
     {

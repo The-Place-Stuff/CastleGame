@@ -12,20 +12,14 @@ namespace CastleGame;
 
 public abstract class Character : GameObject
 {
-    public int Range { get; set; }
-
-    public float Speed { get; set; }
-
     public Vector2 CurrentDirection { get; set; }
+    public CharacterProperties Properties { get; set; }
 
-    public float MaxHealth { get; set; }
 
-    public Character(string name, float maxHealth, float speed, int range)
+    public Character(string name, CharacterProperties properties)
     {
         Name = name;
-        MaxHealth = maxHealth;
-        Speed = speed;
-        Range = range;
+        Properties = properties;
     }
 
     public override void Load()
@@ -37,7 +31,7 @@ public abstract class Character : GameObject
         Direction direction = CreateAndAddComponent<Direction>();
         MovementAI movementAI = CreateAndAddComponent<MovementAI>();
         TaskManager taskManager = CreateAndAddComponent<TaskManager>();
-        Health health = new Health(MaxHealth); AddComponent(health);
+        Health health = new Health(Properties.Health); AddComponent(health);
 
         direction.Set(Direction.East().Name);
 
@@ -88,6 +82,35 @@ public abstract class Character : GameObject
         if (CurrentDirection.X < 0)
         {
             direction.Set(Direction.West().Name);
+        }
+
+    }
+
+
+    public class CharacterProperties
+    {
+        public int Range { get; set; }
+
+        public int Speed { get; set; }
+
+        public int Health { get; set; }
+
+        public CharacterProperties SetSpeed(int speed)
+        {
+            Speed = speed;
+            return this;
+        }
+
+        public CharacterProperties SetRange(int range)
+        {
+            Range = range;
+            return this;
+        }
+
+        public CharacterProperties SetHealth(int health)
+        {
+            Health = health;
+            return this;
         }
 
     }

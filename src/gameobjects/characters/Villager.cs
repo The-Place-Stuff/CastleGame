@@ -13,7 +13,7 @@ public class Villager : Character
 {
     public Tool Tool { get; set; } = Tool.Empty();
     public Item CurrentItem { get; set; } = Item.Empty();
-    public Villager(string name, float maxHealth, float speed, int range) : base(name, maxHealth, speed, range)
+    public Villager(string name, CharacterProperties characterProperties) : base(name, characterProperties)
     {
     }
 

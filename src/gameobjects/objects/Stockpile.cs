@@ -14,7 +14,7 @@ public class Stockpile : Object, Interactable
 
     public string CurrentType { get; set; } = Item.Empty().Name;
 
-    public Stockpile(string name) : base(name)
+    public Stockpile(string name, ObjectProperties objectProperties) : base(name, objectProperties)
     {
 
     }

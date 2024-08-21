@@ -9,7 +9,7 @@ namespace CastleGame
 {
     public class Workbench : Workstation
     {
-        public Workbench(string name) : base(name)
+        public Workbench(string name, ObjectProperties objectProperties) : base(name, objectProperties)
         {
         }
     }

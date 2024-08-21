@@ -16,9 +16,7 @@ public class Blueprint : Object, Interactable
 
     public bool Placed { get; set; }
 
-
-
-    public Blueprint(string name) : base(name)
+    public Blueprint(string name) : base(name, new ObjectProperties())
     {
 
     }

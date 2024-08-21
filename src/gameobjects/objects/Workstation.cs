@@ -13,7 +13,7 @@ public class Workstation : Object, Interactable
 
     public int InventorySize { get; set; } = 3;
 
-    public Workstation(string name) : base(name)
+    public Workstation(string name, ObjectProperties objectProperties) : base(name, objectProperties)
     {
 
 

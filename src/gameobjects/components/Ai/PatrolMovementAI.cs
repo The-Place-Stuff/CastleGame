@@ -46,6 +46,6 @@ public class PatrolMovementAI : Component
 
         Vector2 d = new Vector2((int)Math.Ceiling(dir.X), (int)Math.Ceiling(dir.Y));
 
-        character.Position += dir * character.Speed * (float)Main.DeltaTime;
+        character.Position += dir * character.Properties.Speed * (float)Main.DeltaTime;
     }
 }

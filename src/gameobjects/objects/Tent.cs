@@ -3,7 +3,7 @@
 namespace CastleGame;
 public class Tent : Object
 {
-    public Tent(string name) : base(name)
+    public Tent(string name, ObjectProperties objectProperties) : base(name, objectProperties)
     {
 
     }

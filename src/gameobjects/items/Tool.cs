@@ -8,13 +8,13 @@ namespace CastleGame;
 
 public class Tool : Item
 {
-    public Tool(string name) : base(name)
+    public Tool(string name, ItemProperties itemProperties) : base(name, itemProperties)
     {
 
     }
 
     public static new Tool Empty()
     {
-        return new Tool("");
+        return new Tool("", new ItemProperties());
     }
 }
