@@ -21,6 +21,7 @@ public class PickTask : Task
 
     public override void Start()
     {
+
         if (!(Target is Item)) return;
 
         Item item = (Item)Target;
@@ -32,5 +33,10 @@ public class PickTask : Task
         villager.CurrentItem = item;
         playerInventory.Add(item);
         Finish();
+    }
+
+    public override void Finish()
+    {
+        base.Finish();
     }
 }

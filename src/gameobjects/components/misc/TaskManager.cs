@@ -28,7 +28,11 @@ public class TaskManager : Component
         Vector2 position = task.Target.Position;
 
         GameObject gameObject = SceneManager.CurrentScene.GetGameObjectAt<Character>(VectorHelper.Snap(position, map.objectGrid.TileSize.X));
-        GameObject obj = map.objectGrid.GetTileFromWorldCoordinates(VectorHelper.Snap(position, map.objectGrid.TileSize.X));
+        GameObject obj = SceneManager.CurrentScene.GetGameObjectAt<Item>(VectorHelper.Snap(position, map.objectGrid.TileSize.X));
+        if(obj == null)
+        {
+            obj = map.objectGrid.GetTileFromWorldCoordinates(VectorHelper.Snap(position, map.objectGrid.TileSize.X));
+        }
 
         GameObject taskTarget = GameObject.Empty();
         taskTarget.Position = position;
@@ -39,6 +43,7 @@ public class TaskManager : Component
         if (taskTarget is Player) return;
 
         task.Target = taskTarget;
+        DebugGui.Log(taskTarget.Name + " is the task target");
 
         Tasks.Add(task);
         task.SetCharacter(GameObject as Character);

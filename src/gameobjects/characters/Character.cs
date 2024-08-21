@@ -74,7 +74,6 @@ public abstract class Character : GameObject
     public virtual void AddTask(Task task)
     {
         TaskManager taskManager = GetComponent<TaskManager>();
-
         taskManager.AddTask(task);
     }
 
