@@ -14,8 +14,6 @@ public class Objects : Registry
 
 
 
-
-
     public static readonly Func<Object> Bush = Register(() => new Bush("bush", new Object.ObjectProperties()));
 
     public static readonly Func<Object> Rock = Register( () => new Rock("rock", new Object.ObjectProperties()));

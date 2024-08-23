@@ -31,13 +31,8 @@ public class Rock : Object, Interactable
     public virtual void OnMine()
     {
 
-        Item item = Items.Stone();
-        item.Position = Position;
-
-        SceneManager.CurrentScene.AddGameObject(item);
-
+        Drop(Drops.List[Name]);
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
-
         map.objectGrid.RemoveTile(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(Position));
     }
 }

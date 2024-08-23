@@ -15,6 +15,20 @@ public abstract class Object : Tile
         Properties = objectProperties;
     }
 
+    public void Drop(Drop drop)
+    {
+        foreach (KeyValuePair<Item, float> itemEntry in drop.DropSettings.Drops)
+        {
+            Item item = itemEntry.Key;
+            float chance = itemEntry.Value;
+
+            item.Position = Position;
+
+            SceneManager.CurrentScene.AddGameObject(item);
+
+        }
+    } 
+
     public class ObjectProperties
     {
         public int Durability { get; set; } = 0;
