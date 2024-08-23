@@ -17,6 +17,13 @@ public abstract class Object : Tile
 
     public class ObjectProperties
     {
+        public int Durability { get; set; } = 0;
+
+        public ObjectProperties SetDurability(int durability)
+        {
+            Durability = durability;
+            return this;
+        }
 
     }
 
