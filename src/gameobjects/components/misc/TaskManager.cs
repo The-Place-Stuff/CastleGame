@@ -57,7 +57,7 @@ public class TaskManager : Component
     {
         Tasks.Remove(CurrentTask);
 
-        Debug.WriteLine(Tasks.Count);
+        //Debug.WriteLine(Tasks.Count);
 
         if (Tasks.Count > 0) SetTask(Tasks[0]);
     }

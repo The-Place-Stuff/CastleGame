@@ -11,7 +11,10 @@ using System.Threading.Tasks;
 namespace CastleGame;
 public class MovementAI : AI
 {
-    public Vector2 Path = new Vector2();
+    public Vector2 PreviousPath { get; private set; } = new Vector2();
+    public bool Moving { get; private set; } = false;
+
+    private Vector2 currentPath = new Vector2();
 
     private Stack<Node> PathStack = new Stack<Node>();
     private Node currentPathingNode;
@@ -21,21 +24,22 @@ public class MovementAI : AI
 
     }
 
-    public void ChangePath(Vector2 path)
+    public void SetPath(Vector2 path)
     {
-        Path = path;
-    }
-
-    public bool IsMoving()
-    {
-        return PathStack.Count > 0;
+        currentPath = path;
+        PreviousPath = path;
+        Moving = true;
     }
 
     public override void Update()
     {
-        if (PathStack.Count > 0 || currentPathingNode != null) Move();
+        if (PathStack.Count > 0 || currentPathingNode != null)
+        {
+            Move();
+            return;
+        }
 
-        if (Path == Vector2.Zero || PathStack.Count > 0) return;
+        if (currentPath == Vector2.Zero || PathStack.Count > 0) return;
 
         Character character = GameObject as Character;
 
@@ -43,13 +47,19 @@ public class MovementAI : AI
         TileGrid objectGrid = map.objectGrid;
 
         Vector2 start = objectGrid.ConvertWorldCoordinatesToGridCoordinates(GameObject.Position);
-        Vector2 end = objectGrid.ConvertWorldCoordinatesToGridCoordinates(Path);
+        Vector2 end = objectGrid.ConvertWorldCoordinatesToGridCoordinates(currentPath);
 
         Stack<Node> path = map.PathFinder.FindPath(start, end);
 
-        if (path == null) return;
+        if (path == null)
+        {
+            Moving = false;
+            return;
+        }
 
         PathStack = path;
+
+        Moving = true;
     }
 
     private void Move()
@@ -77,13 +87,15 @@ public class MovementAI : AI
         character.CurrentDirection = direction;
         GameObject.Position += direction * character.Properties.Speed * Main.DeltaTime;
 
+        Vector2 snappedGameObjectPosition = VectorHelper.Snap(GameObject.Position, objectGrid.TileSize.X);
+        Vector2 gameObjectGridPosition = objectGrid.ConvertWorldCoordinatesToGridCoordinates(snappedGameObjectPosition);
+
         if (PathStack.Count == 0 && Vector2.Distance(GameObject.Position, targetPosition) < 0.2f)
         {
-            Path = new Vector2();
-            //DebugGui.Log(objectGrid.ConvertWorldCoordinatesToGridCoordinates(Game.cursor.Position).ToString() + " Cursor");
-            //DebugGui.Log(currentPathingNode.Position.ToString());
-            //DebugGui.Log(objectGrid.ConvertWorldCoordinatesToGridCoordinates(character.Position) + " Character");
+            currentPath = new Vector2();
             currentPathingNode = null;
+
+            Moving = false;
         }
     }
 }

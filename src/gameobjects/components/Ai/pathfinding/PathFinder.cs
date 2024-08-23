@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -74,6 +75,8 @@ public class PathFinder
         }
 
         if (path.Count == 0) return null;
+
+       // Debug.WriteLine("This path's node count is: " + path.Count);
 
         return path;
     }

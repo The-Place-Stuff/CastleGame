@@ -25,7 +25,7 @@ public class Villager : Character
 
         if (Input.Mouse.RightClickRelease())
         {
-            AddTask(new GoTask(Vector2.Ceiling(Game.cursor.Position)));
+            AddTask(new GoTask(VectorHelper.Snap(Game.cursor.Position, 16)));
 
             Map map = SceneManager.CurrentScene.GetGameObject<Map>();
             Vector2 position = Game.cursor.Position;

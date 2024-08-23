@@ -27,22 +27,24 @@ public class GoTask : Task
     public override void Start()
     {
         Character.GetComponent<StateMachine>().SetState(CharacterStates.Wandering.Name);
-        Character.GetComponent<MovementAI>().Path = VectorHelper.Snap(Target.Position, 16);
+        Character.GetComponent<MovementAI>().SetPath(VectorHelper.Snap(Target.Position, 16));
         RegisterPossiblePositions();
 
         base.Start();
+
+        //Debug.WriteLine("GoTask started");
     }
 
     public void RegisterPossiblePositions()
     {
-        Vector2 center = Character.GetComponent<MovementAI>().Path;
+        Vector2 center = Character.GetComponent<MovementAI>().PreviousPath;
         Vector2 characterPosition = VectorHelper.Snap(Character.Position, 16);
         Vector2 currentClosestPosition = Vector2.Zero;
 
-        Vector2 up = new Vector2(center.X, center.Y -1);
-        Vector2 down = new Vector2(center.X, center.Y + 1);
-        Vector2 right = new Vector2(center.X + 1, center.Y);
-        Vector2 left = new Vector2(center.X - 1, center.Y);
+        Vector2 up = new Vector2(center.X, center.Y - 16);
+        Vector2 down = new Vector2(center.X, center.Y + 16);
+        Vector2 right = new Vector2(center.X + 16, center.Y);
+        Vector2 left = new Vector2(center.X - 16, center.Y);
 
         List<Vector2> positions = new List<Vector2>()
         {
@@ -53,8 +55,8 @@ public class GoTask : Task
         };
 
         positions.Sort((pos1, pos2) =>
-        Vector2.Distance(characterPosition, pos1).CompareTo(Vector2.Distance(characterPosition, pos2))
-    );
+            Vector2.Distance(characterPosition, pos1).CompareTo(Vector2.Distance(characterPosition, pos2))
+        );
 
         possiblePositions = positions;
 
@@ -62,22 +64,25 @@ public class GoTask : Task
 
     public override void Update()
     {
+        Map map = SceneManager.CurrentScene.GetGameObject<Map>();
         MovementAI movementAI = Character.GetComponent<MovementAI>();
 
-        if (!movementAI.IsMoving()) Finish();
+        if (!movementAI.Moving) Finish();
     }
 
     public override void Finish()
     {
-
-        DebugGui.Log(Target.Position + "");
         MovementAI movementAI = Character.GetComponent<MovementAI>();
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
-        Random rnd = new Random();
 
-        if (map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(Character.Position) != map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(movementAI.Path))
+      //  Debug.WriteLine("GoTask finishing...");
+
+        Vector2 snappedCharacterPosition = VectorHelper.Snap(Character.Position, 16);
+
+        if (Vector2.Distance(snappedCharacterPosition, movementAI.PreviousPath) > 0.2f)
         {
-            movementAI.Path = possiblePositions[tries];
+            //Debug.WriteLine("GoTask failed, trying again...");
+            movementAI.SetPath(possiblePositions[tries]);
             tries++;
 
             return;
