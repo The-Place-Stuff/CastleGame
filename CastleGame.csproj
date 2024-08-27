@@ -57,7 +57,6 @@
     <ProjectReference Include="..\..\..\Engine\SerpentEngine\SerpentEngine\SerpentEngine\SerpentEngine.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="src\gameobjects\ui\" />
     <Folder Include="src\gameobjects\util\" />
     <Folder Include="src\misc\" />
     <Folder Include="src\util\" />
