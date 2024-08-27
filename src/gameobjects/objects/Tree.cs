@@ -29,9 +29,13 @@ public class Tree : Object, Interactable
 
     public virtual void OnChop()
     {
+        Item item = Items.Wood();
+        item.Position = Position;
 
-        Drop(Drops.List[Name]);
+        SceneManager.CurrentScene.AddGameObject(item);
+
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
+
         map.objectGrid.RemoveTile(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(Position));
     }
 

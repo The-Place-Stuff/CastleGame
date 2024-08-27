@@ -12,8 +12,6 @@ public class Player : GameObject
 {
     public static bool BuildingMode = false;
 
-    public static TaskMenu TaskMenu;
-
     public static string CurrentBluprint = Objects.Workbench().Name;
 
     public override void Load()
@@ -43,34 +41,6 @@ public class Player : GameObject
         else
         {
             sprite.Enabled = false;
-        }
-
-        if(Input.Mouse.RightClick())
-        {
-            if (TaskMenu == null)
-            {
-                TaskMenu taskMenu = new TaskMenu();
-                taskMenu.Position = Game.cursor.Position;
-
-                TaskMenu = taskMenu;
-
-                SceneManager.CurrentScene.AddGameObject(taskMenu);
-            }
-            else
-            {
-                SceneManager.CurrentScene.Remove(TaskMenu);
-                TaskMenu taskMenu = new TaskMenu();
-                taskMenu.Position = Game.cursor.Position;
-
-                TaskMenu = taskMenu;
-
-                SceneManager.CurrentScene.AddGameObject(taskMenu);
-            }
-        }
-        if(Input.Mouse.LeftClick())
-        {
-            SceneManager.CurrentScene.Remove(TaskMenu);
-
         }
 
         base.Update();

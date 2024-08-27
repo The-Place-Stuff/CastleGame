@@ -75,8 +75,6 @@ public class Cursor : GameObject
         }
 
 
-
-
         base.Update();
 
     }
