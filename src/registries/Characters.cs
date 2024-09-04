@@ -14,14 +14,14 @@ public class Characters : Registry
     public static new string Path = "assets/img/characters/";
 
 
-    public static Func<Character> Villager = Register("villager",() => new Villager("villager", new Character.CharacterProperties().SetHealth(5).SetRange(100).SetSpeed(25)));
+    public static Func<Character> Villager = Register(() => new Villager("villager", new Character.CharacterProperties().SetHealth(5).SetRange(100).SetSpeed(25)));
 
-    public static Func<Character> Sheep = Register("sheep", () => new Animal("sheep", new Character.CharacterProperties().SetHealth(5).SetRange(100).SetSpeed(25)));
+    public static Func<Character> Sheep = Register(() => new Animal("sheep", new Character.CharacterProperties().SetHealth(5).SetRange(100).SetSpeed(25)));
 
 
-    public static Func<Character> Register(string name, Func<Character> character)
+    public static Func<Character> Register(Func<Character> character)
     {
-        List.Add(name, character);
+        List.Add(character().Name, character);
         return character;
     }
 
