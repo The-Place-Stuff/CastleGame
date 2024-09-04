@@ -24,20 +24,7 @@ public class Tree : Object, Interactable
 
     public Task GetTaskType(Villager villager)
     {
-        return new ChopTask(Position);
+        return new MineTask(Position);
     }
-
-    public virtual void OnChop()
-    {
-        Item item = Items.Wood();
-        item.Position = Position;
-
-        SceneManager.CurrentScene.AddGameObject(item);
-
-        Map map = SceneManager.CurrentScene.GetGameObject<Map>();
-
-        map.objectGrid.RemoveTile(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(Position));
-    }
-
 
 }

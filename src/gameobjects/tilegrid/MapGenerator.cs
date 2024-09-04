@@ -7,11 +7,11 @@ using System.Diagnostics;
 namespace CastleGame;
 public class MapGenerator
 {
-    public static void Generate(TileGrid tileGrid, int seed)
+    public static void Generate(TileGrid tileGrid)
     {
-        Random random = new Random(seed);
+        Random random = new Random(Map.Seed);
 
-        FastNoiseLite forestNoise = new FastNoiseLite(seed);
+        FastNoiseLite forestNoise = new FastNoiseLite(Map.Seed);
         forestNoise.SetNoiseType(FastNoiseLite.NoiseType.OpenSimplex2);
         forestNoise.SetFrequency(0.03f);
         forestNoise.SetFractalType(FastNoiseLite.FractalType.FBm);
@@ -19,7 +19,7 @@ public class MapGenerator
         forestNoise.SetFractalLacunarity(2.2f);
         forestNoise.SetFractalGain(0.5f);
 
-        FastNoiseLite clearingNoise = new FastNoiseLite(seed);
+        FastNoiseLite clearingNoise = new FastNoiseLite(Map.Seed);
         clearingNoise.SetNoiseType(FastNoiseLite.NoiseType.OpenSimplex2);
         clearingNoise.SetFrequency(0.055f);
         clearingNoise.SetFractalType(FastNoiseLite.FractalType.FBm);
@@ -27,7 +27,7 @@ public class MapGenerator
         clearingNoise.SetFractalLacunarity(2.0f);
         clearingNoise.SetFractalGain(0.5f);
 
-        Debug.WriteLine("Generating map, seed: " + seed);
+        Debug.WriteLine("Generating map, seed: " + Map.Seed);
 
         tileGrid.PlaceTile(new Vector2(0, -2), Objects.Stockpile().Name);
         tileGrid.PlaceTile(new Vector2(2, 0), Objects.Tent().Name);

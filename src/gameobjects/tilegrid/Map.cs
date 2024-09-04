@@ -7,6 +7,10 @@ using System.Diagnostics;
 namespace CastleGame;
 public class Map : GameObject
 {
+    public static int Seed = 1984;
+    public static int SizeX = 20;
+    public static int SizeY = 20;
+
     public List<TileSet> objectTileSets = new List<TileSet>();
     public TileSet terrianTileSet = new TileSet();
 
@@ -36,23 +40,11 @@ public class Map : GameObject
         AddComponent(bluprintGrid);
 
 
-        terrainGrid.PlaceTiles(new Vector2(-20, -20), new Vector2(20, 20), "grass");
+        terrainGrid.PlaceTiles(new Vector2(-SizeX, -SizeY), new Vector2(SizeX, SizeY), "grass");
         
-        MapGenerator.Generate(objectGrid, 1984);
+        MapGenerator.Generate(objectGrid);
 
-        Dictionary<Vector2, Node> nodes = new Dictionary<Vector2, Node>();
-
-        for (int x = -20; x <= 20; x++)
-        {
-            for (int y = -20; y <= 20; y++)
-            {
-                Tile tile = objectGrid.GetTileFromGridCoordinates(new Vector2(x, y));
-
-                nodes.Add(new Vector2(x, y), new Node(new Vector2(x, y), tile == null));
-            }
-        }
-
-        PathFinder = new PathFinder(nodes);
+        PathFinder = new PathFinder();
     }
 
     public void RegisterTileSets()

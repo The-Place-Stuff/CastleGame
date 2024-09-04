@@ -20,11 +20,9 @@ public class MineTask : Task
     }
     public override void Start()
     {
-        if (!(Target is Rock)) return;
+        Object targetObject = Target as Object;
 
-        Rock rock = Target as Rock;
-
-        rock.OnMine();
+        targetObject.Destroy();
         Finish();
     }
 }

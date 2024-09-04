@@ -26,5 +26,12 @@ namespace CastleGame
         {
             Debug.WriteLine("Registering drops for CastleGame!");
         }
+
+        public static Drop Get(string name)
+        {
+            if (!List.ContainsKey(name)) return null;
+
+            return List[name];
+        }
     }
 }
