@@ -1,4 +1,5 @@
-﻿using SerpentEngine;
+﻿using Microsoft.Xna.Framework;
+using SerpentEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,15 +18,23 @@ public abstract class Object : Tile
 
     public void Drop(Drop drop)
     {
-        foreach (KeyValuePair<Item, float> itemEntry in drop.DropSettings.Drops)
+        foreach (KeyValuePair<Item, DropProperties> itemEntry in drop.DropSettings.Drops)
         {
-            Item item = itemEntry.Key;
-            float chance = itemEntry.Value;
 
-            item.Position = Position;
+            for (int i = 0; i < itemEntry.Value.Count; i++)
+            {
 
-            SceneManager.CurrentScene.AddGameObject(item);
+                ///int radius = 8;
+                /// Random random = new Random();
+                ///Vector2 position = new Vector2(random.Next(-radius, radius + 1), random.Next(-radius, radius + 1));
+                Item item = itemEntry.Key;
+                float chance = itemEntry.Value.Chance;
 
+                item.Position = Position;
+
+                SceneManager.CurrentScene.AddGameObject(item);
+
+            }
         }
     } 
 

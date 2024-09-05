@@ -12,7 +12,7 @@ namespace CastleGame
     {
         public static new Dictionary<string, Drop> List = new Dictionary<string, Drop>();
 
-        public static readonly Drop Tree = Register(new Drop(new Drop.Settings().AddDrop(Items.Wood()).SetSource(Objects.Tree())));
+        public static readonly Drop Tree = Register(new Drop(new Drop.Settings().AddDrop(Items.Wood(), 3).SetSource(Objects.Tree())));
         public static readonly Drop Rock = Register(new Drop(new Drop.Settings().AddDrop(Items.Stone()).SetSource(Objects.Rock())));
 
         public static Drop Register(Drop drop)
