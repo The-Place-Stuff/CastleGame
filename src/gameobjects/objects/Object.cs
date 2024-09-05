@@ -36,7 +36,23 @@ public abstract class Object : Tile
 
             }
         }
-    } 
+    }
+    
+    public void Destroy()
+    {
+        if (Drops.Get(Name) != null)
+        {
+            Drop(Drops.Get(Name));
+        }
+
+        Map map = SceneManager.CurrentScene.GetGameObject<Map>();
+
+        Vector2 gridPosition = map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(Position);
+
+        map.objectGrid.RemoveTile(gridPosition);
+        
+        map.PathFinder.NodeMap.SetWalkable(gridPosition, true);
+    }
 
     public class ObjectProperties
     {

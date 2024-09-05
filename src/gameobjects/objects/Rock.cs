@@ -27,12 +27,4 @@ public class Rock : Object, Interactable
     {
         return new MineTask(Position);
     }
-
-    public virtual void OnMine()
-    {
-
-        Drop(Drops.List[Name]);
-        Map map = SceneManager.CurrentScene.GetGameObject<Map>();
-        map.objectGrid.RemoveTile(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(Position));
-    }
 }

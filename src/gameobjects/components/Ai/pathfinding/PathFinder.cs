@@ -9,17 +9,12 @@ using System.Threading.Tasks;
 namespace CastleGame;
 public class PathFinder
 {
-    public Dictionary<Vector2, Node> Grid { get; private set; }
-
-    public PathFinder(Dictionary<Vector2, Node> grid)
-    {
-        Grid = grid;
-    }
+    public NodeMap NodeMap { get; private set; } = new NodeMap();
 
     public Stack<Node> FindPath(Vector2 start, Vector2 end)
     {
-        Node startNode = Grid[start];
-        Node endNode = Grid[end];
+        Node startNode = NodeMap.GetNode(start);
+        Node endNode = NodeMap.GetNode(end);
 
         PriorityQueue<Node, float> openList = new PriorityQueue<Node, float>();
         List<Node> closedList = new List<Node>();
@@ -85,10 +80,10 @@ public class PathFinder
     {
         List<Node> neighbors = new List<Node>();
 
-        Node top = Grid.ContainsKey(new Vector2(node.Position.X, node.Position.Y - 1)) ? Grid[new Vector2(node.Position.X, node.Position.Y - 1)] : null;
-        Node bottom = Grid.ContainsKey(new Vector2(node.Position.X, node.Position.Y + 1)) ? Grid[new Vector2(node.Position.X, node.Position.Y + 1)] : null;
-        Node left = Grid.ContainsKey(new Vector2(node.Position.X - 1, node.Position.Y)) ? Grid[new Vector2(node.Position.X - 1, node.Position.Y)] : null;
-        Node right = Grid.ContainsKey(new Vector2(node.Position.X + 1, node.Position.Y)) ? Grid[new Vector2(node.Position.X + 1, node.Position.Y)] : null;
+        Node top = NodeMap.HasNode(new Vector2(node.Position.X, node.Position.Y - 1)) ? NodeMap.GetNode(new Vector2(node.Position.X, node.Position.Y - 1)) : null;
+        Node bottom = NodeMap.HasNode(new Vector2(node.Position.X, node.Position.Y + 1)) ? NodeMap.GetNode(new Vector2(node.Position.X, node.Position.Y + 1)) : null;
+        Node left = NodeMap.HasNode(new Vector2(node.Position.X - 1, node.Position.Y)) ? NodeMap.GetNode(new Vector2(node.Position.X - 1, node.Position.Y)) : null;
+        Node right = NodeMap.HasNode(new Vector2(node.Position.X + 1, node.Position.Y)) ? NodeMap.GetNode(new Vector2(node.Position.X + 1, node.Position.Y)) : null;
 
         if (top != null) neighbors.Add(top);
         if (bottom != null) neighbors.Add(bottom);
