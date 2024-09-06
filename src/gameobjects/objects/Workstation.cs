@@ -31,8 +31,8 @@ public class Workstation : Object, Interactable
 
         stateMachine.SetState("off");
 
-        animationTree.AddAnimation("assets/animation/" + Name, _ => stateMachine.CurrentState.Name == "off");
-        animationTree.AddAnimation("assets/animation/" + Name + "_on", _ => stateMachine.CurrentState.Name == "on");
+        animationTree.AddAnimation("assets/animation/objects/" + Name, _ => stateMachine.CurrentState.Name == "off");
+        animationTree.AddAnimation("assets/animation/ojects/" + Name + "_on", _ => stateMachine.CurrentState.Name == "on");
         base.Load();
     }
     public override void Update()

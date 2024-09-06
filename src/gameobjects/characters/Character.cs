@@ -51,9 +51,9 @@ public abstract class Character : GameObject
        // movementAI.Path = new Vector2(rnd.Next((int)Position.X - Range, (int)Position.X + Range), rnd.Next((int)Position.Y - Range, (int)Position.Y + Range));
 
 
-        animationTree.AddAnimation("assets/animation/" + Name + "_idle", _ => direction.Name == Direction.None().Name);
-        animationTree.AddAnimation("assets/animation/" + Name + "_east", _ => direction.Name == Direction.East().Name);
-        animationTree.AddAnimation("assets/animation/" + Name + "_west", _ => direction.Name == Direction.West().Name);
+        animationTree.AddAnimation("assets/animation/characters/" + Name + "_idle", _ => direction.Name == Direction.None().Name);
+        animationTree.AddAnimation("assets/animation/characters/" + Name + "_east", _ => direction.Name == Direction.East().Name);
+        animationTree.AddAnimation("assets/animation/characters/" + Name + "_west", _ => direction.Name == Direction.West().Name);
 
         base.Load();
     }

@@ -24,7 +24,7 @@ public class Map : GameObject
     {
         RegisterTileSets();
 
-        terrianTileSet.AddFromSprite("grass", "assets/img/grass");
+        terrianTileSet.AddFromSprite("grass", "assets/img/tiles/grass");
 
         terrainGrid.AddTileSet(terrianTileSet);
 

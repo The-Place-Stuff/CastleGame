@@ -14,7 +14,7 @@ namespace CastleGame
         public override void Load()
         {
 
-            NineSliceSprite nineSliceSprite = new NineSliceSprite("assets/img/nineslice");
+            NineSliceSprite nineSliceSprite = new NineSliceSprite("assets/img/uis/nineslice");
             Position = new Vector2(70, 70);
             nineSliceSprite.Size = new Vector2(16, 16);
             nineSliceSprite.SetPadding(2);

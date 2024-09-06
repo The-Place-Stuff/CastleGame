@@ -17,7 +17,7 @@ public class Campfire : Object
     public override void Load()
     {
         AnimationTree animationTree = CreateAndAddComponent<AnimationTree>();
-        animationTree.AddAnimation("assets/animation/campfire", _ =>  true);
+        animationTree.AddAnimation("assets/animation/objects/campfire", _ =>  true);
 
         base.Load();
     }

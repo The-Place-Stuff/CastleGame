@@ -35,8 +35,6 @@
     <None Remove="assets\img\objects\bush_berries.png" />
     <None Remove="assets\img\objects\campfire.png" />
     <None Remove="assets\img\objects\rock.png" />
-    <None Remove="assets\img\test_animation.png" />
-    <None Remove="assets\img\test_animation_2.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\**\**\*.*">
