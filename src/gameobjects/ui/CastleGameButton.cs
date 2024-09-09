@@ -6,32 +6,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame
+namespace CastleGame;
+public class CastleGameButton : GameObject
 {
-    public class CastleGameButton : GameObject
+
+    public override void Load()
     {
 
-        public override void Load()
-        {
+        Sprite sprite = new Sprite("assets/img/uis/interact_mode");
+        AddComponent(sprite);
 
-            NineSliceSprite nineSliceSprite = new NineSliceSprite("assets/img/uis/nineslice");
-            Position = new Vector2(70, 70);
-            nineSliceSprite.Size = new Vector2(16, 16);
-            nineSliceSprite.SetPadding(2);
-            AddComponent(nineSliceSprite);
+        Position = new Vector2(48, (GraphicsConfig.SCREEN_HEIGHT / 5) - 32);
 
-            Button button = new Button(new Vector2(16, 16));
-            AddComponent(button);
+        Button button = new Button(new Vector2(16, 16));
+        AddComponent(button);
 
-            button.OnClick += OnClick;
-
-            base.Load();
-        }
+        button.OnClick += OnClick;
+    }
 
 
-        public void OnClick(Vector2 targetPosition)
-        {
-            DebugGui.Log("Clicked at " + targetPosition);
-        }
+    public void OnClick()
+    {
+        DebugGui.Log("Clicked");
     }
 }
