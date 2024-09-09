@@ -16,21 +16,21 @@ public abstract class Object : Tile
         Properties = objectProperties;
     }
 
-    public void Drop(Drop drop)
+    public void Drop(Func<Drop> drop)
     {
-        foreach (KeyValuePair<Item, DropProperties> itemEntry in drop.DropSettings.Drops)
+        foreach (KeyValuePair<Item, DropProperties> itemEntry in drop().DropSettings.Drops)
         {
 
             for (int i = 0; i < itemEntry.Value.Count; i++)
             {
 
-                ///int radius = 8;
-                /// Random random = new Random();
-                ///Vector2 position = new Vector2(random.Next(-radius, radius + 1), random.Next(-radius, radius + 1));
-                Item item = itemEntry.Key;
+                int radius = 4;
+                Random random = new Random();
+                Vector2 position = new Vector2(random.Next(-radius, radius + 1), random.Next(-radius, radius + 1));
+                Item item = Items.Get(itemEntry.Key.Name)();
                 float chance = itemEntry.Value.Chance;
 
-                item.Position = Position;
+                item.Position = Position + position;
 
                 SceneManager.CurrentScene.AddGameObject(item);
 

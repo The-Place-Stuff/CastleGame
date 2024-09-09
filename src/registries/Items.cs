@@ -44,6 +44,13 @@ public class Items : Registry
         return item;
     }
 
+    public static Func<Item> Get(string name)
+    {
+        if (!List.ContainsKey(name)) return null;
+
+        return List[name];
+    }
+
     public static void RegisterItems()
     {
         Debug.WriteLine("Registering items for CastleGame!");

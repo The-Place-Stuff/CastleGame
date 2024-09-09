@@ -12,7 +12,7 @@ namespace CastleGame
     {
         public static new Dictionary<string, Func<Drop>> List = new Dictionary<string, Func<Drop>>();
 
-        public static readonly Func<Drop> Tree = Register(() => new Drop(new Drop.Settings().AddDrop(Items.Wood(), 3).SetSource(Objects.Tree())));
+        public static readonly Func<Drop> Tree = Register(() => new Drop(new Drop.Settings().AddDrop(Items.Wood()).SetSource(Objects.Tree())));
         public static readonly Func<Drop> Rock = Register(() => new Drop(new Drop.Settings().AddDrop(Items.Stone()).SetSource(Objects.Rock())));
 
         public static Func<Drop> Register(Func<Drop> drop)
@@ -28,11 +28,11 @@ namespace CastleGame
             Debug.WriteLine("Registering drops for CastleGame!");
         }
 
-        public static Drop Get(string name)
+        public static Func<Drop> Get(string name)
         {
             if (!List.ContainsKey(name)) return null;
 
-            return List[name]();
+            return List[name];
         }
     }
 }
