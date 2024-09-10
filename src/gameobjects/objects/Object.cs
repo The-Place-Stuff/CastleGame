@@ -16,6 +16,15 @@ public abstract class Object : Tile
         Properties = objectProperties;
     }
 
+    public override void Load()
+    {
+
+        Health health = new Health(Properties.Durability);
+        AddComponent(health);
+        base.Load();
+    }
+    
+
     public void Drop(Func<Drop> drop)
     {
         foreach (KeyValuePair<Item, DropProperties> itemEntry in drop().DropSettings.Drops)
@@ -24,7 +33,7 @@ public abstract class Object : Tile
             for (int i = 0; i < itemEntry.Value.Count; i++)
             {
 
-                int radius = 4;
+                int radius = 0;
                 Random random = new Random();
                 Vector2 position = new Vector2(random.Next(-radius, radius + 1), random.Next(-radius, radius + 1));
                 Item item = Items.Get(itemEntry.Key.Name)();
@@ -36,6 +45,16 @@ public abstract class Object : Tile
 
             }
         }
+    }
+
+    public void Hit(float damage)
+    {
+        Health health = GetComponent<Health>();
+        health.Decrement(damage);
+
+        DebugGui.Log(health.Points+"");
+
+        if (health.IsEmpty()) Destroy();
     }
     
     public void Destroy()

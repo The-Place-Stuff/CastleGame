@@ -43,7 +43,7 @@ public class TaskManager : Component
         if (taskTarget is Player) return;
 
         task.Target = taskTarget;
-        DebugGui.Log(taskTarget.Name + " is the task target");
+        //DebugGui.Log(taskTarget.Name + " is the task target");
 
         Tasks.Add(task);
         task.SetCharacter(GameObject as Character);

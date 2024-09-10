@@ -22,7 +22,7 @@ public class MineTask : Task
     {
         Object targetObject = Target as Object;
 
-        targetObject.Destroy();
+        targetObject.Hit(1);
         Finish();
     }
 }

@@ -15,6 +15,7 @@ public class Health : Component
     public Health(float size) : base(false)
     {
         Size = size;
+        Points = Size;
     }
 
 
@@ -23,18 +24,18 @@ public class Health : Component
         Points--;
     }
 
-    public void Decrement(float size)
+    public void Decrement(float amount)
     {
-        Points -= size;
+        Points -= amount;
     }
 
     public void Increment()
     {
         Points++;
     }
-    public void Increment(float size)
+    public void Increment(float amount)
     {
-        Points += size;
+        Points += amount;
     }
 
     public bool IsEmpty()

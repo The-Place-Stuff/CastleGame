@@ -44,6 +44,10 @@ public abstract class Character : GameObject
         stateMachine.AddState(CharacterStates.Adding);
         stateMachine.AddState(CharacterStates.Taking);
 
+        Collision collision = new Collision(Position, new Vector2(16, 16));
+        AddComponent(collision);
+
+
 
         stateMachine.SetState(CharacterStates.Wandering.Name);
 
@@ -65,6 +69,8 @@ public abstract class Character : GameObject
 
         base.Update();
     }
+
+
     public virtual void AddTask(Task task)
     {
         TaskManager taskManager = GetComponent<TaskManager>();

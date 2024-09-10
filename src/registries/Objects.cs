@@ -14,23 +14,23 @@ public class Objects : Registry
 
 
 
-    public static readonly Func<Object> Bush = Register(() => new Bush("bush", new Object.ObjectProperties()));
+    public static readonly Func<Object> Bush = Register(() => new Bush("bush", new Object.ObjectProperties().SetDurability(2)));
 
-    public static readonly Func<Object> Rock = Register( () => new Rock("rock", new Object.ObjectProperties()));
+    public static readonly Func<Object> Rock = Register( () => new Rock("rock", new Object.ObjectProperties().SetDurability(4)));
 
-    public static readonly Func<Object> Campfire = Register(() => new Campfire("campfire", new Object.ObjectProperties()));
+    public static readonly Func<Object> Campfire = Register(() => new Campfire("campfire", new Object.ObjectProperties().SetDurability(5)));
 
-    public static readonly Func<Object> Furnace = Register(() => new Workstation("furnace", new Object.ObjectProperties()));
+    public static readonly Func<Object> Furnace = Register(() => new Workstation("furnace", new Object.ObjectProperties().SetDurability(6)));
 
-    public static readonly Func<Object> Tree = Register(() => new Tree("tree", new Object.ObjectProperties()));
+    public static readonly Func<Object> Tree = Register(() => new Tree("tree", new Object.ObjectProperties().SetDurability(3)));
 
-    public static readonly Func<Object> Stockpile = Register( () => new Stockpile("stockpile", new Object.ObjectProperties()));
+    public static readonly Func<Object> Stockpile = Register( () => new Stockpile("stockpile", new Object.ObjectProperties().SetDurability(5)));
 
-    public static readonly Func<Object> Tent = Register(() => new Tent("tent", new Object.ObjectProperties()));
+    public static readonly Func<Object> Tent = Register(() => new Tent("tent", new Object.ObjectProperties().SetDurability(4)));
 
     public static readonly Func<Object> Blueprint = Register(() => new Blueprint("blueprint"));
 
-    public static readonly Func<Object> Workbench = Register(() => new Workbench("workbench", new Object.ObjectProperties()));
+    public static readonly Func<Object> Workbench = Register(() => new Workbench("workbench", new Object.ObjectProperties().SetDurability(5)));
 
     public static Func<Object> Register(Func<Object> obj)
     {
