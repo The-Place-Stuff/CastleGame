@@ -88,13 +88,15 @@ public class Game : Scene
 
     public void TryChangeMode()
     {
+        StateMachine playerStateMachine = player.GetComponent<StateMachine>();
+
         if(Input.Keyboard.GetKeyPress("B"))
         {
-            Player.BuildingMode = true;
+            playerStateMachine.SetState("build");
         }
         if (Input.Keyboard.GetKeyPress("V"))
         {
-            Player.BuildingMode = false;
+            playerStateMachine.SetState("interact");
         }
     }
 }

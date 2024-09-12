@@ -22,7 +22,10 @@ public class TaskManager : Component
     {
         if (task == null) return;
 
-        if (Player.BuildingMode) return;
+        Player player = SceneManager.CurrentScene.GetGameObject<Player>();
+        StateMachine playerStateMachine = player.GetComponent<StateMachine>();
+
+        if (playerStateMachine.CurrentState is BuildState) return;
 
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
         Vector2 position = task.Target.Position;
