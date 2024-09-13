@@ -31,8 +31,22 @@ public class Tool : Item
     {
         Sprite sprite = GetComponent<Sprite>();
 
-        sprite = GetComponent<TransformationManager>().Transform(sprite);
+        sprite = GetComponent<TransformationManager>().Transform(sprite, GetVillager(), new MineTask(Position));
         base.Update();
     }
+
+    public override Villager GetVillager()
+    {
+        foreach (Villager villager in SceneManager.CurrentScene.GetGameObjects().OfType<Villager>())
+        {
+            if (villager.Tool == this && villager.Tool != Tool.Empty())
+            {
+                return villager;
+            }
+        }
+
+        return base.GetVillager();
+    }
+
 
 }

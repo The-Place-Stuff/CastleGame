@@ -26,13 +26,13 @@ public class BuildTask : Task
 
         if (!(Target is Blueprint)) return;
 
-        if (villager.CurrentItem.Name == Item.Empty().Name) return;
+        if (villager.Item.Name == Item.Empty().Name) return;
 
         Blueprint blueprint = Target as Blueprint;
 
 
-        blueprint.AddItem(villager.CurrentItem);
-        villager.CurrentItem = Item.Empty();
+        blueprint.AddItem(villager.Item);
+        villager.Item = Item.Empty();
 
 
 

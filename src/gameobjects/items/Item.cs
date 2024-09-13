@@ -42,4 +42,16 @@ public class Item : GameObject, Interactable
     {
 
     }
+
+    public virtual Villager GetVillager()
+    {
+        foreach (Villager villager in SceneManager.CurrentScene.GetGameObjects().OfType <Villager>())
+        {
+            if(villager.Item == this && villager.Item != Item.Empty())
+            {
+                return villager;
+            }
+        }
+        return null;
+    }
 }

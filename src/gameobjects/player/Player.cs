@@ -19,6 +19,8 @@ public class Player : GameObject
         BuildState buildState = new BuildState();
         InteractState interactState = new InteractState();
 
+        AddComponent(stateMachine);
+
         stateMachine.AddState(buildState);
         stateMachine.AddState(interactState);
 

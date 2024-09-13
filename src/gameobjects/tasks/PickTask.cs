@@ -29,9 +29,17 @@ public class PickTask : Task
         Villager villager = (Villager)Character;
 
         Inventory playerInventory = SceneManager.CurrentScene.GetGameObject<Player>().GetComponent<Inventory>();
+        if(item is Tool tool && villager.Tool.Name == Tool.Empty().Name)
+        {
+            villager.Tool = tool;
+            playerInventory.Add(item);
+        }
+        else
+        {
+            villager.Item = item;
+            playerInventory.Add(item);
+        }
 
-        villager.CurrentItem = item;
-        playerInventory.Add(item);
         Finish();
     }
 

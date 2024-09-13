@@ -11,8 +11,8 @@ using System.Threading.Tasks;
 namespace CastleGame;
 public class Villager : Character
 {
-    public Tool Tool { get; set; } = Tool.Empty();
-    public Item CurrentItem { get; set; } = Item.Empty();
+    public Tool Tool { get; set; } = Tool.Empty(); 
+    public Item Item { get; set; } = Item.Empty();
     public Villager(string name, CharacterProperties characterProperties) : base(name, characterProperties)
     {
     }
@@ -21,7 +21,7 @@ public class Villager : Character
     {
 
         base.Update();
-        CurrentItem.Position = new Vector2(Position.X, Position.Y - 14);
+        Item.Position = new Vector2(Position.X, Position.Y - 14);
 
         if (Input.Mouse.RightClickRelease())
         {
@@ -67,33 +67,8 @@ public class Villager : Character
 
         if (direction.Name == Direction.East().Name) toolSprite.Effect = SpriteEffects.FlipHorizontally;
 
-        UpdateToolAnimations();
     }
 
-    public void UpdateToolAnimations()
-    {
-        if (Tool.Name == Tool.Empty().Name) return;
-
-        StateMachine stateMachine = GetComponent<StateMachine>();
-        Sprite toolSprite = Tool.GetComponent<Sprite>();
-
-
-        if (stateMachine.CurrentState == CharacterStates.Chopping)
-        {
-            Tool.GetComponent<Sprite>().Rotation += CurrentDirection.X / 10;
-
-            return;
-        }
-
-        if (stateMachine.CurrentState == CharacterStates.Mining)
-        {
-            Tool.GetComponent<Sprite>().Rotation += CurrentDirection.X / 10;
-
-            return;
-        }
-
-        Tool.GetComponent<Sprite>().Rotation = 0;
-    }
 
 
     public virtual void SetTool(Item item)

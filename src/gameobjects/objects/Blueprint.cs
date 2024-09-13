@@ -41,7 +41,7 @@ public class Blueprint : Object, Interactable
 
     public Task GetTaskType(Villager villager)
     {
-        if (villager.CurrentItem.Name == Item.Empty().Name) return null;
+        if (villager.Item.Name == Item.Empty().Name) return null;
 
         return new BuildTask(Position);
     }

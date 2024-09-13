@@ -43,7 +43,7 @@ public class Workstation : Object, Interactable
 
     public Task GetTaskType(Villager villager)
     {
-        if (villager.CurrentItem.Name == Item.Empty().Name) return null;
+        if (villager.Item.Name == Item.Empty().Name) return null;
 
         return new WorkTask(Position);
     }

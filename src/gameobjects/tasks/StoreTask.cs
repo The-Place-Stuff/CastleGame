@@ -26,14 +26,14 @@ public class StoreTask : Task
 
         if (!(Target is Stockpile)) return;
 
-        if (villager.CurrentItem.Name == Item.Empty().Name) return;
+        if (villager.Item.Name == Item.Empty().Name) return;
 
         Stockpile stockpile = Target as Stockpile;
 
-        if (villager.CurrentItem.Name == stockpile.CurrentType || stockpile.CurrentType == Item.Empty().Name)
+        if (villager.Item.Name == stockpile.CurrentType || stockpile.CurrentType == Item.Empty().Name)
         {
-            stockpile.AddItem(villager.CurrentItem);
-            villager.CurrentItem = Item.Empty();
+            stockpile.AddItem(villager.Item);
+            villager.Item = Item.Empty();
         }
 
         Finish();

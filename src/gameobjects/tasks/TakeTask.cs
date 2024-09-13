@@ -26,9 +26,9 @@ public class TakeTask : Task
 
         Villager villager = Character as Villager;
 
-        if (villager.CurrentItem.Name == Item.Empty().Name && stockpile.Size > 0)
+        if (villager.Item.Name == Item.Empty().Name && stockpile.Size > 0)
         {
-            villager.CurrentItem = stockpileInventory.GetLast();
+            villager.Item = stockpileInventory.GetLast();
             stockpile.RemoveItem(stockpileInventory.GetLast());
         }
 

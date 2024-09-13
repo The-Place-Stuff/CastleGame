@@ -24,8 +24,8 @@ public class WorkTask : Task
 
         Villager villager = Character as Villager;
 
-        workstation.AddItem(villager.CurrentItem);
-        villager.CurrentItem = Item.Empty();
+        workstation.AddItem(villager.Item);
+        villager.Item = Item.Empty();
         Finish();
     }
 }
