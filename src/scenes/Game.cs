@@ -9,10 +9,10 @@ public class Game : Scene
 {
     private Map map;
     public static Cursor cursor { get; private set; }
-    private Blueprint bluprint;
+    private Blueprint blueprint;
     public List<Character> characters = new List<Character>();
     public Player player = new Player();
-    public CastleGameButton CastleGameButton = new CastleGameButton();
+    public PlayerStateButton CastleGameButton = new PlayerStateButton();
 
     private RenderTarget2D cursorRenderTarget = new RenderTarget2D(SerpentGame.Instance.GraphicsDevice, GraphicsConfig.SCREEN_WIDTH, GraphicsConfig.SCREEN_HEIGHT);
 
@@ -41,7 +41,7 @@ public class Game : Scene
 
         }
 
-        bluprint = new Blueprint("furnace_off");
+        blueprint = new Blueprint("furnace_off");
 
         AddGameObject(player);
         AddUIElement(CastleGameButton);
@@ -65,7 +65,6 @@ public class Game : Scene
     {   
         base.Update();
         cursor.Update();
-        TryChangeMode();
     }
 
     public override void Draw()
@@ -84,19 +83,5 @@ public class Game : Scene
         SerpentEngine.Draw.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
         SerpentEngine.Draw.SpriteBatch.Draw(cursorRenderTarget, Vector2.Zero, Color.White);
         SerpentEngine.Draw.SpriteBatch.End();
-    }
-
-    public void TryChangeMode()
-    {
-        StateMachine playerStateMachine = player.GetComponent<StateMachine>();
-
-        if(Input.Keyboard.GetKeyPress("B"))
-        {
-            playerStateMachine.SetState("build");
-        }
-        if (Input.Keyboard.GetKeyPress("V"))
-        {
-            playerStateMachine.SetState("interact");
-        }
     }
 }

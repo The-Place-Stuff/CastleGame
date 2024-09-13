@@ -16,7 +16,7 @@ public class Map : GameObject
 
     public TileGrid terrainGrid = new TileGrid(new Vector2(16, 16));
     public TileGrid objectGrid = new TileGrid(new Vector2(16, 16));
-    public TileGrid bluprintGrid = new TileGrid(new Vector2(16, 16));
+    public TileGrid blueprintGrid = new TileGrid(new Vector2(16, 16));
 
     public PathFinder PathFinder { get; private set; }
 
@@ -31,13 +31,13 @@ public class Map : GameObject
         foreach (TileSet tileSet in objectTileSets)
         {
             objectGrid.AddTileSet(tileSet);
-            bluprintGrid.AddTileSet(tileSet);
+            blueprintGrid.AddTileSet(tileSet);
 
         }
 
         AddComponent(terrainGrid);
         AddComponent(objectGrid);
-        AddComponent(bluprintGrid);
+        AddComponent(blueprintGrid);
 
 
         terrainGrid.PlaceTiles(new Vector2(-SizeX, -SizeY), new Vector2(SizeX, SizeY), "grass");
@@ -50,7 +50,7 @@ public class Map : GameObject
     public void RegisterTileSets()
     {
         objectGrid.Layer = 1;
-        bluprintGrid.Layer = 3;
+        blueprintGrid.Layer = 3;
 
         int count = 0;
         foreach (KeyValuePair<string, Func<Object>> obj in Objects.List)

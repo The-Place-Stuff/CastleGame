@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace CastleGame;
 public class BuildState : GameObjectState
 {
-    public string CurrentBluprint = Objects.Workbench().Name;
+    public string Currentblueprint = Objects.Workbench().Name;
 
     public BuildState() : base("build")
     {
@@ -20,7 +20,7 @@ public class BuildState : GameObjectState
         Color c = Color.CornflowerBlue;
         c.A = 150;
 
-        Sprite sprite = new Sprite(Objects.GetPath(CurrentBluprint));
+        Sprite sprite = new Sprite(Objects.GetPath(Currentblueprint));
         GameObject.AddComponent(sprite);
         sprite.Color = c;
     }
@@ -32,7 +32,7 @@ public class BuildState : GameObjectState
 
         Vector2 cursorPosition = Game.cursor.Position;
 
-        float tileSize = map.bluprintGrid.TileSize.X;
+        float tileSize = map.blueprintGrid.TileSize.X;
 
         Vector2 position = GameObject.Position;
 
@@ -43,7 +43,7 @@ public class BuildState : GameObjectState
 
             map.objectGrid.PlaceTile(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(position), Objects.Blueprint().Name);
 
-            map.objectGrid.GetTileFromWorldCoordinates(position).Name = CurrentBluprint;
+            map.objectGrid.GetTileFromWorldCoordinates(position).Name = Currentblueprint;
 
             map.objectGrid.GetTileFromWorldCoordinates(position).RemoveComponent(map.objectGrid.GetTileFromWorldCoordinates(position).GetComponent<Sprite>());
 

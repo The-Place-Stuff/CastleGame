@@ -33,6 +33,17 @@ public class Player : GameObject
     {
         Layer = 2;
 
+        StateMachine stateMachine = GetComponent<StateMachine>();
+
+        if (Input.Keyboard.GetKeyPress("B"))
+        {
+            stateMachine.SetState("build");
+        }
+        if (Input.Keyboard.GetKeyPress("V"))
+        {
+            stateMachine.SetState("interact");
+        }
+
         base.Update();
     }
 

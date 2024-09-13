@@ -109,6 +109,10 @@ public class CastleGameDebugGui : ImGuiDrawable
             ImGui.Begin("General", ref showGeneralWindow);
 
             ImGui.SeparatorText("General");
+
+            Player player = game.GetGameObject<Player>();
+
+            ImGui.Text("Current Player State: " + player.GetComponent<StateMachine>().CurrentState.Name);
         }
     }
     public void CharactersWindow()
