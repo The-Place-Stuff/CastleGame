@@ -38,6 +38,8 @@ public class BuildState : GameObjectState
 
         position = VectorHelper.Snap(new Vector2(cursorPosition.X, cursorPosition.Y), tileSize);
 
+        GameObject.Position = position;
+
         if (Input.Mouse.LeftClickRelease())
         {
 

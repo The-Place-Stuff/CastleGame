@@ -31,16 +31,15 @@ public class PlayerStateButton : GameObject
 
         StateMachine playerStateMachine = player.GetComponent<StateMachine>();
 
-        DebugGui.Log(playerStateMachine.CurrentState.Name);
-
-
         Sprite buttonSprite = GetComponent<Sprite>();
 
         if (playerStateMachine.CurrentState is InteractState)
         {
             playerStateMachine.SetState("build");
-            DebugGui.Log(playerStateMachine.CurrentState.Name);
+  
             buttonSprite.ChangePath("assets/img/uis/build_mode");
+
+            return;
         }
 
         if (playerStateMachine.CurrentState is BuildState)
