@@ -17,7 +17,6 @@ public class Tree : Object, Interactable
     public override void Load()
     {
         Sprite sprite = new Sprite(Objects.GetPath(Name));
-
         AddComponent(sprite);
         base.Load();
     }

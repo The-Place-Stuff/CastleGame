@@ -15,7 +15,10 @@ public class TransformationManager : Component
         CurrentTransformation = transformation;
     }
 
-
+    public Sprite Transform(Sprite sprite)
+    {
+        return CurrentTransformation.Transform(sprite);
+    }
     public Sprite Transform(Sprite sprite, GameObject gameObject, Task task)
     {
         if (gameObject == null || gameObject.GetComponent<TaskManager>() == null || gameObject.GetComponent<TaskManager>().CurrentTask == null) return sprite;

@@ -9,5 +9,7 @@ namespace CastleGame
     public class Transformations
     {
         public static readonly Transformation ToolHit = new ToolHitTransformation();
+        public static readonly Transformation ObjectHit = new ObjectHitTransformation();
+
     }
 }

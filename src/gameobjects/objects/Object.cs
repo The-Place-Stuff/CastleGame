@@ -47,7 +47,7 @@ public abstract class Object : Tile
         }
     }
 
-    public void Hit(float damage)
+    public virtual void Hit(float damage)
     {
         Health health = GetComponent<Health>();
         health.Decrement(damage);
