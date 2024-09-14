@@ -21,6 +21,8 @@ namespace CastleGame
             new Recipe(new Recipe.Settings().AddIngredient(Items.Wood(), 1).SetType(Objects.Workbench())));
 
 
+        public static readonly Recipe Coop = Register(
+            new Recipe(new Recipe.Settings().AddIngredient(Items.Wood(), 2).SetType(Objects.Coop())));
 
 
 

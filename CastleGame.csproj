@@ -15,6 +15,9 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="assets\animation\campfire.json" />
+    <None Remove="assets\animation\characters\chicken_east.json" />
+    <None Remove="assets\animation\characters\chicken_idle.json" />
+    <None Remove="assets\animation\characters\chicken_west.json" />
     <None Remove="assets\animation\furnace.json" />
     <None Remove="assets\animation\furnace_on.json" />
     <None Remove="assets\animation\sheep_east.json" />

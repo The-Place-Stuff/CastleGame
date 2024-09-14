@@ -52,8 +52,6 @@ public abstract class Object : Tile
         Health health = GetComponent<Health>();
         health.Decrement(damage);
 
-        DebugGui.Log(health.Points+"");
-
         if (health.IsEmpty()) Destroy();
     }
     

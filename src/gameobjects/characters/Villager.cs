@@ -13,6 +13,8 @@ public class Villager : Character
 {
     public Tool Tool { get; set; } = Tool.Empty(); 
     public Item Item { get; set; } = Item.Empty();
+
+    public Home Home;
     public Villager(string name, CharacterProperties characterProperties) : base(name, characterProperties)
     {
     }
@@ -49,6 +51,11 @@ public class Villager : Character
         }
 
         UpdateTool();
+    }
+
+    public void SetHome(Home home)
+    {
+        Home = home;
     }
 
     public void UpdateTool()

@@ -38,6 +38,8 @@ public class Items : Registry
 
     public static readonly Func<Item> Steak = Register(() => new Item("steak", new Item.ItemProperties()));
 
+    public static readonly Func<Item> Egg = Register(() => new Item("egg", new Item.ItemProperties()));
+
     public static  Func<Item> Register(Func<Item> item)
     {
         List.Add(item().Name, item);
