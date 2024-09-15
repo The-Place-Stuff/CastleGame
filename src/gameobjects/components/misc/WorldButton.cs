@@ -21,12 +21,14 @@ public class WorldButton : Button
 
     public override void CheckClick()
     {
-        Rectangle box = new Rectangle((int)GameObject.Position.X, (int)GameObject.Position.Y, (int)Size.X, (int)Size.Y);
 
-        Vector2 position = Game.cursor.Position;
+        Vector2 screenPosition = Input.Mouse.GetNewPosition();
+        Vector2 screenCenter = new Vector2(GraphicsConfig.SCREEN_WIDTH / 2, GraphicsConfig.SCREEN_HEIGHT / 2);
+        Vector2 worldPosition = ((screenPosition - screenCenter) / SceneManager.CurrentScene.Camera.Zoom) + SceneManager.CurrentScene.Camera.Position;
+
         if (!Input.Mouse.LeftClick()) return;
 
-        if (box.Contains(position))
+        if (Hitbox.Contains(worldPosition))
         {
             OnClick.Invoke();
         }
