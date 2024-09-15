@@ -14,6 +14,7 @@ public class Cursor : GameObject
 
     private bool isDragging = false;
     private Vector2 lastMousePosition;
+    private Vector2 worldPositionBeforeScroll;
 
     public Cursor()
     {
@@ -39,7 +40,15 @@ public class Cursor : GameObject
             float zoomAmount = 0.01f * scrollValue;
             float zoom = Math.Clamp(SceneManager.CurrentScene.Camera.Zoom + zoomAmount, 2f, 8f);
 
+            Vector2 worldPositionBeforeZoom = ScreenToWorld(Input.Mouse.GetNewPosition());
+
             SceneManager.CurrentScene.Camera.Zoom = zoom;
+
+            Vector2 worldPositionAfterZoom = ScreenToWorld(Input.Mouse.GetNewPosition());
+
+            Vector2 zoomTranslation = worldPositionBeforeZoom - worldPositionAfterZoom;
+
+            SceneManager.CurrentScene.Camera.Translate(zoomTranslation);
         }
 
         //Camera click and drag
@@ -65,9 +74,7 @@ public class Cursor : GameObject
         {
             isDragging = false;
 
-            Vector2 screenPosition = Input.Mouse.GetNewPosition();
-            Vector2 screenCenter = new Vector2(GraphicsConfig.SCREEN_WIDTH / 2, GraphicsConfig.SCREEN_HEIGHT / 2);
-            Vector2 worldPosition = (screenPosition - screenCenter) / SceneManager.CurrentScene.Camera.Zoom + SceneManager.CurrentScene.Camera.Position;
+            Vector2 worldPosition = ScreenToWorld(Input.Mouse.GetNewPosition());
 
             Vector2 offset = new Vector2(2f, 5f);
 
@@ -79,5 +86,10 @@ public class Cursor : GameObject
 
     }
 
+    private Vector2 ScreenToWorld(Vector2 screenPosition)
+    {
+        Vector2 screenCenter = new Vector2(GraphicsConfig.SCREEN_WIDTH / 2, GraphicsConfig.SCREEN_HEIGHT / 2);
+        return ((screenPosition - screenCenter) / SceneManager.CurrentScene.Camera.Zoom) + SceneManager.CurrentScene.Camera.Position;
+    }
 
 }
