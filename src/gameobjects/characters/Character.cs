@@ -32,7 +32,8 @@ public abstract class Character : GameObject
         MovementAI movementAI = CreateAndAddComponent<MovementAI>();
         TaskManager taskManager = CreateAndAddComponent<TaskManager>();
         Health health = new Health(Properties.Health); AddComponent(health);
-        WorldButton button = new WorldButton(new Vector2(20, 20)); AddComponent(button);
+        WorldButton button = new WorldButton(new Vector2(20, 20)); AddComponent(button); 
+        Highlight highlight = new Highlight("assets/img/null"); AddComponent(highlight); 
         direction.Set(Direction.East().Name);
 
         stateMachine.AddState(CharacterStates.Wandering);
@@ -56,7 +57,6 @@ public abstract class Character : GameObject
         animationTree.AddAnimation("assets/animation/characters/" + Name + "_idle", _ => direction.Name == Direction.None().Name);
         animationTree.AddAnimation("assets/animation/characters/" + Name + "_east", _ => direction.Name == Direction.East().Name);
         animationTree.AddAnimation("assets/animation/characters/" + Name + "_west", _ => direction.Name == Direction.West().Name);
-
 
 
         base.Load();
@@ -83,12 +83,12 @@ public abstract class Character : GameObject
             if (interact.Character != this)
             {
                 interact.Character = this;
-                GetComponent<AnimationTree>().CurrentAnimation.SpriteSheet.CurrentSprite.Color = Color.Green;
+                GetComponent<Highlight>().Drawable = true;
             }
             else
             {
                 interact.Character = null;
-                GetComponent<AnimationTree>().CurrentAnimation.SpriteSheet.CurrentSprite.Color = Color.White;
+                GetComponent<Highlight>().Drawable = false;
             }
         }
     }

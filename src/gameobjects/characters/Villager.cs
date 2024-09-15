@@ -32,6 +32,12 @@ public class Villager : Character
 
     public void AddTaskFromWorld()
     {
+        GetComponent<Highlight>().Drawable = false;
+        if (SceneManager.CurrentScene.GetGameObject<Player>().GetComponent<StateMachine>().CurrentState is InteractState interact)
+        {
+            interact.Character = null;
+        }
+
         AddTask(new GoTask(VectorHelper.Snap(Game.cursor.Position, 16)));
 
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
@@ -52,6 +58,7 @@ public class Villager : Character
         if (target is Interactable interactable)
         {
             AddTask(interactable.GetTaskType(this));
+
         }
 
     }
