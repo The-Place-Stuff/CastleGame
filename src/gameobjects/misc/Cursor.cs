@@ -37,7 +37,7 @@ public class Cursor : GameObject
 
         if (scrollValue != 0)
         {
-            float zoomAmount = 0.01f * scrollValue;
+            float zoomAmount = 0.008f * scrollValue;
             float zoom = Math.Clamp(SceneManager.CurrentScene.Camera.Zoom + zoomAmount, 2f, 8f);
 
             Vector2 worldPositionBeforeZoom = ScreenToWorld(Input.Mouse.GetNewPosition());
@@ -81,9 +81,7 @@ public class Cursor : GameObject
             Position = worldPosition + offset;
         }
 
-
         base.Update();
-
     }
 
     private Vector2 ScreenToWorld(Vector2 screenPosition)
