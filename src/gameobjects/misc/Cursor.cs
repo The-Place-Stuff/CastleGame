@@ -31,8 +31,6 @@ public class Cursor : GameObject
 
     public override void Update()
     {
-
-
         //Camera zoom
         int scrollValue = Input.Mouse.GetMouseWheelChange();
 
@@ -71,7 +69,9 @@ public class Cursor : GameObject
             Vector2 screenCenter = new Vector2(GraphicsConfig.SCREEN_WIDTH / 2, GraphicsConfig.SCREEN_HEIGHT / 2);
             Vector2 worldPosition = (screenPosition - screenCenter) / SceneManager.CurrentScene.Camera.Zoom + SceneManager.CurrentScene.Camera.Position;
 
-            Position = worldPosition;
+            Vector2 offset = new Vector2(2f, 5f);
+
+            Position = worldPosition + offset;
         }
 
 

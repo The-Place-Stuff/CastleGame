@@ -16,9 +16,9 @@ public class PlayerStateButton : GameObject
         Sprite sprite = new Sprite("assets/img/uis/interact_mode");
         AddComponent(sprite);
 
-        Position = new Vector2(48, (GraphicsConfig.SCREEN_HEIGHT / 5) - 32);
+        Position = new Vector2(16, (GraphicsConfig.SCREEN_HEIGHT / 5) - 20);
 
-        Button button = new Button(new Vector2(16, 16));
+        Button button = new Button(new Vector2(20, 20));
         AddComponent(button);
 
         button.OnClick += OnClick;
