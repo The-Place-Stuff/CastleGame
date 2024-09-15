@@ -25,32 +25,35 @@ public class Villager : Character
         base.Update();
         Item.Position = new Vector2(Position.X, Position.Y - 14);
 
-        if (Input.Mouse.RightClickRelease())
-        {
-            AddTask(new GoTask(VectorHelper.Snap(Game.cursor.Position, 16)));
 
-            Map map = SceneManager.CurrentScene.GetGameObject<Map>();
-            Vector2 position = Game.cursor.Position;
-
-            List<GameObject> targets = SceneManager.CurrentScene.GetGameObjectsAt(VectorHelper.Snap(position, map.objectGrid.TileSize.X));
-
-            GameObject target = GameObject.Empty();
-
-            foreach (GameObject gameObject in targets)
-            {
-                if (gameObject is Tile && !(gameObject is Object)) continue;
-
-                target = gameObject;
-                break;
-            }
-
-            if (target is Interactable interactable)
-            {
-                AddTask(interactable.GetTaskType(this));
-            } 
-        }
 
         UpdateTool();
+    }
+
+    public void AddTaskFromWorld()
+    {
+        AddTask(new GoTask(VectorHelper.Snap(Game.cursor.Position, 16)));
+
+        Map map = SceneManager.CurrentScene.GetGameObject<Map>();
+        Vector2 position = Game.cursor.Position;
+
+        List<GameObject> targets = SceneManager.CurrentScene.GetGameObjectsAt(VectorHelper.Snap(position, map.objectGrid.TileSize.X));
+
+        GameObject target = GameObject.Empty();
+
+        foreach (GameObject gameObject in targets)
+        {
+            if (gameObject is Tile && !(gameObject is Object)) continue;
+
+            target = gameObject;
+            break;
+        }
+
+        if (target is Interactable interactable)
+        {
+            AddTask(interactable.GetTaskType(this));
+        }
+
     }
 
     public void SetHome(Home home)

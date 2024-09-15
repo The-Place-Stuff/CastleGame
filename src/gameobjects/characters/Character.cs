@@ -32,7 +32,7 @@ public abstract class Character : GameObject
         MovementAI movementAI = CreateAndAddComponent<MovementAI>();
         TaskManager taskManager = CreateAndAddComponent<TaskManager>();
         Health health = new Health(Properties.Health); AddComponent(health);
-
+        WorldButton button = new WorldButton(new Vector2(16, 16)); AddComponent(button);
         direction.Set(Direction.East().Name);
 
         stateMachine.AddState(CharacterStates.Wandering);
@@ -44,6 +44,7 @@ public abstract class Character : GameObject
         stateMachine.AddState(CharacterStates.Adding);
         stateMachine.AddState(CharacterStates.Taking);
 
+        button.OnClick += OnClick;
 
 
         stateMachine.SetState(CharacterStates.Wandering.Name);
@@ -56,6 +57,9 @@ public abstract class Character : GameObject
         animationTree.AddAnimation("assets/animation/characters/" + Name + "_east", _ => direction.Name == Direction.East().Name);
         animationTree.AddAnimation("assets/animation/characters/" + Name + "_west", _ => direction.Name == Direction.West().Name);
 
+
+        Highlight highlight = new Highlight("assets/img/null"); AddComponent(highlight);
+
         base.Load();
     }
 
@@ -64,7 +68,22 @@ public abstract class Character : GameObject
     {
         UpdateDirection();
 
+
         base.Update();
+
+        GetComponent<Highlight>().ChangePath(GetComponent<AnimationTree>().CurrentAnimation.SpriteSheet.CurrentSprite.Path);
+
+    }
+
+
+    public void OnClick()
+    {
+        DebugGui.Log(Position.ToString());
+
+        if (SceneManager.CurrentScene.GetGameObject<Player>().GetComponent<StateMachine>().CurrentState is InteractState interact)
+        {
+            interact.Character = this;
+        }
     }
 
 
