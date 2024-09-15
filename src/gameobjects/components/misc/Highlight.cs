@@ -14,5 +14,10 @@ public class Highlight : Sprite
     {
     }
 
+    public override void Draw()
+    {
+        base.Draw();
+    }
+
 
 }
