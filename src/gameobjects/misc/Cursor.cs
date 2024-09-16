@@ -11,7 +11,6 @@ namespace CastleGame;
 
 public class Cursor : GameObject
 {
-
     private bool isDragging = false;
     private Vector2 lastMousePosition;
     private Vector2 worldPositionBeforeScroll;
@@ -23,15 +22,23 @@ public class Cursor : GameObject
 
     public override void Load()
     {
-        Sprite sprite = new Sprite(Registry.Path + "cursor");
-        AddComponent(sprite);
-        GetComponent<Sprite>().Scale = new Vector2(0.8f, 0.8f);
+        AnimationTree animationTree = CreateAndAddComponent<AnimationTree>();
+
+        animationTree.AddAnimation("assets/animation/player/cursor_interact", _ => !isDragging);
+        animationTree.AddAnimation("assets/animation/player/cursor_dragging", _ => isDragging);
         
         Layer = 5;
     }
 
     public override void Update()
     {
+        AnimationTree animationTree = GetComponent<AnimationTree>();
+
+        if (animationTree.CurrentAnimation != null)
+        {
+            animationTree.CurrentAnimation.SpriteSheet.CurrentSprite.Scale = new Vector2(0.8f, 0.8f);
+        }
+
         //Camera zoom
         int scrollValue = Input.Mouse.GetMouseWheelChange();
 
