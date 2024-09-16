@@ -9,11 +9,14 @@ namespace CastleGame
 {
     public class Transformation
     {
-
+        public bool IsTransforming { get; set; } = false;
+        public double Time { get; set; } = 0;
         public Transformation()
         {
         }
 
         public virtual Sprite Transform(Sprite sprite) { return sprite; }
+
+        public virtual Sprite Reset(Sprite sprite) { return sprite; }
     }
 }

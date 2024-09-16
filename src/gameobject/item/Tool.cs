@@ -31,7 +31,6 @@ public class Tool : Item
     {
         Sprite sprite = GetComponent<Sprite>();
 
-        sprite = GetComponent<TransformationManager>().Transform(sprite, GetVillager(), new MineTask(Position));
         base.Update();
     }
 

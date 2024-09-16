@@ -20,6 +20,7 @@ public abstract class Object : Tile
     {
 
         Health health = new Health(Properties.Durability);
+        TransformationManager transformation = new TransformationManager(Transformations.ObjectHit); AddComponent(transformation);
         AddComponent(health);
         base.Load();
     }
