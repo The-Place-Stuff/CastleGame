@@ -13,10 +13,9 @@ public class Game : Scene
     public List<Character> characters = new List<Character>();
     public Player player = new Player();
     public PlayerStateButton playerStateButton = new PlayerStateButton();
+    public ObjectMenu ObjectMenu = new ObjectMenu();
 
     private RenderTarget2D cursorRenderTarget = new RenderTarget2D(SerpentGame.Instance.GraphicsDevice, GraphicsConfig.SCREEN_WIDTH, GraphicsConfig.SCREEN_HEIGHT);
-
-    public UiElementGroup uiGroup;
 
     public Game() : base("Game")
     {
@@ -34,12 +33,6 @@ public class Game : Scene
         cursor = new Cursor();
         cursor.Load();
 
-        ObjectButton objectButton = new ObjectButton(Objects.Bush());
-        TextElement textElement = new TextElement(objectButton.Object.Name);
-
-        uiGroup = new UiElementGroup(objectButton);
-        uiGroup.Parent.Position = new Vector2(40, 40);
-        uiGroup.AddChild(textElement, new Vector2(-10, 10));
 
 
 
@@ -56,7 +49,7 @@ public class Game : Scene
 
         AddGameObject(player);
         AddUIElement(playerStateButton);
-        AddUIElement(uiGroup);
+        AddUIElement(ObjectMenu);
 
         
 
