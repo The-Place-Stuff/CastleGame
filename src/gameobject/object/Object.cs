@@ -10,6 +10,8 @@ namespace CastleGame;
 
 public abstract class Object : Tile
 {
+    private double timer = 0;
+
     public ObjectProperties Properties;
     public Object(string name, ObjectProperties objectProperties) : base(name)
     {
@@ -20,7 +22,6 @@ public abstract class Object : Tile
     {
 
         Health health = new Health(Properties.Durability);
-        TransformationManager transformation = new TransformationManager(Transformations.ObjectHit); AddComponent(transformation);
         AddComponent(health);
         base.Load();
     }
@@ -71,6 +72,35 @@ public abstract class Object : Tile
         
         map.PathFinder.NodeMap.SetWalkable(gridPosition, true);
     }
+
+    public override void Update()
+    {
+        timer += SerpentGame.GameTime.ElapsedGameTime.TotalSeconds;
+        if(timer >= 1)
+        {
+            TimedUpdate();
+
+            Random random = new Random();
+            if(random.Next(1, 11) == 1)
+            {
+                RandomUpdate();
+            }
+
+            timer = 0;
+        }
+        base.Update();
+    }
+
+    public virtual void TimedUpdate()
+    {
+
+    }
+
+    public virtual void RandomUpdate()
+    {
+
+    }
+
 
     public class ObjectProperties
     {

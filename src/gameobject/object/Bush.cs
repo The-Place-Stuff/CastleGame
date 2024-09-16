@@ -16,10 +16,37 @@ public class Bush : Object
 
     public override void Load()
     {
-        Sprite sprite = new Sprite(Objects.GetPath(Name));
+        StateMachine stateMachine = CreateAndAddComponent<StateMachine>();
+        GameObjectState off = new GameObjectState("bush");
+        GameObjectState on = new GameObjectState("bush_berries");
 
-        AddComponent(sprite);
+        stateMachine.AddState(off);
+        stateMachine.AddState(on);
+
+        stateMachine.SetState(off.Name);
+
+        AnimationTree animationTree = CreateAndAddComponent<AnimationTree>();
+
+        animationTree.AddAnimation("assets/animation/objects/" + Name, _ => stateMachine.CurrentState.Name == off.Name);
+        animationTree.AddAnimation("assets/animation/objects/" + Name + "_berries", _ => stateMachine.CurrentState.Name == on.Name);
+
+
         base.Load();
+    }
+
+    public override void RandomUpdate()
+    {
+        if(GetComponent<StateMachine>().CurrentState.Name != "bush_berries")
+        {
+            Grow();
+        }
+
+        base.RandomUpdate();
+    }
+
+    public void Grow()
+    {
+        GetComponent<StateMachine>().SetState("bush_berries");
     }
 
 
