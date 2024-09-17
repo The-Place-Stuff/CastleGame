@@ -32,7 +32,7 @@ public class BuildState : GameObjectState
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
         Scene scene = SceneManager.CurrentScene;
 
-        Vector2 cursorPosition = Game.cursor.Position;
+        Vector2 cursorPosition = Input.Mouse.GetWorldPosition();
 
         float tileSize = map.blueprintGrid.TileSize.X;
 
