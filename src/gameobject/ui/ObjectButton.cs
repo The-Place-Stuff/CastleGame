@@ -29,6 +29,5 @@ public class ObjectButton : GameObject
 
     public void Onclick()
     {
-
     }
 }

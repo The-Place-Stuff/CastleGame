@@ -24,6 +24,8 @@ namespace CastleGame
         public static readonly Recipe Coop = Register(
             new Recipe(new Recipe.Settings().AddIngredient(Items.Wood(), 2).SetType(Objects.Coop())));
 
+        public static readonly Recipe Tent = Register(
+            new Recipe(new Recipe.Settings().AddIngredient(Items.Wool(), 4).SetType(Objects.Tent())));
 
 
 
