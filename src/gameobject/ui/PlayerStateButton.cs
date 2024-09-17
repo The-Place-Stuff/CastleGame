@@ -35,17 +35,24 @@ public class PlayerStateButton : GameObject
 
         if (playerStateMachine.CurrentState is InteractState)
         {
-            playerStateMachine.SetState("build");
-  
-            buttonSprite.ChangePath("assets/img/uis/build_mode");
+            player.ChangeToBuildState();
 
             return;
         }
 
         if (playerStateMachine.CurrentState is BuildState)
         {
-            playerStateMachine.SetState("interact");
-            buttonSprite.ChangePath("assets/img/uis/interact_mode");
+            player.ChangeToInteractState();
         }
+    }
+
+    public void ChangeSpriteToInteract()
+    {
+        GetComponent<Sprite>().ChangePath("assets/img/uis/interact_mode");
+    }
+
+    public void ChangeSpriteToBuild()
+    {
+        GetComponent<Sprite>().ChangePath("assets/img/uis/build_mode");
     }
 }

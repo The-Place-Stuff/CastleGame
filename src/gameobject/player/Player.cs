@@ -24,7 +24,7 @@ public class Player : GameObject
         stateMachine.AddState(buildState);
         stateMachine.AddState(interactState);
 
-        stateMachine.SetState("interact");
+        ChangeToInteractState();
 
         base.Load();
     }
@@ -37,14 +37,38 @@ public class Player : GameObject
 
         if (Input.Keyboard.GetKeyPress("B"))
         {
-            stateMachine.SetState("build");
+            ChangeToBuildState();
         }
         if (Input.Keyboard.GetKeyPress("V"))
         {
-            stateMachine.SetState("interact");
+            ChangeToInteractState();
         }
 
         base.Update();
+    }
+
+    public void ChangeToBuildState()
+    {
+        GetComponent<StateMachine>().SetState("build");
+
+        PlayerStateButton playerStateButton = SceneManager.CurrentScene.GetUIElement<PlayerStateButton>();
+
+        playerStateButton.ChangeSpriteToBuild();
+
+        ObjectMenu objectMenu = SceneManager.CurrentScene.GetUIElement<ObjectMenu>();
+        objectMenu.Enabled = true;
+    }
+
+    public void ChangeToInteractState()
+    {
+        GetComponent<StateMachine>().SetState("interact");
+
+        PlayerStateButton playerStateButton = SceneManager.CurrentScene.GetUIElement<PlayerStateButton>();
+
+        playerStateButton.ChangeSpriteToInteract();
+
+        ObjectMenu objectMenu = SceneManager.CurrentScene.GetUIElement<ObjectMenu>();
+        objectMenu.Enabled = false;
     }
 
 }

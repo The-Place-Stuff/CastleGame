@@ -47,11 +47,12 @@ public class Game : Scene
 
         blueprint = new Blueprint("furnace_off");
 
-        AddGameObject(player);
+        
         AddUIElement(playerStateButton);
         AddUIElement(ObjectMenu);
 
-        
+        AddGameObject(player);
+
 
     }
 
