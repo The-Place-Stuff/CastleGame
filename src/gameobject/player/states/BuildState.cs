@@ -27,6 +27,8 @@ public class BuildState : GameObjectState
 
     public override void Update()
     {
+
+
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
         Scene scene = SceneManager.CurrentScene;
 

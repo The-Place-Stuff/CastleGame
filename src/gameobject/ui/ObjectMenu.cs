@@ -24,7 +24,6 @@ public class ObjectMenu : GameObject
         uiGrid = new UiElementGrid(new Vector2(9, 3), 18);
         uiGrid.Position = Position + new Vector2(14, 14);
 
-        int count = 0;
         foreach(KeyValuePair<string, Func<Object>> entry in Objects.List)
         {
 
@@ -39,7 +38,6 @@ public class ObjectMenu : GameObject
                 uiGrid.AddUiElementGroup(group);
 
                 SceneManager.CurrentScene.AddUIElementGrid(uiGrid);
-                count++;
 
 
             }

@@ -29,5 +29,8 @@ public class ObjectButton : GameObject
 
     public void Onclick()
     {
+        if(SceneManager.CurrentScene.GetGameObject<Player>().GetComponent<StateMachine>().CurrentState is BuildState buildState) {
+            buildState.Currentblueprint = Object.Name;
+        }
     }
 }
