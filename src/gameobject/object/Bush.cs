@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CastleGame;
-public class Bush : Object
+public class Bush : Object, Interactable
 {
     public Bush(string name, ObjectProperties objectProperties) : base(name, objectProperties)
     {
@@ -48,6 +48,15 @@ public class Bush : Object
     {
         GetComponent<StateMachine>().SetState("bush_berries");
     }
+
+    public Task GetTaskType(Villager villager)
+    {
+        if (villager.Item.Name != Item.Empty().Name) return null;
+
+        return new HarvestTask(Position);
+    }
+
+
 
 
 }
