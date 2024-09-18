@@ -11,6 +11,8 @@ public class BuildState : GameObjectState
 {
     public string Currentblueprint = Objects.Coop().Name;
 
+    private string previousBlueprint;
+
     public BuildState() : base("build")
     {
     }
@@ -27,6 +29,12 @@ public class BuildState : GameObjectState
 
     public override void Update()
     {
+        if (Currentblueprint != previousBlueprint)
+        {
+            Sprite sprite = GameObject.GetComponent<Sprite>();
+            sprite.ChangePath(Objects.GetPath(Currentblueprint));
+        }
+
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
         Scene scene = SceneManager.CurrentScene;
 
@@ -55,6 +63,8 @@ public class BuildState : GameObjectState
 
             //DebugGui.Log(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(cursorPosition) + " Placed");
         }
+
+        previousBlueprint = Currentblueprint;
     }
 
     public override void Exit()
