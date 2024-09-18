@@ -19,13 +19,23 @@ public class Villager : Character
     {
     }
 
+    public override void Load()
+    {
+        base.Load();
+
+        StateMachine stateMachine = GetComponent<StateMachine>();
+
+        stateMachine.AddState(new VillagerIdleState());
+        stateMachine.AddState(new VillagerWorkingState());
+
+        stateMachine.SetState("idle");
+    }
+
     public override void Update()
     {
 
         base.Update();
         Item.Position = new Vector2(Position.X, Position.Y - 14);
-
-
 
         UpdateTool();
     }
@@ -33,6 +43,7 @@ public class Villager : Character
     public void AddTaskFromWorld()
     {
         GetComponent<Highlight>().Drawable = false;
+
         if (SceneManager.CurrentScene.GetGameObject<Player>().GetComponent<StateMachine>().CurrentState is InteractState interact)
         {
             interact.Character = null;
@@ -58,9 +69,7 @@ public class Villager : Character
         if (target is Interactable interactable)
         {
             AddTask(interactable.GetTaskType(this));
-
         }
-
     }
 
     public void SetHome(Home home)

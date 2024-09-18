@@ -62,7 +62,19 @@ public class TaskManager : Component
 
         //Debug.WriteLine(Tasks.Count);
 
-        if (Tasks.Count > 0) SetTask(Tasks[0]);
+        if (Tasks.Count > 0)
+        {
+            SetTask(Tasks[0]);
+
+            return;
+        }
+
+        StateMachine characterStateMachine = GameObject.GetComponent<StateMachine>();
+
+        if (characterStateMachine.CurrentState.Name != "idle")
+        {
+            characterStateMachine.SetState("idle");
+        }
     }
 
 

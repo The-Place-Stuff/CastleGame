@@ -34,7 +34,13 @@ public class Game : Scene
         cursor.Load();
 
 
+        blueprint = new Blueprint("furnace_off");
 
+        
+        AddUIElement(playerStateButton);
+        AddUIElement(ObjectMenu);
+
+        AddGameObject(player);
 
         characters.Add(Characters.Villager());
 
@@ -44,14 +50,6 @@ public class Game : Scene
             AddGameObject(character);
 
         }
-
-        blueprint = new Blueprint("furnace_off");
-
-        
-        AddUIElement(playerStateButton);
-        AddUIElement(ObjectMenu);
-
-        AddGameObject(player);
 
 
     }

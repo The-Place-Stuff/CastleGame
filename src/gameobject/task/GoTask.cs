@@ -26,7 +26,6 @@ public class GoTask : Task
 
     public override void Start()
     {
-        Character.GetComponent<StateMachine>().SetState(CharacterStates.Wandering.Name);
         Character.GetComponent<MovementAI>().SetPath(VectorHelper.Snap(Target.Position, 16));
         RegisterPossiblePositions();
 
@@ -81,9 +80,18 @@ public class GoTask : Task
 
         if (Vector2.Distance(snappedCharacterPosition, movementAI.PreviousPath) > 0.2f)
         {
-            //Debug.WriteLine("GoTask failed, trying again...");
-            movementAI.SetPath(possiblePositions[tries]);
-            tries++;
+            try
+            {
+                //Debug.WriteLine("GoTask failed, trying again...");
+                movementAI.SetPath(possiblePositions[tries]);
+                tries++;
+            } catch (ArgumentOutOfRangeException)
+            {
+                //Debug.WriteLine("GoTask failed, no more tries...");
+                base.Finish();
+                return;
+            }
+
 
             return;
         }

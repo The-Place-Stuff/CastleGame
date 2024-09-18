@@ -27,32 +27,27 @@ public abstract class Character : GameObject
         Layer = 3;
 
         AnimationTree animationTree = CreateAndAddComponent<AnimationTree>();
-        StateMachine stateMachine = CreateAndAddComponent<StateMachine>();
-        Direction direction = CreateAndAddComponent<Direction>();
-        MovementAI movementAI = CreateAndAddComponent<MovementAI>();
-        TaskManager taskManager = CreateAndAddComponent<TaskManager>();
-        Health health = new Health(Properties.Health); AddComponent(health);
-        WorldButton button = new WorldButton(new Vector2(20, 20)); AddComponent(button); 
-        Highlight highlight = new Highlight("assets/img/null"); AddComponent(highlight); 
-        direction.Set(Direction.East().Name);
 
-        stateMachine.AddState(CharacterStates.Wandering);
-        stateMachine.AddState(CharacterStates.Mining);
-        stateMachine.AddState(CharacterStates.Using);
-        stateMachine.AddState(CharacterStates.Chopping);
-        stateMachine.AddState(CharacterStates.Fighting);
-        stateMachine.AddState(CharacterStates.Picking);
-        stateMachine.AddState(CharacterStates.Adding);
-        stateMachine.AddState(CharacterStates.Taking);
+        StateMachine stateMachine = CreateAndAddComponent<StateMachine>();
+
+        Direction direction = CreateAndAddComponent<Direction>();
+
+        MovementAI movementAI = CreateAndAddComponent<MovementAI>();
+
+        TaskManager taskManager = CreateAndAddComponent<TaskManager>();
+
+        Health health = new Health(Properties.Health); AddComponent(health);
+
+        WorldButton button = new WorldButton(new Vector2(20, 20)); AddComponent(button); 
+
+        Highlight highlight = new Highlight("assets/img/null"); AddComponent(highlight); 
+
+        direction.Set(Direction.East().Name);
 
         button.OnClick += OnClick;
 
-
-        stateMachine.SetState(CharacterStates.Wandering.Name);
-
         Random rnd = new Random();
        // movementAI.Path = new Vector2(rnd.Next((int)Position.X - Range, (int)Position.X + Range), rnd.Next((int)Position.Y - Range, (int)Position.Y + Range));
-
 
         animationTree.AddAnimation("assets/animation/characters/" + Name + "_idle", _ => direction.Name == Direction.None().Name);
         animationTree.AddAnimation("assets/animation/characters/" + Name + "_east", _ => direction.Name == Direction.East().Name);
@@ -67,10 +62,7 @@ public abstract class Character : GameObject
     {
         UpdateDirection();
 
-
         base.Update();
-
-
     }
 
 

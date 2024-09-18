@@ -15,6 +15,8 @@ public class Task
     public Character Character { get; private set; } 
     public TaskManager TaskManager { get; private set; }
 
+    private List<Action> finishSubscribers = new List<Action>();
+
     public Task(GameObject obj)
     {
         if (obj == null)
@@ -23,21 +25,19 @@ public class Task
             obj = GameObject.Empty();
             Name = TaskTypes.None;
             Target = obj;
-
-
         }
         else
         {
-            Name = Name + obj.Name;
             Target = obj;
         }
     }
 
     public Task(Vector2 position)
     {
-        Name = Name + position.ToString();
         Target = GameObject.Empty();
         Target.Position = position;
+
+        DebugGui.Log("positron : " + Target.Position);
     }
 
     public void SetCharacter(Character character)
@@ -62,7 +62,17 @@ public class Task
 
     public virtual void Finish()
     {
+        foreach (Action action in finishSubscribers)
+        {
+            action.Invoke();
+        }
+
         TaskManager.CompleteTask();
+    }
+
+    public void OnFinish(Action action)
+    {
+        finishSubscribers.Add(action);
     }
 
     public virtual void Enter()

@@ -18,7 +18,14 @@ public class InteractState : GameObjectState
         
         if(Input.Mouse.RightClick() && Character != null)
         {
-            if (Character is Villager villager) villager.AddTaskFromWorld();
+            if (Character is Villager villager)
+            {
+                StateMachine stateMachine = villager.GetComponent<StateMachine>();
+
+                stateMachine.SetState("working");
+
+                villager.AddTaskFromWorld();
+            }
         }
 
         base.Update();

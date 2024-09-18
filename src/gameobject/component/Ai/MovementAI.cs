@@ -39,6 +39,8 @@ public class MovementAI : AI
             return;
         }
 
+        if (Moving) Moving = false;
+
         if (currentPath == Vector2.Zero || PathStack.Count > 0) return;
 
         Character character = GameObject as Character;
@@ -64,6 +66,8 @@ public class MovementAI : AI
 
     private void Move()
     {
+       // Debug.WriteLine("Moving");
+
         Character character = GameObject as Character;
 
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
@@ -96,6 +100,8 @@ public class MovementAI : AI
             currentPathingNode = null;
 
             Moving = false;
+
+            //Debug.WriteLine("Finished moving");
         }
     }
 }
