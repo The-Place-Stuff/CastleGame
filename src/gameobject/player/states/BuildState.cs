@@ -46,12 +46,31 @@ public class BuildState : GameObjectState
 
         position = VectorHelper.Snap(new Vector2(cursorPosition.X, cursorPosition.Y), tileSize);
 
+        if (map.objectGrid.GetTileFromWorldCoordinates(position) != null)
+        {
+            Sprite sprite = GameObject.GetComponent<Sprite>();
+
+            Color c = Color.Red;
+
+            sprite.Color = c;
+        } else
+        {
+           Sprite sprite = GameObject.GetComponent<Sprite>();
+
+            Color c = Color.CornflowerBlue;
+            c.A = 150;
+
+            sprite.Color = c;
+        }
+
         GameObject.Position = position;
 
         if (Input.Mouse.LeftClickRelease())
         {
 
             if (SceneManager.CurrentScene.GetUIElementAt(Input.Mouse.GetNewPosition() / SceneManager.CurrentScene.Camera.UIScale) != null) return;
+
+            if (map.objectGrid.GetTileFromWorldCoordinates(position) != null) return;
 
             map.objectGrid.PlaceTile(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(position), Objects.Blueprint().Name);
 
@@ -62,6 +81,17 @@ public class BuildState : GameObjectState
             map.objectGrid.GetTileFromWorldCoordinates(position).Load();
 
             //DebugGui.Log(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(cursorPosition) + " Placed");
+        }
+
+        if (Input.Mouse.RightClickRelease())
+        {
+            if (SceneManager.CurrentScene.GetUIElementAt(Input.Mouse.GetNewPosition() / SceneManager.CurrentScene.Camera.UIScale) != null) return;
+
+            if (map.objectGrid.GetTileFromWorldCoordinates(position) == null) return;
+
+            //DebugGui.Log(map.objectGrid.GetTileFromWorldCoordinates(position).Name + " Removed");
+
+            map.objectGrid.RemoveTile(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(position));
         }
 
         previousBlueprint = Currentblueprint;
