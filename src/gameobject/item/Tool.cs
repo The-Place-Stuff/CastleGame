@@ -9,9 +9,10 @@ namespace CastleGame;
 
 public class Tool : Item
 {
-    public Tool(string name, ItemProperties itemProperties) : base(name, itemProperties)
+    public int Damage { get; set; }
+    public Tool(string name, int damage, ItemProperties itemProperties) : base(name, itemProperties)
     {
-
+        Damage = damage;
     }
 
     public override void Load()
@@ -24,7 +25,7 @@ public class Tool : Item
 
     public static new Tool Empty()
     {
-        return new Tool("", new ItemProperties());
+        return new Tool("", 0, new ItemProperties());
     }
 
     public override void Update()

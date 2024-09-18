@@ -25,8 +25,9 @@ public class MineTask : Task
     {
         timer.Enabled = false;
         Object targetObject = Target as Object;
+        Villager villager = Character as Villager;
 
-        targetObject.Hit(1);
+        targetObject.Hit(villager.CaculateObjectDamage(targetObject));
         if (!targetObject.GetComponent<Health>().IsEmpty()) {
             timer.Enabled = true;
             return;

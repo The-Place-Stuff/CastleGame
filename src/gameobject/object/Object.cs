@@ -106,9 +106,18 @@ public abstract class Object : Tile
     {
         public int Durability { get; set; } = 0;
 
+        public Tool Mineable { get; set; } = Tool.Empty();
+
+
         public ObjectProperties SetDurability(int durability)
         {
             Durability = durability;
+            return this;
+        }
+
+        public ObjectProperties SetMineable(Item item)
+        {
+            if(item is Tool tool) Mineable = tool;
             return this;
         }
 

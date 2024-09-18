@@ -95,6 +95,19 @@ public class Villager : Character
 
     }
 
+    public int CaculateObjectDamage(Object target)
+    {
+        Tool tool = target.Properties.Mineable;
+        if (tool == Tool.Empty()) return 1;
+
+        if(tool.Name == Tool.Name)
+        {
+            return Tool.Damage;
+        }
+
+        return 1;
+    }
+
 
 
     public virtual void SetTool(Item item)

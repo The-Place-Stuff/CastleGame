@@ -18,13 +18,13 @@ public class Items : Registry
 
     public static readonly Func<Item> Stone = Register( () => new Item("stone", new Item.ItemProperties()));
 
-    public static readonly Func<Item> Axe = Register(() => new Tool("axe", new Item.ItemProperties()));
+    public static readonly Func<Item> Axe = Register(() => new Tool("axe", 3, new Item.ItemProperties()));
 
-    public static readonly Func<Item> Pickaxe = Register(() => new Tool("pickaxe", new Item.ItemProperties()));
+    public static readonly Func<Item> Pickaxe = Register(() => new Tool("pickaxe", 3, new Item.ItemProperties()));
 
-    public static readonly Func<Item> Shovel = Register(() => new Tool("shovel", new Item.ItemProperties()));
+    public static readonly Func<Item> Shovel = Register(() => new Tool("shovel", 3, new Item.ItemProperties()));
 
-    public static readonly Func<Item> Sword = Register(() => new Tool("sword", new Item.ItemProperties()));
+    public static readonly Func<Item> Sword = Register(() => new Tool("sword", 3, new Item.ItemProperties()));
 
     public static readonly Func<Item> Berries = Register(() => new Item("berries", new Item.ItemProperties()));
 
