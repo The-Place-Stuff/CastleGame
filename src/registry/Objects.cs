@@ -34,6 +34,8 @@ public class Objects : Registry
 
     public static readonly Func<Object> Coop = Register(() => new Coop("coop", new Object.ObjectProperties().SetDurability(5)));
 
+    public static readonly Func<Object> Wall = Register(() => new Wall("wall", new Object.ObjectProperties().SetDurability(4)));
+
     public static Func<Object> Register(Func<Object> obj)
     {
 

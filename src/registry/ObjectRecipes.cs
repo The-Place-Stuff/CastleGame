@@ -27,7 +27,8 @@ namespace CastleGame
         public static readonly Recipe Tent = Register(
             new Recipe(new Recipe.Settings().AddIngredient(Items.Wool(), 4).SetType(Objects.Tent())));
 
-
+        public static readonly Recipe Wall = Register(
+            new Recipe(new Recipe.Settings().AddIngredient(Items.Wood(), 1).SetType(Objects.Wall())));
 
         public static Recipe Register(Recipe recipe)
         {
