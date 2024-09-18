@@ -34,7 +34,6 @@ public class ObjectMenu : GameObject
             Object obj = entry.Value();
             if (ObjectRecipes.List.ContainsKey(entry.Key))
             {
-                DebugGui.Log(obj.Name);
                 TextElement textElement = new TextElement(obj.Name);
                 UiElementGroup group = new UiElementGroup(new ObjectButton(obj));
 

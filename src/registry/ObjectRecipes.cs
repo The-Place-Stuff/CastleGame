@@ -30,6 +30,10 @@ namespace CastleGame
         public static readonly Recipe Wall = Register(
             new Recipe(new Recipe.Settings().AddIngredient(Items.Wood(), 1).SetType(Objects.Wall())));
 
+        public static readonly Recipe Furnace = Register(
+            new Recipe(new Recipe.Settings().AddIngredient(Items.Wood(), 4).SetType(Objects.Furnace())));
+
+
         public static Recipe Register(Recipe recipe)
         {
             List.Add(recipe.RecipeSettings.Type, recipe);

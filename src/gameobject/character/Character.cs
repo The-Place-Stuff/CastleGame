@@ -68,7 +68,6 @@ public abstract class Character : GameObject
 
     public void OnClick()
     {
-        DebugGui.Log(Position.ToString());
 
         if (SceneManager.CurrentScene.GetGameObject<Player>().GetComponent<StateMachine>().CurrentState is InteractState interact)
         {

@@ -37,7 +37,6 @@ public class Task
         Target = GameObject.Empty();
         Target.Position = position;
 
-        DebugGui.Log("positron : " + Target.Position);
     }
 
     public void SetCharacter(Character character)
