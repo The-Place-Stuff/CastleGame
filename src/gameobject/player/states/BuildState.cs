@@ -74,6 +74,8 @@ public class BuildState : GameObjectState
 
             map.objectGrid.PlaceTile(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(position), Objects.Blueprint().Name);
 
+            map.PathFinder.NodeMap.SetWalkable(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(position), false);
+
             map.objectGrid.GetTileFromWorldCoordinates(position).Name = Currentblueprint;
 
             map.objectGrid.GetTileFromWorldCoordinates(position).RemoveComponent(map.objectGrid.GetTileFromWorldCoordinates(position).GetComponent<Sprite>());
@@ -92,6 +94,8 @@ public class BuildState : GameObjectState
             //DebugGui.Log(map.objectGrid.GetTileFromWorldCoordinates(position).Name + " Removed");
 
             map.objectGrid.RemoveTile(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(position));
+
+            map.PathFinder.NodeMap.SetWalkable(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(position), true);
         }
 
         previousBlueprint = Currentblueprint;
