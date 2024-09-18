@@ -15,18 +15,18 @@ public class ObjectMenu : GameObject
     {
 
         NineSliceSprite sprite = new NineSliceSprite("assets/img/uis/nineslice");
-        sprite.Size = new Vector2(200, 64);
+        sprite.Size = new Vector2(64, 140);
         sprite.SetPadding(2);
         AddComponent(sprite);
 
         CreateAndAddComponent<DebugBox>();
 
-        Position = new Vector2(138, (GraphicsConfig.SCREEN_HEIGHT / 5) - 42);
-        Size = new Vector2(200, 64);
+        Position = new Vector2(38, (GraphicsConfig.SCREEN_HEIGHT / 5) - 108);
+        Size = new Vector2(64, 140);
 
-        uiGrid = new UiElementGrid(new Vector2(9, 3), 18);
+        uiGrid = new UiElementGrid(new Vector2(2, 9), 24);
 
-        uiGrid.Position = Position - new Vector2(84, 20);
+        uiGrid.Position = Position - new Vector2(13, 55);
 
         foreach(KeyValuePair<string, Func<Object>> entry in Objects.List)
         {
