@@ -91,6 +91,10 @@ public class BuildState : GameObjectState
 
             if (map.objectGrid.GetTileFromWorldCoordinates(position) == null) return;
 
+            Tile tile = map.objectGrid.GetTileFromWorldCoordinates(position);
+
+            if (tile.Name != Currentblueprint) return;
+
             //DebugGui.Log(map.objectGrid.GetTileFromWorldCoordinates(position).Name + " Removed");
 
             map.objectGrid.RemoveTile(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(position));
