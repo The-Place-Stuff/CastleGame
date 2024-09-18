@@ -19,11 +19,14 @@ public class ObjectMenu : GameObject
         sprite.SetPadding(2);
         AddComponent(sprite);
 
-        Position = new Vector2(40, 142);
+        CreateAndAddComponent<DebugBox>();
+
+        Position = new Vector2(138, (GraphicsConfig.SCREEN_HEIGHT / 5) - 42);
+        Size = new Vector2(200, 64);
 
         uiGrid = new UiElementGrid(new Vector2(9, 3), 18);
 
-        uiGrid.Position = Position + new Vector2(14, 14);
+        uiGrid.Position = Position - new Vector2(84, 20);
 
         foreach(KeyValuePair<string, Func<Object>> entry in Objects.List)
         {

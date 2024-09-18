@@ -27,8 +27,6 @@ public class BuildState : GameObjectState
 
     public override void Update()
     {
-
-
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
         Scene scene = SceneManager.CurrentScene;
 
@@ -44,6 +42,8 @@ public class BuildState : GameObjectState
 
         if (Input.Mouse.LeftClickRelease())
         {
+
+            if (SceneManager.CurrentScene.GetUIElementAt(Input.Mouse.GetNewPosition() / SceneManager.CurrentScene.Camera.UIScale) != null) return;
 
             map.objectGrid.PlaceTile(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(position), Objects.Blueprint().Name);
 

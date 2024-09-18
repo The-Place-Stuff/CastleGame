@@ -22,6 +22,8 @@ public class PlayerStateButton : GameObject
         AddComponent(button);
 
         button.OnClick += OnClick;
+
+        Size = new Vector2(20, 20);
     }
 
 
