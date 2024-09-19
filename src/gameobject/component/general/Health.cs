@@ -10,7 +10,6 @@ namespace CastleGame;
 public class Health : Component
 {
     public float Points { get; set; } = 0;
-
     public float Size { get; set; } = 0;
     public Health(float size) : base(false)
     {

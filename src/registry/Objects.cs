@@ -32,15 +32,9 @@ public class Objects : Registry
     public static readonly Func<Object> Stockpile = Register( () => new Stockpile("stockpile", new Object.ObjectProperties()
         .SetDurability(5).SetMineable(Items.Axe())));
 
-    public static readonly Func<Object> Tent = Register(() => new Home("tent", 2, new Object.ObjectProperties()
-        .SetDurability(4)));
-
     public static readonly Func<Object> Blueprint = Register(() => new Blueprint("blueprint"));
 
     public static readonly Func<Object> Workbench = Register(() => new Workbench("workbench", new Object.ObjectProperties()
-        .SetDurability(5).SetMineable(Items.Axe())));
-
-    public static readonly Func<Object> Coop = Register(() => new Coop("coop", new Object.ObjectProperties()
         .SetDurability(5).SetMineable(Items.Axe())));
 
     public static readonly Func<Object> Wall = Register(() => new Wall("wall", new Object.ObjectProperties()

@@ -33,9 +33,9 @@ public class Stockpile : Object, Interactable
 
     public Task GetTaskType(Villager villager)
     {
-        if (villager.Item.Name == Item.Empty().Name) return new TakeTask(Position);
+        if (villager.Item.Name == Item.Empty().Name) return new TakeFromStockpileTask(Position);
 
-        if (villager.Item.Name != Item.Empty().Name) return new StoreTask(Position);
+        if (villager.Item.Name != Item.Empty().Name) return new StoreInStockpileTask(Position);
 
         return null;
     }

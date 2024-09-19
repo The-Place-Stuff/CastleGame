@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CastleGame;
 
-public class ObjectMenu : GameObject
+public class BuildMenu : GameObject
 {
     public UiElementGrid uiGrid;
     public override void Load()
@@ -34,8 +34,7 @@ public class ObjectMenu : GameObject
             Object obj = entry.Value();
             if (ObjectRecipes.List.ContainsKey(entry.Key))
             {
-                TextElement textElement = new TextElement(obj.Name);
-                UiElementGroup group = new UiElementGroup(new ObjectButton(obj));
+                UiElementGroup group = new UiElementGroup(new SelectBlueprintButton(obj));
 
 
                 uiGrid.AddUiElementGroup(group);

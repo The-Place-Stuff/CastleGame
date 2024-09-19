@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace CastleGame;
 
-public class PickTask : Task
+public class GrabTask : Task
 {
-    public PickTask(GameObject obj) : base(obj)
+    public GrabTask(GameObject obj) : base(obj)
     {
 
     }
-    public PickTask(Vector2 pos) : base(pos)
+    public GrabTask(Vector2 pos) : base(pos)
     {
 
     }

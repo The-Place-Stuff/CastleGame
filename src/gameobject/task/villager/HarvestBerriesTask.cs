@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace CastleGame;
 
-public class HarvestTask : Task
+public class HarvestBerriesTask : Task
 {
-    public HarvestTask(GameObject obj) : base(obj)
+    public HarvestBerriesTask(GameObject obj) : base(obj)
     {
     }
 
-    public HarvestTask(Vector2 position) : base(position)
+    public HarvestBerriesTask(Vector2 position) : base(position)
     {
     }
 

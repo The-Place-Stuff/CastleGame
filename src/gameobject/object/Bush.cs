@@ -53,7 +53,7 @@ public class Bush : Object, Interactable
     {
         if (villager.Item.Name != Item.Empty().Name) return null;
 
-        return new HarvestTask(Position);
+        return new HarvestBerriesTask(Position);
     }
 
 

@@ -14,12 +14,10 @@ public class Player : GameObject
     {
         Inventory inventory = CreateAndAddComponent<Inventory>();
 
-        StateMachine stateMachine = new StateMachine();
+        StateMachine stateMachine = CreateAndAddComponent<StateMachine>();
 
         BuildState buildState = new BuildState();
         InteractState interactState = new InteractState();
-
-        AddComponent(stateMachine);
 
         stateMachine.AddState(buildState);
         stateMachine.AddState(interactState);
@@ -55,7 +53,7 @@ public class Player : GameObject
 
         playerStateButton.ChangeSpriteToBuild();
 
-        ObjectMenu objectMenu = SceneManager.CurrentScene.GetUIElement<ObjectMenu>();
+        BuildMenu objectMenu = SceneManager.CurrentScene.GetUIElement<BuildMenu>();
         objectMenu.Enabled = true;
     }
 
@@ -67,7 +65,7 @@ public class Player : GameObject
 
         playerStateButton.ChangeSpriteToInteract();
 
-        ObjectMenu objectMenu = SceneManager.CurrentScene.GetUIElement<ObjectMenu>();
+        BuildMenu objectMenu = SceneManager.CurrentScene.GetUIElement<BuildMenu>();
         objectMenu.Enabled = false;
     }
 

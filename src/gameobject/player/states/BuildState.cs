@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace CastleGame;
 public class BuildState : GameObjectState
 {
-    public string Currentblueprint = Objects.Coop().Name;
+    public string Currentblueprint = Objects.Workbench().Name;
 
     private string previousBlueprint;
 

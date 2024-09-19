@@ -8,24 +8,23 @@ using System.Threading.Tasks;
 
 namespace CastleGame;
 
-public class IncubateTask : Task
+public class AddItemToWorkbenchTask : Task
 {
-    public IncubateTask(GameObject obj) : base(obj)
+    public AddItemToWorkbenchTask(GameObject obj) : base(obj)
     {
 
     }
-    public IncubateTask(Vector2 position) : base(position)
+    public AddItemToWorkbenchTask(Vector2 position) : base(position)
     {
 
     }
     public override void Start()
     {
-        if (!(Target is Coop coop)) return;
+        if (!(Target is Workstation workstation)) return;
 
         Villager villager = Character as Villager;
 
-        if (villager.Item != Items.Egg()) return;
-        coop.AddItem(villager.Item);
+        workstation.AddItem(villager.Item);
         villager.Item = Item.Empty();
         Finish();
     }

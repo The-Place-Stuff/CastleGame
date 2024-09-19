@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CastleGame;
-public class MovementAI : AI
+public class MovementAI : Component
 {
     public Vector2 PreviousPath { get; private set; } = new Vector2();
     public bool Moving { get; private set; } = false;
@@ -19,7 +19,7 @@ public class MovementAI : AI
     private Stack<Node> PathStack = new Stack<Node>();
     private Node currentPathingNode;
 
-    public MovementAI()
+    public MovementAI() : base(false)
     {
 
     }
