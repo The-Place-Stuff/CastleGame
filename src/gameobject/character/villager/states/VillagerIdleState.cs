@@ -49,7 +49,7 @@ public class VillagerIdleState : GameObjectState
                 random.Next(minY, maxY)
             );
 
-            GoTask goTask = new GoTask(randomPosition);
+            MoveTask goTask = new MoveTask(randomPosition);
 
             busy = true;
             timer.Enabled = false;

@@ -7,13 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CastleGame;
-public class TakeTask : Task
+public class TakeFromStockpileTask : Task
 {
-    public TakeTask(GameObject obj) : base(obj)
+    public TakeFromStockpileTask(GameObject obj) : base(obj)
     {
 
     }
-    public TakeTask(Vector2 position) : base(position)
+    public TakeFromStockpileTask(Vector2 position) : base(position)
     {
 
     }

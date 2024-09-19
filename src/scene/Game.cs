@@ -13,7 +13,7 @@ public class Game : Scene
     public List<Character> characters = new List<Character>();
     public Player player = new Player();
     public PlayerStateButton playerStateButton = new PlayerStateButton();
-    public ObjectMenu ObjectMenu = new ObjectMenu();
+    public BuildMenu ObjectMenu = new BuildMenu();
 
     private RenderTarget2D cursorRenderTarget = new RenderTarget2D(SerpentGame.Instance.GraphicsDevice, GraphicsConfig.SCREEN_WIDTH, GraphicsConfig.SCREEN_HEIGHT);
 

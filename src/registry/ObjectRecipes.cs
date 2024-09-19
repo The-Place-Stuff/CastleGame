@@ -20,13 +20,6 @@ namespace CastleGame
         public static readonly Recipe Workbench = Register(
             new Recipe(new Recipe.Settings().AddIngredient(Items.Wood(), 1).SetType(Objects.Workbench())));
 
-
-        public static readonly Recipe Coop = Register(
-            new Recipe(new Recipe.Settings().AddIngredient(Items.Wood(), 2).SetType(Objects.Coop())));
-
-        public static readonly Recipe Tent = Register(
-            new Recipe(new Recipe.Settings().AddIngredient(Items.Wool(), 4).SetType(Objects.Tent())));
-
         public static readonly Recipe Wall = Register(
             new Recipe(new Recipe.Settings().AddIngredient(Items.Wood(), 1).SetType(Objects.Wall())));
 

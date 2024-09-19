@@ -28,9 +28,9 @@ public abstract class Character : GameObject
 
         AnimationTree animationTree = CreateAndAddComponent<AnimationTree>();
 
-        StateMachine stateMachine = CreateAndAddComponent<StateMachine>();
+        animationTree.AddAnimation("assets/animation/characters/" + Name + "_idle", _ => true);
 
-        Direction direction = CreateAndAddComponent<Direction>();
+        StateMachine stateMachine = CreateAndAddComponent<StateMachine>();
 
         MovementAI movementAI = CreateAndAddComponent<MovementAI>();
 
@@ -42,29 +42,8 @@ public abstract class Character : GameObject
 
         Highlight highlight = new Highlight("assets/img/null"); AddComponent(highlight); 
 
-        direction.Set(Direction.East().Name);
-
         button.OnClick += OnClick;
-
-        Random rnd = new Random();
-       // movementAI.Path = new Vector2(rnd.Next((int)Position.X - Range, (int)Position.X + Range), rnd.Next((int)Position.Y - Range, (int)Position.Y + Range));
-
-        animationTree.AddAnimation("assets/animation/characters/" + Name + "_idle", _ => direction.Name == Direction.None().Name);
-        animationTree.AddAnimation("assets/animation/characters/" + Name + "_east", _ => direction.Name == Direction.East().Name);
-        animationTree.AddAnimation("assets/animation/characters/" + Name + "_west", _ => direction.Name == Direction.West().Name);
-
-
-        base.Load();
     }
-
-
-    public override void Update()
-    {
-        UpdateDirection();
-
-        base.Update();
-    }
-
 
     public void OnClick()
     {
@@ -90,22 +69,6 @@ public abstract class Character : GameObject
         TaskManager taskManager = GetComponent<TaskManager>();
         taskManager.AddTask(task);
     }
-
-    public virtual void UpdateDirection()
-    {
-        Direction direction = GetComponent<Direction>();
-
-        if (CurrentDirection.X > 0)
-        {
-            direction.Set(Direction.East().Name);
-        }
-        if (CurrentDirection.X < 0)
-        {
-            direction.Set(Direction.West().Name);
-        }
-
-    }
-
 
     public class CharacterProperties
     {

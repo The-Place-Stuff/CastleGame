@@ -9,17 +9,17 @@ using System.Threading.Tasks;
 
 namespace CastleGame;
 
-public class GoTask : Task
+public class MoveTask : Task
 {
     private int tries = 0;
 
     private List<Vector2> possiblePositions = new List<Vector2>();
-    public GoTask(GameObject obj) : base(obj)
+    public MoveTask(GameObject obj) : base(obj)
     {
 
     }
 
-    public GoTask(Vector2 position) : base(position)
+    public MoveTask(Vector2 position) : base(position)
     {
 
     }

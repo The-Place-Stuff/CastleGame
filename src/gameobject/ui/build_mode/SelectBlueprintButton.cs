@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace CastleGame;
 
-public class ObjectButton : GameObject
+public class SelectBlueprintButton : GameObject
 {
     public Object Object;
-    public ObjectButton(Object obj)
+    public SelectBlueprintButton(Object obj)
     {
         Object = obj;
     }

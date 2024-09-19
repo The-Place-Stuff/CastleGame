@@ -12,7 +12,6 @@ public class Registry
     public static List<GameObject> List = new List<GameObject>();
     public static string Path = "assets/img/";
 
-
     public static string GetPath(string name)
     {
         return Path + name;

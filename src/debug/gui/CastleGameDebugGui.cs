@@ -136,31 +136,6 @@ public class CastleGameDebugGui : ImGuiDrawable
                     ImGui.Text("Position: " + new Vector2((int)Math.Round(character.Position.X), (int)Math.Round(character.Position.Y)));
                     ImGui.Text("Speed: " + character.Properties.Speed);
 
-                    string firstDir = "", secondDir = "";
-
-                    if (character.CurrentDirection.Y > 0)
-                    {
-                        firstDir = "South";
-
-                    }
-                    else
-                    {
-                        firstDir = "North";
-
-                    }
-                    if (character.CurrentDirection.X > 0)
-                    {
-                        secondDir = "East";
-                    }
-                    else
-                    {
-                        secondDir = "West";
-
-                    }
-                    // this has to be revamped
-                   // ImGui.Text("Current Task: " + );
-                    ImGui.Text("Direction: " + firstDir + " " + secondDir);
-
                     StateMachine stateMachine = character.GetComponent<StateMachine>();
 
                     ImGui.Text("Current State: " + stateMachine.CurrentState.Name);

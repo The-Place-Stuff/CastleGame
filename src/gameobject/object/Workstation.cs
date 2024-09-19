@@ -15,25 +15,12 @@ public class Workstation : Object, Interactable
 
     public Workstation(string name, ObjectProperties objectProperties) : base(name, objectProperties)
     {
-
-
     }
 
     public override void Load()
     {
         Inventory inventory = new Inventory(); AddComponent(inventory);
         AnimationTree animationTree = CreateAndAddComponent<AnimationTree>();
-        StateMachine stateMachine = CreateAndAddComponent<StateMachine>();
-
-
-        stateMachine.AddState(States.Off);
-        stateMachine.AddState(States.On);
-
-        stateMachine.SetState("off");
-
-        animationTree.AddAnimation("assets/animation/objects/" + Name, _ => stateMachine.CurrentState.Name == "off");
-        animationTree.AddAnimation("assets/animation/objects/" + Name + "_on", _ => stateMachine.CurrentState.Name == "on");
-        base.Load();
     }
     public override void Update()
     {
@@ -45,7 +32,7 @@ public class Workstation : Object, Interactable
     {
         if (villager.Item.Name == Item.Empty().Name) return null;
 
-        return new WorkTask(Position);
+        return new AddItemToWorkbenchTask(Position);
     }
 
     public void CheckRecipe()

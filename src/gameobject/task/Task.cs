@@ -23,7 +23,7 @@ public class Task
         {
 
             obj = GameObject.Empty();
-            Name = TaskTypes.None;
+            Name = "none";
             Target = obj;
         }
         else

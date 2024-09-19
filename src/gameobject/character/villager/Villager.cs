@@ -13,8 +13,6 @@ public class Villager : Character
 {
     public Tool Tool { get; set; } = Tool.Empty(); 
     public Item Item { get; set; } = Item.Empty();
-
-    public Home Home;
     public Villager(string name, CharacterProperties characterProperties) : base(name, characterProperties)
     {
     }
@@ -49,7 +47,7 @@ public class Villager : Character
             interact.Character = null;
         }
 
-        AddTask(new GoTask(VectorHelper.Snap(Game.cursor.Position, 16)));
+        AddTask(new MoveTask(VectorHelper.Snap(Game.cursor.Position, 16)));
 
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
         Vector2 position = Game.cursor.Position;
@@ -72,16 +70,11 @@ public class Villager : Character
         }
     }
 
-    public void SetHome(Home home)
-    {
-        Home = home;
-    }
 
     public void UpdateTool()
     {
         if (Tool.Name == Tool.Empty().Name) return;
 
-        Direction direction = GetComponent<Direction>();
         Sprite sprite = GetComponent<Sprite>();
 
         Tool.Position = new Vector2(Position.X + CurrentDirection.X * 6, Position.Y - 7);
@@ -90,9 +83,6 @@ public class Villager : Character
         Sprite toolSprite = Tool.GetComponent<Sprite>();
 
         toolSprite.Effect = SpriteEffects.None;
-
-        if (direction.Name == Direction.East().Name) toolSprite.Effect = SpriteEffects.FlipHorizontally;
-
     }
 
     public int CaculateObjectDamage(Object target)

@@ -30,7 +30,7 @@ public class Item : GameObject, Interactable
 
     public Task GetTaskType(Villager villager)
     {
-        return new PickTask(Position);
+        return new GrabTask(Position);
     }
 
     public static new Item Empty()
