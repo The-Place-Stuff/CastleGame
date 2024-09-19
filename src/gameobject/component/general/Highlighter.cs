@@ -3,9 +3,9 @@ using SerpentEngine;
 
 namespace CastleGame;
 
-public class Highlight : Sprite
+public class Highlighter : Sprite
 {
-    public Highlight(string path) : base(path)
+    public Highlighter(string path) : base(path)
     {
         Scale += new Vector2(0.25f, 0.25f);
 

@@ -23,7 +23,7 @@ public class Villager : Character
 
         WorldButton selectBox = new WorldButton(new Vector2(20, 20)); AddComponent(selectBox);
 
-        Highlight highlight = new Highlight("assets/img/null"); AddComponent(highlight);
+        Highlighter highlight = new Highlighter("assets/img/null"); AddComponent(highlight);
         highlight.Enabled = false;
 
         selectBox.OnClick += OnClick;
@@ -38,8 +38,6 @@ public class Villager : Character
 
     public override void Update()
     {
-
-        base.Update();
         Item.Position = new Vector2(Position.X, Position.Y - 14);
 
         UpdateTool();
@@ -53,12 +51,12 @@ public class Villager : Character
             if (interact.Character != this)
             {
                 interact.Character = this;
-                GetComponent<Highlight>().Enabled = true;
+                GetComponent<Highlighter>().Enabled = true;
             }
             else
             {
                 interact.Character = null;
-                GetComponent<Highlight>().Enabled = false;
+                GetComponent<Highlighter>().Enabled = false;
             }
         }
     }
@@ -66,7 +64,7 @@ public class Villager : Character
 
     public void AddTaskFromWorld()
     {
-        GetComponent<Highlight>().Enabled = false;
+        GetComponent<Highlighter>().Enabled = false;
 
         if (SceneManager.CurrentScene.GetGameObject<Player>().GetComponent<StateMachine>().CurrentState is InteractState interact)
         {
