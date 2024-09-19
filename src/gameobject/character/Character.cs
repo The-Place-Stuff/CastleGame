@@ -1,20 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using SerpentEngine;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CastleGame;
 
 public abstract class Character : GameObject
 {
-    public Vector2 CurrentDirection { get; set; }
-    public CharacterProperties Properties { get; set; }
-
+    public Direction CurrentDirection { get; private set; } = Direction.South;
+    public CharacterProperties Properties { get; private set; }
 
     public Character(string name, CharacterProperties properties)
     {
@@ -27,8 +19,10 @@ public abstract class Character : GameObject
         Layer = 3;
 
         AnimationTree animationTree = CreateAndAddComponent<AnimationTree>();
-
-        animationTree.AddAnimation("assets/animation/characters/" + Name + "_idle", _ => true);
+        animationTree.AddAnimation("assets/animation/characters/" + Name + "_south", _ => CurrentDirection == Direction.South);
+        animationTree.AddAnimation("assets/animation/characters/" + Name + "_north", _ => CurrentDirection == Direction.North);
+        animationTree.AddAnimation("assets/animation/characters/" + Name + "_east", _ => CurrentDirection == Direction.East);
+        animationTree.AddAnimation("assets/animation/characters/" + Name + "_west", _ => CurrentDirection == Direction.West);
 
         StateMachine stateMachine = CreateAndAddComponent<StateMachine>();
 
@@ -37,37 +31,59 @@ public abstract class Character : GameObject
         TaskManager taskManager = CreateAndAddComponent<TaskManager>();
 
         Health health = new Health(Properties.Health); AddComponent(health);
-
-        WorldButton button = new WorldButton(new Vector2(20, 20)); AddComponent(button); 
-
-        Highlight highlight = new Highlight("assets/img/null"); AddComponent(highlight); 
-
-        button.OnClick += OnClick;
     }
-
-    public void OnClick()
-    {
-
-        if (SceneManager.CurrentScene.GetGameObject<Player>().GetComponent<StateMachine>().CurrentState is InteractState interact)
-        {
-            if (interact.Character != this)
-            {
-                interact.Character = this;
-                GetComponent<Highlight>().Drawable = true;
-            }
-            else
-            {
-                interact.Character = null;
-                GetComponent<Highlight>().Drawable = false;
-            }
-        }
-    }
-
 
     public virtual void AddTask(Task task)
     {
         TaskManager taskManager = GetComponent<TaskManager>();
         taskManager.AddTask(task);
+    }
+
+    public void SetDirection(Vector2 direction)
+    {
+        if (direction.X > 0)
+        {
+            CurrentDirection = Direction.East;
+        }
+        else if (direction.X < 0)
+        {
+            CurrentDirection = Direction.West;
+        }
+        else if (direction.Y > 0)
+        {
+            CurrentDirection = Direction.South;
+        }
+        else if (direction.Y < 0)
+        {
+            CurrentDirection = Direction.North;
+        }
+    }
+
+    public void SetDirection(Direction direction)
+    {
+        CurrentDirection = direction;
+    }
+
+    public Vector2 GetCurrentDirectionValue()
+    {
+        if (CurrentDirection == Direction.North)
+        {
+            return new Vector2(0, -1);
+        }
+        else if (CurrentDirection == Direction.East)
+        {
+            return new Vector2(1, 0);
+        }
+        else if (CurrentDirection == Direction.South)
+        {
+            return new Vector2(0, 1);
+        }
+        else if (CurrentDirection == Direction.West)
+        {
+            return new Vector2(-1, 0);
+        }
+
+        return Vector2.Zero;
     }
 
     public class CharacterProperties

@@ -88,7 +88,7 @@ public class MovementAI : Component
 
         direction.Normalize();
 
-        character.CurrentDirection = direction;
+        character.SetDirection(direction);
         GameObject.Position += direction * character.Properties.Speed * Main.DeltaTime;
 
         Vector2 snappedGameObjectPosition = VectorHelper.Snap(GameObject.Position, objectGrid.TileSize.X);

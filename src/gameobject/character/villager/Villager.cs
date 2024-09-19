@@ -21,6 +21,13 @@ public class Villager : Character
     {
         base.Load();
 
+        WorldButton selectBox = new WorldButton(new Vector2(20, 20)); AddComponent(selectBox);
+
+        Highlight highlight = new Highlight("assets/img/null"); AddComponent(highlight);
+        highlight.Enabled = false;
+
+        selectBox.OnClick += OnClick;
+
         StateMachine stateMachine = GetComponent<StateMachine>();
 
         stateMachine.AddState(new VillagerIdleState());
@@ -38,9 +45,28 @@ public class Villager : Character
         UpdateTool();
     }
 
+    public void OnClick()
+    {
+
+        if (SceneManager.CurrentScene.GetGameObject<Player>().GetComponent<StateMachine>().CurrentState is InteractState interact)
+        {
+            if (interact.Character != this)
+            {
+                interact.Character = this;
+                GetComponent<Highlight>().Enabled = true;
+            }
+            else
+            {
+                interact.Character = null;
+                GetComponent<Highlight>().Enabled = false;
+            }
+        }
+    }
+
+
     public void AddTaskFromWorld()
     {
-        GetComponent<Highlight>().Drawable = false;
+        GetComponent<Highlight>().Enabled = false;
 
         if (SceneManager.CurrentScene.GetGameObject<Player>().GetComponent<StateMachine>().CurrentState is InteractState interact)
         {
@@ -77,7 +103,7 @@ public class Villager : Character
 
         Sprite sprite = GetComponent<Sprite>();
 
-        Tool.Position = new Vector2(Position.X + CurrentDirection.X * 6, Position.Y - 7);
+        Tool.Position = new Vector2(Position.X + GetCurrentDirectionValue().X * 6, Position.Y - 7);
         Tool.Layer = Layer + 1;
 
         Sprite toolSprite = Tool.GetComponent<Sprite>();
@@ -97,8 +123,6 @@ public class Villager : Character
 
         return 1;
     }
-
-
 
     public virtual void SetTool(Item item)
     {
