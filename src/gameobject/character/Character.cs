@@ -64,7 +64,7 @@ public abstract class Character : GameObject
         CurrentDirection = direction;
     }
 
-    public Vector2 GetCurrentDirectionValue()
+    public Vector2 GetCurrentDirectionVector()
     {
         if (CurrentDirection == Direction.North)
         {

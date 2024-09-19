@@ -103,7 +103,7 @@ public class Villager : Character
 
         Sprite sprite = GetComponent<Sprite>();
 
-        Tool.Position = new Vector2(Position.X + GetCurrentDirectionValue().X * 6, Position.Y - 7);
+        Tool.Position = new Vector2(Position.X + GetCurrentDirectionVector().X * 6, Position.Y - 7);
         Tool.Layer = Layer + 1;
 
         Sprite toolSprite = Tool.GetComponent<Sprite>();
