@@ -1,0 +1,21 @@
+{
+	"spritesheet": "",
+	"frame_size": [16, 16],
+	"default_offset": [0, 0],
+	"conditions": [
+		{
+			"search_directions": [
+				"north",
+				"south"
+			],
+			"offset": [0, 0]
+		},
+		{
+			"search_directions": [
+				"north",
+				"south"
+			]
+			"offset": [0, 0]
+		}
+	]
+}
