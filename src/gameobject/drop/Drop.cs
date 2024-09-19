@@ -8,14 +8,12 @@ using System.Threading.Tasks;
 
 namespace CastleGame;
 
-public class Drop : Component
+public class Drop
 {
     public Settings DropSettings { get; set; }
-    public Drop(Settings settings) : base(false)
+    public Drop(Settings settings)
     {
-
         DropSettings = settings;
-
     }
 
 

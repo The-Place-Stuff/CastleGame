@@ -23,8 +23,10 @@ public class Villager : Character
 
         WorldButton selectBox = new WorldButton(new Vector2(20, 20)); AddComponent(selectBox);
 
-        Highlighter highlight = new Highlighter("assets/img/null"); AddComponent(highlight);
+        Highlighter highlight = new Highlighter("assets/img/null"); 
         highlight.Enabled = false;
+
+        AddComponent(highlight);
 
         selectBox.OnClick += OnClick;
 
@@ -41,6 +43,8 @@ public class Villager : Character
         Item.Position = new Vector2(Position.X, Position.Y - 14);
 
         UpdateTool();
+
+        base.Update();
     }
 
     public void OnClick()

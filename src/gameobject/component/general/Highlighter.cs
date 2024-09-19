@@ -30,6 +30,8 @@ public class Highlighter : Sprite
 
     public override void Draw()
     {
+        if (!Enabled) return;
+
         SpriteSheet spritesheet = GameObject.GetComponent<AnimationTree>().CurrentAnimation.SpriteSheet;
 
         Vector2 size = Size / spritesheet.Size.Y;

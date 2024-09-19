@@ -9,20 +9,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CastleGame;
-public class Recipe : Component
+public class Recipe
 {
-
     public Settings RecipeSettings;
-    public Recipe(Settings settings) : base(false)
+    public Recipe(Settings settings)
     {
         RecipeSettings = settings;
 
-    }
-
-
-    public Recipe(int size) : base(false)
-    {
-        RecipeSettings.Ingredients = new List<Item>(size);
     }
 
     public bool Matches(Inventory target)
