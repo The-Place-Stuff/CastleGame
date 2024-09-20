@@ -62,9 +62,9 @@ public class MapGenerator
 
         // The outer forest
     
-        for (int x = -100; x < 100; x++)
+        for (int x = (int)-Map.WorldSize.X; x < Map.WorldSize.X; x++)
         {
-            for (int y = -100; y < 100; y++)
+            for (int y = (int)-Map.WorldSize.Y; y < Map.WorldSize.Y; y++)
             {
                 float distance = MathF.Sqrt(x * x + y * y);
 

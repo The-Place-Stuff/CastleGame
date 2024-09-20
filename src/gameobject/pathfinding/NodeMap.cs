@@ -22,9 +22,9 @@ public class NodeMap
 
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
 
-        for (int x = -Map.SizeX; x <= Map.SizeX; x++)
+        for (int x = (int)-20; x <= 20; x++)
         {
-            for (int y = -Map.SizeY; y <= Map.SizeY; y++)
+            for (int y = (int)-20; y <= 20; y++)
             {
                 Tile tile = map.objectGrid.GetTileFromGridCoordinates(new Vector2(x, y));
 

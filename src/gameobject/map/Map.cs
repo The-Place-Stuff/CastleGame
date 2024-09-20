@@ -8,8 +8,7 @@ namespace CastleGame;
 public class Map : GameObject
 {
     public static int Seed = 23;
-    public static int SizeX = 20;
-    public static int SizeY = 20;
+    public static Vector2 WorldSize = new Vector2(100, 100);
 
     public List<TileSet> objectTileSets = new List<TileSet>();
 
