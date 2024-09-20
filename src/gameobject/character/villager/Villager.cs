@@ -82,6 +82,8 @@ public class Villager : Character
 
         List<GameObject> targets = SceneManager.CurrentScene.GetGameObjectsAt(VectorHelper.Snap(position, map.objectGrid.TileSize.X));
 
+        if (targets == null) return;
+
         GameObject target = GameObject.Empty();
 
         foreach (GameObject gameObject in targets)

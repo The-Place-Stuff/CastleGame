@@ -7,14 +7,13 @@ using System.Diagnostics;
 namespace CastleGame;
 public class Map : GameObject
 {
-    public static int Seed = 1984;
+    public static int Seed = 23;
     public static int SizeX = 20;
     public static int SizeY = 20;
 
     public List<TileSet> objectTileSets = new List<TileSet>();
-    public TileSet terrianTileSet = new TileSet();
 
-    public TileGrid terrainGrid = new TileGrid(new Vector2(16, 16));
+    public Sprite terrainBackground = new Sprite("assets/img/tiles/grass");
     public TileGrid objectGrid = new TileGrid(new Vector2(16, 16));
     public TileGrid blueprintGrid = new TileGrid(new Vector2(16, 16));
 
@@ -24,10 +23,6 @@ public class Map : GameObject
     {
         RegisterTileSets();
 
-        terrianTileSet.AddFromSprite("grass", "assets/img/tiles/grass");
-
-        terrainGrid.AddTileSet(terrianTileSet);
-
         foreach (TileSet tileSet in objectTileSets)
         {
             objectGrid.AddTileSet(tileSet);
@@ -35,12 +30,14 @@ public class Map : GameObject
 
         }
 
-        AddComponent(terrainGrid);
+        terrainBackground.Scale = new Vector2(1000, 1000);
+        AddComponent(terrainBackground);
+
         AddComponent(objectGrid);
         AddComponent(blueprintGrid);
 
 
-        terrainGrid.PlaceTiles(new Vector2(-SizeX, -SizeY), new Vector2(SizeX, SizeY), "grass");
+        
         
         MapGenerator.Generate(objectGrid);
 

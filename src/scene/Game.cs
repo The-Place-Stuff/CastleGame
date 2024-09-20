@@ -69,6 +69,8 @@ public class Game : Scene
     {   
         base.Update();
         cursor.Update();
+
+        Camera.Position = Vector2.Clamp(Camera.Position, new Vector2(-1700, -1700), new Vector2(1700, 1700));
     }
 
     public override void Draw()

@@ -10,6 +10,9 @@ namespace CastleGame;
 
 public class Player : GameObject
 {
+    private float cameraMovementSpeed = 4.5f;
+
+
     public override void Load()
     {
         Inventory inventory = CreateAndAddComponent<Inventory>();
@@ -31,6 +34,29 @@ public class Player : GameObject
     {
         Layer = 2;
 
+        // WASD Camera Movement
+        if (Input.Keyboard.GetKeyPress("W"))
+        {
+            SceneManager.CurrentScene.Camera.Translate(new Vector2(0, -cameraMovementSpeed));
+        }
+
+        if (Input.Keyboard.GetKeyPress("S"))
+        {
+            SceneManager.CurrentScene.Camera.Translate(new Vector2(0, cameraMovementSpeed));
+        }
+
+        if (Input.Keyboard.GetKeyPress("A"))
+        {
+            SceneManager.CurrentScene.Camera.Translate(new Vector2(-cameraMovementSpeed, 0));
+        }
+
+        if (Input.Keyboard.GetKeyPress("D"))
+        {
+            SceneManager.CurrentScene.Camera.Translate(new Vector2(cameraMovementSpeed, 0));
+        }
+
+
+        // Switch Modes hotkeys
         StateMachine stateMachine = GetComponent<StateMachine>();
 
         if (Input.Keyboard.GetKeyPress("B"))
