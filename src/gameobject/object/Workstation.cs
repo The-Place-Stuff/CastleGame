@@ -20,7 +20,7 @@ public class Workstation : Object, Interactable
     public override void Load()
     {
         Inventory inventory = new Inventory(); AddComponent(inventory);
-        AnimationTree animationTree = CreateAndAddComponent<AnimationTree>();
+
     }
     public override void Update()
     {

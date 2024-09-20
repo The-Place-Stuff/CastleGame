@@ -23,7 +23,7 @@ public class Objects : Registry
     public static readonly Func<Object> Campfire = Register(() => new Campfire("campfire", new Object.ObjectProperties()
         .SetDurability(5).SetMineable(Items.Axe())));
 
-    public static readonly Func<Object> Furnace = Register(() => new Workstation("furnace", new Object.ObjectProperties()
+    public static readonly Func<Object> Furnace = Register(() => new Furnace("furnace", new Object.ObjectProperties()
         .SetDurability(6).SetMineable(Items.Pickaxe())));
 
     public static readonly Func<Object> Tree = Register(() => new Tree("tree", new Object.ObjectProperties()

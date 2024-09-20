@@ -32,6 +32,7 @@ public class BuildMenu : GameObject
         {
 
             Object obj = entry.Value();
+            obj.Load();
             if (ObjectRecipes.List.ContainsKey(entry.Key))
             {
                 UiElementGroup group = new UiElementGroup(new SelectBlueprintButton(obj));

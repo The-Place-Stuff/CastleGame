@@ -12,5 +12,12 @@ namespace CastleGame
         public Workbench(string name, ObjectProperties objectProperties) : base(name, objectProperties)
         {
         }
+
+        public override void Load()
+        {
+            Sprite sprite = new Sprite(Objects.GetPath(Name));
+            AddComponent(sprite);
+            base.Load();
+        }
     }
 }
