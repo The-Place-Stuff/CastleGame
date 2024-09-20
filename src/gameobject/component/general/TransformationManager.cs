@@ -10,6 +10,8 @@ namespace CastleGame;
 public class TransformationManager : Component
 {
     public Transformation CurrentTransformation;
+
+    public double CurrentTime = 0;
     public TransformationManager(Transformation transformation) : base(false)
     {
         CurrentTransformation = transformation;
@@ -17,16 +19,16 @@ public class TransformationManager : Component
 
     public void Transform(double time)
     {
-        CurrentTransformation.Time = time;
+        CurrentTime = time;
+        DebugGui.Log(GameObject.Name);
     }
 
     public override void Update()
-    {
-        
-        if(CurrentTransformation.Time > 0 && GameObject.GetComponent<Sprite>() != null)
+    {        
+        if(CurrentTime > 0 && GameObject.GetComponent<Sprite>() != null)
         {
             Sprite sprite = GameObject.GetComponent<Sprite>();
-            CurrentTransformation.Time--;
+            CurrentTime--;
             sprite = CurrentTransformation.Transform(sprite);
         }
         if(CurrentTransformation.Time <= 0)

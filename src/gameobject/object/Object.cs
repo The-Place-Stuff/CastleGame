@@ -22,6 +22,8 @@ public abstract class Object : Tile
     {
 
         Health health = new Health(Properties.Durability);
+        TransformationManager transformationManager = new TransformationManager(Transformations.ObjectHit);
+        AddComponent(transformationManager);
         AddComponent(health);
         base.Load();
     }
@@ -51,6 +53,7 @@ public abstract class Object : Tile
 
     public virtual void Hit(float damage)
     {
+        GetComponent<TransformationManager>().Transform(10);
         Health health = GetComponent<Health>();
         health.Decrement(damage);
 

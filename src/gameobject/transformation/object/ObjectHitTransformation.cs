@@ -44,7 +44,7 @@ public class ObjectHitTransformation : Transformation
 
     public override Sprite Reset(Sprite sprite)
     {
-        sprite.Scale = Vector2.One;
+         
         return sprite;
     }
 }
