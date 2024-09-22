@@ -61,7 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\gameobject\util\" />
-    <Folder Include="src\misc\" />
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />
