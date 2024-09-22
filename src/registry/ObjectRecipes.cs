@@ -14,7 +14,6 @@ namespace CastleGame
 
 
         public static readonly Recipe Stockpile = Register( 
-
             new Recipe(new Recipe.Settings().AddIngredient(Items.Wood(), 3).SetType(Objects.Stockpile())));
 
         public static readonly Recipe Workbench = Register(
