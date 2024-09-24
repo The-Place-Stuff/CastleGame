@@ -22,7 +22,7 @@ public class BuildState : GameObjectState
         Color c = Color.CornflowerBlue;
         c.A = 150;
 
-        Sprite sprite = new Sprite(Objects.GetPath(Currentblueprint));
+        Sprite sprite = new Sprite(Objects.GetPath(Currentblueprint, AssetTypes.Image));
         GameObject.AddComponent(sprite);
         sprite.Color = c;
     }
@@ -32,7 +32,7 @@ public class BuildState : GameObjectState
         if (Currentblueprint != previousBlueprint)
         {
             Sprite sprite = GameObject.GetComponent<Sprite>();
-            sprite.ChangePath(Objects.GetPath(Currentblueprint));
+            sprite.ChangePath(Objects.GetPath(Currentblueprint, AssetTypes.Image));
         }
 
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();

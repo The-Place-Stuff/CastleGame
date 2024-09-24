@@ -21,7 +21,7 @@ public class Item : GameObject, Interactable
     {
 
         Layer = 2;
-        Sprite sprite = new Sprite(Items.GetPath(Name));
+        Sprite sprite = new Sprite(Items.GetPath(Name, AssetTypes.Image));
         AddComponent(sprite);
 
 

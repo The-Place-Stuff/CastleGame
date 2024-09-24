@@ -27,8 +27,8 @@ public class Bush : Object, Interactable
 
         AnimationTree animationTree = CreateAndAddComponent<AnimationTree>();
 
-        animationTree.AddAnimation("assets/animation/objects/" + Name, _ => stateMachine.CurrentState.Name == off.Name);
-        animationTree.AddAnimation("assets/animation/objects/" + Name + "_berries", _ => stateMachine.CurrentState.Name == on.Name);
+        animationTree.AddAnimation(Objects.GetPath(Name, AssetTypes.Animation), _ => stateMachine.CurrentState.Name == off.Name);
+        animationTree.AddAnimation(Objects.GetPath(Name, AssetTypes.Animation) + "_berries", _ => stateMachine.CurrentState.Name == on.Name);
 
 
         base.Load();

@@ -11,7 +11,7 @@ public class Characters : Registry
 {
     public static new Dictionary<string, Func<Character>> List = new Dictionary<string, Func<Character>>();
 
-    public static new string Path = "assets/img/characters/";
+    public static new string Path = "characters/";
 
 
     public static Func<Character> Villager = Register(() => new Villager("villager", new Character.CharacterProperties()
@@ -19,6 +19,7 @@ public class Characters : Registry
         .SetRange(100)
         .SetSpeed(25)
         .SetMineSpeed(1)));
+
 
     public static Func<Character> Register(Func<Character> character)
     {
@@ -31,8 +32,8 @@ public class Characters : Registry
         Debug.WriteLine("Registering characters for CastleGame!");
     }
 
-    public static new string GetPath(string name)
+    public static string GetPath(string name, string asset)
     {
-        return Path + name;
+        return asset + Path + name;
     }
 }

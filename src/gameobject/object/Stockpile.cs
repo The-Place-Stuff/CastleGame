@@ -23,7 +23,7 @@ public class Stockpile : Object, Interactable
     {
         Size = 3;
 
-        Sprite sprite = new Sprite(Objects.GetPath(Name));
+        Sprite sprite = new Sprite(Objects.GetPath(Name, AssetTypes.Image));
         Inventory inventory = new Inventory(Size);
         AddComponent(inventory);
 

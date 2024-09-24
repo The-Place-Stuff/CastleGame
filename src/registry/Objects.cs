@@ -10,8 +10,7 @@ public class Objects : Registry
 {
     public static new Dictionary<string, Func<Object>> List = new Dictionary<string, Func<Object>>();
 
-    public static new string Path = "assets/img/objects/";
-
+    public static new string Path = "objects/";
 
 
     public static readonly Func<Object> Bush = Register(() => new Bush("bush", new Object.ObjectProperties()
@@ -52,9 +51,9 @@ public class Objects : Registry
         Debug.WriteLine("Registering Objects for CastleGame!");
     }
 
-    public static new string GetPath(string name)
+    public static new string GetPath(string name, string asset)
     {
-        return Path + name;
+        return asset + Path + name;
     }
 
 

@@ -25,7 +25,7 @@ public class Blueprint : Object, Interactable
     {
         Color c = Color.CornflowerBlue;
         c.A = 150;
-        Sprite sprite = new Sprite(Objects.GetPath(Name));
+        Sprite sprite = new Sprite(Objects.GetPath(Name, AssetTypes.Image));
         Inventory inventory = CreateAndAddComponent<Inventory>();
         sprite.Color = c;
         AddComponent(sprite);

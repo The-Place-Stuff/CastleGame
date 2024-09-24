@@ -48,18 +48,18 @@ public class Wall : Object
         stateMachine.SetState(single.Name);
 
         AnimationTree animationTree = CreateAndAddComponent<AnimationTree>();
-        animationTree.AddAnimation("assets/animation/objects/wall", _=> stateMachine.CurrentState.Name == single.Name);
-        animationTree.AddAnimation("assets/animation/objects/wall_horizontal_middle", _ => stateMachine.CurrentState.Name == horizontal_middle.Name);
-        animationTree.AddAnimation("assets/animation/objects/wall_horizontal_left", _ => stateMachine.CurrentState.Name == horizontal_left.Name);
-        animationTree.AddAnimation("assets/animation/objects/wall_horizontal_right", _ => stateMachine.CurrentState.Name == horizontal_right.Name);
-        animationTree.AddAnimation("assets/animation/objects/wall_vertical_middle", _ => stateMachine.CurrentState.Name == vertical_middle.Name);
-        animationTree.AddAnimation("assets/animation/objects/wall_vertical_top", _ => stateMachine.CurrentState.Name == vertical_top.Name);
-        animationTree.AddAnimation("assets/animation/objects/wall_vertical_bottom", _ => stateMachine.CurrentState.Name == vertical_bottom.Name);
-        animationTree.AddAnimation("assets/animation/objects/wall_corner_top_right", _ => stateMachine.CurrentState.Name == corner_top_right.Name);
-        animationTree.AddAnimation("assets/animation/objects/wall_corner_top_left", _ => stateMachine.CurrentState.Name == corner_top_left.Name);
-        animationTree.AddAnimation("assets/animation/objects/wall_corner_bottom_right", _ => stateMachine.CurrentState.Name == corner_bottom_right.Name);
-        animationTree.AddAnimation("assets/animation/objects/wall_corner_bottom_left", _ => stateMachine.CurrentState.Name == corner_bottom_left.Name);
-        animationTree.AddAnimation("assets/animation/objects/wall_middle", _ => stateMachine.CurrentState.Name == middle.Name);
+        animationTree.AddAnimation(Objects.GetPath(Name, AssetTypes.Animation), _=> stateMachine.CurrentState.Name == single.Name);
+        animationTree.AddAnimation(Objects.GetPath(Name, AssetTypes.Animation)+ "_horizontal_middle", _ => stateMachine.CurrentState.Name == horizontal_middle.Name);
+        animationTree.AddAnimation(Objects.GetPath(Name, AssetTypes.Animation) + "_horizontal_left", _ => stateMachine.CurrentState.Name == horizontal_left.Name);
+        animationTree.AddAnimation(Objects.GetPath(Name, AssetTypes.Animation) + "_horizontal_right", _ => stateMachine.CurrentState.Name == horizontal_right.Name);
+        animationTree.AddAnimation(Objects.GetPath(Name, AssetTypes.Animation) + "_vertical_middle", _ => stateMachine.CurrentState.Name == vertical_middle.Name);
+        animationTree.AddAnimation(Objects.GetPath(Name, AssetTypes.Animation) + "_vertical_top", _ => stateMachine.CurrentState.Name == vertical_top.Name);
+        animationTree.AddAnimation(Objects.GetPath(Name, AssetTypes.Animation) + "_vertical_bottom", _ => stateMachine.CurrentState.Name == vertical_bottom.Name);
+        animationTree.AddAnimation(Objects.GetPath(Name, AssetTypes.Animation) + "_corner_top_right", _ => stateMachine.CurrentState.Name == corner_top_right.Name);
+        animationTree.AddAnimation(Objects.GetPath(Name, AssetTypes.Animation) + "_corner_top_left", _ => stateMachine.CurrentState.Name == corner_top_left.Name);
+        animationTree.AddAnimation(Objects.GetPath(Name, AssetTypes.Animation) + "_corner_bottom_right", _ => stateMachine.CurrentState.Name == corner_bottom_right.Name);
+        animationTree.AddAnimation(Objects.GetPath(Name, AssetTypes.Animation) + "_corner_bottom_left", _ => stateMachine.CurrentState.Name == corner_bottom_left.Name);
+        animationTree.AddAnimation(Objects.GetPath(Name, AssetTypes.Animation) + "_middle", _ => stateMachine.CurrentState.Name == middle.Name);
 
 
         base.Load();

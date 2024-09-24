@@ -16,7 +16,7 @@ public class Furnace : Workstation
     public override void Load()
     {
         AnimationTree animationTree = CreateAndAddComponent<AnimationTree>();
-        animationTree.AddAnimation("assets/animation/objects/furnace", _=> true);
+        animationTree.AddAnimation(Objects.GetPath(Name, AssetTypes.Animation), _=> true);
         base.Load();
     }
 }
