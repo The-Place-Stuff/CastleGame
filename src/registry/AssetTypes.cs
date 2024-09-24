@@ -12,6 +12,7 @@ public class AssetTypes : Registry
     public static readonly string Animation = "assets/animation/";
     public static readonly string Image = "assets/img/";
     public static readonly string Sound = "assets/sound/";
+    public static readonly string Connectable = "assets/connectable/";
 
 
 }
