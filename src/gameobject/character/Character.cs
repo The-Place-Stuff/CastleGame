@@ -88,15 +88,24 @@ public abstract class Character : GameObject
 
     public class CharacterProperties
     {
-        public int Range { get; set; }
+        public int Range { get; set; } = 100;
 
-        public int Speed { get; set; }
+        public int Speed { get; set; } = 25;
 
-        public int Health { get; set; }
+        public int Health { get; set; } = 5;
+
+        public float MineSpeed { get; set; } = 1;
+
 
         public CharacterProperties SetSpeed(int speed)
         {
             Speed = speed;
+            return this;
+        }
+
+        public CharacterProperties SetMineSpeed(float mineSpeed)
+        {
+            MineSpeed = mineSpeed;
             return this;
         }
 

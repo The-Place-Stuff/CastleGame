@@ -13,6 +13,8 @@ public class Villager : Character
 {
     public Tool Tool { get; set; } = Tool.Empty(); 
     public Item Item { get; set; } = Item.Empty();
+
+    public int MineSpeed { get; set; } = 0;
     public Villager(string name, CharacterProperties characterProperties) : base(name, characterProperties)
     {
     }

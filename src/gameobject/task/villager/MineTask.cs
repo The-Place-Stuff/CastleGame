@@ -10,7 +10,6 @@ namespace CastleGame;
 
 public class MineTask : Task
 {
-    private int time = 2;
     private Timer timer;
     public MineTask(GameObject obj) : base(obj)
     {
@@ -38,7 +37,12 @@ public class MineTask : Task
 
     public override void Start()
     {
-        timer = new Timer(time * 1000);
+        Object targetObject = Target as Object;
+        Villager villager = Character as Villager;
+
+        targetObject.Hit(villager.CaculateObjectDamage(targetObject));
+
+        timer = new Timer(villager.Properties.MineSpeed * 1000);
         timer.Elapsed += Mine;
         timer.Enabled = true;
 
