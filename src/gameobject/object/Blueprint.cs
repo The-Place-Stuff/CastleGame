@@ -12,7 +12,6 @@ namespace CastleGame;
 
 public class Blueprint : Object, Interactable
 {
-    //test
     public string Type { get; set; } = "";
 
     public bool Placed { get; set; }
