@@ -11,15 +11,15 @@ namespace CastleGame;
 
 public class CastleGameDebugGui : ImGuiDrawable
 {
-    private bool showGeneralWindow = false;
+    private bool showPlayerWindow = false;
     private bool showObjectsWindow = false;
     private bool showCharactersWindow = false;
 
     public override void Draw()
     {
-        if (showGeneralWindow)
+        if (showPlayerWindow)
         {
-            GeneralWindow();
+            PlayerWindow();
         }
         if (showObjectsWindow)
         {
@@ -38,13 +38,13 @@ public class CastleGameDebugGui : ImGuiDrawable
 
         if (ImGui.Begin("CastleGame"))
         {
-            ImGui.Text("General Debug: ");
+            ImGui.Text("Player Debug: ");
 
             ImGui.SameLine();
 
-            if (ImGui.Button("General"))
+            if (ImGui.Button("Player"))
             {
-                showGeneralWindow = true;
+                showPlayerWindow = true;
             }
 
             ImGui.Text("Characters Debug: ");
@@ -102,17 +102,33 @@ public class CastleGameDebugGui : ImGuiDrawable
             }
         }
     }
-    public void GeneralWindow()
+    public void PlayerWindow()
     {
         if (SceneManager.CurrentScene is Game game)
         {
-            ImGui.Begin("General", ref showGeneralWindow);
+            ImGui.Begin("Player", ref showPlayerWindow);
 
             ImGui.SeparatorText("General");
 
             Player player = game.GetGameObject<Player>();
 
             ImGui.Text("Current Player State: " + player.GetComponent<StateMachine>().CurrentState.Name);
+
+            ImGui.SeparatorText("Castle");
+
+            PlayerCastle castle = player.Castle;
+
+            ImGui.Text("Max Population: " + castle.MaxPopulation);
+
+            ImGui.Text("Population: " + castle.Population);
+
+            ImGui.SeparatorText("Castle Landmark");
+
+            Landmark landmark = castle.Landmark;
+
+            ImGui.Text("Position: " + landmark.Position);
+
+            ImGui.Text("Radius: " + landmark.Radius);
         }
     }
     public void CharactersWindow()

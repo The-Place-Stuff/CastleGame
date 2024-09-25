@@ -10,11 +10,23 @@ namespace CastleGame;
 
 public class Player : GameObject
 {
-    private float cameraMovementSpeed = 4.5f;
+    public PlayerCastle Castle { get; set; }
 
+    private float cameraMovementSpeed = 4.5f;
 
     public override void Load()
     {
+        // Castle Initialization
+        Map map = SceneManager.CurrentScene.GetGameObject<Map>();
+        TileGrid tileGrid = map.objectGrid;
+
+        Campfire campfire = tileGrid.GetTileFromGridCoordinates(new Vector2(0, -2)) as Campfire;
+
+        Player player = SceneManager.CurrentScene.GetGameObject<Player>();
+
+        player.Castle = new PlayerCastle(campfire);
+
+        // Component Initialization
         Inventory inventory = CreateAndAddComponent<Inventory>();
 
         StateMachine stateMachine = CreateAndAddComponent<StateMachine>();

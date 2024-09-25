@@ -108,6 +108,8 @@ public class TaskManager : Component
             return;
         }
 
+        if (CurrentTask == null) return;
+
         CurrentTask.Update();
     }
 }

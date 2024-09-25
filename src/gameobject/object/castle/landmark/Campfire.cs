@@ -7,10 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CastleGame;
-public class Campfire : Object
+public class Campfire : Landmark
 {
 
-    public Campfire(string name, ObjectProperties objectProperties) : base(name, objectProperties)
+    public Campfire(string name, int radius, ObjectProperties objectProperties) : base(name, radius, objectProperties)
     {
     }
 

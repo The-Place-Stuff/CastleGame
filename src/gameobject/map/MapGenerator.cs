@@ -30,8 +30,9 @@ public class MapGenerator
         Debug.WriteLine("Generating map, seed: " + Map.Seed);
 
         tileGrid.PlaceTile(new Vector2(0, -2), Objects.Campfire().Name);
-        // tileGrid.PlaceTile(new Vector2(2, 0), Objects.Tent().Name);
-        // tileGrid.PlaceTile(new Vector2(-2, 0), Objects.Tent().Name);
+
+        tileGrid.PlaceTile(new Vector2(2, 0), Objects.Tent().Name);
+        tileGrid.PlaceTile(new Vector2(-2, 0), Objects.Tent().Name);
         tileGrid.PlaceTile(new Vector2(1, 2), Objects.Rock().Name);
 
         int radius = 25;

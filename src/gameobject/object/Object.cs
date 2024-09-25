@@ -10,9 +10,10 @@ namespace CastleGame;
 
 public abstract class Object : Tile
 {
+    public ObjectProperties Properties;
+
     private double timer = 0;
 
-    public ObjectProperties Properties;
     public Object(string name, ObjectProperties objectProperties) : base(name)
     {
         Properties = objectProperties;
@@ -25,7 +26,6 @@ public abstract class Object : Tile
         TransformationManager transformationManager = new TransformationManager(Transformations.ObjectHit);
         AddComponent(transformationManager);
         AddComponent(health);
-        base.Load();
     }
     
 
@@ -127,8 +127,4 @@ public abstract class Object : Tile
         }
 
     }
-
-
-
 }
-

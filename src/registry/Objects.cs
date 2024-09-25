@@ -19,7 +19,7 @@ public class Objects : Registry
     public static readonly Func<Object> Rock = Register( () => new Rock("rock", new Object.ObjectProperties()
         .SetDurability(4).SetMineable(Items.Pickaxe())));
 
-    public static readonly Func<Object> Campfire = Register(() => new Campfire("campfire", new Object.ObjectProperties()
+    public static readonly Func<Object> Campfire = Register(() => new Campfire("campfire", 10, new Object.ObjectProperties()
         .SetDurability(5).SetMineable(Items.Axe())));
 
     public static readonly Func<Object> Furnace = Register(() => new Furnace("furnace", new Object.ObjectProperties()
@@ -38,6 +38,9 @@ public class Objects : Registry
 
     public static readonly Func<Object> Wall = Register(() => new Wall("wall", new Object.ObjectProperties()
         .SetDurability(4).SetMineable(Items.Axe())));
+
+    public static readonly Func<Object> Tent = Register(() => new Tent("tent", 2, new Object.ObjectProperties()
+        .SetDurability(5).SetMineable(Items.Axe())));
 
     public static Func<Object> Register(Func<Object> obj)
     {
