@@ -13,7 +13,7 @@ namespace CastleGame
         public static new Dictionary<string, Func<Drop>> List = new Dictionary<string, Func<Drop>>();
 
         public static readonly Func<Drop> Tree = Register(() => new Drop(new Drop.Settings().AddDrop(Items.Wood()).SetSource(Objects.Tree())));
-        public static readonly Func<Drop> Rock = Register(() => new Drop(new Drop.Settings().AddDrop(Items.Stone()).SetSource(Objects.Rock())));
+        public static readonly Func<Drop> Rock = Register(() => new Drop(new Drop.Settings().AddDrop(Items.Stone()).AddDrop(Items.IronOre(), 1, 0.2f).SetSource(Objects.Rock())));
         public static readonly Func<Drop> IronOre = Register(() => new Drop(new Drop.Settings().AddDrop(Items.Stone()).SetSource(Objects.IronOre())));
 
         public static Func<Drop> Register(Func<Drop> drop)
