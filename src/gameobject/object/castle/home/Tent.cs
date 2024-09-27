@@ -16,7 +16,7 @@ public class Tent : VillagerHome
     {
         base.Load();
 
-        Sprite sprite = new Sprite(Objects.GetPath(Name));
+        Sprite sprite = new Sprite(Objects.GetPath(Name, AssetTypes.Image));
         AddComponent(sprite);
     }
 }

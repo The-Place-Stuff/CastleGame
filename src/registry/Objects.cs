@@ -42,6 +42,9 @@ public class Objects : Registry
     public static readonly Func<Object> Tent = Register(() => new Tent("tent", 2, new Object.ObjectProperties()
         .SetDurability(5).SetMineable(Items.Axe())));
 
+    public static readonly Func<Object> IronOre = Register(() => new Rock("iron_ore", new Object.ObjectProperties()
+    .SetDurability(6).SetMineable(Items.Pickaxe())));
+
     public static Func<Object> Register(Func<Object> obj)
     {
 
