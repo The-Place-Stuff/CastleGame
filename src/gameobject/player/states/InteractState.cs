@@ -16,7 +16,7 @@ public class InteractState : GameObjectState
     public override void Update()
     {
         
-        if(Input.Mouse.RightClick() && Character != null)
+        if(Input.Mouse.LeftClick() && Character != null)
         {
             if (Character is Villager villager)
             {
