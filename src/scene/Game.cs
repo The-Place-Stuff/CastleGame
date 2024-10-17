@@ -15,7 +15,7 @@ public class Game : Scene
     public PlayerStateButton playerStateButton = new PlayerStateButton();
     public BuildMenu ObjectMenu = new BuildMenu();
 
-    private Texture2D gridlines;
+    public BuildGrid buildGrid = new BuildGrid();
 
     private RenderTarget2D cursorRenderTarget = new RenderTarget2D(SerpentGame.Instance.GraphicsDevice, GraphicsConfig.SCREEN_WIDTH, GraphicsConfig.SCREEN_HEIGHT);
 
@@ -24,31 +24,9 @@ public class Game : Scene
 
     }
 
-    public Texture2D Gridlines()
-    {
-        Texture2D texture = new Texture2D(SerpentGame.Instance.GraphicsDevice, 16 * 255, 16 * 255);
-        Color[] data = new Color[texture.Width * texture.Height];
-
-        for (int y = 0; y < texture.Height; y++)
-        {
-            for (int x = 0; x < texture.Width; x++)
-            {
-                if (x % 16 == 0 || y % 16 == 0)
-                {
-                    data[y * texture.Width + x] = Color.Gray;
-                    data[y * texture.Width + x].A = 150;
-
-                } else data[y * texture.Width + x] = Color.Transparent;
-            }
-        }
-
-        texture.SetData(data);
-        return texture;
-    }
 
     public override void LoadContent()
     {
-        gridlines = Gridlines();
         Camera.Zoom = 5f;
         Camera.UIScale = 5f;
 
@@ -64,6 +42,8 @@ public class Game : Scene
         
         AddUIElement(playerStateButton);
         AddUIElement(ObjectMenu);
+
+        AddGameObject(buildGrid);
 
         AddGameObject(player);
 
@@ -110,10 +90,6 @@ public class Game : Scene
         SerpentGame.Instance.GraphicsDevice.SetRenderTarget(null);
 
         base.Draw();
-
-        SerpentEngine.Draw.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointWrap, null, null, null, Camera.Matrix);
-        SerpentEngine.Draw.SpriteBatch.Draw(gridlines, new Vector2(-255 * 8, -255 * 8), Color.White);
-        SerpentEngine.Draw.SpriteBatch.End();
 
         SerpentEngine.Draw.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
         SerpentEngine.Draw.SpriteBatch.Draw(cursorRenderTarget, Vector2.Zero, Color.White);

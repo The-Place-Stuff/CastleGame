@@ -93,6 +93,9 @@ public class Player : GameObject
 
         BuildMenu objectMenu = SceneManager.CurrentScene.GetUIElement<BuildMenu>();
         objectMenu.Enabled = true;
+
+        BuildGrid buildGrid = SceneManager.CurrentScene.GetGameObject<BuildGrid>();
+        buildGrid.Enabled = true;
     }
 
     public void ChangeToInteractState()
@@ -105,6 +108,9 @@ public class Player : GameObject
 
         BuildMenu objectMenu = SceneManager.CurrentScene.GetUIElement<BuildMenu>();
         objectMenu.Enabled = false;
+
+        BuildGrid buildGrid = SceneManager.CurrentScene.GetGameObject<BuildGrid>();
+        buildGrid.Enabled = false;
     }
 
 }
