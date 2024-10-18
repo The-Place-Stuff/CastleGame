@@ -2,6 +2,7 @@
 using SerpentEngine;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ public class BuildState : GameObjectState
     public string Currentblueprint = Objects.Workbench().Name;
 
     private string previousBlueprint;
+
+    private float blueprintPreviewBlinkTimer = 0f;
 
     public BuildState() : base("build")
     {
@@ -29,9 +32,10 @@ public class BuildState : GameObjectState
 
     public override void Update()
     {
+        Sprite sprite = GameObject.GetComponent<Sprite>();
+
         if (Currentblueprint != previousBlueprint)
         {
-            Sprite sprite = GameObject.GetComponent<Sprite>();
             sprite.ChangePath(Objects.GetPath(Currentblueprint, AssetTypes.Image));
         }
 
@@ -59,18 +63,19 @@ public class BuildState : GameObjectState
 
         if (tileAtBlueprintPreviewPosition == null)
         {
-           Sprite sprite = GameObject.GetComponent<Sprite>();
+            Color startColor = Color.CornflowerBlue * 0.3f;
+            Color endColor = Color.CornflowerBlue * 0.7f;
 
-            Color c = Color.CornflowerBlue;
-            c.A = 150;
+            float blinkSpeed = 6f;
+            blueprintPreviewBlinkTimer += blinkSpeed * SerpentGame.DeltaTime;
 
-            sprite.Color = c;
+            float blueprintPreviewLerpTime = (float)Math.Sin(blueprintPreviewBlinkTimer) * 0.5f + 0.5f;
+
+            sprite.Color = Color.Lerp(startColor, endColor, blueprintPreviewLerpTime);
         }
 
         if (tileAtBlueprintPreviewPosition != null || Vector2.Distance(landmarkGridPosition, blueprintPreviewGridPosition) > landmark.Radius)
         {
-            Sprite sprite = GameObject.GetComponent<Sprite>();
-
             Color c = Color.Red;
 
             sprite.Color = c;
