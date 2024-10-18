@@ -1,6 +1,7 @@
 ﻿using SerpentEngine;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -67,6 +68,20 @@ public class VillagerIdleState : GameObjectState
             DebugGui.Log("Villagar: " + goTask.Target.Position.ToString());
 
             (GameObject as Villager).AddTask(goTask);
+        }
+    }
+
+    public override void Update()
+    {
+        Villager villager = GameObject as Villager;
+
+        Random random = new Random();
+        int chance = random.Next(0, 200);
+
+        if (chance < 1 && !busy)
+        {
+            if (villager.CurrentDirection == Direction.East || villager.CurrentDirection == Direction.South || villager.CurrentDirection == Direction.North) villager.SetDirection(Direction.West);
+            else if (villager.CurrentDirection == Direction.West) villager.SetDirection(Direction.East);
         }
     }
 
