@@ -27,6 +27,10 @@ public class VillagerIdleState : GameObjectState
 
     public override void Enter()
     {
+        Random random = new Random();
+
+        idleTime = random.Next(5, 15);
+
         timer = new Timer(idleTime * 1000);
         timer.Elapsed += IdleTimeEnd;
         timer.Enabled = true;
