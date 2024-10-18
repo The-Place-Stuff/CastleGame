@@ -10,7 +10,6 @@ public class Game : Scene
     private Map map;
     public static Cursor cursor { get; private set; }
     private Blueprint blueprint;
-    public List<Character> characters = new List<Character>();
     public Player player = new Player();
     public PlayerStateButton playerStateButton = new PlayerStateButton();
     public BuildMenu ObjectMenu = new BuildMenu();
@@ -46,17 +45,6 @@ public class Game : Scene
         AddGameObject(buildGrid);
 
         AddGameObject(player);
-
-        characters.Add(Characters.Villager());
-
-
-        foreach (Character character in characters)
-        {
-            AddGameObject(character);
-
-        }
-
-
     }
 
     public override void Begin()

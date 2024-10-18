@@ -137,12 +137,14 @@ public class CastleGameDebugGui : ImGuiDrawable
         {
             ImGui.Begin("Characters", ref showCharactersWindow);
 
-            ImGui.Text("Characters: " + game.characters.Count);
+            PlayerCastle castle = game.GetGameObject<Player>().Castle;
+
+            ImGui.Text("Characters: " + castle.Villagers.Count);
 
             ImGui.SeparatorText("Characters");
 
 
-            foreach (Character character in game.characters)
+            foreach (Character character in castle.Villagers)
             {
                 if (ImGui.CollapsingHeader(character.Name))
                 {

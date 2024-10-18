@@ -20,6 +20,28 @@ public class PlayerCastle
     public PlayerCastle(Landmark landmark)
     {
         Landmark = landmark;
+
+        List<VillagerHome> villagerHomes = GetObjectsInRadius<VillagerHome>();
+
+        foreach (VillagerHome villagerHome in villagerHomes)
+        {
+            MaxPopulation += villagerHome.MaxPopulation;
+        }
+
+        int startingVillagerCount = 3;
+
+        for (int i = 0; i < startingVillagerCount; i++)
+        {
+            Villager villager = Characters.Villager() as Villager;
+
+            Random random = new Random();
+
+            villager.Position = Landmark.Position + new Vector2(random.Next(-5 * 16, 5 * 16), random.Next(-5 * 16, 5 * 16));
+
+            SceneManager.CurrentScene.AddGameObject(villager);
+
+            AddVillager(villager);
+        }
     }
 
     public void AddVillager(Villager villager)
@@ -88,5 +110,22 @@ public class PlayerCastle
         float distanceSquared = Vector2.DistanceSquared(landmarkGridPostion, gridPosition);
 
         return distanceSquared <= radiusSquared;
+    }
+
+    public List<T> GetObjectsInRadius<T>() where T : Object
+    {
+        List<Object> objectsInRadius = GetObjectsInRadius();
+
+        List<T> objects = new List<T>();
+
+        foreach (Object obj in objectsInRadius)
+        {
+            if (obj is T)
+            {
+                objects.Add((T)obj);
+            }
+        }
+
+        return objects;
     }
 }

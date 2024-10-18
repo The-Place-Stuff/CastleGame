@@ -20,7 +20,7 @@ public class Player : GameObject
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
         TileGrid tileGrid = map.objectGrid;
 
-        Campfire campfire = tileGrid.GetTileFromGridCoordinates(new Vector2(0, -2)) as Campfire;
+        Campfire campfire = tileGrid.GetTileFromGridCoordinates(new Vector2(0, 0)) as Campfire;
 
         Player player = SceneManager.CurrentScene.GetGameObject<Player>();
 
