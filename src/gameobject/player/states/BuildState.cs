@@ -46,19 +46,32 @@ public class BuildState : GameObjectState
 
         position = VectorHelper.Snap(new Vector2(cursorPosition.X, cursorPosition.Y), tileSize);
 
-        if (map.objectGrid.GetTileFromWorldCoordinates(position) != null)
-        {
-            Sprite sprite = GameObject.GetComponent<Sprite>();
+        Player player = GameObject as Player;
 
-            Color c = Color.Red;
+        Landmark landmark = player.Castle.Landmark;
 
-            sprite.Color = c;
-        } else
+        TileGrid objectGrid = map.objectGrid;
+
+        Vector2 landmarkGridPosition = objectGrid.ConvertWorldCoordinatesToGridCoordinates(landmark.Position);
+        Vector2 blueprintPreviewGridPosition = objectGrid.ConvertWorldCoordinatesToGridCoordinates(position);
+
+        Tile tileAtBlueprintPreviewPosition = objectGrid.GetTileFromWorldCoordinates(position);
+
+        if (tileAtBlueprintPreviewPosition == null)
         {
            Sprite sprite = GameObject.GetComponent<Sprite>();
 
             Color c = Color.CornflowerBlue;
             c.A = 150;
+
+            sprite.Color = c;
+        }
+
+        if (tileAtBlueprintPreviewPosition != null || Vector2.Distance(landmarkGridPosition, blueprintPreviewGridPosition) > landmark.Radius)
+        {
+            Sprite sprite = GameObject.GetComponent<Sprite>();
+
+            Color c = Color.Red;
 
             sprite.Color = c;
         }
@@ -71,6 +84,11 @@ public class BuildState : GameObjectState
             if (SceneManager.CurrentScene.GetUIElementAt(Input.Mouse.GetNewPosition() / SceneManager.CurrentScene.Camera.UIScale) != null) return;
 
             if (map.objectGrid.GetTileFromWorldCoordinates(position) != null) return;
+
+            if (Vector2.Distance(landmarkGridPosition, blueprintPreviewGridPosition) > landmark.Radius)
+            {
+                return;
+            }
 
             map.objectGrid.PlaceTile(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(position), Objects.Blueprint().Name);
 
