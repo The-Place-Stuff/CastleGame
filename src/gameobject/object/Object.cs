@@ -21,7 +21,7 @@ public abstract class Object : Tile
 
     public override void Load()
     {
-
+        SoundPlayer soundPlayer = CreateAndAddComponent<SoundPlayer>();
         Health health = new Health(Properties.Durability);
         TransformationManager transformationManager = new TransformationManager(Transformations.ObjectHit);
         AddComponent(transformationManager);
@@ -57,9 +57,15 @@ public abstract class Object : Tile
         Health health = GetComponent<Health>();
         health.Decrement(damage);
 
-        DebugGui.Log(Name + " " + health.Points);
+        SoundPlayer sound = GetComponent<SoundPlayer>();
 
-        if (health.IsEmpty()) Destroy();
+        if (health.IsEmpty())
+        {
+            Destroy(); 
+            sound.PlaySound(Sounds.Destory);
+        }
+        else { sound.PlaySound(Sounds.Hit); }
+
     }
     
     public void Destroy()
