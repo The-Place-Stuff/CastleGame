@@ -9,7 +9,6 @@ public class Game : Scene
 {
     private Map map;
     public static Cursor cursor { get; private set; }
-    private Blueprint blueprint;
     public Player player = new Player();
     public PlayerStateButton playerStateButton = new PlayerStateButton();
     public BuildMenu ObjectMenu = new BuildMenu();
@@ -35,14 +34,11 @@ public class Game : Scene
         cursor = new Cursor();
         cursor.Load();
 
-
-        blueprint = new Blueprint("furnace_off");
-
-        
         AddUIElement(playerStateButton);
-        AddUIElement(ObjectMenu);
 
         AddGameObject(buildGrid);
+
+        AddUIElement(ObjectMenu);
 
         AddGameObject(player);
     }

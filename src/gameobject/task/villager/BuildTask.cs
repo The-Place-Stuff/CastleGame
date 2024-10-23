@@ -30,11 +30,8 @@ public class BuildTask : Task
 
         Blueprint blueprint = Target as Blueprint;
 
-
         blueprint.AddItem(villager.Item);
         villager.Item = Item.Empty();
-
-
 
         Finish();
     }

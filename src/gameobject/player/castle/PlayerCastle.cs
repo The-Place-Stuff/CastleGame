@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CastleGame;
-public class PlayerCastle
+public class PlayerCastle : Component
 {
     public int MaxPopulation { get; private set; } = 0;
 
@@ -17,7 +17,9 @@ public class PlayerCastle
 
     public Landmark Landmark { get; private set; }
 
-    public PlayerCastle(Landmark landmark)
+    public List<CastleGoal> Goals { get; private set; } = new List<CastleGoal>();
+
+    public PlayerCastle(Landmark landmark) : base(false)
     {
         Landmark = landmark;
 
@@ -36,11 +38,19 @@ public class PlayerCastle
 
             Random random = new Random();
 
-            villager.Position = Landmark.Position + new Vector2(random.Next(-5 * 16, 5 * 16), random.Next(-5 * 16, 5 * 16));
+            villager.Position = Landmark.Position + new Vector2(random.Next(-5, 5) * 16, random.Next(-5, 5) * 16);
 
             SceneManager.CurrentScene.AddGameObject(villager);
 
             AddVillager(villager);
+        }
+    }
+
+    public override void Update()
+    {
+        foreach (CastleGoal goal in Goals)
+        {
+            goal.Update();
         }
     }
 
