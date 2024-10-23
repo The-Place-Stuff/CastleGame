@@ -57,10 +57,9 @@ public abstract class Object : Tile
         Health health = GetComponent<Health>();
         health.Decrement(damage);
 
-        SoundPlayer sound = GetComponent<SoundPlayer>();
+        DebugGui.Log(Name + " " + health.Points);
 
-        Destroy();
-
+        if (health.IsEmpty()) Destroy();
     }
 
     public void Destroy()
