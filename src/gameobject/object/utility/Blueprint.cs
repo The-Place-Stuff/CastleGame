@@ -16,6 +16,8 @@ public class Blueprint : Object, Interactable
 
     public bool Placed { get; set; }
 
+    private List<Action> finishSubscribers = new List<Action>();
+
     public Blueprint(string name) : base(name, new ObjectProperties())
     {
 
@@ -23,8 +25,13 @@ public class Blueprint : Object, Interactable
 
     public override void Load()
     {
-        Color c = Color.CornflowerBlue;
-        c.A = 150;
+        Player player = SceneManager.CurrentScene.GetGameObject<Player>();
+
+        BuildState buildState = player.GetComponent<StateMachine>().CurrentState as BuildState;
+
+        Name = buildState.Currentblueprint;
+
+        Color c = Color.CornflowerBlue * 0.27f;
         Sprite sprite = new Sprite(Objects.GetPath(Name, AssetTypes.Image));
         Inventory inventory = CreateAndAddComponent<Inventory>();
         sprite.Color = c;
@@ -54,12 +61,21 @@ public class Blueprint : Object, Interactable
 
     }
 
+    public void OnBuild(Action action)
+    {
+        finishSubscribers.Add(action);
+    }
+
     public void Build()
     {
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
 
         map.objectGrid.PlaceTile(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(Position), Type);
-        
+
+        foreach (Action action in finishSubscribers)
+        {
+            action.Invoke();
+        }
     }
 
     public void AddItem(Item item)

@@ -12,20 +12,20 @@ namespace CastleGame;
 public class TaskManager : Component
 {
     public Task CurrentTask { get; private set; }
-    public List<Task> Tasks { get; private set; } = new List<Task>();
+    public Dictionary<Task, int> Tasks { get; private set; } = new Dictionary<Task, int>();
 
     public TaskManager() : base(false)
     {
     }
 
-    public void AddTask(Task task)
+    public void AddTask(Task task, int priority = 0)
     {
         if (task == null) return;
 
         Player player = SceneManager.CurrentScene.GetGameObject<Player>();
         StateMachine playerStateMachine = player.GetComponent<StateMachine>();
 
-        if (playerStateMachine.CurrentState is BuildState) return;
+       // if (playerStateMachine.CurrentState is BuildState) return;
 
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
         Vector2 position = task.Target.Position;
@@ -46,9 +46,9 @@ public class TaskManager : Component
         if (taskTarget is Player) return;
 
         task.Target = taskTarget;
-        //DebugGui.Log(taskTarget.Name + " is the task target");
 
-        Tasks.Add(task);
+        Tasks.Add(task, priority);
+
         task.SetCharacter(GameObject as Character);
         task.Initialize();
 
@@ -64,7 +64,7 @@ public class TaskManager : Component
 
         if (Tasks.Count > 0)
         {
-            SetTask(Tasks[0]);
+            SetTask(GetHighestPriorityTask());
 
             return;
         }
@@ -85,7 +85,7 @@ public class TaskManager : Component
             CurrentTask.Exit();
         }
 
-        foreach (Task t in Tasks)
+        foreach (Task t in Tasks.Keys)
         {
             if (t.Name == task.Name)
             {
@@ -111,5 +111,20 @@ public class TaskManager : Component
         if (CurrentTask == null) return;
 
         CurrentTask.Update();
+    }
+
+    private Task GetHighestPriorityTask()
+    {
+        Task highestPriorityTask = null;
+
+        foreach (Task task in Tasks.Keys.OrderByDescending(x => Tasks[x]))
+        {
+            if (task == CurrentTask) continue;
+
+            highestPriorityTask = task;
+            break;
+        }
+
+        return highestPriorityTask;
     }
 }

@@ -110,6 +110,8 @@ public abstract class Object : Tile
 
     public class ObjectProperties
     {
+        public List<string> Tags { get; set; } = new List<string>();
+
         public int Durability { get; set; } = 0;
 
         public Tool Mineable { get; set; } = Tool.Empty();
@@ -124,6 +126,12 @@ public abstract class Object : Tile
         public ObjectProperties SetMineable(Item item)
         {
             if(item is Tool tool) Mineable = tool;
+            return this;
+        }
+
+        public ObjectProperties AddTags(params string[] tags)
+        {
+            Tags.AddRange(tags);
             return this;
         }
 

@@ -22,9 +22,7 @@ public class Player : GameObject
 
         Campfire campfire = tileGrid.GetTileFromGridCoordinates(new Vector2(0, 0)) as Campfire;
 
-        Player player = SceneManager.CurrentScene.GetGameObject<Player>();
-
-        player.Castle = new PlayerCastle(campfire);
+        Castle = new PlayerCastle(campfire); AddComponent(Castle);
 
         // Component Initialization
         Inventory inventory = CreateAndAddComponent<Inventory>();

@@ -63,13 +63,11 @@ public class VillagerIdleState : GameObjectState
             {
                 busy = false;
 
-                timer.Interval = random.Next(5, idleTime) * 1000;
+                timer.Interval = random.Next(5, 15) * 1000;
 
                 timer.Enabled = true;
 
             });
-
-            DebugGui.Log("Villagar: " + goTask.Target.Position.ToString());
 
             (GameObject as Villager).AddTask(goTask);
         }
@@ -86,6 +84,17 @@ public class VillagerIdleState : GameObjectState
         {
             if (villager.CurrentDirection == Direction.East || villager.CurrentDirection == Direction.South || villager.CurrentDirection == Direction.North) villager.SetDirection(Direction.West);
             else if (villager.CurrentDirection == Direction.West) villager.SetDirection(Direction.East);
+        }
+
+        VillagerGoalManager goalManager = villager.GetComponent<VillagerGoalManager>();
+
+        if (goalManager.HasTasks())
+        {
+            StateMachine stateMachine = villager.GetComponent<StateMachine>();
+
+            stateMachine.SetState("working");
+
+            (GameObject as Villager).AddTask(goalManager.GetHighestPriorityTask());
         }
     }
 

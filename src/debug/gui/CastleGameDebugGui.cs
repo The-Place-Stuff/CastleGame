@@ -170,12 +170,6 @@ public class CastleGameDebugGui : ImGuiDrawable
 
                     ImGui.Text("Current Task: " + taskManager.CurrentTask);
 
-                    ImGui.SeparatorText("Tasks: ");
-
-                    foreach (Task task in taskManager.Tasks)
-                    {
-                        ImGui.Text(task + " at " + task.Target.Position);
-                    }
                 }
             }
         }

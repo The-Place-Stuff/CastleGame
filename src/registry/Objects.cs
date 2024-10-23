@@ -14,10 +14,10 @@ public class Objects : Registry
 
 
     public static readonly Func<Object> Bush = Register(() => new Bush("bush", new Object.ObjectProperties()
-        .SetDurability(2)));
+        .SetDurability(2).AddTags("natural")));
 
     public static readonly Func<Object> Rock = Register( () => new Rock("rock", new Object.ObjectProperties()
-        .SetDurability(4).SetMineable(Items.Pickaxe())));
+        .SetDurability(4).SetMineable(Items.Pickaxe()).AddTags("natural")));
 
     public static readonly Func<Object> Campfire = Register(() => new Campfire("campfire", 10, new Object.ObjectProperties()
         .SetDurability(5).SetMineable(Items.Axe())));
@@ -26,7 +26,7 @@ public class Objects : Registry
         .SetDurability(6).SetMineable(Items.Pickaxe())));
 
     public static readonly Func<Object> Tree = Register(() => new Tree("tree", new Object.ObjectProperties()
-        .SetDurability(3).SetMineable(Items.Axe())));
+        .SetDurability(3).SetMineable(Items.Axe()).AddTags("natural")));
 
     public static readonly Func<Object> Stockpile = Register( () => new Stockpile("stockpile", new Object.ObjectProperties()
         .SetDurability(5).SetMineable(Items.Axe())));

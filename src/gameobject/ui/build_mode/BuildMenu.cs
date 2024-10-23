@@ -2,6 +2,7 @@
 using SerpentEngine;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,17 +31,15 @@ public class BuildMenu : GameObject
 
         foreach(KeyValuePair<string, Func<Object>> entry in Objects.List)
         {
-
             Object obj = entry.Value();
-            obj.Load();
+
             if (ObjectRecipes.List.ContainsKey(entry.Key))
             {
+                obj.Load();
+
                 UiElementGroup group = new UiElementGroup(new SelectBlueprintButton(obj));
 
-
                 uiGrid.AddUiElementGroup(group);
-
-
             }
         }
 
