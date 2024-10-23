@@ -59,15 +59,10 @@ public abstract class Object : Tile
 
         SoundPlayer sound = GetComponent<SoundPlayer>();
 
-        if (health.IsEmpty())
-        {
-            Destroy(); 
-            sound.PlaySound(Sounds.Destory);
-        }
-        else { sound.PlaySound(Sounds.Hit); }
+        Destroy();
 
     }
-    
+
     public void Destroy()
     {
         if (Drops.Get(Name) != null)
