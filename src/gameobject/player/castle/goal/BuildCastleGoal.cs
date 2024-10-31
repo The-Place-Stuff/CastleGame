@@ -9,11 +9,15 @@ using System.Threading.Tasks;
 namespace CastleGame;
 public class BuildCastleGoal : CastleGoal
 {
+    private Vector2 blueprintPosition;
+
     public BuildCastleGoal(Blueprint blueprint) : base(blueprint.Position, 1, 200, 0)
     {
         Recipe recipe = ObjectRecipes.List[blueprint.Name];
 
         MaxVillagerCount = recipe.RecipeSettings.Ingredients.Count;
+
+        blueprintPosition = blueprint.Position;
     }
 
     public override List<Task> GetTasks(Villager villager)
@@ -33,5 +37,19 @@ public class BuildCastleGoal : CastleGoal
         tasks.Add(new BuildTask(Position));
 
         return tasks;
+    }
+
+    public override void Update()
+    {
+        base.Update();
+
+        Map map = SceneManager.CurrentScene.GetGameObject<Map>();
+
+        Tile tile = map.objectGrid.GetTileFromWorldCoordinates(Position);
+
+        if (tile is Blueprint == false)
+        {
+            End();
+        }
     }
 }

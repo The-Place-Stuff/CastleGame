@@ -25,7 +25,27 @@ public class VillagerGoalManager : Component
 
         foreach (Task task in tasks)
         {
-            task.OnFinish(() => GoalTasks[goal].Remove(task));
+            task.OnFinish(() =>
+            {
+                GoalTasks[goal].Remove(task);
+
+                Debug.WriteLine("Task finished");
+
+                foreach (CastleGoal castleGoal in GoalTasks.Keys)
+                {
+                    if (castleGoal == goal) continue;
+
+                    // Refresh the tasks for the other goals
+                    List<Task> newTasks = castleGoal.GetTasks(GameObject as Villager);
+
+                    GoalTasks[castleGoal].Clear();
+
+                    foreach (Task newTask in newTasks)
+                    {
+                        GoalTasks[castleGoal].Add(newTask);
+                    }
+                }
+            });
         }
     }
 

@@ -48,7 +48,9 @@ public class PlayerCastle : Component
 
     public override void Update()
     {
-        foreach (CastleGoal goal in Goals)
+        List<CastleGoal> goals = new List<CastleGoal>(Goals);
+
+        foreach (CastleGoal goal in goals)
         {
             goal.Update();
         }

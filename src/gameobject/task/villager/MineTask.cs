@@ -23,10 +23,12 @@ public class MineTask : Task
     public void Mine(object sender, ElapsedEventArgs e)
     {
         timer.Enabled = false;
+
         Object targetObject = Target as Object;
         Villager villager = Character as Villager;
 
         targetObject.Hit(villager.CaculateObjectDamage(targetObject));
+
         if (!targetObject.GetComponent<Health>().IsEmpty()) {
             timer.Enabled = true;
             return;

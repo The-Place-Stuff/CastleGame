@@ -170,6 +170,21 @@ public class CastleGameDebugGui : ImGuiDrawable
 
                     ImGui.Text("Current Task: " + taskManager.CurrentTask);
 
+                    ImGui.SeparatorText("Goal Manager");
+
+                    VillagerGoalManager goalManager = character.GetComponent<VillagerGoalManager>();
+
+                    ImGui.Text("Goals: " + goalManager.GoalTasks.Count);
+                    
+                    int totalTasks = 0;
+
+                    foreach (KeyValuePair<CastleGoal, List<Task>> goalKeyPair in goalManager.GoalTasks)
+                    {
+                        totalTasks += goalKeyPair.Value.Count;
+                    }
+
+                    ImGui.Text("Total Tasks: " + totalTasks);
+
                 }
             }
         }

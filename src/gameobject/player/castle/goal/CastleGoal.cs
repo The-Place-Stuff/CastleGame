@@ -32,21 +32,23 @@ public abstract class CastleGoal
     {
     }
 
-    public void Update()
+    public virtual void Update()
     {
         if (Villagers.Count < MaxVillagerCount)
         {
-            List<Villager> villagersInRadius = GetVillagersInRadius();
+            List<Villager> villagersInRadius = GetVillagersInRadiusLowestGoalCount();
 
             if (villagersInRadius == null) return;
 
             foreach (Villager villager in villagersInRadius)
             {
+                if (Villagers.Count >= MaxVillagerCount) return;
+
                 if (!Villagers.Contains(villager))
                 {
-                    Villagers.Add(villager);
-
                     VillagerGoalManager villagerGoalManager = villager.GetComponent<VillagerGoalManager>();
+
+                    Villagers.Add(villager);
 
                     villagerGoalManager.AddGoal(this);
                 }
@@ -97,5 +99,14 @@ public abstract class CastleGoal
         }
 
         return null;
+    }
+
+    private List<Villager> GetVillagersInRadiusLowestGoalCount()
+    {
+        List<Villager> villagersInRadius = GetVillagersInRadius();
+
+        if (villagersInRadius == null) return null;
+
+        return villagersInRadius.OrderBy(x => x.GetComponent<VillagerGoalManager>().GoalTasks.Count).ToList();
     }
 }

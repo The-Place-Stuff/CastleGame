@@ -31,7 +31,7 @@ public class MoveTask : Task
 
         base.Start();
 
-        //Debug.WriteLine("GoTask started");
+        DebugGui.Log("moving to: " + VectorHelper.Snap(Target.Position, 16));
     }
 
     public void RegisterPossiblePositions()
