@@ -27,24 +27,7 @@ public class VillagerGoalManager : Component
         {
             task.OnFinish(() =>
             {
-                GoalTasks[goal].Remove(task);
-
-                Debug.WriteLine("Task finished");
-
-                foreach (CastleGoal castleGoal in GoalTasks.Keys)
-                {
-                    if (castleGoal == goal) continue;
-
-                    // Refresh the tasks for the other goals
-                    List<Task> newTasks = castleGoal.GetTasks(GameObject as Villager);
-
-                    GoalTasks[castleGoal].Clear();
-
-                    foreach (Task newTask in newTasks)
-                    {
-                        GoalTasks[castleGoal].Add(newTask);
-                    }
-                }
+                GoalTaskFinish(task);
             });
         }
     }
@@ -67,5 +50,39 @@ public class VillagerGoalManager : Component
     public bool HasTasks()
     {
         return GoalTasks.Values.Any(x => x.Count > 0);
+    }
+
+    private void GoalTaskFinish(Task task)
+    {
+        CastleGoal goal = null;
+
+        foreach (CastleGoal foundGoal in GoalTasks.Keys)
+        {
+            if (GoalTasks[foundGoal].Contains(task))
+            {
+                GoalTasks[foundGoal].Remove(task);
+
+                goal = foundGoal;
+            }
+        }
+
+        if (goal == null) return;
+
+        foreach (CastleGoal castleGoal in GoalTasks.Keys)
+        {
+            if (castleGoal == goal) continue;
+
+            // Refresh the tasks for the other goals
+            List<Task> newTasks = castleGoal.GetTasks(GameObject as Villager);
+
+            GoalTasks[castleGoal].Clear();
+
+            foreach (Task newTask in newTasks)
+            {
+                newTask.OnFinish(() => GoalTaskFinish(newTask));
+
+                GoalTasks[castleGoal].Add(newTask);
+            }
+        }
     }
 }

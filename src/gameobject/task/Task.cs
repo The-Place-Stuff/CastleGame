@@ -17,6 +17,8 @@ public class Task
 
     private List<Action> finishSubscribers = new List<Action>();
 
+    private List<Action> failureSubscribers = new List<Action>();
+
     public Task(GameObject obj)
     {
         if (obj == null)
@@ -72,6 +74,21 @@ public class Task
     public void OnFinish(Action action)
     {
         finishSubscribers.Add(action);
+    }
+
+    public virtual void Fail()
+    {
+        foreach (Action action in failureSubscribers)
+        {
+            action.Invoke();
+        }
+
+        TaskManager.CompleteTask();
+    }
+
+    public void OnFailure(Action action)
+    {
+        failureSubscribers.Add(action);
     }
 
     public virtual void Enter()

@@ -60,8 +60,6 @@ public class TaskManager : Component
     {
         Tasks.Remove(CurrentTask);
 
-        //Debug.WriteLine(Tasks.Count);
-
         if (Tasks.Count > 0)
         {
             SetTask(GetHighestPriorityTask());
@@ -87,7 +85,7 @@ public class TaskManager : Component
 
         foreach (Task t in Tasks.Keys)
         {
-            if (t.Name == task.Name)
+            if (t == task)
             {
                 CurrentTask = task;
                 break;
@@ -115,16 +113,13 @@ public class TaskManager : Component
 
     private Task GetHighestPriorityTask()
     {
-        Task highestPriorityTask = null;
-
         foreach (Task task in Tasks.Keys.OrderByDescending(x => Tasks[x]))
         {
             if (task == CurrentTask) continue;
 
-            highestPriorityTask = task;
-            break;
+            return task;
         }
 
-        return highestPriorityTask;
+        return null;
     }
 }

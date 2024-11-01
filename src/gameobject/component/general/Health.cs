@@ -39,6 +39,6 @@ public class Health : Component
 
     public bool IsEmpty()
     {
-        return Points == 0;
+        return Points <= 0;
     }
 }

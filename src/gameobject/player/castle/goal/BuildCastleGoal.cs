@@ -28,9 +28,23 @@ public class BuildCastleGoal : CastleGoal
 
         tasks.Add(new MoveTask(tree.Position));
 
-        tasks.Add(new MineTask(tree));
+        MineTask mineTask = new MineTask(tree);
 
-        tasks.Add(new GrabTask(tree.Position));
+        mineTask.OnFailure(() =>
+        {
+            End();
+        });
+
+        tasks.Add(mineTask);
+
+        GrabTask grabTask = new GrabTask(tree.Position);
+
+        grabTask.OnFailure(() =>
+        {
+            End();
+        });
+
+        tasks.Add(grabTask);
 
         tasks.Add(new MoveTask(Position));
 

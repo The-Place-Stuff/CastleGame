@@ -22,7 +22,11 @@ public class GrabTask : Task
     public override void Start()
     {
 
-        if (!(Target is Item)) return;
+        if (!(Target is Item))
+        {
+            Fail();
+            return;
+        }
 
         Item item = (Item)Target;
 

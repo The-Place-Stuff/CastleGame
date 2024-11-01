@@ -42,12 +42,31 @@ public class MineTask : Task
         Object targetObject = Target as Object;
         Villager villager = Character as Villager;
 
+        if (targetObject == null)
+        {
+            Fail();
+            return;
+        }
+
         targetObject.Hit(villager.CaculateObjectDamage(targetObject));
 
         timer = new Timer(villager.Properties.MineSpeed * 1000);
         timer.Elapsed += Mine;
         timer.Enabled = true;
 
+    }
+
+    public override void Update()
+    {
+        Map map = SceneManager.CurrentScene.GetGameObject<Map>();   
+        TileGrid objectGrid = map.objectGrid;
+
+        Tile tile = objectGrid.GetTileFromWorldCoordinates(Target.Position);
+
+        if (tile is Object == false)
+        {
+            Finish();
+        }
     }
 
     public override void Finish()
