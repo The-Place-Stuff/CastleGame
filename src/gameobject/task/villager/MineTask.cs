@@ -10,7 +10,7 @@ namespace CastleGame;
 
 public class MineTask : Task
 {
-    private Timer timer;
+    private System.Timers.Timer timer;
     public MineTask(GameObject obj) : base(obj)
     {
 
@@ -50,7 +50,7 @@ public class MineTask : Task
 
         targetObject.Hit(villager.CaculateObjectDamage(targetObject));
 
-        timer = new Timer(villager.Properties.MineSpeed * 1000);
+        timer = new System.Timers.Timer(villager.Properties.MineSpeed * 1000);
         timer.Elapsed += Mine;
         timer.Enabled = true;
 

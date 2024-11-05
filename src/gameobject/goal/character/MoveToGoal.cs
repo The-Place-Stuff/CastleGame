@@ -2,36 +2,35 @@
 using SerpentEngine;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CastleGame;
-
-public class MoveTask : Task
+public class MoveToGoal : Goal
 {
     private int tries = 0;
 
     private List<Vector2> possiblePositions = new List<Vector2>();
-    public MoveTask(GameObject obj) : base(obj)
+
+    public MoveToGoal(Vector2 targetPosition, int priority) : base(targetPosition, priority)
     {
-
-    }
-
-    public MoveTask(Vector2 position) : base(position)
-    {
-
     }
 
     public override void Start()
     {
-        Character.GetComponent<MovementAI>().SetPath(VectorHelper.Snap(Target.Position, 16));
-        RegisterPossiblePositions();
-
         base.Start();
 
-        DebugGui.Log("moving to: " + VectorHelper.Snap(Target.Position, 16));
+        Character.GetComponent<MovementAI>().SetPath(VectorHelper.Snap(Target.Position, 16));
+        RegisterPossiblePositions();
+    }
+
+    public override void Update()
+    {
+        Map map = SceneManager.CurrentScene.GetGameObject<Map>();
+        MovementAI movementAI = Character.GetComponent<MovementAI>();
+
+        if (!movementAI.Moving) Finish();
     }
 
     public void RegisterPossiblePositions()
@@ -61,14 +60,6 @@ public class MoveTask : Task
 
     }
 
-    public override void Update()
-    {
-        Map map = SceneManager.CurrentScene.GetGameObject<Map>();
-        MovementAI movementAI = Character.GetComponent<MovementAI>();
-
-        if (!movementAI.Moving) Finish();
-    }
-
     public override void Finish()
     {
         MovementAI movementAI = Character.GetComponent<MovementAI>();
@@ -82,7 +73,8 @@ public class MoveTask : Task
             {
                 movementAI.SetPath(possiblePositions[tries]);
                 tries++;
-            } catch (ArgumentOutOfRangeException)
+            }
+            catch (ArgumentOutOfRangeException)
             {
                 base.Finish();
                 return;

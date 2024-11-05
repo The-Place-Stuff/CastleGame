@@ -28,15 +28,15 @@ public abstract class Character : GameObject
 
         MovementAI movementAI = CreateAndAddComponent<MovementAI>();
 
-        TaskManager taskManager = CreateAndAddComponent<TaskManager>();
+        GoalManager goalManager = CreateAndAddComponent<GoalManager>();
 
         Health health = new Health(Properties.Health); AddComponent(health);
     }
 
-    public virtual void AddTask(Task task)
+    public void AddGoal(Goal goal)
     {
-        TaskManager taskManager = GetComponent<TaskManager>();
-        taskManager.AddTask(task);
+        GoalManager goalManager = GetComponent<GoalManager>();
+        goalManager.AddGoal(goal);
     }
 
     public void SetDirection(Vector2 direction)

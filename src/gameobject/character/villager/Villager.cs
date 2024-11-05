@@ -32,8 +32,6 @@ public class Villager : Character
 
         selectBox.OnClick += OnClick;
 
-        CreateAndAddComponent<VillagerGoalManager>();
-
         StateMachine stateMachine = GetComponent<StateMachine>();
 
         stateMachine.AddState(new VillagerIdleState());
@@ -48,6 +46,18 @@ public class Villager : Character
 
         UpdateTool();
 
+        StateMachine stateMachine = GetComponent<StateMachine>();
+
+        if (stateMachine.CurrentState is VillagerWorkingState working)
+        {
+            GoalManager goalManager = GetComponent<GoalManager>();
+
+            if (goalManager.CurrentGoal == null)
+            {
+                stateMachine.SetState("idle");
+            }
+        }
+
         base.Update();
     }
 
@@ -56,51 +66,18 @@ public class Villager : Character
 
         if (SceneManager.CurrentScene.GetGameObject<Player>().GetComponent<StateMachine>().CurrentState is InteractState interact)
         {
-            if (interact.Character != this)
+            Highlighter highlighter = GetComponent<Highlighter>();
+
+            if (interact.SelectedCharacters.Contains(this))
             {
-                interact.Character = this;
-                GetComponent<Highlighter>().Enabled = true;
+                interact.SelectedCharacters.Remove(this);
+                highlighter.Enabled = false;
             }
             else
             {
-                interact.Character = null;
-                GetComponent<Highlighter>().Enabled = false;
+                interact.SelectedCharacters.Add(this);
+                highlighter.Enabled = true;
             }
-        }
-    }
-
-
-    public void AddTaskFromWorld()
-    {
-        GetComponent<Highlighter>().Enabled = false;
-
-        if (SceneManager.CurrentScene.GetGameObject<Player>().GetComponent<StateMachine>().CurrentState is InteractState interact)
-        {
-            interact.Character = null;
-        }
-
-        AddTask(new MoveTask(VectorHelper.Snap(Game.cursor.Position, 16)));
-
-        Map map = SceneManager.CurrentScene.GetGameObject<Map>();
-        Vector2 position = Game.cursor.Position;
-
-        List<GameObject> targets = SceneManager.CurrentScene.GetGameObjectsAt(VectorHelper.Snap(position, map.objectGrid.TileSize.X));
-
-        if (targets == null) return;
-
-        GameObject target = GameObject.Empty();
-
-        foreach (GameObject gameObject in targets)
-        {
-            if (gameObject is Tile && !(gameObject is Object)) continue;
-
-            target = gameObject;
-            break;
-        }
-
-        if (target is Interactable interactable)
-        {
-            AddTask(interactable.GetTaskType(this));
         }
     }
 

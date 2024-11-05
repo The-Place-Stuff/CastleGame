@@ -19,7 +19,7 @@ public class VillagerIdleState : GameObjectState
 
     private Random random = new Random();
 
-    private Timer timer;
+    private System.Timers.Timer timer;
 
     public VillagerIdleState() : base("idle")
     {
@@ -31,7 +31,7 @@ public class VillagerIdleState : GameObjectState
 
         idleTime = random.Next(5, 15);
 
-        timer = new Timer(idleTime * 1000);
+        timer = new System.Timers.Timer(idleTime * 1000);
         timer.Elapsed += IdleTimeEnd;
         timer.Enabled = true;
     }
@@ -54,12 +54,12 @@ public class VillagerIdleState : GameObjectState
                 random.Next(minY, maxY)
             );
 
-            MoveTask goTask = new MoveTask(randomPosition);
+            MoveToGoal moveGoal = new MoveToGoal(randomPosition, 0);
 
             busy = true;
             timer.Enabled = false;
 
-            goTask.OnFinish(() =>
+            moveGoal.OnFinish(() =>
             {
                 busy = false;
 
@@ -69,7 +69,7 @@ public class VillagerIdleState : GameObjectState
 
             });
 
-            (GameObject as Villager).AddTask(goTask);
+            (GameObject as Villager).AddGoal(moveGoal);
         }
     }
 
@@ -84,17 +84,6 @@ public class VillagerIdleState : GameObjectState
         {
             if (villager.CurrentDirection == Direction.East || villager.CurrentDirection == Direction.South || villager.CurrentDirection == Direction.North) villager.SetDirection(Direction.West);
             else if (villager.CurrentDirection == Direction.West) villager.SetDirection(Direction.East);
-        }
-
-        VillagerGoalManager goalManager = villager.GetComponent<VillagerGoalManager>();
-
-        if (goalManager.HasTasks())
-        {
-            StateMachine stateMachine = villager.GetComponent<StateMachine>();
-
-            stateMachine.SetState("working");
-
-            (GameObject as Villager).AddTask(goalManager.GetHighestPriorityTask());
         }
     }
 

@@ -13,7 +13,6 @@ public class Task
     public GameObject Target { get; set; } = GameObject.Empty();
     public GameObject Sensor { get; set; } = GameObject.Empty();
     public Character Character { get; private set; } 
-    public TaskManager TaskManager { get; private set; }
 
     private List<Action> finishSubscribers = new List<Action>();
 
@@ -48,7 +47,6 @@ public class Task
 
     public virtual void Initialize()
     {
-        TaskManager = Character.GetComponent<TaskManager>();
     }
 
     public virtual void Update()
@@ -68,7 +66,6 @@ public class Task
             action.Invoke();
         }
 
-        TaskManager.CompleteTask();
     }
 
     public void OnFinish(Action action)
@@ -83,7 +80,6 @@ public class Task
             action.Invoke();
         }
 
-        TaskManager.CompleteTask();
     }
 
     public void OnFailure(Action action)

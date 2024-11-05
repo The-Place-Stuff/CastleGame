@@ -7,12 +7,11 @@ public class Highlighter : Sprite
 {
     public Highlighter(string path) : base(path)
     {
-        Scale += new Vector2(0.25f, 0.25f);
+        Scale += new Vector2(0.2f, 0.2f);
 
         LayerOffset = -1;
 
-        Color color = Color.GhostWhite;
-        color.A = 100;
+        Color color = Color.LightGoldenrodYellow * 0.5f;
         Color = color;
     }
 

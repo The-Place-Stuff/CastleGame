@@ -162,28 +162,28 @@ public class CastleGameDebugGui : ImGuiDrawable
 
                     ImGui.SeparatorText("Components");
 
-                    ImGui.SeparatorText("Task Manager");
-
-                    TaskManager taskManager = character.GetComponent<TaskManager>();
-
-                    ImGui.Text("Tasks: " + taskManager.Tasks.Count);
-
-                    ImGui.Text("Current Task: " + taskManager.CurrentTask);
-
                     ImGui.SeparatorText("Goal Manager");
 
-                    VillagerGoalManager goalManager = character.GetComponent<VillagerGoalManager>();
+                    GoalManager goalManager = character.GetComponent<GoalManager>();
 
-                    ImGui.Text("Goals: " + goalManager.GoalTasks.Count);
-                    
-                    int totalTasks = 0;
+                    ImGui.Text("Goals: " + goalManager.Goals.Count);
 
-                    foreach (KeyValuePair<CastleGoal, List<Task>> goalKeyPair in goalManager.GoalTasks)
+                    int i = 0;
+
+                    foreach (Goal goal in goalManager.Goals)
                     {
-                        totalTasks += goalKeyPair.Value.Count;
+                        if (ImGui.CollapsingHeader(goal.GetType().Name + " (" + i + ")"))
+                        {
+                            ImGui.Text("Priority: " + goal.Priority);
+                            ImGui.Text("Target: " + goal.Target.Position);
+                        }
+
+                        i++;
                     }
 
-                    ImGui.Text("Total Tasks: " + totalTasks);
+                    ImGui.Text("Current Goal: " + goalManager.CurrentGoal);
+
+                    ImGui.Text("Paused Goals: " + goalManager.PausedGoals.Count);
 
                 }
             }
