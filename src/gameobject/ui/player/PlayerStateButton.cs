@@ -23,6 +23,11 @@ public class PlayerStateButton : GameObject
 
         button.OnClick += OnClick;
 
+        SoundPlayer soundPlayer = new SoundPlayer();
+        soundPlayer.AddSound(Sounds.Click);
+
+        AddComponent(soundPlayer);
+
         Size = new Vector2(20, 20);
     }
 
@@ -34,6 +39,10 @@ public class PlayerStateButton : GameObject
         StateMachine playerStateMachine = player.GetComponent<StateMachine>();
 
         Sprite buttonSprite = GetComponent<Sprite>();
+
+        SoundPlayer soundPlayer = GetComponent<SoundPlayer>();
+
+        soundPlayer.PlaySound("click");
 
         if (playerStateMachine.CurrentState is InteractState)
         {

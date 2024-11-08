@@ -19,10 +19,22 @@ public class InteractState : GameObjectState
         
         if(Input.Mouse.LeftClick() && SelectedCharacters.Count > 0)
         {
-            GameObject selectedGameObject = SceneManager.CurrentScene.GetGameObjectAt(Game.cursor.Position);
+            PlayerCastle playerCastle = SceneManager.CurrentScene.GetGameObject<Player>().Castle;
 
-            if (selectedGameObject is Character) return;
+            bool clickedOnCharacter = false;
 
+            foreach (Villager villager in playerCastle.Villagers)
+            {
+                Vector2 villagerSnappedPosition = VectorHelper.Snap(villager.Position, 16);
+                Vector2 cursorSnappedPosition = VectorHelper.Snap(Game.cursor.Position, 16);
+
+                if (villagerSnappedPosition == cursorSnappedPosition)
+                {
+                    clickedOnCharacter = true;
+                }
+            }
+
+            if (clickedOnCharacter) return;
 
             foreach (Character character in SelectedCharacters)
             {

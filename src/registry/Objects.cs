@@ -32,6 +32,7 @@ public class Objects : Registry
         .SetDurability(5).SetMineable(Items.Axe())));
 
     public static readonly Func<Object> Blueprint = Register(() => new Blueprint("blueprint"));
+    public static readonly Func<Object> Fog = Register(() => new Fog("fog"));
 
     public static readonly Func<Object> Workbench = Register(() => new Workbench("workbench", new Object.ObjectProperties()
         .SetDurability(5).SetMineable(Items.Axe())));

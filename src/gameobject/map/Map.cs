@@ -16,6 +16,8 @@ public class Map : GameObject
     public TileGrid objectGrid = new TileGrid(new Vector2(16, 16));
     public TileGrid blueprintGrid = new TileGrid(new Vector2(16, 16));
 
+    public Dictionary<(int, int), Chunk> chunks = new Dictionary<(int, int), Chunk>();
+
     public PathFinder PathFinder { get; private set; }
 
     public override void Load()
@@ -34,11 +36,14 @@ public class Map : GameObject
 
         AddComponent(objectGrid);
         AddComponent(blueprintGrid);
-
-
         
-        
-        MapGenerator.Generate(objectGrid);
+        for (int x = -3; x <= 3; x++)
+        {
+            for (int y = -3; y <= 3; y++)
+            {
+                MapGenerator.GenerateChunk(this, x, y);
+            }
+        }
 
         PathFinder = new PathFinder();
     }

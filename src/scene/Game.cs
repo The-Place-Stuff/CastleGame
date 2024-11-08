@@ -59,7 +59,21 @@ public class Game : Scene
         base.Update();
         cursor.Update();
 
-        Camera.Position = Vector2.Clamp(Camera.Position, new Vector2(-1700, -1700), new Vector2(1700, 1700));
+        int farthestNegativeX = 0;
+        int farthestNegativeY = 0;
+        int farthestPositiveX = 0;
+        int farthestPositiveY = 0;
+
+        foreach (Chunk chunk in map.chunks.Values)
+        {
+            if (chunk.X < farthestNegativeX) farthestNegativeX = chunk.X;
+            if (chunk.X > farthestPositiveX) farthestPositiveX = chunk.X;
+
+            if (chunk.Y < farthestNegativeY) farthestNegativeY = chunk.Y;
+            if (chunk.Y > farthestPositiveY) farthestPositiveY = chunk.Y;
+        }
+
+        Camera.Position = Vector2.Clamp(Camera.Position, new Vector2(farthestNegativeX, farthestNegativeY) * 48, new Vector2(farthestPositiveX, farthestPositiveY) * 48);
     }
 
     public override void Draw()
