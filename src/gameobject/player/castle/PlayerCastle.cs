@@ -17,8 +17,6 @@ public class PlayerCastle : Component
 
     public Landmark Landmark { get; private set; }
 
-    public List<CastleGoal> Goals { get; private set; } = new List<CastleGoal>();
-
     public PlayerCastle(Landmark landmark) : base(false)
     {
         Landmark = landmark;
@@ -43,16 +41,6 @@ public class PlayerCastle : Component
             SceneManager.CurrentScene.AddGameObject(villager);
 
             AddVillager(villager);
-        }
-    }
-
-    public override void Update()
-    {
-        List<CastleGoal> goals = new List<CastleGoal>(Goals);
-
-        foreach (CastleGoal goal in goals)
-        {
-            goal.Update();
         }
     }
 

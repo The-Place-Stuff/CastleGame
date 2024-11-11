@@ -13,7 +13,7 @@ namespace CastleGame
             GraphicsConfig.SCREEN_WIDTH = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             GraphicsConfig.SCREEN_HEIGHT = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             GraphicsConfig.FULLSCREEN = true;
-            GraphicsConfig.VSYNC = true;
+            GraphicsConfig.VSYNC = false;
             GraphicsConfig.FRAMERATE = 60;
             IsMouseVisible = false;
             GraphicsConfig.Apply();
@@ -52,7 +52,6 @@ namespace CastleGame
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-
         }
 
         protected override void Draw(GameTime gameTime)

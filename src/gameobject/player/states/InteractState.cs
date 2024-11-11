@@ -124,7 +124,7 @@ public class InteractState : GameObjectState
 
                     Vector2 cursorSnappedPosition = VectorHelper.Snap(Game.cursor.Position, 16);
 
-                    Object targetedObject = SceneManager.CurrentScene.GetGameObjectAt(cursorSnappedPosition) as Object;
+                    GameObject targetedObject = SceneManager.CurrentScene.GetGameObjectAt(cursorSnappedPosition);
 
                     Goal goal = null;
 
@@ -132,9 +132,12 @@ public class InteractState : GameObjectState
                     {
                         goal = interactable.GetGoalType(villager);
 
-                        selectedObjects.Add(targetedObject);
+                        if (targetedObject is Object obj)
+                        {
+                            selectedObjects.Add(obj);
 
-                        targetedObject.EnableDestroyHighlight();
+                            if (goal is MoveAndDestroyObjectGoalTree) obj.EnableDestroyHighlight();
+                        }
                     }
                     else
                     {

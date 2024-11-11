@@ -100,8 +100,6 @@ public class BuildState : GameObjectState
             map.PathFinder.NodeMap.SetWalkable(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(position), false);
 
             map.objectGrid.GetTileFromWorldCoordinates(position).Load();
-
-            player.Castle.Goals.Add(new BuildCastleGoal(map.objectGrid.GetTileFromWorldCoordinates(position) as Blueprint));
         }
 
         if (Input.Mouse.RightClickRelease())

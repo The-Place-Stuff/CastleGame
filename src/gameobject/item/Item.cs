@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CastleGame;
 
-public class Item : GameObject
+public class Item : GameObject, Interactable
 {
     public ItemProperties Properties { get; set; }
     public Item(string name, ItemProperties itemProperties)
@@ -48,5 +48,10 @@ public class Item : GameObject
             }
         }
         return null;
+    }
+
+    public Goal GetGoalType(Villager villager)
+    {
+        return new MoveAndPickupItemGoalTree(Position, 0);
     }
 }
