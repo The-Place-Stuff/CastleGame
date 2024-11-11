@@ -13,17 +13,23 @@ public class Tree : Object, Interactable
     {
 
     }
-
     public override void Load()
     {
         Sprite sprite = new Sprite(Objects.GetPath(Name, AssetTypes.Image));
         AddComponent(sprite);
+
+        SoundPlayer soundPlayer = new SoundPlayer();
+        soundPlayer.AddSound(Sounds.Hit);
+        soundPlayer.AddSound(Sounds.Destroy);
+
+        AddComponent(soundPlayer);
+
+
         base.Load();
     }
 
-    public Task GetTaskType(Villager villager)
+    public Goal GetGoalType(Villager villager)
     {
-        return new MineTask(Position);
+        return new MoveAndDestroyObjectGoalTree(Position, 0);
     }
-
 }

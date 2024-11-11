@@ -17,6 +17,13 @@ public class GoalTree : Goal
     {
     }
 
+    public override void Start()
+    {
+        base.Start();
+
+        CurrentSubGoal.Start();
+    }
+
     public override void Update()
     {
         if (SubGoals.Count == 0)
@@ -50,8 +57,13 @@ public class GoalTree : Goal
 
     public void RemoveSubGoal(Goal goal)
     {
-        SubGoals.Remove(goal);
+        SubGoals.Remove(goal); 
 
         SubGoals = SubGoals.OrderBy(g => g.Priority).ToList();
+
+        if (SubGoals.Count > 0)
+        {
+            CurrentSubGoal.Start();
+        }
     }
 }

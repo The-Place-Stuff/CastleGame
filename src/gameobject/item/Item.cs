@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CastleGame;
 
-public class Item : GameObject, Interactable
+public class Item : GameObject
 {
     public ItemProperties Properties { get; set; }
     public Item(string name, ItemProperties itemProperties)
@@ -26,11 +26,6 @@ public class Item : GameObject, Interactable
 
 
         base.Load();
-    }
-
-    public Task GetTaskType(Villager villager)
-    {
-        return new GrabTask(Position);
     }
 
     public static new Item Empty()

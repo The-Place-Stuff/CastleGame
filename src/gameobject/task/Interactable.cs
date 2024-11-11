@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 namespace CastleGame;
 public interface Interactable
 {
-    public Task GetTaskType(Villager villager);
+    public Goal GetGoalType(Villager villager);
 }

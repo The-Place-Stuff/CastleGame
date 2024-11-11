@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace CastleGame;
 public abstract class Goal
 {
-    public int Priority { get; private set; }
+    public int Priority { get; set; }
 
     public Character Character { get; private set; }
 
@@ -21,7 +21,7 @@ public abstract class Goal
 
     public Goal(Vector2 targetPosition, int priority)
     {
-        Target = SceneManager.CurrentScene.GetGameObjectAt(targetPosition);
+        Target = SceneManager.CurrentScene.GetGameObjectAt(VectorHelper.Snap(targetPosition, 16));
 
         if (Target == null)
         {

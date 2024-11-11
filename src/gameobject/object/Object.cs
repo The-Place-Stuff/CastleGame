@@ -14,6 +14,9 @@ public abstract class Object : Tile
 
     private double timer = 0;
 
+    private bool destroyHighlight = false;
+    private float destroyHighlightTimer = 0;
+
     public Object(string name, ObjectProperties objectProperties) : base(name)
     {
         Properties = objectProperties;
@@ -21,9 +24,9 @@ public abstract class Object : Tile
 
     public override void Load()
     {
-        SoundPlayer soundPlayer = CreateAndAddComponent<SoundPlayer>();
         Health health = new Health(Properties.Durability);
         TransformationManager transformationManager = new TransformationManager(Transformations.ObjectHit);
+
         AddComponent(transformationManager);
         AddComponent(health);
     }
@@ -57,9 +60,21 @@ public abstract class Object : Tile
         Health health = GetComponent<Health>();
         health.Decrement(damage);
 
-        DebugGui.Log(Name + " " + health.Points);
+        SoundPlayer soundPlayer = GetComponent<SoundPlayer>();
+
+        soundPlayer.PlaySound("hit");
 
         if (health.IsEmpty()) Destroy();
+    }
+
+    public void EnableDestroyHighlight()
+    {
+        destroyHighlight = true;
+    }
+
+    public void DisableDestroyHighlight()
+    {
+        destroyHighlight = false;
     }
 
     public void Destroy()
@@ -74,6 +89,10 @@ public abstract class Object : Tile
         Vector2 gridPosition = map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(Position);
 
         map.objectGrid.RemoveTile(gridPosition);
+
+        SoundPlayer soundPlayer = GetComponent<SoundPlayer>();
+
+        soundPlayer.PlaySound("destroy");
         
         map.PathFinder.NodeMap.SetWalkable(gridPosition, true);
     }
@@ -81,6 +100,7 @@ public abstract class Object : Tile
     public override void Update()
     {
         timer += SerpentGame.GameTime.ElapsedGameTime.TotalSeconds;
+
         if(timer >= 1)
         {
             TimedUpdate();
@@ -93,6 +113,22 @@ public abstract class Object : Tile
 
             timer = 0;
         }
+
+        if (destroyHighlight)
+        {
+            Sprite sprite = GetComponent<Sprite>();
+
+            Color startColor = Color.White;
+            Color endColor = Color.Red;
+
+            float blinkSpeed = 6f;
+            destroyHighlightTimer += blinkSpeed * SerpentGame.DeltaTime;
+
+            float destroyPreviewLerpTime = (float)Math.Sin(destroyHighlightTimer) * 0.5f + 0.5f;
+
+            sprite.Color = Color.Lerp(startColor, endColor, destroyPreviewLerpTime);
+        }
+
         base.Update();
     }
 
