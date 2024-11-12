@@ -52,7 +52,7 @@ public class Villager : Character
         {
             GoalManager goalManager = GetComponent<GoalManager>();
 
-            if (goalManager.CurrentGoal == null)
+            if (goalManager.CurrentGoal == null && goalManager.Goals.Count <= 0)
             {
                 stateMachine.SetState("idle");
             }

@@ -13,7 +13,7 @@ namespace CastleGame
             GraphicsConfig.SCREEN_WIDTH = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             GraphicsConfig.SCREEN_HEIGHT = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             GraphicsConfig.FULLSCREEN = true;
-            GraphicsConfig.VSYNC = false;
+            GraphicsConfig.VSYNC = true;
             GraphicsConfig.FRAMERATE = 60;
             IsMouseVisible = false;
             GraphicsConfig.Apply();

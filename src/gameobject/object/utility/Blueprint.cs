@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace CastleGame;
 
-public class Blueprint : Object
+public class Blueprint : Object, Interactable
 {
     public string Type { get; set; } = "";
 
@@ -34,8 +34,13 @@ public class Blueprint : Object
         Color c = Color.CornflowerBlue * 0.27f;
         Sprite sprite = new Sprite(Objects.GetPath(Name, AssetTypes.Image));
         Inventory inventory = CreateAndAddComponent<Inventory>();
+
         sprite.Color = c;
         AddComponent(sprite);
+
+        SoundPlayer soundPlayer = CreateAndAddComponent<SoundPlayer>();
+        soundPlayer.AddSound(Sounds.Place);
+        soundPlayer.AddSound(Sounds.Build);
     }
 
     public override void Update()
@@ -65,6 +70,9 @@ public class Blueprint : Object
 
         map.objectGrid.PlaceTile(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(Position), Type);
 
+        SoundPlayer soundPlayer = GetComponent<SoundPlayer>();
+        soundPlayer.PlaySound("build");
+
         foreach (Action action in finishSubscribers)
         {
             action.Invoke();
@@ -75,6 +83,9 @@ public class Blueprint : Object
     {
         item.GetComponent<Sprite>().Enabled = false;
         GetInventory().Add(item);
+
+        SoundPlayer soundPlayer = GetComponent<SoundPlayer>();
+        soundPlayer.PlaySound("place");
         
     }
 
@@ -93,4 +104,8 @@ public class Blueprint : Object
         return GetComponent<Inventory>();
     }
 
+    public Goal GetGoalType(Villager villager)
+    {
+        return new MoveAndAddItemToBlueprintGoalTree(Position, 0);
+    }
 }

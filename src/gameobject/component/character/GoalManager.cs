@@ -53,6 +53,16 @@ public class GoalManager : Component
             RemoveGoal(goal);
         });
 
+        goal.OnFailure(() =>
+        {
+            if (goal == CurrentGoal)
+            {
+                CurrentGoal = null;
+            }
+
+            RemoveGoal(goal);
+        });
+
         Goals = Goals.OrderBy(g => g.Priority).ToList();
     }
 

@@ -66,7 +66,7 @@ public class MovementAI : Component
 
     private void Move()
     {
-       // Debug.WriteLine("Moving");
+        //Debug.WriteLine("Moving");
 
         Character character = GameObject as Character;
 
@@ -77,7 +77,7 @@ public class MovementAI : Component
 
         Vector2 targetPosition = objectGrid.ConvertGridCoordinatesToWorldCoordinates(currentPathingNode.Position);
 
-        if (Vector2.Distance(GameObject.Position, targetPosition) < 0.2f && PathStack.Count > 0)
+        if (Vector2.Distance(GameObject.Position, targetPosition) < 0.4f && PathStack.Count > 0)
         {
             currentPathingNode = PathStack.Pop();
         }
@@ -89,7 +89,7 @@ public class MovementAI : Component
         direction.Normalize();
 
         character.SetDirection(direction);
-        GameObject.Position += direction * character.Properties.Speed * Main.DeltaTime;
+        GameObject.Position += (direction * character.Properties.Speed) * SerpentGame.DeltaTime;
 
         Vector2 snappedGameObjectPosition = VectorHelper.Snap(GameObject.Position, objectGrid.TileSize.X);
         Vector2 gameObjectGridPosition = objectGrid.ConvertWorldCoordinatesToGridCoordinates(snappedGameObjectPosition);

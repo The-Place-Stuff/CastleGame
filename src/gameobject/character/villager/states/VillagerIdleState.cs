@@ -1,18 +1,11 @@
-﻿using SerpentEngine;
+﻿using Microsoft.Xna.Framework;
+using SerpentEngine;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 
 namespace CastleGame;
 public class VillagerIdleState : GameObjectState
 {
-    private int wanderRadius = 60;
-
     private int idleTime = 15;
 
     private bool busy = false;
@@ -40,18 +33,20 @@ public class VillagerIdleState : GameObjectState
     {
         if (!busy)
         {
-            int minX = (int)GameObject.Position.X - wanderRadius;
-            int maxX = (int)GameObject.Position.X + wanderRadius + 1;
+            PlayerCastle playerCastle = SceneManager.CurrentScene.GetGameObject<Player>().Castle;
+            Landmark landmark = playerCastle.Landmark;
 
-            int minY = (int)GameObject.Position.Y - wanderRadius;
-            int maxY = (int)GameObject.Position.Y + wanderRadius + 1;
+            Vector2 snappedLandmarkPosition = VectorHelper.Snap(landmark.Position, 16);
 
-            if (minX > maxX) (minX, maxX) = (maxX, minX);
-            if (minY > maxY) (minY, maxY) = (maxY, minY);
+            int minX = (int)snappedLandmarkPosition.X - landmark.Radius;
+            int maxX = (int)snappedLandmarkPosition.X + landmark.Radius;
+
+            int minY = (int)snappedLandmarkPosition.Y - landmark.Radius;
+            int maxY = (int)snappedLandmarkPosition.Y + landmark.Radius;
 
             Vector2 randomPosition = new Vector2(
-                random.Next(minX, maxX),
-                random.Next(minY, maxY)
+                random.Next(minX , maxX) * 16,
+                random.Next(minY, maxY) * 16
             );
 
             MoveToGoal moveGoal = new MoveToGoal(randomPosition, 0);

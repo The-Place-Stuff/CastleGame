@@ -182,6 +182,8 @@ public class CastleGameDebugGui : ImGuiDrawable
                     }
 
                     ImGui.Text("Current Goal: " + goalManager.CurrentGoal);
+                    ImGui.Text("Current Goal Priority: " + goalManager.CurrentGoal?.Priority);
+                    ImGui.Text("Current Goal Target Pos: " + goalManager.CurrentGoal?.Target.Position);
 
                     ImGui.Text("Paused Goals: " + goalManager.PausedGoals.Count);
 

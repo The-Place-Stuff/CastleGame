@@ -57,7 +57,7 @@ public class InteractState : GameObjectState
             }
         }
 
-        if (currentlyHoveredObject is Object == false)
+        if (currentlyHoveredObject is Object == false || currentlyHoveredObject is Blueprint)
         {
             currentlyHoveredObject = null;
         }
@@ -118,8 +118,6 @@ public class InteractState : GameObjectState
                 {
                     StateMachine stateMachine = villager.GetComponent<StateMachine>();
 
-                    stateMachine.SetState("working");
-
                     Random random = new Random();
 
                     Vector2 cursorSnappedPosition = VectorHelper.Snap(Game.cursor.Position, 16);
@@ -150,7 +148,7 @@ public class InteractState : GameObjectState
 
                     goalManager.AddGoal(goal);
 
-                    Highlighter highlighter = villager.GetComponent<Highlighter>();
+                    stateMachine.SetState("working");
                 }
             }
         }
