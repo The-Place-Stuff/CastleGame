@@ -17,6 +17,8 @@ namespace CastleGame
             GraphicsConfig.FRAMERATE = 60;
             IsMouseVisible = false;
             GraphicsConfig.Apply();
+
+            Content.RootDirectory = "assets";
         }
 
         protected override void Initialize()

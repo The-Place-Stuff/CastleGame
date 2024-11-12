@@ -23,6 +23,16 @@ public class PickupItemGoal : Goal
             return;
         }
 
+        Vector2 targetPosition = Target.Position;
+
+        List<GameObject> targets = SceneManager.CurrentScene.GetGameObjects<Item>().Where(x => x.Position == targetPosition).ToList();
+
+        if (targets.Count <= 0)
+        {
+            Fail();
+            return;
+        }
+
         Item item = (Item)Target;
 
         Villager villager = (Villager)Character;

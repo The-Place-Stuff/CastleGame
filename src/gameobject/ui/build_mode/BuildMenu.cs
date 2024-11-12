@@ -14,20 +14,21 @@ public class BuildMenu : GameObject
     public UiElementGrid uiGrid;
     public override void Load()
     {
-
         NineSliceSprite sprite = new NineSliceSprite("assets/img/uis/nineslice");
-        sprite.Size = new Vector2(64, 140);
+        sprite.Size = new Vector2(64, (GraphicsConfig.SCREEN_HEIGHT / 5));
         sprite.SetPadding(2);
+        sprite.LayerOffset = -1;
+
         AddComponent(sprite);
 
-        CreateAndAddComponent<DebugBox>();
+       // CreateAndAddComponent<DebugBox>();
 
-        Position = new Vector2(38, (GraphicsConfig.SCREEN_HEIGHT / 5) - 108);
-        Size = new Vector2(64, 140);
+        Position = new Vector2((GraphicsConfig.SCREEN_WIDTH / 5) - 32, (GraphicsConfig.SCREEN_HEIGHT / 5) - 108);
+        Size = new Vector2(64, (GraphicsConfig.SCREEN_HEIGHT / 5));
 
-        uiGrid = new UiElementGrid(new Vector2(2, 9), 24);
+        uiGrid = new UiElementGrid(new Vector2(2, 9), 30);
 
-        uiGrid.Position = Position - new Vector2(13, 55);
+        uiGrid.Position = Position - new Vector2(16, 76);
 
         foreach(KeyValuePair<string, Func<Object>> entry in Objects.List)
         {
@@ -44,6 +45,12 @@ public class BuildMenu : GameObject
         }
 
         AddComponent(uiGrid);
+
+        Text text = new Text("font/peaberry", "Blueprints");
+        text.LayerOffset = 10;
+        text.Scale = 0.6f;
+        text.Position = new Vector2(-27, -102);
+        AddComponent(text);
 
         base.Load();
     }

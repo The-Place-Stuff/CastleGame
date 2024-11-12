@@ -20,7 +20,11 @@ public class SelectBlueprintButton : GameObject
     public override void Load()
     {
         Sprite sprite = new Sprite(Objects.GetPath(Object.Name, AssetTypes.Image)); sprite.Scale = new Vector2(1f,1f); AddComponent(sprite);
+        sprite.LayerOffset = 10;
         Button button = new Button(new Vector2(18, 18)); AddComponent(button);
+
+        DebugBox debuxBox = CreateAndAddComponent<DebugBox>();
+        debuxBox.Color = Color.Black;
 
         button.OnClick += Onclick;
 

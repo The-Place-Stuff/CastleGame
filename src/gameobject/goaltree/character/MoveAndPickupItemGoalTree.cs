@@ -18,6 +18,12 @@ public class MoveAndPickupItemGoalTree : GoalTree
         AddSubGoal(moveToGoal);
 
         PickupItemGoal pickupItemGoal = new PickupItemGoal(Target.Position, 1);
+
+        pickupItemGoal.OnFailure(() =>
+        {
+            Fail();
+        });
+
         AddSubGoal(pickupItemGoal);
 
         base.Start();

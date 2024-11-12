@@ -40,6 +40,13 @@ public class GoalManager : Component
     {
         if (goal == null) return;
 
+        if (goal is MoveToGoal == false)
+        {
+            StateMachine stateMachine = GameObject.GetComponent<StateMachine>();
+
+            if (stateMachine.CurrentState is VillagerWorkingState == false) stateMachine.SetState("working");
+        }
+
         Goals.Add(goal);
         goal.Assign(GameObject as Character);
 

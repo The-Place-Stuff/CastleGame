@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SerpentEngine;
+using SharpDX.XAudio2;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -95,11 +96,58 @@ public class BuildState : GameObjectState
                 return;
             }
 
-            map.objectGrid.PlaceTile(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(position), Objects.Blueprint().Name);
+            Blueprint blueprint = Objects.Blueprint() as Blueprint;
+
+            map.objectGrid.PlaceTile(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(position), blueprint.Name);
 
             map.PathFinder.NodeMap.SetWalkable(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(position), false);
 
             map.objectGrid.GetTileFromWorldCoordinates(position).Load();
+
+            List<Villager> closestVillagersWithLowestGoalCount = player.Castle.Villagers
+                .OrderBy(v => v.GetComponent<GoalManager>().Goals.Count)
+                .ThenBy(v => Vector2.Distance(v.Position, position))
+                .ToList();
+
+            Recipe recipe = ObjectRecipes.List[Currentblueprint];
+
+            int requiredVillagers = recipe.RecipeSettings.Ingredients.Count;
+
+            if (closestVillagersWithLowestGoalCount.Count < requiredVillagers)
+            {
+                int remainingVillagers = requiredVillagers - closestVillagersWithLowestGoalCount.Count;
+
+                for (int i = 0; i < remainingVillagers; i++)
+                {
+                    foreach (Villager villager in closestVillagersWithLowestGoalCount)
+                    {
+                        AutomaticBuildBlueprintGoalTree automaticBuildBlueprintGoalTree = new AutomaticBuildBlueprintGoalTree(position, 0);
+
+                        automaticBuildBlueprintGoalTree.OnFailure(() =>
+                        {
+                            AutomaticBuildBlueprintGoalTree automaticBuildBlueprintGoalTree = new AutomaticBuildBlueprintGoalTree(position, 0);
+                            villager.GetComponent<GoalManager>().AddGoal(automaticBuildBlueprintGoalTree);
+                        });
+
+                        villager.GetComponent<GoalManager>().AddGoal(automaticBuildBlueprintGoalTree);
+                    }
+                }
+            }
+            else
+            {
+                foreach (Villager villager in closestVillagersWithLowestGoalCount.Take(requiredVillagers))
+                {
+                    AutomaticBuildBlueprintGoalTree automaticBuildBlueprintGoalTree = new AutomaticBuildBlueprintGoalTree(position, 0);
+
+                    automaticBuildBlueprintGoalTree.OnFailure(() =>
+                    {
+                        AutomaticBuildBlueprintGoalTree automaticBuildBlueprintGoalTree = new AutomaticBuildBlueprintGoalTree(position, 0);
+                        villager.GetComponent<GoalManager>().AddGoal(automaticBuildBlueprintGoalTree);
+                    });
+
+                    villager.GetComponent<GoalManager>().AddGoal(automaticBuildBlueprintGoalTree);
+                }
+            }
         }
 
         if (Input.Mouse.RightClickRelease())
