@@ -123,12 +123,6 @@ public class BuildState : GameObjectState
                     {
                         AutomaticBuildBlueprintGoalTree automaticBuildBlueprintGoalTree = new AutomaticBuildBlueprintGoalTree(position, 0);
 
-                        automaticBuildBlueprintGoalTree.OnFailure(() =>
-                        {
-                            AutomaticBuildBlueprintGoalTree automaticBuildBlueprintGoalTree = new AutomaticBuildBlueprintGoalTree(position, 0);
-                            villager.GetComponent<GoalManager>().AddGoal(automaticBuildBlueprintGoalTree);
-                        });
-
                         villager.GetComponent<GoalManager>().AddGoal(automaticBuildBlueprintGoalTree);
                     }
                 }
@@ -138,12 +132,6 @@ public class BuildState : GameObjectState
                 foreach (Villager villager in closestVillagersWithLowestGoalCount.Take(requiredVillagers))
                 {
                     AutomaticBuildBlueprintGoalTree automaticBuildBlueprintGoalTree = new AutomaticBuildBlueprintGoalTree(position, 0);
-
-                    automaticBuildBlueprintGoalTree.OnFailure(() =>
-                    {
-                        AutomaticBuildBlueprintGoalTree automaticBuildBlueprintGoalTree = new AutomaticBuildBlueprintGoalTree(position, 0);
-                        villager.GetComponent<GoalManager>().AddGoal(automaticBuildBlueprintGoalTree);
-                    });
 
                     villager.GetComponent<GoalManager>().AddGoal(automaticBuildBlueprintGoalTree);
                 }

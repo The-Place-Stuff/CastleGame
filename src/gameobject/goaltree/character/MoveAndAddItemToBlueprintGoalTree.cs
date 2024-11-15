@@ -23,6 +23,12 @@ public class MoveAndAddItemToBlueprintGoalTree : GoalTree
         }
 
         MoveToGoal moveToGoal = new MoveToGoal(Target.Position, 0);
+
+        moveToGoal.OnFailure(() =>
+        {
+            Fail();
+        });
+
         AddSubGoal(moveToGoal);
 
         AddItemToBlueprintGoal addItemToBlueprintGoal = new AddItemToBlueprintGoal(Target.Position, 1);

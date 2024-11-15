@@ -76,7 +76,7 @@ public class MoveToGoal : Goal
             }
             catch (ArgumentOutOfRangeException)
             {
-                base.Finish();
+                Fail();
                 return;
             }
 

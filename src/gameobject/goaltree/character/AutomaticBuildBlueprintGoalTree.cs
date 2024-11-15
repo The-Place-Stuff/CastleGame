@@ -35,6 +35,11 @@ public class AutomaticBuildBlueprintGoalTree : GoalTree
         MoveAndAddItemToBlueprintGoalTree moveAndAddItemToBlueprintGoalTree = new MoveAndAddItemToBlueprintGoalTree(blueprint.Position, 2);
         AddSubGoal(moveAndAddItemToBlueprintGoalTree);
 
+        moveAndAddItemToBlueprintGoalTree.OnFailure(() =>
+        {
+            Fail();
+        });
+
         base.Start();
     }
 }
