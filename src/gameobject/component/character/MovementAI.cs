@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace CastleGame;
@@ -89,7 +90,7 @@ public class MovementAI : Component
         direction.Normalize();
 
         character.SetDirection(direction);
-        GameObject.Position += (direction * character.Properties.Speed) * SerpentGame.DeltaTime;
+        GameObject.Position += direction * MathHelper.Min(character.Properties.Speed * SerpentGame.DeltaTime, Vector2.Distance(GameObject.Position, targetPosition));
 
         Vector2 snappedGameObjectPosition = VectorHelper.Snap(GameObject.Position, objectGrid.TileSize.X);
         Vector2 gameObjectGridPosition = objectGrid.ConvertWorldCoordinatesToGridCoordinates(snappedGameObjectPosition);
