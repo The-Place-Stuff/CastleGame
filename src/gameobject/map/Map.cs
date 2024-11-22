@@ -15,6 +15,7 @@ public class Map : GameObject
     public Sprite terrainBackground = new Sprite("assets/img/tiles/grass");
     public TileGrid objectGrid = new TileGrid(new Vector2(16, 16));
     public TileGrid blueprintGrid = new TileGrid(new Vector2(16, 16));
+    public TileGrid lightGrid = new TileGrid(new Vector2(16, 16));
 
     public Dictionary<(int, int), Chunk> chunks = new Dictionary<(int, int), Chunk>();
 
@@ -36,6 +37,12 @@ public class Map : GameObject
 
         AddComponent(objectGrid);
         AddComponent(blueprintGrid);
+
+        TileSet lightTileSet = new TileSet();
+        lightTileSet.Add("light", () => new LightTile());
+        lightGrid.AddTileSet(lightTileSet);
+
+        AddComponent(lightGrid);
         
         for (int x = -3; x <= 3; x++)
         {

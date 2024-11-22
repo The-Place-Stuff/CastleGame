@@ -76,6 +76,8 @@ public class MapGenerator
                 int worldX = chunkX * chunkSize + x;
                 int worldY = chunkY * chunkSize + y;
 
+                map.lightGrid.PlaceTile(new Vector2(worldX, worldY), "light");
+
                 float distance = MathF.Sqrt(worldX * worldX + worldY * worldY);
 
                 if (distance < clearingRadius) continue;

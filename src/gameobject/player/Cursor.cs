@@ -45,7 +45,7 @@ public class Cursor : GameObject
         if (scrollValue != 0)
         {
             float zoomAmount = 0.008f * scrollValue;
-            float zoom = Math.Clamp(SceneManager.CurrentScene.Camera.Zoom + zoomAmount, 2f, 8f);
+            float zoom = Math.Clamp(SceneManager.CurrentScene.Camera.Zoom + zoomAmount, 3f, 6f);
 
             Vector2 worldPositionBeforeZoom = Input.Mouse.GetWorldPosition();
 

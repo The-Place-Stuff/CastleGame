@@ -12,8 +12,6 @@ public abstract class Object : Tile
 {
     public ObjectProperties Properties;
 
-    private double timer = 0;
-
     private bool destroyHighlight = false;
     private float destroyHighlightTimer = 0;
 
@@ -99,21 +97,6 @@ public abstract class Object : Tile
 
     public override void Update()
     {
-        timer += SerpentGame.GameTime.ElapsedGameTime.TotalSeconds;
-
-        if(timer >= 1)
-        {
-            TimedUpdate();
-
-            Random random = new Random();
-            if(random.Next(1, 11) == 1)
-            {
-                RandomUpdate();
-            }
-
-            timer = 0;
-        }
-
         if (destroyHighlight)
         {
             Sprite sprite = GetComponent<Sprite>();
