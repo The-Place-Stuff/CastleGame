@@ -10,7 +10,7 @@ namespace CastleGame;
 
 public class BuildTask : Task
 {
-    public BuildTask(GameObject obj) : base(obj)
+    public BuildTask(GameObject bit) : base(bit)
     {
 
     }

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace CastleGame;
 public class BuildState : GameObjectState
 {
-    public string Currentblueprint = Objects.Workbench().Name;
+    public string Currentblueprint = Bits.Workbench().Name;
 
     private string previousBlueprint;
 
@@ -26,7 +26,7 @@ public class BuildState : GameObjectState
         Color c = Color.CornflowerBlue;
         c.A = 150;
 
-        Sprite sprite = new Sprite(Objects.GetPath(Currentblueprint, AssetTypes.Image));
+        Sprite sprite = new Sprite(Bits.GetPath(Currentblueprint, AssetTypes.Image));
         GameObject.AddComponent(sprite);
         sprite.Color = c;
     }
@@ -37,7 +37,7 @@ public class BuildState : GameObjectState
 
         if (Currentblueprint != previousBlueprint)
         {
-            sprite.ChangePath(Objects.GetPath(Currentblueprint, AssetTypes.Image));
+            sprite.ChangePath(Bits.GetPath(Currentblueprint, AssetTypes.Image));
         }
 
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
@@ -55,14 +55,14 @@ public class BuildState : GameObjectState
 
         Landmark landmark = player.Castle.Landmark;
 
-        TileGrid objectGrid = map.objectGrid;
+        BitGrid bitGrid = map.bitGrid;
 
-        Vector2 landmarkGridPosition = objectGrid.ConvertWorldCoordinatesToGridCoordinates(landmark.Position);
-        Vector2 blueprintPreviewGridPosition = objectGrid.ConvertWorldCoordinatesToGridCoordinates(position);
+        Vector2 landmarkGridPosition = bitGrid.ConvertWorldCoordinatesToGridCoordinates(landmark.Position);
+        Vector2 blueprintPreviewGridPosition = bitGrid.ConvertWorldCoordinatesToGridCoordinates(position);
 
-        Tile tileAtBlueprintPreviewPosition = objectGrid.GetTileFromWorldCoordinates(position);
+        Bit bitAtBlueprintPreviewPosition = bitGrid.Bits[position];
 
-        if (tileAtBlueprintPreviewPosition == null)
+        if (bitAtBlueprintPreviewPosition == null)
         {
             Color startColor = Color.CornflowerBlue * 0.3f;
             Color endColor = Color.CornflowerBlue * 0.7f;
@@ -75,7 +75,7 @@ public class BuildState : GameObjectState
             sprite.Color = Color.Lerp(startColor, endColor, blueprintPreviewLerpTime);
         }
 
-        if (tileAtBlueprintPreviewPosition != null || Vector2.Distance(landmarkGridPosition, blueprintPreviewGridPosition) > landmark.Radius)
+        if (bitAtBlueprintPreviewPosition != null || Vector2.Distance(landmarkGridPosition, blueprintPreviewGridPosition) > landmark.Radius)
         {
             Color c = Color.Red;
 
@@ -89,27 +89,27 @@ public class BuildState : GameObjectState
 
             if (SceneManager.CurrentScene.GetUIElementAt(Input.Mouse.GetNewPosition() / SceneManager.CurrentScene.Camera.UIScale) != null) return;
 
-            if (map.objectGrid.GetTileFromWorldCoordinates(position) != null) return;
+            if (map.bitGrid.Bits[position] != null) return;
 
             if (Vector2.Distance(landmarkGridPosition, blueprintPreviewGridPosition) > landmark.Radius)
             {
                 return;
             }
 
-            Blueprint blueprint = Objects.Blueprint() as Blueprint;
+            Blueprint blueprint = Bits.Blueprint() as Blueprint;
 
-            map.objectGrid.PlaceTile(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(position), blueprint.Name);
+            map.bitGrid.AddBit(map.bitGrid.ConvertWorldCoordinatesToGridCoordinates(position), ()=> blueprint);
 
-            map.PathFinder.NodeMap.SetWalkable(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(position), false);
+            map.PathFinder.NodeMap.SetWalkable(map.bitGrid.ConvertWorldCoordinatesToGridCoordinates(position), false);
 
-            map.objectGrid.GetTileFromWorldCoordinates(position).Load();
+            map.bitGrid.Bits[position].Load();
 
             List<Villager> closestVillagersWithLowestGoalCount = player.Castle.Villagers
                 .OrderBy(v => v.GetComponent<GoalManager>().Goals.Count)
                 .ThenBy(v => Vector2.Distance(v.Position, position))
                 .ToList();
 
-            Recipe recipe = ObjectRecipes.List[Currentblueprint];
+            Recipe recipe = BitRecipes.List[Currentblueprint];
 
             int requiredVillagers = recipe.RecipeSettings.Ingredients.Count;
 
@@ -142,17 +142,17 @@ public class BuildState : GameObjectState
         {
             if (SceneManager.CurrentScene.GetUIElementAt(Input.Mouse.GetNewPosition() / SceneManager.CurrentScene.Camera.UIScale) != null) return;
 
-            if (map.objectGrid.GetTileFromWorldCoordinates(position) == null) return;
+            if (map.bitGrid.Bits[position] == null) return;
 
-            Tile tile = map.objectGrid.GetTileFromWorldCoordinates(position);
+            Bit bit = map.bitGrid.Bits[position];
 
-            if (tile.Name != Currentblueprint) return;
+            if (bit.Name != Currentblueprint) return;
 
-            //DebugGui.Log(map.objectGrid.GetTileFromWorldCoordinates(position).Name + " Removed");
+            //DebugGui.Log(map.bitGrid.GetTileFromWorldCoordinates(position).Name + " Removed");
 
-            map.objectGrid.RemoveTile(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(position));
+            map.bitGrid.RemoveBit(map.bitGrid.ConvertWorldCoordinatesToGridCoordinates(position));
 
-            map.PathFinder.NodeMap.SetWalkable(map.objectGrid.ConvertWorldCoordinatesToGridCoordinates(position), true);
+            map.PathFinder.NodeMap.SetWalkable(map.bitGrid.ConvertWorldCoordinatesToGridCoordinates(position), true);
         }
 
         previousBlueprint = Currentblueprint;

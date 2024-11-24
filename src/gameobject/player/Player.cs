@@ -18,7 +18,7 @@ public class Player : GameObject
     {
         // Castle Initialization
        // Map map = SceneManager.CurrentScene.GetGameObject<Map>();
-       // TileGrid tileGrid = map.objectGrid;
+       // TileGrid tileGrid = map.bitGrid;
 
         //Campfire campfire = tileGrid.GetTileFromGridCoordinates(new Vector2(0, 0)) as Campfire;
 
@@ -89,8 +89,8 @@ public class Player : GameObject
 
         playerStateButton.ChangeSpriteToBuild();
 
-        BuildMenu objectMenu = SceneManager.CurrentScene.GetUIElement<BuildMenu>();
-        objectMenu.Enabled = true;
+        BuildMenu bitectMenu = SceneManager.CurrentScene.GetUIElement<BuildMenu>();
+        bitectMenu.Enabled = true;
 
         BuildGrid buildGrid = SceneManager.CurrentScene.GetGameObject<BuildGrid>();
         buildGrid.Enabled = true;
@@ -104,8 +104,8 @@ public class Player : GameObject
 
         playerStateButton.ChangeSpriteToInteract();
 
-        BuildMenu objectMenu = SceneManager.CurrentScene.GetUIElement<BuildMenu>();
-        objectMenu.Enabled = false;
+        BuildMenu bitectMenu = SceneManager.CurrentScene.GetUIElement<BuildMenu>();
+        bitectMenu.Enabled = false;
 
         BuildGrid buildGrid = SceneManager.CurrentScene.GetGameObject<BuildGrid>();
         buildGrid.Enabled = false;

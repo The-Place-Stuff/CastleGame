@@ -10,12 +10,12 @@ public class Map : GameObject
     public static int Seed = 23;
     public static Vector2 WorldSize = new Vector2(100, 100);
 
-    public List<TileSet> objectTileSets = new List<TileSet>();
-
     public Sprite terrainBackground = new Sprite("assets/img/tiles/grass");
-    public TileGrid objectGrid = new TileGrid(new Vector2(16, 16));
     public TileGrid blueprintGrid = new TileGrid(new Vector2(16, 16));
     public TileGrid lightGrid = new TileGrid(new Vector2(16, 16));
+
+    public BitGrid bitGrid = new BitGrid();
+
 
     public Dictionary<(int, int), Chunk> chunks = new Dictionary<(int, int), Chunk>();
 
@@ -23,54 +23,12 @@ public class Map : GameObject
 
     public override void Load()
     {
-        /**
-        RegisterTileSets();
-
-        foreach (TileSet tileSet in objectTileSets)
-        {
-            objectGrid.AddTileSet(tileSet);
-            blueprintGrid.AddTileSet(tileSet);
-
-        }
-
-        terrainBackground.Scale = new Vector2(1000, 1000);
-        AddComponent(terrainBackground);
-
-        AddComponent(objectGrid);
-        AddComponent(blueprintGrid);
-
-        TileSet lightTileSet = new TileSet();
-        lightTileSet.Add("light", () => new LightTile());
-        lightGrid.AddTileSet(lightTileSet);
-
-        AddComponent(lightGrid);
-        
-        for (int x = -3; x <= 3; x++)
-        {
-            for (int y = -3; y <= 3; y++)
-            {
-                MapGenerator.GenerateChunk(this, x, y);
-            }
-        }
-
-        PathFinder = new PathFinder();
-        **/
+        bitGrid.AddBit(new Vector2(1, 1), Bits.Bush);
     }
 
     public void RegisterTileSets()
     {
-        objectGrid.Layer = 1;
         blueprintGrid.Layer = 3;
-
-        int count = 0;
-        foreach (KeyValuePair<string, Func<Object>> obj in Objects.List)
-        {
-
-            objectTileSets.Add(new TileSet());
-            Object object_ = obj.Value();
-            objectTileSets[count].Add(obj.Key, obj.Value);
-            count++;
-        }
 
     }
 

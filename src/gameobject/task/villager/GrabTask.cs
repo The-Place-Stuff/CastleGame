@@ -10,7 +10,7 @@ namespace CastleGame;
 
 public class GrabTask : Task
 {
-    public GrabTask(GameObject obj) : base(obj)
+    public GrabTask(GameObject bit) : base(bit)
     {
 
     }

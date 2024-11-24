@@ -58,14 +58,14 @@ public class PlayerCastle : Component
         Population--;
     }
 
-    public List<Object> GetObjectsInRadius()
+    public List<Bit> GetObjectsInRadius()
     {
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
-        TileGrid objectGrid = map.objectGrid;
+        BitGrid bitGrid = map.bitGrid;
 
-        List<Object> objectsInRadius = new List<Object>();
+        List<Bit> bitsInRadius = new List<Bit>();
 
-        Vector2 landmarkGridPostion = objectGrid.ConvertWorldCoordinatesToGridCoordinates(Landmark.Position);
+        Vector2 landmarkGridPostion = bitGrid.ConvertWorldCoordinatesToGridCoordinates(Landmark.Position);
         
         float radiusSquared = Landmark.Radius * Landmark.Radius;
 
@@ -80,52 +80,52 @@ public class PlayerCastle : Component
             {
                 Vector2 gridPosition = new Vector2(x, y);
 
-                Object obj = objectGrid.GetTileFromGridCoordinates(gridPosition) as Object;
+                Bit bit = bitGrid.Bits[gridPosition] as Bit;
 
-                if (obj == null) continue;
+                if (bit == null) continue;
 
                 float distanceSquared = Vector2.DistanceSquared(landmarkGridPostion, gridPosition);
 
                 if (distanceSquared <= radiusSquared)
                 {
-                    objectsInRadius.Add(obj);
+                    bitsInRadius.Add(bit);
                 }
             }
         }
 
-        return objectsInRadius;
+        return bitsInRadius;
     }
 
-    public bool IsObjectInRadius(Object obj)
+    public bool IsObjectInRadius(Bit bit)
     {
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
-        TileGrid objectGrid = map.objectGrid;
+        BitGrid bitGrid = map.bitGrid;
 
-        Vector2 landmarkGridPostion = objectGrid.ConvertWorldCoordinatesToGridCoordinates(Landmark.Position);
+        Vector2 landmarkGridPostion = bitGrid.ConvertWorldCoordinatesToGridCoordinates(Landmark.Position);
 
         float radiusSquared = Landmark.Radius * Landmark.Radius;
 
-        Vector2 gridPosition = objectGrid.ConvertWorldCoordinatesToGridCoordinates(obj.Position);
+        Vector2 gridPosition = bitGrid.ConvertWorldCoordinatesToGridCoordinates(bit.Position);
 
         float distanceSquared = Vector2.DistanceSquared(landmarkGridPostion, gridPosition);
 
         return distanceSquared <= radiusSquared;
     }
 
-    public List<T> GetObjectsInRadius<T>() where T : Object
+    public List<T> GetObjectsInRadius<T>() where T : Bit
     {
-        List<Object> objectsInRadius = GetObjectsInRadius();
+        List<Bit> bitsInRadius = GetObjectsInRadius();
 
-        List<T> objects = new List<T>();
+        List<T> bits = new List<T>();
 
-        foreach (Object obj in objectsInRadius)
+        foreach (Bit bit in bitsInRadius)
         {
-            if (obj is T)
+            if (bit is T)
             {
-                objects.Add((T)obj);
+                bits.Add((T)bit);
             }
         }
 
-        return objects;
+        return bits;
     }
 }

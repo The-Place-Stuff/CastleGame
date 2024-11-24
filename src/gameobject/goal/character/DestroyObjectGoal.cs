@@ -17,25 +17,25 @@ public class DestroyObjectGoal : Goal
 
     public override void Start()
     {
-        Object targetObject = Target as Object;
+        Bit targetBit = Target as Bit;
         Villager villager = Character as Villager;
 
         timer = new Timer(villager.Properties.MineSpeed);
         timer.OnTimeout += Mine;
 
-        if (targetObject == null)
+        if (targetBit == null)
         {
             Fail();
             return;
         }
 
-        if (targetObject.GetComponent<Health>().IsEmpty())
+        if (targetBit.GetComponent<Health>().IsEmpty())
         {
             Finish();
             return;
         }
 
-        targetObject.Hit(villager.CaculateObjectDamage(targetObject));
+        targetBit.Hit(villager.CaculateObjectDamage(targetBit));
 
         timer.Enabled = true;
     }
@@ -44,9 +44,9 @@ public class DestroyObjectGoal : Goal
     {
         timer.Update();
 
-        Object targetObject = Target as Object;
+        Bit targetBit = Target as Bit;
 
-        if (targetObject.GetComponent<Health>().IsEmpty())
+        if (targetBit.GetComponent<Health>().IsEmpty())
         {
             Finish();
         }
@@ -54,12 +54,12 @@ public class DestroyObjectGoal : Goal
 
     private void Mine()
     {
-        Object targetObject = Target as Object;
+        Bit targetBit = Target as Bit;
         Villager villager = Character as Villager;
 
-        targetObject.Hit(villager.CaculateObjectDamage(targetObject));
+        targetBit.Hit(villager.CaculateObjectDamage(targetBit));
 
-        if (!targetObject.GetComponent<Health>().IsEmpty())
+        if (!targetBit.GetComponent<Health>().IsEmpty())
         {
             timer.Enabled = true;
             return;

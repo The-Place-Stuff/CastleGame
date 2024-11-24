@@ -26,9 +26,9 @@ public class NodeMap
         {
             for (int y = (int)-20; y <= 20; y++)
             {
-                Tile tile = map.objectGrid.GetTileFromGridCoordinates(new Vector2(x, y));
+                Bit bit = map.bitGrid.Bits[new Vector2(x, y)];
 
-                grid.Add(new Vector2(x, y), new Node(new Vector2(x, y), tile == null));
+                grid.Add(new Vector2(x, y), new Node(new Vector2(x, y), bit == null));
             }
         }
     }

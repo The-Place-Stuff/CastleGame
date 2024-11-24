@@ -144,7 +144,7 @@ public class FastNoiseLite
     private float mDomainWarpAmp = 1.0f;
 
     /// <summary>
-    /// Create new FastNoise object with optional seed
+    /// Create new FastNoise bitect with optional seed
     /// </summary>
     public FastNoiseLite(int seed = 1337)
     {

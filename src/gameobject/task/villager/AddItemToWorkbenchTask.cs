@@ -10,7 +10,7 @@ namespace CastleGame;
 
 public class AddItemToWorkbenchTask : Task
 {
-    public AddItemToWorkbenchTask(GameObject obj) : base(obj)
+    public AddItemToWorkbenchTask(GameObject bit) : base(bit)
     {
 
     }

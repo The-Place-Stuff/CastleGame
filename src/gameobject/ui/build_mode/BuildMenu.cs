@@ -30,15 +30,15 @@ public class BuildMenu : GameObject
 
         uiGrid.Position = Position - new Vector2(16, 76);
 
-        foreach(KeyValuePair<string, Func<Object>> entry in Objects.List)
+        foreach(KeyValuePair<string, Func<Bit>> entry in Bits.List)
         {
-            Object obj = entry.Value();
+            Bit bit = entry.Value();
 
-            if (ObjectRecipes.List.ContainsKey(entry.Key))
+            if (BitRecipes.List.ContainsKey(entry.Key))
             {
-                obj.Load();
+                bit.Load();
 
-                UiElementGroup group = new UiElementGroup(new SelectBlueprintButton(obj));
+                UiElementGroup group = new UiElementGroup(new SelectBlueprintButton(bit));
 
                 uiGrid.AddUiElementGroup(group);
             }

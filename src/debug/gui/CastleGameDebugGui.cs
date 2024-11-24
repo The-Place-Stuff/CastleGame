@@ -75,25 +75,25 @@ public class CastleGameDebugGui : ImGuiDrawable
     {
         if (SceneManager.CurrentScene is Game game)
         {
-            TileGrid tileGrid = game.GetGameObject<Map>().objectGrid;
+            BitGrid bitGrid = game.GetGameObject<Map>().bitGrid;
             ImGui.Begin("Objects", ref showObjectsWindow);
 
-            ImGui.Text("Objects: " + tileGrid.Tiles.Count);
+            ImGui.Text("Objects: " + bitGrid.Bits.Count);
 
             ImGui.SeparatorText("Objects");
 
 
-            foreach (KeyValuePair<Vector2, Tile> tileEntry in tileGrid.Tiles)
+            foreach (KeyValuePair<Vector2, Bit> bitEntry in bitGrid.Bits)
             {
-                Tile obj = tileEntry.Value;
-                Vector2 coordinates = tileEntry.Key;
+                Bit bit = bitEntry.Value;
+                Vector2 coordinates = bitEntry.Key;
 
-                if (ImGui.CollapsingHeader(obj.Name))
+                if (ImGui.CollapsingHeader(bit.Name))
                 {
                     ImGui.SeparatorText("Properties");
 
-                    ImGui.Text("Name: " + obj.Name);
-                    ImGui.Text("Layer: " + obj.Layer);
+                    ImGui.Text("Name: " + bit.Name);
+                    ImGui.Text("Layer: " + bit.Layer);
                     ImGui.Text("Position: " + coordinates);
 
 

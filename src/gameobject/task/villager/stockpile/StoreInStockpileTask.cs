@@ -10,7 +10,7 @@ namespace CastleGame;
 
 public class StoreInStockpileTask : Task
 {
-    public StoreInStockpileTask(GameObject obj) : base(obj)
+    public StoreInStockpileTask(GameObject bit) : base(bit)
     {
 
     }

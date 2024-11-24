@@ -20,8 +20,8 @@
     <None Remove="assets\animation\characters\chicken_west.json" />
     <None Remove="assets\animation\furnace.json" />
     <None Remove="assets\animation\furnace_on.json" />
-    <None Remove="assets\animation\objects\bush.json" />
-    <None Remove="assets\animation\objects\bush_berries.json" />
+    <None Remove="assets\animation\bits\bush.json" />
+    <None Remove="assets\animation\bits\bush_berries.json" />
     <None Remove="assets\animation\sheep_east.json" />
     <None Remove="assets\animation\sheep_idle.json" />
     <None Remove="assets\animation\sheep_west.json" />
@@ -36,10 +36,10 @@
     <None Remove="assets\font\PeaberryBase.ttf" />
     <None Remove="assets\img\cursor.png" />
     <None Remove="assets\img\grass.png" />
-    <None Remove="assets\img\objects\bush.png" />
-    <None Remove="assets\img\objects\bush_berries.png" />
-    <None Remove="assets\img\objects\campfire.png" />
-    <None Remove="assets\img\objects\rock.png" />
+    <None Remove="assets\img\bits\bush.png" />
+    <None Remove="assets\img\bits\bush_berries.png" />
+    <None Remove="assets\img\bits\campfire.png" />
+    <None Remove="assets\img\bits\rock.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\**\**\*.*">
@@ -60,7 +60,7 @@
     <ProjectReference Include="..\..\..\Engine\SerpentEngine\SerpentEngine\SerpentEngine\SerpentEngine.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="src\gameobject\util\" />
+    <Folder Include="src\gamebitect\util\" />
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />

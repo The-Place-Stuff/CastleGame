@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace CastleGame;
 public class TakeFromStockpileTask : Task
 {
-    public TakeFromStockpileTask(GameObject obj) : base(obj)
+    public TakeFromStockpileTask(GameObject bit) : base(bit)
     {
 
     }

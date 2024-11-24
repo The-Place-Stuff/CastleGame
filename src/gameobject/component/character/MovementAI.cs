@@ -47,10 +47,10 @@ public class MovementAI : Component
         Character character = GameObject as Character;
 
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
-        TileGrid objectGrid = map.objectGrid;
+        BitGrid bitGrid = map.bitGrid;
 
-        Vector2 start = objectGrid.ConvertWorldCoordinatesToGridCoordinates(GameObject.Position);
-        Vector2 end = objectGrid.ConvertWorldCoordinatesToGridCoordinates(currentPath);
+        Vector2 start = bitGrid.ConvertWorldCoordinatesToGridCoordinates(GameObject.Position);
+        Vector2 end = bitGrid.ConvertWorldCoordinatesToGridCoordinates(currentPath);
 
         Stack<Node> path = map.PathFinder.FindPath(start, end);
 
@@ -72,18 +72,18 @@ public class MovementAI : Component
         Character character = GameObject as Character;
 
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
-        TileGrid objectGrid = map.objectGrid;
+        BitGrid bitGrid = map.bitGrid;
 
         if (currentPathingNode == null) currentPathingNode = PathStack.Pop();
 
-        Vector2 targetPosition = objectGrid.ConvertGridCoordinatesToWorldCoordinates(currentPathingNode.Position);
+        Vector2 targetPosition = bitGrid.ConvertGridCoordinatesToWorldCoordinates(currentPathingNode.Position);
 
         if (Vector2.Distance(GameObject.Position, targetPosition) < 0.4f && PathStack.Count > 0)
         {
             currentPathingNode = PathStack.Pop();
         }
 
-        targetPosition = objectGrid.ConvertGridCoordinatesToWorldCoordinates(currentPathingNode.Position);
+        targetPosition = bitGrid.ConvertGridCoordinatesToWorldCoordinates(currentPathingNode.Position);
 
         Vector2 direction = targetPosition - GameObject.Position;
 
@@ -92,8 +92,8 @@ public class MovementAI : Component
         character.SetDirection(direction);
         GameObject.Position += direction * MathHelper.Min(character.Properties.Speed * SerpentGame.DeltaTime, Vector2.Distance(GameObject.Position, targetPosition));
 
-        Vector2 snappedGameObjectPosition = VectorHelper.Snap(GameObject.Position, objectGrid.TileSize.X);
-        Vector2 gameObjectGridPosition = objectGrid.ConvertWorldCoordinatesToGridCoordinates(snappedGameObjectPosition);
+        Vector2 snappedGameObjectPosition = VectorHelper.Snap(GameObject.Position, bitGrid.TileSize);
+        Vector2 gameObjectGridPosition = bitGrid.ConvertWorldCoordinatesToGridCoordinates(snappedGameObjectPosition);
 
         if (PathStack.Count == 0 && Vector2.Distance(GameObject.Position, targetPosition) < 0.2f)
         {

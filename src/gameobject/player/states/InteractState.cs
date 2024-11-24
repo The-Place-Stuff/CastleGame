@@ -12,9 +12,9 @@ public class InteractState : GameObjectState
 {
     public List<Character> SelectedCharacters { get; private set; } = new List<Character>();
 
-    private Object previouslyHoveredObject;
+    private Bit previouslyHoveredBit;
 
-    private List<Object> selectedObjects = new List<Object>();
+    private List<Bit> selectedBits = new List<Bit>();
     public InteractState() : base("interact")
     {
     }
@@ -32,45 +32,45 @@ public class InteractState : GameObjectState
     {
         Vector2 snappedCursorPosition = VectorHelper.Snap(Game.cursor.Position, 16);
 
-        Object currentlyHoveredObject = SceneManager.CurrentScene.GetGameObjectAt(snappedCursorPosition) as Object;
+        Bit currentlyHoveredBit = SceneManager.CurrentScene.GetGameObjectAt(snappedCursorPosition) as Bit;
 
-        foreach (Object selectedObject in selectedObjects.ToArray())
+        foreach (Bit selectedBit in selectedBits.ToArray())
         {
-            if (currentlyHoveredObject == selectedObject)
+            if (currentlyHoveredBit == selectedBit)
             {
-                currentlyHoveredObject = null;
+                currentlyHoveredBit = null;
 
-                if (previouslyHoveredObject == selectedObject)
+                if (previouslyHoveredBit == selectedBit)
                 {
-                    previouslyHoveredObject = null;
+                    previouslyHoveredBit = null;
                 }
 
                 continue;
             }
 
-            Object obj = SceneManager.CurrentScene.GetGameObjectAt(selectedObject.Position) as Object;
+            Bit bit = SceneManager.CurrentScene.GetGameObjectAt(selectedBit.Position) as Bit;
 
-            if (obj == null)
+            if (bit == null)
             {
-                selectedObjects.Remove(selectedObject);
+                selectedBits.Remove(selectedBit);
                 continue;
             }
         }
 
-        if (currentlyHoveredObject is Object == false || currentlyHoveredObject is Blueprint)
+        if (currentlyHoveredBit is Bit == false || currentlyHoveredBit is Blueprint)
         {
-            currentlyHoveredObject = null;
+            currentlyHoveredBit = null;
         }
 
-        if (previouslyHoveredObject != null)
+        if (previouslyHoveredBit != null)
         {
-            if (currentlyHoveredObject != previouslyHoveredObject)
+            if (currentlyHoveredBit != previouslyHoveredBit)
             {
-                Sprite sprite = previouslyHoveredObject.GetComponent<Sprite>();
+                Sprite sprite = previouslyHoveredBit.GetComponent<Sprite>();
 
                 if (sprite == null)
                 {
-                    SpriteSheet spriteSheet = previouslyHoveredObject.GetComponent<SpriteSheet>();
+                    SpriteSheet spriteSheet = previouslyHoveredBit.GetComponent<SpriteSheet>();
 
                     if (spriteSheet != null) sprite = spriteSheet.CurrentSprite;
                 }
@@ -81,14 +81,14 @@ public class InteractState : GameObjectState
 
         if (SelectedCharacters.Count > 0)
         {
-            if (currentlyHoveredObject != null && currentlyHoveredObject is Interactable)
+            if (currentlyHoveredBit != null && currentlyHoveredBit is Interactable)
             {
-                Sprite sprite = currentlyHoveredObject.GetComponent<Sprite>();
+                Sprite sprite = currentlyHoveredBit.GetComponent<Sprite>();
                 sprite.Color = Color.Red;
             }
         }
 
-        previouslyHoveredObject = currentlyHoveredObject;
+        previouslyHoveredBit = currentlyHoveredBit;
     }
 
     private void SelectedCharacterControls()
@@ -130,11 +130,11 @@ public class InteractState : GameObjectState
                     {
                         goal = interactable.GetGoalType(villager);
 
-                        if (targetedObject is Object obj)
+                        if (targetedObject is Bit bit)
                         {
-                            selectedObjects.Add(obj);
+                            selectedBits.Add(bit);
 
-                            if (goal is MoveAndDestroyObjectGoalTree) obj.EnableDestroyHighlight();
+                            if (goal is MoveAndDestroyObjectGoalTree) bit.EnableDestroyHighlight();
                         }
                     }
                     else

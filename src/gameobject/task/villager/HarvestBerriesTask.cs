@@ -10,7 +10,7 @@ namespace CastleGame;
 
 public class HarvestBerriesTask : Task
 {
-    public HarvestBerriesTask(GameObject obj) : base(obj)
+    public HarvestBerriesTask(GameObject bit) : base(bit)
     {
     }
 

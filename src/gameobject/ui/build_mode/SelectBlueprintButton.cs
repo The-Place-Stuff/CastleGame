@@ -10,16 +10,16 @@ namespace CastleGame;
 
 public class SelectBlueprintButton : GameObject
 {
-    public Object Object;
-    public SelectBlueprintButton(Object obj)
+    public Bit Bit;
+    public SelectBlueprintButton(Bit bit)
     {
-        Object = obj;
+        Bit = bit;
     }
 
 
     public override void Load()
     {
-        Sprite sprite = new Sprite(Objects.GetPath(Object.Name, AssetTypes.Image)); sprite.Scale = new Vector2(1f,1f); AddComponent(sprite);
+        Sprite sprite = new Sprite(Bits.GetPath(Bit.Name, AssetTypes.Image)); sprite.Scale = new Vector2(1f,1f); AddComponent(sprite);
         sprite.LayerOffset = 10;
         Button button = new Button(new Vector2(18, 18)); AddComponent(button);
 
@@ -34,7 +34,7 @@ public class SelectBlueprintButton : GameObject
     public void Onclick()
     {
         if(SceneManager.CurrentScene.GetGameObject<Player>().GetComponent<StateMachine>().CurrentState is BuildState buildState) {
-            buildState.Currentblueprint = Object.Name;
+            buildState.Currentblueprint = Bit.Name;
         }
     }
 }

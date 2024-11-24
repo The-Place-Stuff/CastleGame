@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CastleGame;
-public class Fog : Object
+public class Fog : Bit
 {
     bool halfOpacity = false;
 
-    public Fog(string name) : base(name, new ObjectProperties())
+    public Fog(string name) : base(name, new BitProperties())
     {
     }
 

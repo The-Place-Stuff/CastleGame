@@ -32,10 +32,10 @@ public class MapGenerator
 
         Debug.WriteLine("Generating map, seed: " + Map.Seed);
 
-        map.objectGrid.PlaceTile(new Vector2(0, 0), Objects.Campfire().Name);
+        map.bitGrid.AddBit(new Vector2(0, 0), Bits.Campfire);
 
-        map.objectGrid.PlaceTile(new Vector2(2, 0), Objects.Tent().Name);
-        map.objectGrid.PlaceTile(new Vector2(-2, 0), Objects.Tent().Name);
+        map.bitGrid.AddBit(new Vector2(2, 0), Bits.Tent);
+        map.bitGrid.AddBit(new Vector2(-2, 0), Bits.Tent);
 
         int radius = 25;
         int clearingRadius = 10;
@@ -62,7 +62,7 @@ public class MapGenerator
 
                     Vector2 treePosition = new Vector2(x + treeXOffset, y + treeYOffset);
 
-                    map.objectGrid.PlaceTile(treePosition, Objects.Tree().Name);
+                    map.bitGrid.AddBit(treePosition, Bits.Tree);
                 }
             }
         }
@@ -114,7 +114,7 @@ public class MapGenerator
 
                     Vector2 treePosition = new Vector2(worldX + treeXOffset, worldY + treeYOffset);
 
-                    map.objectGrid.PlaceTile(treePosition, Objects.Tree().Name);
+                    map.bitGrid.AddBit(treePosition, Bits.Tree);
                 }
 
                 if (forestValue < 0.3f)
@@ -125,7 +125,7 @@ public class MapGenerator
 
                     Vector2 bushPosition = new Vector2(worldX, worldY);
 
-                    map.objectGrid.PlaceTile(bushPosition, Objects.Bush().Name);
+                    map.bitGrid.AddBit(bushPosition, Bits.Bush);
                 }
 
                 if (forestValue < 0.4f)
@@ -136,7 +136,7 @@ public class MapGenerator
 
                     Vector2 rockPosition = new Vector2(worldX, worldY);
 
-                    map.objectGrid.PlaceTile(rockPosition, Objects.Rock().Name);
+                    map.bitGrid.AddBit(rockPosition, Bits.Rock);
                 }
             }
         }

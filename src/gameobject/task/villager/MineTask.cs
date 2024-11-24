@@ -11,7 +11,7 @@ namespace CastleGame;
 public class MineTask : Task
 {
     private System.Timers.Timer timer;
-    public MineTask(GameObject obj) : base(obj)
+    public MineTask(GameObject bit) : base(bit)
     {
 
     }
@@ -24,12 +24,12 @@ public class MineTask : Task
     {
         timer.Enabled = false;
 
-        Object targetObject = Target as Object;
+        Bit targetBit = Target as Bit;
         Villager villager = Character as Villager;
 
-        targetObject.Hit(villager.CaculateObjectDamage(targetObject));
+        targetBit.Hit(villager.CaculateObjectDamage(targetBit));
 
-        if (!targetObject.GetComponent<Health>().IsEmpty()) {
+        if (!targetBit.GetComponent<Health>().IsEmpty()) {
             timer.Enabled = true;
             return;
         }
@@ -39,16 +39,16 @@ public class MineTask : Task
 
     public override void Start()
     {
-        Object targetObject = Target as Object;
+        Bit targetBit = Target as Bit;
         Villager villager = Character as Villager;
 
-        if (targetObject == null)
+        if (targetBit == null)
         {
             Fail();
             return;
         }
 
-        targetObject.Hit(villager.CaculateObjectDamage(targetObject));
+        targetBit.Hit(villager.CaculateObjectDamage(targetBit));
 
         timer = new System.Timers.Timer(villager.Properties.MineSpeed * 1000);
         timer.Elapsed += Mine;
@@ -59,11 +59,11 @@ public class MineTask : Task
     public override void Update()
     {
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();   
-        TileGrid objectGrid = map.objectGrid;
+        BitGrid bitGrid = map.bitGrid;
 
-        Tile tile = objectGrid.GetTileFromWorldCoordinates(Target.Position);
+        Bit bit = bitGrid.Bits[Target.Position];
 
-        if (tile is Object == false)
+        if (bit is Bit == false)
         {
             Finish();
         }

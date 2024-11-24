@@ -96,7 +96,7 @@ public class Villager : Character
         toolSprite.Effect = SpriteEffects.None;
     }
 
-    public int CaculateObjectDamage(Object target)
+    public int CaculateObjectDamage(Bit target)
     {
         Tool tool = target.Properties.Mineable;
         if (tool == Tool.Empty()) return 1;

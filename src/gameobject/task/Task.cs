@@ -18,18 +18,18 @@ public class Task
 
     private List<Action> failureSubscribers = new List<Action>();
 
-    public Task(GameObject obj)
+    public Task(GameObject bit)
     {
-        if (obj == null)
+        if (bit == null)
         {
 
-            obj = GameObject.Empty();
+            bit = GameObject.Empty();
             Name = "none";
-            Target = obj;
+            Target = bit;
         }
         else
         {
-            Target = obj;
+            Target = bit;
         }
     }
 
