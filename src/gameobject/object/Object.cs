@@ -8,15 +8,16 @@ using System.Threading.Tasks;
 
 namespace CastleGame;
 
-public abstract class Object : Tile
+public abstract class Object : GameObject
 {
     public ObjectProperties Properties;
 
     private bool destroyHighlight = false;
     private float destroyHighlightTimer = 0;
 
-    public Object(string name, ObjectProperties objectProperties) : base(name)
+    public Object(string name, ObjectProperties objectProperties)
     {
+        Name = name;
         Properties = objectProperties;
     }
 
