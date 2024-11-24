@@ -23,6 +23,7 @@ public class Map : GameObject
 
     public override void Load()
     {
+        /**
         RegisterTileSets();
 
         foreach (TileSet tileSet in objectTileSets)
@@ -53,6 +54,7 @@ public class Map : GameObject
         }
 
         PathFinder = new PathFinder();
+        **/
     }
 
     public void RegisterTileSets()

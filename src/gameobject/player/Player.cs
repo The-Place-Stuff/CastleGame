@@ -17,12 +17,12 @@ public class Player : GameObject
     public override void Load()
     {
         // Castle Initialization
-        Map map = SceneManager.CurrentScene.GetGameObject<Map>();
-        TileGrid tileGrid = map.objectGrid;
+       // Map map = SceneManager.CurrentScene.GetGameObject<Map>();
+       // TileGrid tileGrid = map.objectGrid;
 
-        Campfire campfire = tileGrid.GetTileFromGridCoordinates(new Vector2(0, 0)) as Campfire;
+        //Campfire campfire = tileGrid.GetTileFromGridCoordinates(new Vector2(0, 0)) as Campfire;
 
-        Castle = new PlayerCastle(campfire); AddComponent(Castle);
+       // Castle = new PlayerCastle(campfire); AddComponent(Castle);
 
         // Component Initialization
         Inventory inventory = CreateAndAddComponent<Inventory>();
