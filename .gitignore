@@ -1,6 +1,6 @@
 .config
 bin
-bit
+obj
 CastleGame.csproj
 CastleGame.csproj
 .vs
