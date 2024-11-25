@@ -21,6 +21,8 @@ public class InteractState : GameObjectState
 
     public override void Update()
     {
+        if (SelectedCharacters.Count <= 0) return;
+
         HighlightHoveredObject();
         
         SelectedCharacterControls();

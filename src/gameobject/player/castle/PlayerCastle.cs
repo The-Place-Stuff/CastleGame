@@ -80,7 +80,7 @@ public class PlayerCastle : Component
             {
                 Vector2 gridPosition = new Vector2(x, y);
 
-                Bit bit = bitGrid.Bits[gridPosition] as Bit;
+                Bit bit = bitGrid.GetBit(gridPosition) as Bit;
 
                 if (bit == null) continue;
 
