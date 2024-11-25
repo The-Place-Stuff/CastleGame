@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 
 namespace CastleGame;
 
-public class BitGrid : Component
+public class BitGrid
 {
+    public int Layer { get; set; } = 0;
     public int TileSize { get; set; } = 16;
     public Dictionary<Vector2, Bit> Bits { get; private set; } = new Dictionary<Vector2, Bit>();
 
-    public BitGrid() : base(true)
+    public BitGrid()
     {
     }
 
@@ -23,6 +24,7 @@ public class BitGrid : Component
 
         Bit bit = bitFunc();
         bit.Position = ConvertGridCoordinatesToWorldCoordinates(coordinates);
+        bit.Layer = Layer;
 
         Bits.Add(coordinates, bit);
         SceneManager.CurrentScene.AddGameObject(bit);
@@ -34,6 +36,13 @@ public class BitGrid : Component
 
         SceneManager.CurrentScene.Remove(Bits[coordinates]);
         Bits.Remove(coordinates);
+    }
+
+    public Bit GetBit(Vector2 coordinates)
+    {
+        if (!Bits.ContainsKey(coordinates)) return null;
+
+        return Bits[coordinates];
     }
 
     public Bit North(Bit bit)

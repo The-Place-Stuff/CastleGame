@@ -11,11 +11,14 @@ public class Map : GameObject
     public static Vector2 WorldSize = new Vector2(100, 100);
 
     public Sprite terrainBackground = new Sprite("assets/img/tiles/grass");
-    public TileGrid blueprintGrid = new TileGrid(new Vector2(16, 16));
-    public TileGrid lightGrid = new TileGrid(new Vector2(16, 16));
 
     public BitGrid bitGrid = new BitGrid();
 
+    public BitGrid blueprintGrid = new BitGrid();
+
+    public TileGrid fogGrid = new TileGrid(new Vector2(16, 16));
+
+    public TileGrid lightGrid = new TileGrid(new Vector2(16, 16));
 
     public Dictionary<(int, int), Chunk> chunks = new Dictionary<(int, int), Chunk>();
 
@@ -23,27 +26,40 @@ public class Map : GameObject
 
     public override void Load()
     {
-        bitGrid.AddBit(new Vector2(1, 1), Bits.Bush);
-    }
+        terrainBackground.Scale = new Vector2(1000, 1000);
+        AddComponent(terrainBackground);
 
-    public void RegisterTileSets()
-    {
-        blueprintGrid.Layer = 3;
+        bitGrid.Layer = 1;
 
-    }
-
-
-    public void RegisterTilesFromSpriteToTileset(TileSet tileSet, string name, string path, TileGrid tileGrid)
-    {
-
-        tileSet.AddFromSprite(name, path);
-        tileGrid.AddTileSet(tileSet);
-
-    }
-
-    public override void Update()
-    {
+        blueprintGrid.Layer = 2;
         
-        base.Update();
+        TileSet fogTileSet = new TileSet();
+        fogTileSet.AddBySpritePath("fog", "assets/img/tiles/fog");
+        fogGrid.AddTileSet(fogTileSet);
+
+        fogGrid.Layer = 3;
+
+        AddComponent(fogGrid);
+        
+
+        TileSet lightTileSet = new TileSet();
+        lightTileSet.Add("light", () => new LightTile());
+        lightGrid.AddTileSet(lightTileSet);
+
+        lightGrid.Layer = 6;
+
+        AddComponent(lightGrid);
+
+
+        for (int x = -3; x <= 3; x++)
+        {
+            for (int y = -3; y <= 3; y++)
+            {
+                MapGenerator.GenerateChunk(this, x, y);
+            }
+        }
+
+
+        PathFinder = new PathFinder();
     }
 }

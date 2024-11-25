@@ -45,11 +45,9 @@ public class BuildState : GameObjectState
 
         Vector2 cursorPosition = Input.Mouse.GetWorldPosition();
 
-        float tileSize = map.blueprintGrid.TileSize.X;
-
         Vector2 position = GameObject.Position;
 
-        position = VectorHelper.Snap(new Vector2(cursorPosition.X, cursorPosition.Y), tileSize);
+        position = VectorHelper.Snap(new Vector2(cursorPosition.X, cursorPosition.Y), 16);
 
         Player player = GameObject as Player;
 

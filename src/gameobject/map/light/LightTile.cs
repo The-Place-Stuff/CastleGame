@@ -5,16 +5,11 @@ namespace CastleGame;
 
 public class LightTile : Tile
 {
-    public LightTile() : base("light")
+    public LightTile() : base("assets/img/null", "light")
     {
-    }
-
-    public override void Load()
-    {
-        Light light = new Light();
-
-        light.Color = Color.Black * 0.35f;
-
-        AddComponent(light);
+        texture2d = SerpentEngine.Draw.Pixel;
+        Scale = new Vector2(16, 16);
+        Offset = new Vector2(-8, -8);
+        Color = Color.Black * 0.35f;
     }
 }

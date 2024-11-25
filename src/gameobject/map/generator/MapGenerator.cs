@@ -87,7 +87,7 @@ public class MapGenerator
 
                 if (distance > radius)
                 {
-                    Tile tile = map.blueprintGrid.PlaceTile(new Vector2(worldX, worldY), "fog");
+                    Tile tile = map.fogGrid.PlaceTile(new Vector2(worldX, worldY), "fog");
 
                     // check if the tile would be touching air
                     float northDistance = MathF.Sqrt(worldX * worldX + (worldY - 1) * (worldY - 1));
@@ -97,9 +97,7 @@ public class MapGenerator
 
                     if (northDistance < radius || southDistance < radius || eastDistance < radius || westDistance < radius)
                     {
-                        Sprite sprite = tile.GetComponent<Sprite>();
-
-                        sprite.Color = sprite.Color * 0.5f;
+                        tile.Color = tile.Color * 0.5f;
                     }
                 }
 

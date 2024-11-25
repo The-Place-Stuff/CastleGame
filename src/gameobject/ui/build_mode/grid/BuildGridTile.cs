@@ -10,14 +10,8 @@ using System.Threading.Tasks;
 namespace CastleGame;
 public class BuildGridTile : Tile
 {
-    public BuildGridTile() : base("build_grid_tile")
+    public BuildGridTile() : base("assets/img/null", "build_grid_tile")
     {
-    }
-
-    public override void Load()
-    {
-        Sprite sprite = new Sprite("assets/img/null");
-
         Texture2D texture = new Texture2D(SerpentGame.Instance.GraphicsDevice, 16 * 128, 16 * 128);
         Color[] data = new Color[texture.Width * texture.Height];
 
@@ -35,13 +29,11 @@ public class BuildGridTile : Tile
 
         texture.SetData(data);
 
-        sprite.texture2d = texture;
+        texture2d = texture;
 
-        sprite.Scale = new Vector2(0.5f, 0.5f);
+        Scale = new Vector2(0.5f, 0.5f);
 
-        sprite.Offset = new Vector2(7.8f, 7.8f);
-
-        AddComponent(sprite);
+        Offset = new Vector2(7.8f, 7.8f);
 
         Layer = 2;
     }

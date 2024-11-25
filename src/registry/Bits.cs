@@ -32,7 +32,6 @@ public class Bits : Registry
         .SetDurability(5).SetMineable(Items.Axe())));
 
     public static readonly Func<Bit> Blueprint = Register(() => new Blueprint("blueprint"));
-    public static readonly Func<Bit> Fog = Register(() => new Fog("fog"));
 
     public static readonly Func<Bit> Workbench = Register(() => new Workbench("workbench", new Bit.BitProperties()
         .SetDurability(5).SetMineable(Items.Axe())));

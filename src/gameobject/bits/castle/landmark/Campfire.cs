@@ -29,7 +29,7 @@ public class Campfire : Landmark
 
         Vector2 tilePosition = VectorHelper.Snap(Position, 16);
 
-        Light light = map.lightGrid.GetTileFromGridCoordinates(tilePosition).GetComponent<Light>();
+        LightTile light = map.lightGrid.GetTileFromGridCoordinates(tilePosition) as LightTile;
         light.Color = Color.Black * 0.1f;
 
         // Loop the radius of the campfire
@@ -54,7 +54,7 @@ public class Campfire : Landmark
                     // Farther away from the center, the heigher the multiplier
                     float multiplier = 0.8f + (distance / 5);
 
-                    lightTile.GetComponent<Light>().Color = Color.Black * MathHelper.Clamp(0.15f * multiplier, 0.1f, 0.35f);
+                    lightTile.Color = Color.Black * MathHelper.Clamp(0.15f * multiplier, 0.1f, 0.35f);
                 }
             }
         }
