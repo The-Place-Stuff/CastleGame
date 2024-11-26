@@ -34,16 +34,6 @@ public class Bush : Bit
         base.Load();
     }
 
-    public override void RandomUpdate()
-    {
-        if(GetComponent<StateMachine>().CurrentState.Name != "bush_berries")
-        {
-            Grow();
-        }
-
-        base.RandomUpdate();
-    }
-
     public void Grow()
     {
         GetComponent<StateMachine>().SetState("bush_berries");

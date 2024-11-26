@@ -58,7 +58,7 @@ public class BuildState : GameObjectState
         Vector2 landmarkGridPosition = bitGrid.ConvertWorldCoordinatesToGridCoordinates(landmark.Position);
         Vector2 blueprintPreviewGridPosition = bitGrid.ConvertWorldCoordinatesToGridCoordinates(position);
 
-        Bit bitAtBlueprintPreviewPosition = bitGrid.GetBit(position);
+        Bit bitAtBlueprintPreviewPosition = bitGrid.GetBit(blueprintPreviewGridPosition);
 
         if (bitAtBlueprintPreviewPosition == null)
         {
@@ -87,7 +87,7 @@ public class BuildState : GameObjectState
 
             if (SceneManager.CurrentScene.GetUIElementAt(Input.Mouse.GetNewPosition() / SceneManager.CurrentScene.Camera.UIScale) != null) return;
 
-            if (map.bitGrid.GetBit(position) != null) return;
+            if (map.bitGrid.GetBit(blueprintPreviewGridPosition) != null) return;
 
             if (Vector2.Distance(landmarkGridPosition, blueprintPreviewGridPosition) > landmark.Radius)
             {
@@ -100,7 +100,7 @@ public class BuildState : GameObjectState
 
             map.PathFinder.NodeMap.SetWalkable(map.bitGrid.ConvertWorldCoordinatesToGridCoordinates(position), false);
 
-            map.bitGrid.GetBit(position).Load();
+            map.bitGrid.GetBit(blueprintPreviewGridPosition).Load();
 
             List<Villager> closestVillagersWithLowestGoalCount = player.Castle.Villagers
                 .OrderBy(v => v.GetComponent<GoalManager>().Goals.Count)
@@ -140,17 +140,17 @@ public class BuildState : GameObjectState
         {
             if (SceneManager.CurrentScene.GetUIElementAt(Input.Mouse.GetNewPosition() / SceneManager.CurrentScene.Camera.UIScale) != null) return;
 
-            if (map.bitGrid.GetBit(position) == null) return;
+            if (map.bitGrid.GetBit(blueprintPreviewGridPosition) == null) return;
 
-            Bit bit = map.bitGrid.GetBit(position);
+            Bit bit = map.bitGrid.GetBit(blueprintPreviewGridPosition);
 
             if (bit.Name != Currentblueprint) return;
 
             //DebugGui.Log(map.bitGrid.GetTileFromWorldCoordinates(position).Name + " Removed");
 
-            map.bitGrid.RemoveBit(map.bitGrid.ConvertWorldCoordinatesToGridCoordinates(position));
+            map.bitGrid.RemoveBit(blueprintPreviewGridPosition);
 
-            map.PathFinder.NodeMap.SetWalkable(map.bitGrid.ConvertWorldCoordinatesToGridCoordinates(position), true);
+            map.PathFinder.NodeMap.SetWalkable(blueprintPreviewGridPosition, true);
         }
 
         previousBlueprint = Currentblueprint;

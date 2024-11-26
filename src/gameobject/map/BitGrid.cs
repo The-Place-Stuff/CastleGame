@@ -18,16 +18,22 @@ public class BitGrid
     {
     }
 
-    public void AddBit(Vector2 coordinates, Func<Bit> bitFunc)
+    public Bit AddBit(Vector2 coordinates, Func<Bit> bitFunc)
     {
-        if (Bits.ContainsKey(coordinates)) return;
-
         Bit bit = bitFunc();
         bit.Position = ConvertGridCoordinatesToWorldCoordinates(coordinates);
         bit.Layer = Layer;
 
+        if (Bits.ContainsKey(coordinates))
+        {
+            RemoveBit(coordinates);
+        }
+
         Bits.Add(coordinates, bit);
+
         SceneManager.CurrentScene.AddGameObject(bit);
+
+        return bit;
     }
 
     public void RemoveBit(Vector2 coordinates)
@@ -47,56 +53,56 @@ public class BitGrid
 
     public Bit North(Bit bit)
     {
-        if (!Bits.ContainsKey(ConvertWorldCoordinatesToGridCoordinates(bit.Position) + new Vector2(0, -1))) return null;
+        if (!Bits.ContainsKey(ConvertWorldCoordinatesToGridCoordinates(bit.Position) + new Vector2(0, -1))) return Bit.Empty();
 
         return Bits[ConvertWorldCoordinatesToGridCoordinates(bit.Position) + new Vector2(0, -1)];
     }
 
     public Bit East(Bit bit)
     {
-        if (!Bits.ContainsKey(ConvertWorldCoordinatesToGridCoordinates(bit.Position) + new Vector2(1, 0))) return null;
+        if (!Bits.ContainsKey(ConvertWorldCoordinatesToGridCoordinates(bit.Position) + new Vector2(1, 0))) return Bit.Empty();
 
         return Bits[ConvertWorldCoordinatesToGridCoordinates(bit.Position) + new Vector2(1, 0)];
     }
 
     public Bit West(Bit bit)
     {
-        if (!Bits.ContainsKey(ConvertWorldCoordinatesToGridCoordinates(bit.Position) + new Vector2(-1, 0))) return null;
+        if (!Bits.ContainsKey(ConvertWorldCoordinatesToGridCoordinates(bit.Position) + new Vector2(-1, 0))) return Bit.Empty();
 
         return Bits[ConvertWorldCoordinatesToGridCoordinates(bit.Position) + new Vector2(-1, 0)];
     }
 
     public Bit South(Bit bit)
     {
-        if (!Bits.ContainsKey(ConvertWorldCoordinatesToGridCoordinates(bit.Position) + new Vector2(0, -1))) return null;
+        if (!Bits.ContainsKey(ConvertWorldCoordinatesToGridCoordinates(bit.Position) + new Vector2(0, -1))) return Bit.Empty();
 
         return Bits[ConvertWorldCoordinatesToGridCoordinates(bit.Position) + new Vector2(0, +1)];
     }
 
     public Bit North(Bit bit, int bits)
     {
-        if (!Bits.ContainsKey(ConvertWorldCoordinatesToGridCoordinates(bit.Position) + new Vector2(0, -bits))) return null;
+        if (!Bits.ContainsKey(ConvertWorldCoordinatesToGridCoordinates(bit.Position) + new Vector2(0, -bits))) return Bit.Empty();
 
         return Bits[ConvertWorldCoordinatesToGridCoordinates(bit.Position) + new Vector2(0, -bits)];
     }
 
     public Bit East(Bit bit, int bits)
     {
-        if (!Bits.ContainsKey(ConvertWorldCoordinatesToGridCoordinates(bit.Position) + new Vector2(bits, 0))) return null;
+        if (!Bits.ContainsKey(ConvertWorldCoordinatesToGridCoordinates(bit.Position) + new Vector2(bits, 0))) return Bit.Empty();
 
         return Bits[ConvertWorldCoordinatesToGridCoordinates(bit.Position) + new Vector2(bits, 0)];
     }
 
     public Bit West(Bit bit, int bits)
     {
-        if (!Bits.ContainsKey(ConvertWorldCoordinatesToGridCoordinates(bit.Position) + new Vector2(-bits, 0))) return null;
+        if (!Bits.ContainsKey(ConvertWorldCoordinatesToGridCoordinates(bit.Position) + new Vector2(-bits, 0))) return Bit.Empty();
 
         return Bits[ConvertWorldCoordinatesToGridCoordinates(bit.Position) + new Vector2(-bits, 0)];
     }
 
     public Bit South(Bit bit, int bits)
     {
-        if (!Bits.ContainsKey(ConvertWorldCoordinatesToGridCoordinates(bit.Position) + new Vector2(0, bits))) return null;
+        if (!Bits.ContainsKey(ConvertWorldCoordinatesToGridCoordinates(bit.Position) + new Vector2(0, bits))) return Bit.Empty();
 
         return Bits[ConvertWorldCoordinatesToGridCoordinates(bit.Position) + new Vector2(0, bits)];
     }

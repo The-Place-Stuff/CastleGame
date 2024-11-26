@@ -55,10 +55,7 @@ public class Game : Scene
 
 
     public override void Update()
-    {   
-        base.Update();
-        cursor.Update();
-
+    {
         int farthestNegativeX = 0;
         int farthestNegativeY = 0;
         int farthestPositiveX = 0;
@@ -74,6 +71,11 @@ public class Game : Scene
         }
 
         Camera.Position = Vector2.Clamp(Camera.Position, new Vector2(farthestNegativeX, farthestNegativeY) * 48, new Vector2(farthestPositiveX, farthestPositiveY) * 48);
+
+        cursor.Update();
+
+        base.Update();
+
     }
 
     public override void Draw()

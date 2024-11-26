@@ -21,7 +21,19 @@ public abstract class Goal
 
     public Goal(Vector2 targetPosition, int priority)
     {
-        Target = SceneManager.CurrentScene.GetGameObjectAt(VectorHelper.Snap(targetPosition, 16));
+        List<GameObject> foundGameObjects = SceneManager.CurrentScene.GetGameObjectsAt(VectorHelper.Snap(targetPosition, 16));
+
+        if (foundGameObjects != null)
+        {
+            foreach (GameObject gameObject in foundGameObjects)
+            {
+                if (gameObject is Interactable)
+                {
+                    Target = gameObject;
+                    break;
+                }
+            }
+        }
 
         if (Target == null)
         {

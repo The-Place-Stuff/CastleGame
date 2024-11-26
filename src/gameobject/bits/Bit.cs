@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Tira;
 
-public abstract class Bit : GameObject
+public class Bit : GameObject
 {
     public BitProperties Properties;
 
     private bool destroyHighlight = false;
     private float destroyHighlightTimer = 0;
 
-    public Bit(string name, BitProperties bitProperties)
+    public Bit (string name, BitProperties bitProperties)
     {
         Name = name;
         Properties = bitProperties;
@@ -28,72 +28,6 @@ public abstract class Bit : GameObject
 
         AddComponent(transformationManager);
         AddComponent(health);
-    }
-    
-
-    public void Drop(Func<Drop> drop)
-    {
-        foreach (KeyValuePair<Item, DropProperties> itemEntry in drop().DropSettings.Drops)
-        {
-
-            for (int i = 0; i < itemEntry.Value.Count; i++)
-            {
-
-                int radius = 0;
-                Random random = new Random();
-                Vector2 position = new Vector2(random.Next(-radius, radius + 1), random.Next(-radius, radius + 1));
-                Item item = Items.Get(itemEntry.Key.Name)();
-                float chance = itemEntry.Value.Chance;
-
-                item.Position = Position + position;
-
-                SceneManager.CurrentScene.AddGameObject(item);
-
-            }
-        }
-    }
-
-    public virtual void Hit(float damage)
-    {
-        GetComponent<TransformationManager>().Transform(10);
-        Health health = GetComponent<Health>();
-        health.Decrement(damage);
-
-        SoundPlayer soundPlayer = GetComponent<SoundPlayer>();
-
-        soundPlayer.PlaySound("hit");
-
-        if (health.IsEmpty()) Destroy();
-    }
-
-    public void EnableDestroyHighlight()
-    {
-        destroyHighlight = true;
-    }
-
-    public void DisableDestroyHighlight()
-    {
-        destroyHighlight = false;
-    }
-
-    public void Destroy()
-    {
-        if (Drops.Get(Name) != null)
-        {
-            Drop(Drops.Get(Name));
-        }
-
-        Map map = SceneManager.CurrentScene.GetGameObject<Map>();
-
-        Vector2 gridPosition = map.bitGrid.ConvertWorldCoordinatesToGridCoordinates(Position);
-
-        map.bitGrid.RemoveBit(gridPosition);
-
-        SoundPlayer soundPlayer = GetComponent<SoundPlayer>();
-
-        soundPlayer.PlaySound("destroy");
-        
-        map.PathFinder.NodeMap.SetWalkable(gridPosition, true);
     }
 
     public override void Update()
@@ -116,15 +50,76 @@ public abstract class Bit : GameObject
         base.Update();
     }
 
-    public virtual void TimedUpdate()
+    public virtual void Hit(float damage)
     {
+        GetComponent<TransformationManager>().Transform(10);
+        Health health = GetComponent<Health>();
+        health.Decrement(damage);
 
+        SoundPlayer soundPlayer = GetComponent<SoundPlayer>();
+
+        soundPlayer.PlaySound("hit");
+
+        if (health.IsEmpty()) Destroy();
     }
 
-    public virtual void RandomUpdate()
+    public void Destroy()
     {
+        if (Drops.Get(Name) != null)
+        {
+            Drop(Drops.Get(Name));
+        }
 
+        Map map = SceneManager.CurrentScene.GetGameObject<Map>();
+
+        Vector2 gridPosition = map.bitGrid.ConvertWorldCoordinatesToGridCoordinates(Position);
+
+        map.bitGrid.RemoveBit(gridPosition);
+
+        SoundPlayer soundPlayer = GetComponent<SoundPlayer>();
+
+        soundPlayer.PlaySound("destroy");
+
+        map.PathFinder.NodeMap.SetWalkable(gridPosition, true);
     }
+
+    public void Drop(Func<Drop> drop)
+    {
+        foreach (KeyValuePair<Item, DropProperties> itemEntry in drop().DropSettings.Drops)
+        {
+
+            for (int i = 0; i < itemEntry.Value.Count; i++)
+            {
+                int radius = 0;
+                Random random = new Random();
+                Vector2 position = new Vector2(random.Next(-radius, radius + 1), random.Next(-radius, radius + 1));
+                Item item = Items.Get(itemEntry.Key.Name)();
+                float chance = itemEntry.Value.Chance;
+
+                item.Position = Position + position;
+
+                SceneManager.CurrentScene.AddGameObject(item);
+            }
+        }
+    }
+
+    public void EnableDestroyHighlight()
+    {
+        destroyHighlight = true;
+    }
+
+    public void DisableDestroyHighlight()
+    {
+        destroyHighlight = false;
+    }
+
+    public static Bit Empty() {
+        return new Bit("", new BitProperties());
+    }
+
+    public virtual void OnPlace() { }
+    public virtual void OnDestroy() { }
+    public virtual void RandomTick() { }
 
 
     public class BitProperties
