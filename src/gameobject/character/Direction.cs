@@ -1,4 +1,4 @@
-﻿namespace CastleGame;
+﻿namespace Tira;
 public enum Direction
 {
     North,

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame;
+namespace Tira;
 
 public class CastleGameDebugGui : ImGuiDrawable
 {
@@ -36,7 +36,7 @@ public class CastleGameDebugGui : ImGuiDrawable
     public void MainMenu()
     {
 
-        if (ImGui.Begin("CastleGame"))
+        if (ImGui.Begin("Tira"))
         {
             ImGui.Text("Player Debug: ");
 

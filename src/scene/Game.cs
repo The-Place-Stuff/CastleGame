@@ -4,7 +4,7 @@ using SerpentEngine;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace CastleGame;
+namespace Tira;
 public class Game : Scene
 {
     private Map map;

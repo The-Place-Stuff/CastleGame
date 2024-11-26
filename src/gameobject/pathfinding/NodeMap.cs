@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame;
+namespace Tira;
 public class NodeMap
 {
     private Dictionary<Vector2, Node> grid = new Dictionary<Vector2, Node>();

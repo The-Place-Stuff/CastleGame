@@ -9,7 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace CastleGame;
+namespace Tira;
 public class MovementAI : Component
 {
     public Vector2 PreviousPath { get; private set; } = new Vector2();

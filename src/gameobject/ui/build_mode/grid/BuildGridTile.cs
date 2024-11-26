@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame;
+namespace Tira;
 public class BuildGridTile : Tile
 {
     public BuildGridTile() : base("assets/img/null", "build_grid_tile")

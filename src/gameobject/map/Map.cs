@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace CastleGame;
+namespace Tira;
 public class Map : GameObject
 {
     public static int Seed = 23;

@@ -1,6 +1,6 @@
 ﻿using SerpentEngine;
 
-namespace CastleGame;
+namespace Tira;
 public class VillagerWorkingState : GameObjectState
 {
     public VillagerWorkingState() : base("working")

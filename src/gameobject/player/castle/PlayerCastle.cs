@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame;
+namespace Tira;
 public class PlayerCastle : Component
 {
     public int MaxPopulation { get; private set; } = 0;

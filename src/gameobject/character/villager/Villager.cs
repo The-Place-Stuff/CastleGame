@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame;
+namespace Tira;
 public class Villager : Character
 {
     public Tool Tool { get; set; } = Tool.Empty(); 

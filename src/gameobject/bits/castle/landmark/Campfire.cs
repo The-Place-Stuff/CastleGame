@@ -2,7 +2,7 @@
 using SerpentEngine;
 using System;
 
-namespace CastleGame;
+namespace Tira;
 public class Campfire : Landmark
 {
     private bool tilesLit = false;

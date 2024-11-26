@@ -4,7 +4,7 @@ using System;
 using System.CodeDom;
 using System.Collections.Generic;
 
-namespace CastleGame;
+namespace Tira;
 public abstract class Goal
 {
     public int Priority { get; set; }

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame;
+namespace Tira;
 public class AutomaticBuildBlueprintGoalTree : GoalTree
 {
     public AutomaticBuildBlueprintGoalTree(Vector2 targetPosition, int priority) : base(targetPosition, priority)

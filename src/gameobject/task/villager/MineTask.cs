@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Timers;
 
-namespace CastleGame;
+namespace Tira;
 
 public class MineTask : Task
 {

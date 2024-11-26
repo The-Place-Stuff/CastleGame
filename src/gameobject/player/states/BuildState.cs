@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame;
+namespace Tira;
 public class BuildState : GameObjectState
 {
     public string Currentblueprint = Bits.Workbench().Name;

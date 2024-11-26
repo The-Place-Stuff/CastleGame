@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame;
+namespace Tira;
 public class Tree : Bit, Interactable
 {
     public Tree(string name, BitProperties bitProperties) : base(name, bitProperties)

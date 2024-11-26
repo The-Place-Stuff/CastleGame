@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame;
+namespace Tira;
 public class PathFinder
 {
     public NodeMap NodeMap { get; private set; } = new NodeMap();

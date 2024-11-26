@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame;
+namespace Tira;
 public abstract class VillagerHome : Bit
 {
     public int Population { get { return villagers.Count; } }

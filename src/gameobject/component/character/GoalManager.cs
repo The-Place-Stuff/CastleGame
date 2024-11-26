@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame;
+namespace Tira;
 public class GoalManager : Component
 {
     public Goal CurrentGoal { get; private set; }

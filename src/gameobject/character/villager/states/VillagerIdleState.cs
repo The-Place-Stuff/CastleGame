@@ -3,7 +3,7 @@ using SerpentEngine;
 using System;
 using System.Timers;
 
-namespace CastleGame;
+namespace Tira;
 public class VillagerIdleState : GameObjectState
 {
     private int idleTime = 15;

@@ -1,7 +1,6 @@
 .config
 bin
 obj
-CastleGame.csproj
-CastleGame.csproj
 .vs
-CastleGame.csproj
+Tira.csproj
+Tira.csproj.user

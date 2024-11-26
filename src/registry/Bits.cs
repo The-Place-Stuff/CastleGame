@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame;
+namespace Tira;
 public class Bits : Registry
 {
     public static new Dictionary<string, Func<Bit>> List = new Dictionary<string, Func<Bit>>();

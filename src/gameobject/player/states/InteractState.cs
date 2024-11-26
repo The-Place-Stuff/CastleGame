@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame;
+namespace Tira;
 public class InteractState : GameObjectState
 {
     public List<Character> SelectedCharacters { get; private set; } = new List<Character>();

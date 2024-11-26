@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using SerpentEngine;
 using System.Collections.Generic;
 
-namespace CastleGame
+namespace Tira
 {
     public class Main : SerpentGame
     {

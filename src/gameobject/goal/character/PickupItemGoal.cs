@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame;
+namespace Tira;
 public class PickupItemGoal : Goal
 {
     public PickupItemGoal(Vector2 targetPosition, int priority) : base(targetPosition, priority)

@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace CastleGame;
+namespace Tira;
 public class MapGenerator
 {
     private const int chunkSize = 16;

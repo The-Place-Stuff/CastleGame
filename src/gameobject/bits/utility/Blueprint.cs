@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace CastleGame;
+namespace Tira;
 
 public class Blueprint : Bit, Interactable
 {

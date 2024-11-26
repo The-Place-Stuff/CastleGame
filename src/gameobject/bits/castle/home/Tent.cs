@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CastleGame;
+namespace Tira;
 public class Tent : VillagerHome
 {
     public Tent(string name, int maxPopulation, BitProperties bitProperties) : base(name, maxPopulation, bitProperties)

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using SerpentEngine;
 
-namespace CastleGame;
+namespace Tira;
 
 public abstract class Character : GameObject
 {
