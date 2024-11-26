@@ -15,6 +15,7 @@ namespace Tira
             GraphicsConfig.FULLSCREEN = true;
             GraphicsConfig.VSYNC = true;
             GraphicsConfig.FRAMERATE = 60;
+            GraphicsConfig.BACKGROUND_COLOR = Color.CornflowerBlue;
             IsMouseVisible = false;
             GraphicsConfig.Apply();
 
@@ -39,11 +40,11 @@ namespace Tira
 
 
             // Scene loading
-            Scene game = new Game();
+            Scene main = new MainMenu();
 
-            SceneManager.AddScene(game);
+            SceneManager.AddScene(main);
 
-            SceneManager.SetCurrentScene(game);
+            SceneManager.SetCurrentScene(main);
 
             // Debug GUIs
             ImGuiDrawable debugGui = new DebugGui();
