@@ -15,7 +15,7 @@ namespace Tira
             GraphicsConfig.FULLSCREEN = true;
             GraphicsConfig.VSYNC = true;
             GraphicsConfig.FRAMERATE = 60;
-            GraphicsConfig.BACKGROUND_COLOR = Color.CornflowerBlue;
+            GraphicsConfig.BACKGROUND_COLOR = new Color(142, 205, 5);
             IsMouseVisible = false;
             GraphicsConfig.Apply();
 

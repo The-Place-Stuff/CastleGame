@@ -29,6 +29,7 @@ public class MainMenu : Scene
         cursor.Load();
 
         AddGameObject(new Logo());
+        AddGameObject(new PressStartLabel());
     }
 
 
