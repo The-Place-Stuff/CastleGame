@@ -9,6 +9,7 @@ namespace Tira;
 public class Game : Scene
 {
     public static int CurrentHour = 11;
+    public static int CurrentMinute = 0;
 
     private Map map;
     public static Cursor cursor { get; private set; }
@@ -20,7 +21,7 @@ public class Game : Scene
 
     private RenderTarget2D cursorRenderTarget = new RenderTarget2D(SerpentGame.Instance.GraphicsDevice, GraphicsConfig.SCREEN_WIDTH, GraphicsConfig.SCREEN_HEIGHT);
 
-    private Timer timeOfDayTimer = new Timer(1);
+    private Timer timeOfDayTimer = new Timer(0.016f);
 
     public Game() : base("Game")
     {
@@ -57,81 +58,17 @@ public class Game : Scene
 
     private void UpdateTimeOfDay()
     {
-        CurrentHour++;
+        if (CurrentMinute < 59) CurrentMinute++;
+        else
+        {
+            CurrentMinute = 0;
+            CurrentHour++;
+        }
 
         if (CurrentHour > 23) CurrentHour = 0;
 
-        if (CurrentHour == 0)
-        {
-            Map.AmbientLight = 0.8f;
-            UpdateLightEmitters();
-        }
-
-        if (CurrentHour == 5)
-        {
-            Map.AmbientLight = 0.7f;
-            UpdateLightEmitters();
-        }
-
-        if (CurrentHour == 6)
-        {
-            Map.AmbientLight = 0.6f;
-            UpdateLightEmitters();
-        }
-
-        if (CurrentHour == 7)
-        {
-            Map.AmbientLight = 0.5f;
-            UpdateLightEmitters();
-        }
-
-        if (CurrentHour == 8)
-        {
-            Map.AmbientLight = 0.4f;
-            UpdateLightEmitters();
-        }
-
-        if (CurrentHour == 9)
-        {
-            Map.AmbientLight = 0.3f;
-            UpdateLightEmitters();
-        }
-
-        if (CurrentHour == 10)
-        {
-            Map.AmbientLight = 0.2f;
-            UpdateLightEmitters();
-        }
-
-        if (CurrentHour == 16)
-        {
-            Map.AmbientLight = 0.3f;
-            UpdateLightEmitters();
-        }
-
-        if (CurrentHour == 17)
-        {
-            Map.AmbientLight = 0.4f;
-            UpdateLightEmitters();
-        }
-
-        if (CurrentHour == 18)
-        {
-            Map.AmbientLight = 0.5f;
-            UpdateLightEmitters();
-        }
-
-        if (CurrentHour == 20)
-        {
-            Map.AmbientLight = 0.6f;
-            UpdateLightEmitters();
-        }
-
-        if (CurrentHour == 22)
-        {
-            Map.AmbientLight = 0.7f;
-            UpdateLightEmitters();
-        }
+        Map.AmbientLight = 0.3f * (float)Math.Cos((CurrentMinute + 60 * CurrentHour) / 229.1831f) + 0.5f;
+        UpdateLightEmitters();
     }
 
     private void UpdateLightEmitters()
