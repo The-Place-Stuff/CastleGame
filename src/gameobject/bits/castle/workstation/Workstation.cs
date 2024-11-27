@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Tira;
 
-public class Workstation : Bit
+public class Workstation : Bit, Interactable
 {
 
     public int InventorySize { get; set; } = 3;
@@ -72,5 +72,10 @@ public class Workstation : Bit
         Item result = recipe.RecipeSettings.Output as Item;
         result.Position = new Vector2(Position.X, Position.Y + 16);
         SceneManager.CurrentScene.AddGameObject(result);
+    }
+
+    public Goal GetGoalType(Villager villager)
+    {
+        return new MoveAndAddItemToWorkstationGoalTree(Position, 0);
     }
 }

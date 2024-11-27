@@ -156,6 +156,7 @@ public class BuildState : GameObjectState
         previousBlueprint = Currentblueprint;
     }
 
+
     public override void Exit()
     {
         Sprite sprite = GameObject.GetComponent<Sprite>();
