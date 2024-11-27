@@ -13,6 +13,6 @@ public class LightTile : Tile
 
         Offset = new Vector2(-8, -8);
 
-        Color = Color.Black * 0.5f;
+        Color = new Color(22, 21, 33) * 0.8f;
     }
 }
