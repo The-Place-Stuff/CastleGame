@@ -38,6 +38,8 @@ public class CastleGameDebugGui : ImGuiDrawable
 
         if (ImGui.Begin("Tira"))
         {
+            ImGui.Text("Current Hour: " + Game.CurrentHour);
+
             ImGui.Text("Player Debug: ");
 
             ImGui.SameLine();

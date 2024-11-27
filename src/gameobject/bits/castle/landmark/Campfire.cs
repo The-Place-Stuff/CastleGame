@@ -16,56 +16,9 @@ public class Campfire : Landmark
         AnimationTree animationTree = CreateAndAddComponent<AnimationTree>();
         animationTree.AddAnimation(Bits.GetPath(Name, AssetTypes.Animation), _ =>  true);
 
+        LightEmitter lightEmitter = new LightEmitter(12, 0.1f);
+        AddComponent(lightEmitter);
+
         base.Load();
     }
-
-    public override void Update()
-    {
-        base.Update();
-
-        if (tilesLit) return;
-
-        Map map = SceneManager.CurrentScene.GetGameObject<Map>();
-
-        Vector2 tilePosition = VectorHelper.Snap(Position, 16);
-
-        LightTile light = map.lightGrid.GetTileFromGridCoordinates(tilePosition) as LightTile;
-        light.Color = new Color(22, 21, 33) * 0.1f;
-
-        int radius = 12;
-
-        // Loop the radius of the campfire
-        for (int x = -radius; x <= radius; x++)
-        {
-            for (int y = -radius; y <= radius; y++)
-            {
-                // Make sure its a circle radius
-                if (MathF.Sqrt(x * x + y * y) > radius) continue;
-
-                Vector2 lightTilePosition = new Vector2(tilePosition.X + x, tilePosition.Y + y);
-
-                LightTile lightTile = map.lightGrid.GetTileFromGridCoordinates(lightTilePosition) as LightTile;
-
-                if (lightTile != null)
-                {
-                    Vector2 abs = new Vector2(Math.Abs(x), Math.Abs(y));
-
-                    float distance = MathF.Sqrt(abs.X * abs.X + abs.Y * abs.Y);
-
-                    float baseIntensity = 0.1f;
-                    float minIntensity = 0.8f;
-
-                    float multiplier = 1f - (distance / radius);
-                    multiplier = MathF.Pow(multiplier, 2);
-                    multiplier = MathHelper.Clamp(multiplier, 0f, 1f);
-
-                    lightTile.Color = new Color(22, 21, 33) * (minIntensity + (baseIntensity - minIntensity) * multiplier);
-                }
-            }
-        }
-
-        tilesLit = true;
-    }
-
-
 }

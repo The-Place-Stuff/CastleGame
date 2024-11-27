@@ -1,12 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SerpentEngine;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace Tira;
 public class Game : Scene
 {
+    public static int CurrentHour = 11;
+
     private Map map;
     public static Cursor cursor { get; private set; }
     public Player player = new Player();
@@ -16,6 +19,8 @@ public class Game : Scene
     public BuildGrid buildGrid = new BuildGrid();
 
     private RenderTarget2D cursorRenderTarget = new RenderTarget2D(SerpentGame.Instance.GraphicsDevice, GraphicsConfig.SCREEN_WIDTH, GraphicsConfig.SCREEN_HEIGHT);
+
+    private Timer timeOfDayTimer = new Timer(1);
 
     public Game() : base("Game")
     {
@@ -45,7 +50,101 @@ public class Game : Scene
 
     public override void Begin()
     {
-        
+        timeOfDayTimer.Loop = true;
+        timeOfDayTimer.OnTimeout += UpdateTimeOfDay;
+        timeOfDayTimer.Enabled = true;
+    }
+
+    private void UpdateTimeOfDay()
+    {
+        CurrentHour++;
+
+        if (CurrentHour > 23) CurrentHour = 0;
+
+        if (CurrentHour == 0)
+        {
+            Map.AmbientLight = 0.8f;
+            UpdateLightEmitters();
+        }
+
+        if (CurrentHour == 5)
+        {
+            Map.AmbientLight = 0.7f;
+            UpdateLightEmitters();
+        }
+
+        if (CurrentHour == 6)
+        {
+            Map.AmbientLight = 0.6f;
+            UpdateLightEmitters();
+        }
+
+        if (CurrentHour == 7)
+        {
+            Map.AmbientLight = 0.5f;
+            UpdateLightEmitters();
+        }
+
+        if (CurrentHour == 8)
+        {
+            Map.AmbientLight = 0.4f;
+            UpdateLightEmitters();
+        }
+
+        if (CurrentHour == 9)
+        {
+            Map.AmbientLight = 0.3f;
+            UpdateLightEmitters();
+        }
+
+        if (CurrentHour == 10)
+        {
+            Map.AmbientLight = 0.2f;
+            UpdateLightEmitters();
+        }
+
+        if (CurrentHour == 16)
+        {
+            Map.AmbientLight = 0.3f;
+            UpdateLightEmitters();
+        }
+
+        if (CurrentHour == 17)
+        {
+            Map.AmbientLight = 0.4f;
+            UpdateLightEmitters();
+        }
+
+        if (CurrentHour == 18)
+        {
+            Map.AmbientLight = 0.5f;
+            UpdateLightEmitters();
+        }
+
+        if (CurrentHour == 20)
+        {
+            Map.AmbientLight = 0.6f;
+            UpdateLightEmitters();
+        }
+
+        if (CurrentHour == 22)
+        {
+            Map.AmbientLight = 0.7f;
+            UpdateLightEmitters();
+        }
+    }
+
+    private void UpdateLightEmitters()
+    {
+        foreach (Bit bit in map.bitGrid.Bits.Values)
+        {
+            if (bit is Campfire == false) continue;
+
+            Campfire campfire = bit as Campfire;
+
+            LightEmitter lightEmitter = campfire.GetComponent<LightEmitter>();
+            lightEmitter.SetLight();
+        }
     }
 
     public override void End()
@@ -56,6 +155,8 @@ public class Game : Scene
 
     public override void Update()
     {
+        timeOfDayTimer.Update();
+
         int farthestNegativeX = 0;
         int farthestNegativeY = 0;
         int farthestPositiveX = 0;

@@ -32,11 +32,6 @@ public class MapGenerator
 
         Debug.WriteLine("Generating map, seed: " + Map.Seed);
 
-        map.bitGrid.AddBit(new Vector2(0, 0), Bits.Campfire);
-
-        map.bitGrid.AddBit(new Vector2(2, 0), Bits.Tent);
-        map.bitGrid.AddBit(new Vector2(-2, 0), Bits.Tent);
-
         int radius = 25;
         int clearingRadius = 10;
 

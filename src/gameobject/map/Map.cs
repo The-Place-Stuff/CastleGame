@@ -7,6 +7,8 @@ using System.Diagnostics;
 namespace Tira;
 public class Map : GameObject
 {
+    public static float AmbientLight = 0.2f;
+
     public static int Seed = 23;
     public static Vector2 WorldSize = new Vector2(100, 100);
 
@@ -58,6 +60,13 @@ public class Map : GameObject
                 MapGenerator.GenerateChunk(this, x, y);
             }
         }
+
+        bitGrid.AddBit(new Vector2(0, 0), Bits.Campfire);
+
+        //bitGrid.AddBit(new Vector2(0, 6), Bits.Campfire);
+
+        bitGrid.AddBit(new Vector2(2, 0), Bits.Tent);
+        bitGrid.AddBit(new Vector2(-2, 0), Bits.Tent);
 
 
         PathFinder = new PathFinder();
