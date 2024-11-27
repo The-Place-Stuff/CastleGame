@@ -19,5 +19,7 @@ public class PressStartLabel : GameObject
         Position = Position + new Vector2(-60, 40);
 
         base.Load();
+
+        
     }
 }
