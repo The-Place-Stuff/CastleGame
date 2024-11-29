@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using SerpentEngine;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,13 @@ namespace Tira;
 
 public class Cursor : GameObject
 {
+    private bool isSelecting = false;
+    private Vector2 selectionStart;
+    private Vector2 selectionEnd;
+
+    private Rectangle selectionRectangle;
+    private Texture2D selectionTexture;
+
     public Cursor()
     {
 
@@ -53,7 +61,69 @@ public class Cursor : GameObject
 
         Position = worldPosition + offset;
 
+        // Box selection
+        if (Input.Mouse.LeftClickHold())
+        {
+            if (!isSelecting)
+            {
+                selectionStart = worldPosition;
+                isSelecting = true;
+            }
+
+            selectionEnd = worldPosition;
+
+            int startX = Math.Min((int)selectionStart.X, (int)selectionEnd.X);
+            int startY = Math.Min((int)selectionStart.Y, (int)selectionEnd.Y);
+            int endX = Math.Max((int)selectionStart.X, (int)selectionEnd.X);
+            int endY = Math.Max((int)selectionStart.Y, (int)selectionEnd.Y);
+
+            int width = endX - startX;
+            int height = endY - startY;
+
+            if (width <= 0 || height <= 0) return;
+
+            selectionRectangle = new Rectangle(startX, startY, width, height);
+
+            Texture2D texture = new Texture2D(SerpentGame.Instance.GraphicsDevice, width, height);
+
+            Color[] data = new Color[width * height];
+
+            for (int i = 0; i < data.Length; i++) data[i] = Color.Transparent;
+
+            for (int x = 0; x < width; x++)
+            {
+                data[x] = Color.White; // Top border
+                data[x + width * (height - 1)] = Color.White; // Bottom border
+            }
+
+            for (int y = 0; y < height; y++)
+            {
+                data[y * width] = Color.White; // Left border
+                data[y * width + width - 1] = Color.White; // Right border
+            }
+
+            texture.SetData(data);
+            selectionTexture = texture;
+        }
+        else
+        {
+            if (isSelecting)
+            {
+                isSelecting = false;
+
+                selectionRectangle = Rectangle.Empty;
+            }
+        }
+
         base.Update();
     }
 
+    public override void Draw()
+    {
+        base.Draw();
+
+        if (!isSelecting || selectionTexture == null) return;
+
+        SerpentEngine.Draw.SpriteBatch.Draw(selectionTexture, selectionRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0);
+    }
 }
