@@ -62,6 +62,15 @@ public class VillagerIdleState : GameObjectState
 
             });
 
+            moveGoal.OnFailure(() =>
+            {
+                busy = false;
+
+                timer.WaitTime = random.Next(5, 15);
+
+                timer.Enabled = true;
+            });
+
             (GameObject as Villager).AddGoal(moveGoal);
         }
     }
