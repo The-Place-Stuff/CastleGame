@@ -62,7 +62,7 @@ public class Cursor : GameObject
         Position = worldPosition + offset;
 
         // Box selection
-        if (Input.Mouse.LeftClickHold())
+        if (Input.Mouse.LeftClickHold() && SceneManager.CurrentScene is Game)
         {
             if (!isSelecting)
             {
@@ -111,6 +111,16 @@ public class Cursor : GameObject
             {
                 isSelecting = false;
 
+                Map map = SceneManager.CurrentScene.GetGameObject<Map>();
+                Player player = SceneManager.CurrentScene.GetGameObject<Player>();
+
+                foreach (Villager villager in player.Castle.Villagers)
+                {
+                    if (selectionRectangle.Contains(villager.Position))
+                    {
+                        villager.OnClick();
+                    }
+                }
                 selectionRectangle = Rectangle.Empty;
             }
         }

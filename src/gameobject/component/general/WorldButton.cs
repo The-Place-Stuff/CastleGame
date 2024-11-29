@@ -15,8 +15,6 @@ public class WorldButton : Button
 
     public WorldButton(Vector2 size) : base(size)
     {
-
-
     }
 
     public override void CheckClick()
