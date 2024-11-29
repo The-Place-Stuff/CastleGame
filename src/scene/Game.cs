@@ -21,7 +21,7 @@ public class Game : Scene
 
     private RenderTarget2D cursorRenderTarget = new RenderTarget2D(SerpentGame.Instance.GraphicsDevice, GraphicsConfig.SCREEN_WIDTH, GraphicsConfig.SCREEN_HEIGHT);
 
-    private Timer timeOfDayTimer = new Timer(0.016f);
+    private Timer timeOfDayTimer = new Timer(1f);
 
     public Game() : base("Game")
     {

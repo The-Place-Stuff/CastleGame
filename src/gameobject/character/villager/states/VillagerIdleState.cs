@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SerpentEngine;
 using System;
-using System.Timers;
 
 namespace Tira;
 public class VillagerIdleState : GameObjectState
@@ -12,7 +11,7 @@ public class VillagerIdleState : GameObjectState
 
     private Random random = new Random();
 
-    private System.Timers.Timer timer;
+    private Timer timer;
 
     public VillagerIdleState() : base("idle")
     {
@@ -24,12 +23,12 @@ public class VillagerIdleState : GameObjectState
 
         idleTime = random.Next(5, 15);
 
-        timer = new System.Timers.Timer(idleTime * 1000);
-        timer.Elapsed += IdleTimeEnd;
+        timer = new Timer(idleTime);
+        timer.OnTimeout += IdleTimeEnd;
         timer.Enabled = true;
     }
 
-    public void IdleTimeEnd(object sender, ElapsedEventArgs e)
+    public void IdleTimeEnd()
     {
         if (!busy)
         {
@@ -52,16 +51,24 @@ public class VillagerIdleState : GameObjectState
             MoveToGoal moveGoal = new MoveToGoal(randomPosition, 0);
 
             busy = true;
-            timer.Enabled = false;
 
             moveGoal.OnFinish(() =>
             {
                 busy = false;
 
-                timer.Interval = random.Next(5, 15) * 1000;
+                timer.WaitTime = random.Next(5, 15);
 
                 timer.Enabled = true;
 
+            });
+
+            moveGoal.OnFailure(() =>
+            {
+                busy = false;
+
+                timer.WaitTime = random.Next(5, 15);
+
+                timer.Enabled = true;
             });
 
             (GameObject as Villager).AddGoal(moveGoal);
@@ -70,6 +77,8 @@ public class VillagerIdleState : GameObjectState
 
     public override void Update()
     {
+        timer.Update();
+
         Villager villager = GameObject as Villager;
 
         Random random = new Random();
