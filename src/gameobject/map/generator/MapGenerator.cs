@@ -30,35 +30,36 @@ public class MapGenerator
         clearingNoise.SetFractalLacunarity(2.0f);
         clearingNoise.SetFractalGain(0.5f);
 
-        Debug.WriteLine("Generating map, seed: " + Map.Seed);
+        Debug.WriteLine("Generating map chunk, seed: " + Map.Seed);
 
         int radius = 25;
         int clearingRadius = 10;
 
+        map.chunks.Add(new Vector2(chunkX, chunkY), new Chunk(chunkX, chunkY));
+
         // Generate the center forest
-
-        if (chunkX == 0 && chunkY == 0)
+        for (int x = 0; x < chunkSize; x++)
         {
-            for (int x = -radius; x < radius; x++)
+            for (int y = 0; y < chunkSize; y++)
             {
-                for (int y = -radius; y < radius; y++)
-                {
-                    float distance = MathF.Sqrt(x * x + y * y);
+                int worldX = chunkX * chunkSize + x;
+                int worldY = chunkY * chunkSize + y;
 
-                    if (distance > radius) continue;
-                    if (distance < clearingRadius) continue;
+                float distance = MathF.Sqrt(worldX * worldX + worldY * worldY);
 
-                    int treeXOffset = random.Next(-1, 1);
-                    int treeYOffset = random.Next(-1, 1);
+                if (distance > radius) continue;
+                if (distance < clearingRadius) continue;
 
-                    int randomInt = random.Next(0, 10);
+                //int treeXOffset = random.Next(-1, 1);
+               // int treeYOffset = random.Next(-1, 1);
 
-                    if (randomInt == 0) continue;
+                int randomInt = random.Next(0, 10);
 
-                    Vector2 treePosition = new Vector2(x + treeXOffset, y + treeYOffset);
+                if (randomInt == 0) continue;
 
-                    map.bitGrid.AddBit(treePosition, Bits.Tree);
-                }
+                Vector2 treePosition = new Vector2(worldX, worldY);
+
+                BitGrid.AddBit(treePosition, Bits.Tree);
             }
         }
 
@@ -98,16 +99,16 @@ public class MapGenerator
 
                 if (forestValue > 0.1f && clearingValue < 0.1f)
                 {
-                    int treeXOffset = random.Next(-1, 1);
-                    int treeYOffset = random.Next(-1, 1);
+                    //int treeXOffset = random.Next(-1, 1);
+                    //int treeYOffset = random.Next(-1, 1);
 
                     int randomInt = random.Next(0, 10);
 
                     if (randomInt == 0) continue;
 
-                    Vector2 treePosition = new Vector2(worldX + treeXOffset, worldY + treeYOffset);
+                    Vector2 treePosition = new Vector2(worldX, worldY);
 
-                    map.bitGrid.AddBit(treePosition, Bits.Tree);
+                    BitGrid.AddBit(treePosition, Bits.Tree);
                 }
 
                 if (forestValue < 0.3f)
@@ -118,7 +119,7 @@ public class MapGenerator
 
                     Vector2 bushPosition = new Vector2(worldX, worldY);
 
-                    map.bitGrid.AddBit(bushPosition, Bits.Bush);
+                    BitGrid.AddBit(bushPosition, Bits.Bush);
                 }
 
                 if (forestValue < 0.4f)
@@ -129,11 +130,9 @@ public class MapGenerator
 
                     Vector2 rockPosition = new Vector2(worldX, worldY);
 
-                    map.bitGrid.AddBit(rockPosition, Bits.Rock);
+                    BitGrid.AddBit(rockPosition, Bits.Rock);
                 }
             }
         }
-
-        map.chunks.Add((chunkX, chunkY), new Chunk(chunkX, chunkY));
     }
 }

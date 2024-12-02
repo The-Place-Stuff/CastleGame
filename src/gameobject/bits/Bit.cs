@@ -72,9 +72,9 @@ public class Bit : GameObject
 
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
 
-        Vector2 gridPosition = map.bitGrid.ConvertWorldCoordinatesToGridCoordinates(Position);
+        Vector2 gridPosition = BitGrid.ConvertWorldCoordinatesToGridCoordinates(Position);
 
-        map.bitGrid.RemoveBit(gridPosition);
+        BitGrid.RemoveBit(gridPosition);
 
         SoundPlayer soundPlayer = GetComponent<SoundPlayer>();
 

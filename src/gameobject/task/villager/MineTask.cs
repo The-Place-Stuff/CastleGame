@@ -59,9 +59,8 @@ public class MineTask : Task
     public override void Update()
     {
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();   
-        BitGrid bitGrid = map.bitGrid;
 
-        Bit bit = bitGrid.Bits[Target.Position];
+        Bit bit = BitGrid.GetBit(BitGrid.ConvertWorldCoordinatesToGridCoordinates(Target.Position));
 
         if (bit is Bit == false)
         {

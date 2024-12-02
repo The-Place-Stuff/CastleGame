@@ -1,56 +1,55 @@
 ﻿using Microsoft.Xna.Framework;
 using SerpentEngine;
+using SharpDX.Direct2D1;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Tira;
 
-public class BitGrid
+public static class BitGrid
 {
-    public int Layer { get; set; } = 0;
-    public int TileSize { get; set; } = 16;
-    public Dictionary<Vector2, Bit> Bits { get; private set; } = new Dictionary<Vector2, Bit>();
-
-    public BitGrid()
+    public static Bit AddBit(Vector2 coordinates, Func<Bit> bitFunc)
     {
-    }
+        Chunk chunk = GetChunkFromBitPosition(coordinates);
 
-    public Bit AddBit(Vector2 coordinates, Func<Bit> bitFunc)
-    {
-        Bit bit = bitFunc();
-        bit.Position = ConvertGridCoordinatesToWorldCoordinates(coordinates);
-        bit.Layer = Layer;
-
-        if (Bits.ContainsKey(coordinates))
-        {
-            RemoveBit(coordinates);
-        }
-
-        Bits.Add(coordinates, bit);
-
-        SceneManager.CurrentScene.AddGameObject(bit);
+        Bit bit = chunk.AddBit(coordinates, bitFunc);
 
         return bit;
     }
 
-    public void RemoveBit(Vector2 coordinates)
+    public static void RemoveBit(Vector2 coordinates)
     {
-        if (!Bits.ContainsKey(coordinates)) return;
+        Chunk chunk = GetChunkFromBitPosition(coordinates);
 
-        SceneManager.CurrentScene.Remove(Bits[coordinates]);
-        Bits.Remove(coordinates);
+        chunk.RemoveBit(coordinates);
     }
 
-    public Bit GetBit(Vector2 coordinates)
+    public static Bit GetBit(Vector2 coordinates)
     {
-        if (!Bits.ContainsKey(coordinates)) return null;
+        Chunk chunk = GetChunkFromBitPosition(coordinates);
 
-        return Bits[coordinates];
+        return chunk.GetBit(coordinates);
     }
 
+    private static Chunk GetChunkFromBitPosition(Vector2 bitPosition)
+    {
+        int chunkX = (int)MathF.Floor(bitPosition.X / 16);
+        int chunkY = (int)MathF.Floor(bitPosition.Y / 16);
+
+        Vector2 position = new Vector2(chunkX, chunkY);
+
+        Map map = SceneManager.CurrentScene.GetGameObject<Map>();
+
+        if (!map.chunks.ContainsKey(position)) return null;
+
+        return map.chunks[position];
+    }
+
+    /*
     public Bit North(Bit bit)
     {
         if (!Bits.ContainsKey(ConvertWorldCoordinatesToGridCoordinates(bit.Position) + new Vector2(0, -1))) return Bit.Empty();
@@ -106,16 +105,16 @@ public class BitGrid
 
         return GetBit(ConvertWorldCoordinatesToGridCoordinates(bit.Position) + new Vector2(0, bits));
     }
+    */
 
-
-    public Vector2 ConvertWorldCoordinatesToGridCoordinates(Vector2 worldCoordinates)
+    public static Vector2 ConvertWorldCoordinatesToGridCoordinates(Vector2 worldCoordinates)
     {
-        return new Vector2((int)(worldCoordinates.X / TileSize), (int)(worldCoordinates.Y / TileSize));
+        return new Vector2((int)(worldCoordinates.X / 16), (int)(worldCoordinates.Y / 16));
     }
 
-    public Vector2 ConvertGridCoordinatesToWorldCoordinates(Vector2 gridCoordinates)
+    public static  Vector2 ConvertGridCoordinatesToWorldCoordinates(Vector2 gridCoordinates)
     {
-        return new Vector2(gridCoordinates.X * TileSize, gridCoordinates.Y * TileSize);
+        return new Vector2(gridCoordinates.X * 16, gridCoordinates.Y * 16);
     }
 
 

@@ -68,7 +68,7 @@ public class Blueprint : Bit, Interactable
     {
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
 
-        map.bitGrid.AddBit(map.bitGrid.ConvertWorldCoordinatesToGridCoordinates(Position), Bits.List[Type]);
+        BitGrid.AddBit(BitGrid.ConvertWorldCoordinatesToGridCoordinates(Position), Bits.List[Type]);
 
         SoundPlayer soundPlayer = GetComponent<SoundPlayer>();
         soundPlayer.PlaySound("build");

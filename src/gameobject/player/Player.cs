@@ -18,9 +18,8 @@ public class Player : GameObject
     {
         // Castle Initialization
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
-        BitGrid bitgrid = map.bitGrid;
 
-        Campfire campfire = bitgrid.GetBit(new Vector2(0, 0)) as Campfire;
+        Campfire campfire = BitGrid.GetBit(new Vector2(0, 0)) as Campfire;
 
         Castle = new PlayerCastle(campfire); AddComponent(Castle);
 

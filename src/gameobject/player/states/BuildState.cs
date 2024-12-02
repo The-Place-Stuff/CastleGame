@@ -53,12 +53,10 @@ public class BuildState : GameObjectState
 
         Landmark landmark = player.Castle.Landmark;
 
-        BitGrid bitGrid = map.bitGrid;
+        Vector2 landmarkGridPosition = BitGrid.ConvertWorldCoordinatesToGridCoordinates(landmark.Position);
+        Vector2 blueprintPreviewGridPosition = BitGrid.ConvertWorldCoordinatesToGridCoordinates(position);
 
-        Vector2 landmarkGridPosition = bitGrid.ConvertWorldCoordinatesToGridCoordinates(landmark.Position);
-        Vector2 blueprintPreviewGridPosition = bitGrid.ConvertWorldCoordinatesToGridCoordinates(position);
-
-        Bit bitAtBlueprintPreviewPosition = bitGrid.GetBit(blueprintPreviewGridPosition);
+        Bit bitAtBlueprintPreviewPosition = BitGrid.GetBit(blueprintPreviewGridPosition);
 
         if (bitAtBlueprintPreviewPosition == null)
         {
@@ -87,7 +85,7 @@ public class BuildState : GameObjectState
 
             if (SceneManager.CurrentScene.GetUIElementAt(Input.Mouse.GetNewPosition() / SceneManager.CurrentScene.Camera.UIScale) != null) return;
 
-            if (map.bitGrid.GetBit(blueprintPreviewGridPosition) != null) return;
+            if (BitGrid.GetBit(blueprintPreviewGridPosition) != null) return;
 
             if (Vector2.Distance(landmarkGridPosition, blueprintPreviewGridPosition) > landmark.Radius)
             {
@@ -96,11 +94,11 @@ public class BuildState : GameObjectState
 
             Blueprint blueprint = Bits.Blueprint() as Blueprint;
 
-            map.bitGrid.AddBit(map.bitGrid.ConvertWorldCoordinatesToGridCoordinates(position), ()=> blueprint);
+            BitGrid.AddBit(BitGrid.ConvertWorldCoordinatesToGridCoordinates(position), ()=> blueprint);
 
-            map.PathFinder.NodeMap.SetWalkable(map.bitGrid.ConvertWorldCoordinatesToGridCoordinates(position), false);
+            map.PathFinder.NodeMap.SetWalkable(BitGrid.ConvertWorldCoordinatesToGridCoordinates(position), false);
 
-            map.bitGrid.GetBit(blueprintPreviewGridPosition).Load();
+            BitGrid.GetBit(blueprintPreviewGridPosition).Load();
 
             List<Villager> closestVillagersWithLowestGoalCount = player.Castle.Villagers
                 .OrderBy(v => v.GetComponent<GoalManager>().Goals.Count)
@@ -140,13 +138,13 @@ public class BuildState : GameObjectState
         {
             if (SceneManager.CurrentScene.GetUIElementAt(Input.Mouse.GetNewPosition() / SceneManager.CurrentScene.Camera.UIScale) != null) return;
 
-            Bit bit = map.bitGrid.GetBit(blueprintPreviewGridPosition);
+            Bit bit = BitGrid.GetBit(blueprintPreviewGridPosition);
 
             if (bit == null || bit is Blueprint == false) return;
 
             if (bit.Name != Currentblueprint) return;
 
-            map.bitGrid.RemoveBit(blueprintPreviewGridPosition);
+            BitGrid.RemoveBit(blueprintPreviewGridPosition);
 
             map.PathFinder.NodeMap.SetWalkable(blueprintPreviewGridPosition, true);
         }

@@ -7,22 +7,18 @@ using System.Diagnostics;
 namespace Tira;
 public class Map : GameObject
 {
-    public static float AmbientLight = 0.2f;
+    public static float AmbientLight = 0.1f;
 
     public static int Seed = 23;
     public static Vector2 WorldSize = new Vector2(100, 100);
 
     public Sprite terrainBackground = new Sprite("assets/img/tiles/grass");
 
-    public BitGrid bitGrid = new BitGrid();
-
-    public BitGrid blueprintGrid = new BitGrid();
-
     public TileGrid fogGrid = new TileGrid(new Vector2(16, 16));
 
     public TileGrid lightGrid = new TileGrid(new Vector2(16, 16));
 
-    public Dictionary<(int, int), Chunk> chunks = new Dictionary<(int, int), Chunk>();
+    public Dictionary<Vector2, Chunk> chunks = new Dictionary<Vector2, Chunk>();
 
     public PathFinder PathFinder { get; private set; }
 
@@ -30,10 +26,6 @@ public class Map : GameObject
     {
         terrainBackground.Scale = new Vector2(1000, 1000);
         AddComponent(terrainBackground);
-
-        bitGrid.Layer = 1;
-
-        blueprintGrid.Layer = 2;
         
         TileSet fogTileSet = new TileSet();
         fogTileSet.AddBySpritePath("fog", "assets/img/tiles/fog");
@@ -61,14 +53,34 @@ public class Map : GameObject
             }
         }
 
-        bitGrid.AddBit(new Vector2(0, 0), Bits.Campfire);
+        BitGrid.AddBit(new Vector2(0, 0), Bits.Campfire);
 
-        //bitGrid.AddBit(new Vector2(0, 6), Bits.Campfire);
+        //BitGrid.AddBit(new Vector2(0, 6), Bits.Campfire);
 
-        bitGrid.AddBit(new Vector2(2, 0), Bits.Tent);
-        bitGrid.AddBit(new Vector2(-2, 0), Bits.Tent);
+        BitGrid.AddBit(new Vector2(2, 0), Bits.Tent);
+        BitGrid.AddBit(new Vector2(-2, 0), Bits.Tent);
 
 
         PathFinder = new PathFinder();
+    }
+
+    public override void Update()
+    {
+        base.Update();
+
+        foreach (Chunk chunk in chunks.Values)
+        {
+            chunk.Update();
+        }
+    }
+
+    public override void Draw()
+    {
+        base.Draw();
+
+        foreach (Chunk chunk in chunks.Values)
+        {
+            chunk.Draw();
+        }
     }
 }

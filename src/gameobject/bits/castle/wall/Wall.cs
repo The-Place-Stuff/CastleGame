@@ -78,10 +78,11 @@ public class Wall : Bit
         StateMachine stateMachine = GetComponent<StateMachine>();
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
 
-        string north = map.bitGrid.North(this).Name;
-        string west = map.bitGrid.West(this).Name;
-        string south = map.bitGrid.South(this).Name;
-        string east = map.bitGrid.East(this).Name;
+        /*
+        string north = BitGrid.North(this).Name;
+        string west = BitGrid.West(this).Name;
+        string south = BitGrid.South(this).Name;
+        string east = BitGrid.East(this).Name;
 
         if(north == Name && west == Name && south == Name && east == Name)
         {
@@ -137,7 +138,7 @@ public class Wall : Bit
             stateMachine.SetState(single.Name);
         }
 
-
+        */
 
 
     }

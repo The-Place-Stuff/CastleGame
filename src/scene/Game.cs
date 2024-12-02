@@ -73,14 +73,17 @@ public class Game : Scene
 
     private void UpdateLightEmitters()
     {
-        foreach (Bit bit in map.bitGrid.Bits.Values)
+        foreach (Chunk chunk in map.chunks.Values)
         {
-            if (bit is Campfire == false) continue;
+            foreach (Bit bit in chunk.Bits.Values)
+            {
+                if (bit is Campfire == false) continue;
 
-            Campfire campfire = bit as Campfire;
+                Campfire campfire = bit as Campfire;
 
-            LightEmitter lightEmitter = campfire.GetComponent<LightEmitter>();
-            lightEmitter.SetLight();
+                LightEmitter lightEmitter = campfire.GetComponent<LightEmitter>();
+                lightEmitter.SetLight();
+            }
         }
     }
 

@@ -61,11 +61,10 @@ public class PlayerCastle : Component
     public List<Bit> GetObjectsInRadius()
     {
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
-        BitGrid bitGrid = map.bitGrid;
 
         List<Bit> bitsInRadius = new List<Bit>();
 
-        Vector2 landmarkGridPostion = bitGrid.ConvertWorldCoordinatesToGridCoordinates(Landmark.Position);
+        Vector2 landmarkGridPostion = BitGrid.ConvertWorldCoordinatesToGridCoordinates(Landmark.Position);
         
         float radiusSquared = Landmark.Radius * Landmark.Radius;
 
@@ -80,7 +79,7 @@ public class PlayerCastle : Component
             {
                 Vector2 gridPosition = new Vector2(x, y);
 
-                Bit bit = bitGrid.GetBit(gridPosition) as Bit;
+                Bit bit = BitGrid.GetBit(gridPosition) as Bit;
 
                 if (bit == null) continue;
 
@@ -99,13 +98,12 @@ public class PlayerCastle : Component
     public bool IsObjectInRadius(Bit bit)
     {
         Map map = SceneManager.CurrentScene.GetGameObject<Map>();
-        BitGrid bitGrid = map.bitGrid;
 
-        Vector2 landmarkGridPostion = bitGrid.ConvertWorldCoordinatesToGridCoordinates(Landmark.Position);
+        Vector2 landmarkGridPostion = BitGrid.ConvertWorldCoordinatesToGridCoordinates(Landmark.Position);
 
         float radiusSquared = Landmark.Radius * Landmark.Radius;
 
-        Vector2 gridPosition = bitGrid.ConvertWorldCoordinatesToGridCoordinates(bit.Position);
+        Vector2 gridPosition = BitGrid.ConvertWorldCoordinatesToGridCoordinates(bit.Position);
 
         float distanceSquared = Vector2.DistanceSquared(landmarkGridPostion, gridPosition);
 
