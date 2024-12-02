@@ -50,16 +50,30 @@ public class MapGenerator
                 if (distance > radius) continue;
                 if (distance < clearingRadius) continue;
 
-                //int treeXOffset = random.Next(-1, 1);
-               // int treeYOffset = random.Next(-1, 1);
+                int treeXOffset = random.Next(-1, 1);
+                int treeYOffset = random.Next(-1, 1);
 
                 int randomInt = random.Next(0, 10);
 
                 if (randomInt == 0) continue;
 
                 Vector2 treePosition = new Vector2(worldX, worldY);
+                Vector2 treePositionOffset = new Vector2(worldX + treeXOffset, worldY + treeYOffset);
 
-                BitGrid.AddBit(treePosition, Bits.Tree);
+                bool useOffset = true;
+
+                // Check if the tree position with offset is outside the chunk
+                if (treePositionOffset.X < chunkX * chunkSize || treePositionOffset.X >= (chunkX + 1) * chunkSize) useOffset = false;
+                if (treePositionOffset.Y < chunkY * chunkSize || treePositionOffset.Y >= (chunkY + 1) * chunkSize) useOffset = false;
+
+                if (useOffset)
+                {
+                    BitGrid.AddBit(treePositionOffset, Bits.Tree);
+                }
+                else
+                {
+                    BitGrid.AddBit(treePosition, Bits.Tree);
+                }
             }
         }
 
