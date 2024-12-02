@@ -140,13 +140,11 @@ public class BuildState : GameObjectState
         {
             if (SceneManager.CurrentScene.GetUIElementAt(Input.Mouse.GetNewPosition() / SceneManager.CurrentScene.Camera.UIScale) != null) return;
 
-            if (map.bitGrid.GetBit(blueprintPreviewGridPosition) == null) return;
-
             Bit bit = map.bitGrid.GetBit(blueprintPreviewGridPosition);
 
-            if (bit.Name != Currentblueprint) return;
+            if (bit == null || bit is Blueprint == false) return;
 
-            //DebugGui.Log(map.bitGrid.GetTileFromWorldCoordinates(position).Name + " Removed");
+            if (bit.Name != Currentblueprint) return;
 
             map.bitGrid.RemoveBit(blueprintPreviewGridPosition);
 
