@@ -36,6 +36,15 @@ public class Cursor : GameObject
 
     public override void Update()
     {
+
+        Vector2 worldPosition = Input.Mouse.GetWorldPosition();
+
+        Vector2 offset = new Vector2(2f, 5f);
+
+        Position = worldPosition + offset;
+
+        if (SceneManager.CurrentScene.Paused) return;
+
         //Camera zoom
         int scrollValue = Input.Mouse.GetMouseWheelChange();
 
@@ -54,12 +63,6 @@ public class Cursor : GameObject
 
             SceneManager.CurrentScene.Camera.Translate(zoomTranslation);
         }
-
-        Vector2 worldPosition = Input.Mouse.GetWorldPosition();
-
-        Vector2 offset = new Vector2(2f, 5f);
-
-        Position = worldPosition + offset;
 
         // Box selection
         if (Input.Mouse.LeftClickHold() && SceneManager.CurrentScene is Game)
