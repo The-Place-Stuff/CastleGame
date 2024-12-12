@@ -40,9 +40,7 @@ namespace Tira
 
 
             // Scene loading
-            Scene main = new MainMenu();
-
-            SceneManager.AddScene(main);
+            Scene main = new MainMenu();            
 
             SceneManager.SetCurrentScene(main);
 

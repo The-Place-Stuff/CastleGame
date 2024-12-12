@@ -51,8 +51,7 @@ public class MainMenu : Scene
         if (Input.Keyboard.GetKeyPress("Space"))
         {
             Scene game = new Game();
-            Main.SceneManager.AddScene(game);
-            Main.SceneManager.SetCurrentScene(game);
+            SceneManager.SetCurrentScene(game);
         }
 
         base.Update();
