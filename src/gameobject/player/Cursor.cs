@@ -36,6 +36,9 @@ public class Cursor : GameObject
 
     public override void Update()
     {
+        Sprite sprite = GetComponent<Sprite>();
+        float baseScale = 3f;
+        sprite.Scale = new Vector2(baseScale / SceneManager.CurrentScene.Camera.Zoom, baseScale / SceneManager.CurrentScene.Camera.Zoom);
 
         Vector2 worldPosition = Input.Mouse.GetWorldPosition();
 
