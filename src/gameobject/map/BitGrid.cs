@@ -35,6 +35,20 @@ public static class BitGrid
         return chunk.GetBit(coordinates);
     }
 
+    public static List<Bit> GetBits<T>() where T : Bit
+    {
+        List<Bit> bits = new List<Bit>();
+
+        List<Chunk> chunks = SceneManager.CurrentScene.GetGameObject<Map>().chunks.Values.ToList();
+
+        chunks.ForEach(chunk =>
+        {
+            bits.AddRange(chunk.GetBits<T>());
+        });
+
+        return bits;
+    }
+
     private static Chunk GetChunkFromBitPosition(Vector2 bitPosition)
     {
         int chunkX = (int)MathF.Floor(bitPosition.X / 16);

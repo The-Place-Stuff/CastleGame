@@ -34,7 +34,7 @@ public class InteractState : GameObjectState
     {
         Vector2 snappedCursorPosition = VectorHelper.Snap(Game.cursor.Position, 16);
 
-        Bit currentlyHoveredBit = SceneManager.CurrentScene.GetGameObjectAt(snappedCursorPosition) as Bit;
+        Bit currentlyHoveredBit = BitGrid.GetBit(BitGrid.ConvertWorldCoordinatesToGridCoordinates(snappedCursorPosition));
 
         foreach (Bit selectedBit in selectedBits.ToArray())
         {
@@ -50,7 +50,7 @@ public class InteractState : GameObjectState
                 continue;
             }
 
-            Bit bit = SceneManager.CurrentScene.GetGameObjectAt(selectedBit.Position) as Bit;
+            Bit bit = BitGrid.GetBit(BitGrid.ConvertWorldCoordinatesToGridCoordinates(selectedBit.Position));
 
             if (bit == null)
             {
@@ -124,20 +124,18 @@ public class InteractState : GameObjectState
 
                     Vector2 cursorSnappedPosition = VectorHelper.Snap(Game.cursor.Position, 16);
 
-                    GameObject targetedObject = SceneManager.CurrentScene.GetGameObjectAt(cursorSnappedPosition);
+                    Bit targetedBit = BitGrid.GetBit(BitGrid.ConvertWorldCoordinatesToGridCoordinates(cursorSnappedPosition));
 
                     Goal goal = null;
 
-                    if (targetedObject != null && targetedObject is Interactable interactable)
+                    if (targetedBit != null && targetedBit is Interactable interactable)
                     {
                         goal = interactable.GetGoalType(villager);
 
-                        if (targetedObject is Bit bit)
-                        {
-                            selectedBits.Add(bit);
+                        selectedBits.Add(targetedBit);
 
-                            if (goal is MoveAndDestroyObjectGoalTree) bit.EnableDestroyHighlight();
-                        }
+                        if (goal is MoveAndDestroyObjectGoalTree) targetedBit.EnableDestroyHighlight();
+                        
                     }
                     else
                     {

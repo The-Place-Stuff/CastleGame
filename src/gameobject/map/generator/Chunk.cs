@@ -14,6 +14,8 @@ public class Chunk
 
     public Dictionary<Vector2, Bit> Bits { get; private set; } = new Dictionary<Vector2, Bit>();
 
+    private Bit[] bitSnapshot = new Bit[0];
+
     public Chunk(int x, int y)
     {
         X = x;
@@ -22,7 +24,12 @@ public class Chunk
 
     public void Update()
     {
-        foreach (Bit bit in Bits.Values)
+        lock (Bits)
+        {
+            bitSnapshot = Bits.Values.ToArray();
+        }
+
+        foreach (Bit bit in bitSnapshot)
         {
             bit.Update();
         }
@@ -30,7 +37,7 @@ public class Chunk
 
     public void Draw()
     {
-        foreach (Bit bit in Bits.Values)
+        foreach (Bit bit in bitSnapshot)
         {
             bit.Draw();
         }
@@ -66,5 +73,10 @@ public class Chunk
         if (!Bits.ContainsKey(coordinates)) return null;
 
         return Bits[coordinates];
+    }
+
+    public List<Bit> GetBits<T>() where T : Bit
+    {
+       return Bits.Values.ToList().Where(bit => bit is T).ToList();
     }
 }

@@ -11,7 +11,7 @@ public abstract class Goal
 
     public Character Character { get; private set; }
 
-    public GameObject Target { get; private set; }
+    public GameObject Target { get; set; }
 
     protected GoalManager GoalManager { get; private set; }
 
@@ -21,18 +21,12 @@ public abstract class Goal
 
     public Goal(Vector2 targetPosition, int priority)
     {
-        List<GameObject> foundGameObjects = SceneManager.CurrentScene.GetGameObjectsAt(VectorHelper.Snap(targetPosition, 16));
+        Vector2 bitPosition = BitGrid.ConvertWorldCoordinatesToGridCoordinates(VectorHelper.Snap(targetPosition, 16));
 
-        if (foundGameObjects != null)
-        {
-            foreach (GameObject gameObject in foundGameObjects)
-            {
-                if (gameObject is Interactable)
-                {
-                    Target = gameObject;
-                    break;
-                }
-            }
+        Bit bit = BitGrid.GetBit(bitPosition);
+
+        if (bit != null && bit is Interactable) {
+            Target = bit;
         }
 
         if (Target == null)

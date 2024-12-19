@@ -17,12 +17,6 @@ public class PickupItemGoal : Goal
     {
         base.Start();
 
-        if (!(Target is Item))
-        {
-            Fail();
-            return;
-        }
-
         Vector2 targetPosition = Target.Position;
 
         List<GameObject> targets = SceneManager.CurrentScene.GetGameObjects<Item>().Where(x => x.Position == targetPosition).ToList();
@@ -31,6 +25,9 @@ public class PickupItemGoal : Goal
         {
             Fail();
             return;
+        } else
+        {
+            Target = targets[0];
         }
 
         Item item = (Item)Target;

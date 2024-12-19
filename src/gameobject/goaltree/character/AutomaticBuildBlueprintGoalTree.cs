@@ -19,7 +19,7 @@ public class AutomaticBuildBlueprintGoalTree : GoalTree
 
         Blueprint blueprint = Target as Blueprint;
 
-        Tree tree = SceneManager.CurrentScene.GetGameObjects<Tree>().OrderBy(x => Vector2.Distance(x.Position, Character.Position)).First() as Tree;
+        Tree tree = BitGrid.GetBits<Tree>().OrderBy(x => Vector2.Distance(x.Position, Character.Position)).First() as Tree;
 
         MoveAndDestroyObjectGoalTree moveAndDestroyObjectGoalTree = new MoveAndDestroyObjectGoalTree(tree.Position, 0);
         AddSubGoal(moveAndDestroyObjectGoalTree);

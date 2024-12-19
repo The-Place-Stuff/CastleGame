@@ -17,6 +17,13 @@ public class MoveAndDestroyObjectGoalTree : GoalTree
         MoveToGoal moveToGoal = new MoveToGoal(Target.Position, 0);
         AddSubGoal(moveToGoal);
 
+        moveToGoal.OnFailure(() =>
+        {
+            Bit bit = Target as Bit;
+            bit.DisableDestroyHighlight();
+            Fail();
+        });
+
         DestroyObjectGoal destroyObjectGoal = new DestroyObjectGoal(Target.Position, 1);
         AddSubGoal(destroyObjectGoal);
 
