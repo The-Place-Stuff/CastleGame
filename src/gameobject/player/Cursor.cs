@@ -46,6 +46,8 @@ public class Cursor : GameObject
 
         Position = worldPosition + offset;
 
+        if (SceneManager.CurrentScene is MainMenu) return;
+
         if (SceneManager.CurrentScene.Paused) return;
 
         //Camera zoom
