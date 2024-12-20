@@ -30,6 +30,13 @@ public class MapGenerator
         clearingNoise.SetFractalLacunarity(2.0f);
         clearingNoise.SetFractalGain(0.5f);
 
+        FastNoiseLite decoratorsNoise = new FastNoiseLite(Map.Seed);
+        decoratorsNoise.SetNoiseType(FastNoiseLite.NoiseType.OpenSimplex2);
+        decoratorsNoise.SetFrequency(0.1f);
+        decoratorsNoise.SetFractalType(FastNoiseLite.FractalType.FBm);
+        decoratorsNoise.SetFractalOctaves(2);
+        decoratorsNoise.SetFractalLacunarity(2.0f);
+
         Debug.WriteLine("Generating map chunk, seed: " + Map.Seed);
 
         int radius = 25;
@@ -87,6 +94,22 @@ public class MapGenerator
                 int worldY = chunkY * chunkSize + y;
 
                 map.lightGrid.PlaceTile(new Vector2(worldX, worldY), "light");
+
+                float decoratorsValue = decoratorsNoise.GetNoise(worldX, worldY);
+
+                if (decoratorsValue > 0.1f)
+                {
+                    int randomInt = random.Next(0, 20);
+
+                    if (randomInt == 1)
+                    {
+                        Vector2 flowerPosition = new Vector2(worldX, worldY);
+
+                        BitGrid.AddBit(flowerPosition, Bits.Flower);
+                    }
+
+
+                }
 
                 float distance = MathF.Sqrt(worldX * worldX + worldY * worldY);
 

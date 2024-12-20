@@ -130,6 +130,8 @@ public class Bit : GameObject
 
         public Tool Mineable { get; set; } = Tool.Empty();
 
+        public bool Replaceable { get; set; } = false;
+
 
         public BitProperties SetDurability(int durability)
         {
@@ -140,6 +142,12 @@ public class Bit : GameObject
         public BitProperties SetMineable(Item item)
         {
             if(item is Tool tool) Mineable = tool;
+            return this;
+        }
+
+        public BitProperties SetReplaceable(bool replaceable)
+        {
+            Replaceable = replaceable;
             return this;
         }
 

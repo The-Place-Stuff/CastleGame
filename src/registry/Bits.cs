@@ -16,6 +16,12 @@ public class Bits : Registry
     public static readonly Func<Bit> Bush = Register(() => new Bush("bush", new Bit.BitProperties()
         .SetDurability(2).AddTags("natural")));
 
+    public static readonly Func<Bit> TallGrass = Register(() => new TallGrass("tallgrass", new Bit.BitProperties()
+        .SetDurability(1).SetReplaceable(true).AddTags("natural")));
+
+    public static readonly Func<Bit> Flower = Register(() => new TallGrass("flower", new Bit.BitProperties()
+        .SetDurability(1).SetReplaceable(true).AddTags("natural")));
+
     public static readonly Func<Bit> Rock = Register( () => new Rock("rock", new Bit.BitProperties()
         .SetDurability(4).SetMineable(Items.Pickaxe()).AddTags("natural")));
 
